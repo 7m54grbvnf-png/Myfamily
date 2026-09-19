@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Семейное приложение</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      background: linear-gradient(160deg, #fef6f0 0%, #f5e6dc 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      color: #2d2a26;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 32px 24px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 12px 40px rgba(180, 140, 110, 0.15);
+    }
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #2d2a26;
+      text-align: center;
+    }
+    .subtitle {
+      font-size: 15px;
+      color: #8a7f76;
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .tabs {
+      display: flex;
+      background: #f5efe9;
+      border-radius: 14px;
+      padding: 4px;
+      margin-bottom: 24px;
+    }
+    .tab {
+      flex: 1;
+      padding: 12px;
+      text-align: center;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #8a7f76;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      background: transparent;
+      font-family: inherit;
+    }
+    .tab.active {
+      background: #ffffff;
+      color: #2d2a26;
+      box-shadow: 0 2px 8px rgba(180, 140, 110, 0.12);
+    }
+    input {
+      width: 100%;
+      padding: 16px;
+      font-size: 16px;
+      font-family: inherit;
+      border: 2px solid #ede4db;
+      border-radius: 14px;
+      margin-bottom: 12px;
+      background: #fdfaf7;
+      color: #2d2a26;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input:focus { border-color: #c9a88a; }
+    button.primary {
+      width: 100%;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: inherit;
+      color: #ffffff;
+      background: #c9a88a;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: all 0.2s;
+    }
+    button.primary:active { transform: scale(0.98); background: #b89878; }
+    button.primary:disabled { opacity: 0.6; }
+    .error {
+      color: #c0554e;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 16px;
+      min-height: 20px;
+    }
+    .hidden { display: none; }
+    .welcome {
+      text-align: center;
+    }
+    .welcome h2 {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+    .welcome p {
+      color: #8a7f76;
+      margin-bottom: 24px;
+    }
+    .emoji { font-size: 56px; margin-bottom: 16px; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <!-- Экран входа -->
+    <div id="authScreen">
+      <h1>Наше приложение</h1>
+      <p class="subtitle">Только для нас двоих</p>
+
+      <div class="tabs">
+        <button class="tab active" id="loginTab">Вход</button>
+        <button class="tab" id="registerTab">Регистрация</button>
+      </div>
+
+      <input type="email" id="email" placeholder="Email" autocomplete="email">
+      <input type="password" id="password" placeholder="Пароль" autocomplete="current-password">
+
+      <button class="primary" id="submitBtn">Войти</button>
+      <div class="error" id="errorMsg"></div>
+    </div>
+
+    <!-- Экран после входа -->
+    <div id="appScreen" class="hidden welcome">
+      <div class="emoji">👋</div>
+      <h2>Привет!</h2>
+      <p id="userEmail"></p>
+      <button class="primary" id="logoutBtn">Выйти</button>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import {
+      getAuth,
+      signInWithEmailAndPassword,
+      createUserWithEmailAndPassword,
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyATgY3bBLhvYCxfnU-7jYU7a7Nw3D4Ds6Y",
+  authDomain: "my-family-app-32b71.firebaseapp.com",
+  projectId: "my-family-app-32b71",
+  storageBucket: "my-family-app-32b71.firebasestorage.app",
+  messagingSenderId: "1039069353770",
+  appId: "1:1039069353770:web:7a2397066297cf248e3053",
+  measurementId: "G-ZTTRF12YX5"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    let isLoginMode = true;
+
+    const loginTab = document.getElementById('loginTab');
+    const registerTab = document.getElementById('registerTab');
+    const submitBtn = document.getElementById('submitBtn');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const errorMsg = document.getElementById('errorMsg');
+    const authScreen = document.getElementById('authScreen');
+    const appScreen = document.getElementById('appScreen');
+    const userEmail = document.getElementById('userEmail');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    loginTab.addEventListener('click', () => setMode(true));
+    registerTab.addEventListener('click', () => setMode(false));
+
+    function setMode(login) {
+      isLoginMode = login;
+      loginTab.classList.toggle('active', login);
+      registerTab.classList.toggle('active', !login);
+      submitBtn.textContent = login ? 'Войти' : 'Создать аккаунт';
+      passwordInput.autocomplete = login ? 'current-password' : 'new-password';
+      errorMsg.textContent = '';
+    }
+
+    submitBtn.addEventListener('click', async () => {
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+      if (!email || !password) {
+        errorMsg.textContent = 'Заполните email и пароль';
+        return;
+      }
+      if (password.length < 6) {
+        errorMsg.textContent = 'Пароль должен быть минимум 6 символов';
+        return;
+      }
+
+      submitBtn.disabled = true;
+      errorMsg.textContent = '';
+
+      try {
+        if (isLoginMode) {
+          await signInWithEmailAndPassword(auth, email, password);
+        } else {
+          await createUserWithEmailAndPassword(auth, email, password);
+        }
+      } catch (err) {
+        errorMsg.textContent = translateError(err.code);
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+
+    logoutBtn.addEventListener('click', () => signOut(auth));
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        authScreen.classList.add('hidden');
+        appScreen.classList.remove('hidden');
+        userEmail.textContent = user.email;
+      } else {
+        authScreen.classList.remove('hidden');
+        appScreen.classList.add('hidden');
+        emailInput.value = '';
+        passwordInput.value = '';
+      }
+    });
+
+    function translateError(code) {
+      const map = {
+        'auth/invalid-email': 'Некорректный email',
+        'auth/user-not-found': 'Пользователь не найден',
+        'auth/wrong-password': 'Неверный пароль',
+        'auth/invalid-credential': 'Неверный email или пароль',
+        'auth/email-already-in-use': 'Этот email уже зарегистрирован',
+        'auth/weak-password': 'Слишком простой пароль (минимум 6 символов)',
+        'auth/network-request-failed': 'Нет соединения с интернетом',
+        'auth/too-many-requests': 'Слишком много попыток, попробуйте позже'
+      };
+      return map[code] || 'Ошибка: ' + code;
+    }
+  </script>
+</body>
+</html>
