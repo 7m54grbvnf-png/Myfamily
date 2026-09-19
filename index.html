@@ -148,121 +148,109 @@
 
   <!-- Firebase SDK -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import {
-      getAuth,
-      signInWithEmailAndPassword,
-      createUserWithEmailAndPassword,
-      onAuthStateChanged,
-      signOut
-    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import {
+    getAuth,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-    // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+  const firebaseConfig = {
+    apiKey: "AIzaSyATgY3bBLhvYCxfnU-7jYU7a7Nw3D4Ds6Y",
+    authDomain: "my-family-app-32b71.firebaseapp.com",
+    projectId: "my-family-app-32b71",
+    storageBucket: "my-family-app-32b71.firebasestorage.app",
+    messagingSenderId: "1039069353770",
+    appId: "1:1039069353770:web:7a2397066297cf248e3053",
+    measurementId: "G-ZTTRF12YX5"
+  };
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyATgY3bBLhvYCxfnU-7jYU7a7Nw3D4Ds6Y",
-  authDomain: "my-family-app-32b71.firebaseapp.com",
-  projectId: "my-family-app-32b71",
-  storageBucket: "my-family-app-32b71.firebasestorage.app",
-  messagingSenderId: "1039069353770",
-  appId: "1:1039069353770:web:7a2397066297cf248e3053",
-  measurementId: "G-ZTTRF12YX5"
-};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+  let isLoginMode = true;
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+  const loginTab = document.getElementById('loginTab');
+  const registerTab = document.getElementById('registerTab');
+  const submitBtn = document.getElementById('submitBtn');
+  const emailInput = document.getElementById('email');
+  const passwordInput = document.getElementById('password');
+  const errorMsg = document.getElementById('errorMsg');
+  const authScreen = document.getElementById('authScreen');
+  const appScreen = document.getElementById('appScreen');
+  const userEmail = document.getElementById('userEmail');
+  const logoutBtn = document.getElementById('logoutBtn');
 
-    let isLoginMode = true;
+  loginTab.addEventListener('click', () => setMode(true));
+  registerTab.addEventListener('click', () => setMode(false));
 
-    const loginTab = document.getElementById('loginTab');
-    const registerTab = document.getElementById('registerTab');
-    const submitBtn = document.getElementById('submitBtn');
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-    const errorMsg = document.getElementById('errorMsg');
-    const authScreen = document.getElementById('authScreen');
-    const appScreen = document.getElementById('appScreen');
-    const userEmail = document.getElementById('userEmail');
-    const logoutBtn = document.getElementById('logoutBtn');
+  function setMode(login) {
+    isLoginMode = login;
+    loginTab.classList.toggle('active', login);
+    registerTab.classList.toggle('active', !login);
+    submitBtn.textContent = login ? 'Войти' : 'Создать аккаунт';
+    passwordInput.autocomplete = login ? 'current-password' : 'new-password';
+    errorMsg.textContent = '';
+  }
 
-    loginTab.addEventListener('click', () => setMode(true));
-    registerTab.addEventListener('click', () => setMode(false));
-
-    function setMode(login) {
-      isLoginMode = login;
-      loginTab.classList.toggle('active', login);
-      registerTab.classList.toggle('active', !login);
-      submitBtn.textContent = login ? 'Войти' : 'Создать аккаунт';
-      passwordInput.autocomplete = login ? 'current-password' : 'new-password';
-      errorMsg.textContent = '';
+  submitBtn.addEventListener('click', async () => {
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
+    if (!email || !password) {
+      errorMsg.textContent = 'Заполните email и пароль';
+      return;
+    }
+    if (password.length < 6) {
+      errorMsg.textContent = 'Пароль должен быть минимум 6 символов';
+      return;
     }
 
-    submitBtn.addEventListener('click', async () => {
-      const email = emailInput.value.trim();
-      const password = passwordInput.value;
-      if (!email || !password) {
-        errorMsg.textContent = 'Заполните email и пароль';
-        return;
-      }
-      if (password.length < 6) {
-        errorMsg.textContent = 'Пароль должен быть минимум 6 символов';
-        return;
-      }
+    submitBtn.disabled = true;
+    errorMsg.textContent = '';
 
-      submitBtn.disabled = true;
-      errorMsg.textContent = '';
-
-      try {
-        if (isLoginMode) {
-          await signInWithEmailAndPassword(auth, email, password);
-        } else {
-          await createUserWithEmailAndPassword(auth, email, password);
-        }
-      } catch (err) {
-        errorMsg.textContent = translateError(err.code);
-      } finally {
-        submitBtn.disabled = false;
-      }
-    });
-
-    logoutBtn.addEventListener('click', () => signOut(auth));
-
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        authScreen.classList.add('hidden');
-        appScreen.classList.remove('hidden');
-        userEmail.textContent = user.email;
+    try {
+      if (isLoginMode) {
+        await signInWithEmailAndPassword(auth, email, password);
       } else {
-        authScreen.classList.remove('hidden');
-        appScreen.classList.add('hidden');
-        emailInput.value = '';
-        passwordInput.value = '';
+        await createUserWithEmailAndPassword(auth, email, password);
       }
-    });
-
-    function translateError(code) {
-      const map = {
-        'auth/invalid-email': 'Некорректный email',
-        'auth/user-not-found': 'Пользователь не найден',
-        'auth/wrong-password': 'Неверный пароль',
-        'auth/invalid-credential': 'Неверный email или пароль',
-        'auth/email-already-in-use': 'Этот email уже зарегистрирован',
-        'auth/weak-password': 'Слишком простой пароль (минимум 6 символов)',
-        'auth/network-request-failed': 'Нет соединения с интернетом',
-        'auth/too-many-requests': 'Слишком много попыток, попробуйте позже'
-      };
-      return map[code] || 'Ошибка: ' + code;
+    } catch (err) {
+      errorMsg.textContent = translateError(err.code);
+    } finally {
+      submitBtn.disabled = false;
     }
-  </script>
+  });
+
+  logoutBtn.addEventListener('click', () => signOut(auth));
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      authScreen.classList.add('hidden');
+      appScreen.classList.remove('hidden');
+      userEmail.textContent = user.email;
+    } else {
+      authScreen.classList.remove('hidden');
+      appScreen.classList.add('hidden');
+      emailInput.value = '';
+      passwordInput.value = '';
+    }
+  });
+
+  function translateError(code) {
+    const map = {
+      'auth/invalid-email': 'Некорректный email',
+      'auth/user-not-found': 'Пользователь не найден',
+      'auth/wrong-password': 'Неверный пароль',
+      'auth/invalid-credential': 'Неверный email или пароль',
+      'auth/email-already-in-use': 'Этот email уже зарегистрирован',
+      'auth/weak-password': 'Слишком простой пароль (минимум 6 символов)',
+      'auth/network-request-failed': 'Нет соединения с интернетом',
+      'auth/too-many-requests': 'Слишком много попыток, попробуйте позже'
+    };
+    return map[code] || 'Ошибка: ' + code;
+  }
+</script>
 </body>
 </html>
