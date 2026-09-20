@@ -274,10 +274,10 @@
       signInWithEmailAndPassword,
       createUserWithEmailAndPassword,
       onAuthStateChanged,
-      signOut
-      setPersistence, 
-      browserLocalPersistence 
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+      signOut,
+      setPersistence,
+      browserLocalPersistence
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
     import {
       getFirestore,
       collection,
@@ -304,10 +304,11 @@
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-    const auth = getAuth(app);
-// Принудительно используем localStorage для сохранения сессии
-setPersistence(auth, browserLocalPersistence)
-  .catch((error) => console.error('Ошибка установки persistence:', error));
+
+    // Принудительно используем localStorage для сохранения сессии
+    setPersistence(auth, browserLocalPersistence)
+      .catch((error) => console.error('Ошибка установки persistence:', error));
+
     const db = getFirestore(app);
 
     // ============ АВТОРИЗАЦИЯ ============
@@ -422,7 +423,14 @@ setPersistence(auth, browserLocalPersistence)
 
     async function addShopItem() {
       const title = shopInput.value.trim();
-      if (!title || !currentUser) return;
+      if (!title) {
+        alert('Введите название покупки');
+        return;
+      }
+      if (!currentUser) {
+        alert('Нет авторизации. Попробуйте выйти и войти заново.');
+        return;
+      }
       shopInput.value = '';
       try {
         await addDoc(collection(db, 'shopping_items'), {
@@ -434,7 +442,7 @@ setPersistence(auth, browserLocalPersistence)
         });
       } catch (err) {
         console.error('Ошибка добавления:', err);
-        alert('Не удалось добавить: ' + err.message);
+        alert('ОШИБКА:\nКод: ' + err.code + '\n' + err.message);
       }
     }
 
@@ -456,7 +464,6 @@ setPersistence(auth, browserLocalPersistence)
           const item = document.createElement('div');
           item.className = 'item' + (data.done ? ' done' : '');
 
-          // Чекбокс
           const checkbox = document.createElement('div');
           checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
           checkbox.addEventListener('click', async () => {
@@ -467,7 +474,6 @@ setPersistence(auth, browserLocalPersistence)
             } catch (err) { console.error(err); }
           });
 
-          // Текст
           const titleWrap = document.createElement('div');
           titleWrap.style.flex = '1';
           const title = document.createElement('div');
@@ -475,7 +481,6 @@ setPersistence(auth, browserLocalPersistence)
           title.textContent = data.title;
           titleWrap.appendChild(title);
 
-          // Кто добавил (если не я)
           if (data.addedBy && data.addedBy !== uid) {
             const meta = document.createElement('div');
             meta.className = 'item-meta';
@@ -483,7 +488,6 @@ setPersistence(auth, browserLocalPersistence)
             titleWrap.appendChild(meta);
           }
 
-          // Удалить
           const delBtn = document.createElement('button');
           delBtn.className = 'delete-btn';
           delBtn.textContent = '×';
