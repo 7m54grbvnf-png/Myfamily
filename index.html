@@ -521,13 +521,14 @@
       } catch (err) { alert('Ошибка: ' + err.message); }
     }
 
-    function startShopListener() {
-      const itemsRef = query(ref(db, 'shopping_items'), orderByChild('createdAt'));
+        function startShopListener() {
+      const itemsRef = ref(db, 'shopping_items');
       const unsub = onValue(itemsRef, (snapshot) => {
         shopList.innerHTML = '';
         const items = [];
         snapshot.forEach((child) => items.push({ id: child.key, ...child.val() }));
-        items.reverse();
+        // Сортируем на клиенте по убыванию createdAt
+        items.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
         if (items.length === 0) { shopEmpty.style.display = 'block'; return; }
         shopEmpty.style.display = 'none';
         items.forEach((data) => {
@@ -620,12 +621,12 @@
       }
     });
 
-    function startChoresListener() {
-      const choresRef = query(ref(db, 'chores'), orderByChild('createdAt'));
+        function startChoresListener() {
+      const choresRef = ref(db, 'chores');
       const unsub = onValue(choresRef, (snapshot) => {
         const items = [];
         snapshot.forEach((child) => items.push({ id: child.key, ...child.val() }));
-        items.reverse();
+        items.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
 
         const forMe = items.filter(x => x.assignedTo === currentUser.uid);
         const byMe = items.filter(x => x.createdBy === currentUser.uid);
