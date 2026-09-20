@@ -42,7 +42,7 @@
       transition: all 0.2s;
     }
     .tab.active { background: #ffffff; color: #2d2a26; box-shadow: 0 2px 8px rgba(180,140,110,0.12); }
-    input[type="email"], input[type="password"], input[type="text"] {
+    input[type="email"], input[type="password"], input[type="text"], input[type="date"] {
       width: 100%; padding: 16px; font-size: 16px; font-family: inherit;
       border: 2px solid #ede4db; border-radius: 14px; margin-bottom: 12px;
       background: #fdfaf7; color: #2d2a26; outline: none; transition: border-color 0.2s;
@@ -79,6 +79,7 @@
 
     .container { padding: 20px; max-width: 500px; margin: 0 auto; }
 
+    /* ============ МАГАЗИН ============ */
     .add-row { display: flex; gap: 10px; margin-bottom: 20px; }
     .add-row input { flex: 1; margin-bottom: 0; background: #ffffff; border: 2px solid #ede4db; }
     .add-btn {
@@ -119,11 +120,76 @@
     .empty { text-align: center; padding: 40px 20px; color: #a89b90; font-size: 15px; }
     .empty-emoji { font-size: 48px; margin-bottom: 12px; }
 
+    /* ============ ДЕЛА ============ */
+    .chore-add-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(180, 140, 110, 0.06);
+    }
+    .chore-add-card h3 {
+      font-size: 15px; color: #8a7f76; margin-bottom: 12px; font-weight: 600;
+    }
+    .chore-row {
+      display: flex; gap: 8px; margin-bottom: 10px;
+    }
+    .chore-row input[type="text"] {
+      flex: 1; margin-bottom: 0;
+    }
+    .chore-select {
+      flex: 1; padding: 14px; font-size: 15px; font-family: inherit;
+      border: 2px solid #ede4db; border-radius: 14px;
+      background: #fdfaf7; color: #2d2a26; outline: none;
+      -webkit-appearance: none; appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238a7f76' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+    .chore-add-btn {
+      width: 100%; padding: 14px; font-size: 16px; font-weight: 600;
+      font-family: inherit; color: #ffffff; background: #c9a88a;
+      border: none; border-radius: 14px; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .chore-add-btn:active { transform: scale(0.98); background: #b89878; }
+
+    .chore-section-title {
+      font-size: 13px; font-weight: 700; color: #a89b90;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      margin: 20px 0 10px;
+    }
+    .chore-section-title:first-child { margin-top: 0; }
+
+    .chore-item {
+      background: #ffffff; border-radius: 14px; padding: 16px;
+      display: flex; align-items: flex-start; gap: 14px;
+      box-shadow: 0 2px 8px rgba(180, 140, 110, 0.06);
+      margin-bottom: 8px;
+      transition: all 0.2s;
+    }
+    .chore-item.done { opacity: 0.5; }
+    .chore-item.done .item-title { text-decoration: line-through; }
+    .chore-item-body { flex: 1; }
+    .chore-due {
+      display: inline-block;
+      font-size: 12px; font-weight: 600;
+      color: #c9a88a;
+      background: #f5efe9;
+      padding: 3px 8px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+    .chore-due.overdue { color: #c0554e; background: #fbeae8; }
+
+    /* ============ ЗАГЛУШКИ ============ */
     .placeholder { text-align: center; padding: 80px 20px; color: #a89b90; }
     .placeholder-emoji { font-size: 64px; margin-bottom: 16px; }
     .placeholder h3 { font-size: 20px; color: #2d2a26; margin-bottom: 8px; }
     .placeholder p { font-size: 15px; }
 
+    /* ============ НАВИГАЦИЯ ============ */
     .bottom-nav {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 20;
       background: rgba(255, 255, 255, 0.96);
@@ -170,6 +236,8 @@
     </div>
 
     <div class="container">
+
+      <!-- МАГАЗИН -->
       <div id="page-shop" class="page">
         <div class="add-row">
           <input type="text" id="shopInput" placeholder="Что купить?" autocomplete="off">
@@ -182,14 +250,40 @@
         </div>
       </div>
 
+      <!-- ДЕЛА -->
       <div id="page-chores" class="page" style="display:none;">
-        <div class="placeholder">
-          <div class="placeholder-emoji">✅</div>
-          <h3>Домашние дела</h3>
-          <p>Скоро здесь появятся дела друг для друга</p>
+        <div class="chore-add-card">
+          <h3>Новая задача для другого</h3>
+          <input type="text" id="choreInput" placeholder="Что нужно сделать?" autocomplete="off">
+          <div class="chore-row">
+            <select class="chore-select" id="choreAssignee">
+              <option value="">— Кому —</option>
+            </select>
+            <input type="date" id="choreDue" style="margin-bottom:0;">
+          </div>
+          <button class="chore-add-btn" id="choreAddBtn">Добавить задачу</button>
+        </div>
+
+        <div id="choreMyTasks">
+          <div class="chore-section-title">Я должен сделать</div>
+          <div class="items-list" id="choreForMeList"></div>
+          <div class="empty" id="choreForMeEmpty" style="display:none;">
+            <div class="empty-emoji">🌸</div>
+            <div>Пока никто ничего не поручал</div>
+          </div>
+        </div>
+
+        <div id="choreAssigned">
+          <div class="chore-section-title">Я попросил(а) сделать</div>
+          <div class="items-list" id="choreByMeList"></div>
+          <div class="empty" id="choreByMeEmpty" style="display:none;">
+            <div class="empty-emoji">💌</div>
+            <div>Вы ещё никому не давали задач</div>
+          </div>
         </div>
       </div>
 
+      <!-- РАСПИСАНИЕ -->
       <div id="page-schedule" class="page" style="display:none;">
         <div class="placeholder">
           <div class="placeholder-emoji">📅</div>
@@ -198,6 +292,7 @@
         </div>
       </div>
 
+      <!-- ПОДАРКИ -->
       <div id="page-gifts" class="page" style="display:none;">
         <div class="placeholder">
           <div class="placeholder-emoji">🎁</div>
@@ -206,6 +301,7 @@
         </div>
       </div>
 
+      <!-- ХОТЕЛКИ -->
       <div id="page-wishes" class="page" style="display:none;">
         <div class="placeholder">
           <div class="placeholder-emoji">🏠</div>
@@ -213,6 +309,7 @@
           <p>Скоро здесь появятся крупные покупки</p>
         </div>
       </div>
+
     </div>
 
     <div class="bottom-nav">
@@ -268,21 +365,15 @@
       appId: "1:1039069353770:web:7a2397066297cf248e3053"
     };
 
-    // ⚠️ ВАЖНО: значение databaseURL нужно взять из Firebase Console →
-    // Realtime Database → вкладка "Data" → URL в самом верху страницы.
-
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-
-    setPersistence(auth, browserLocalPersistence)
-      .catch((error) => console.error('Ошибка установки persistence:', error));
-
+    setPersistence(auth, browserLocalPersistence).catch(console.error);
     const db = getDatabase(app);
+
+    const $ = (id) => document.getElementById(id);
 
     // ============ АВТОРИЗАЦИЯ ============
     let isLoginMode = true;
-
-    const $ = (id) => document.getElementById(id);
     const loginTab = $('loginTab');
     const registerTab = $('registerTab');
     const submitBtn = $('submitBtn');
@@ -291,7 +382,6 @@
     const errorMsg = $('errorMsg');
     const authScreen = $('authScreen');
     const appScreen = $('appScreen');
-    const logoutBtn = $('logoutBtn');
 
     loginTab.addEventListener('click', () => setMode(true));
     registerTab.addEventListener('click', () => setMode(false));
@@ -309,15 +399,11 @@
       const password = passwordInput.value;
       if (!email || !password) { errorMsg.textContent = 'Заполните email и пароль'; return; }
       if (password.length < 6) { errorMsg.textContent = 'Пароль минимум 6 символов'; return; }
-
       submitBtn.disabled = true;
       errorMsg.textContent = '';
       try {
-        if (isLoginMode) {
-          await signInWithEmailAndPassword(auth, email, password);
-        } else {
-          await createUserWithEmailAndPassword(auth, email, password);
-        }
+        if (isLoginMode) await signInWithEmailAndPassword(auth, email, password);
+        else await createUserWithEmailAndPassword(auth, email, password);
       } catch (err) {
         errorMsg.textContent = translateError(err.code);
       } finally {
@@ -325,17 +411,17 @@
       }
     });
 
-    logoutBtn.addEventListener('click', () => signOut(auth));
+    $('logoutBtn').addEventListener('click', () => signOut(auth));
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
         authScreen.style.display = 'none';
         appScreen.classList.add('active');
-        startShopListener();
+        startAllListeners();
       } else {
         authScreen.style.display = 'flex';
         appScreen.classList.remove('active');
-        stopShopListener();
+        stopAllListeners();
         emailInput.value = '';
         passwordInput.value = '';
       }
@@ -348,9 +434,9 @@
         'auth/wrong-password': 'Неверный пароль',
         'auth/invalid-credential': 'Неверный email или пароль',
         'auth/email-already-in-use': 'Этот email уже зарегистрирован',
-        'auth/weak-password': 'Слишком простой пароль (минимум 6 символов)',
-        'auth/network-request-failed': 'Нет соединения с интернетом',
-        'auth/too-many-requests': 'Слишком много попыток, попробуйте позже'
+        'auth/weak-password': 'Слишком простой пароль',
+        'auth/network-request-failed': 'Нет соединения',
+        'auth/too-many-requests': 'Слишком много попыток'
       };
       return map[code] || 'Ошибка: ' + code;
     }
@@ -363,7 +449,6 @@
       gifts: '🎁 Подарки',
       wishes: '🏠 Хотелки'
     };
-
     document.querySelectorAll('.nav-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const page = btn.dataset.page;
@@ -375,112 +460,241 @@
       });
     });
 
-    // ============ МАГАЗИН (Realtime Database) ============
-    let shopListenerRef = null;
+    // ============ ГЛОБАЛЬНОЕ ============
     let currentUser = null;
+    let allUsers = {}; // uid -> email
+    const unsubscribers = [];
 
+    function startAllListeners() {
+      currentUser = auth.currentUser;
+
+      // Слушаем список пользователей (создаётся автоматически при регистрации)
+      const usersRef = ref(db, 'users');
+      const unsubUsers = onValue(usersRef, (snap) => {
+        allUsers = {};
+        snap.forEach((child) => {
+          allUsers[child.key] = child.val().email;
+        });
+        // Сохраняем себя
+        set(ref(db, 'users/' + currentUser.uid), {
+          email: currentUser.email
+        });
+        updateAssigneeDropdown();
+      });
+      unsubscribers.push(unsubUsers);
+
+      startShopListener();
+      startChoresListener();
+    }
+
+    function stopAllListeners() {
+      unsubscribers.forEach(unsub => { try { unsub(); } catch(e){} });
+      unsubscribers.length = 0;
+      shopList.innerHTML = '';
+      choreForMeList.innerHTML = '';
+      choreByMeList.innerHTML = '';
+      currentUser = null;
+    }
+
+    // ============ МАГАЗИН ============
     const shopInput = $('shopInput');
     const shopAddBtn = $('shopAddBtn');
     const shopList = $('shopList');
     const shopEmpty = $('shopEmpty');
 
     shopAddBtn.addEventListener('click', addShopItem);
-    shopInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') addShopItem();
-    });
+    shopInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') addShopItem(); });
 
     async function addShopItem() {
       const title = shopInput.value.trim();
-      if (!title) return;
-      if (!currentUser) {
-        alert('Нет авторизации');
-        return;
-      }
+      if (!title || !currentUser) return;
       shopInput.value = '';
       try {
         const itemsRef = ref(db, 'shopping_items');
-        const newItemRef = push(itemsRef);
-        await set(newItemRef, {
-          title: title,
-          done: false,
+        const newRef = push(itemsRef);
+        await set(newRef, {
+          title: title, done: false,
           addedBy: currentUser.uid,
           addedByEmail: currentUser.email,
           createdAt: Date.now()
         });
-      } catch (err) {
-        alert('ОШИБКА: ' + err.message);
-        console.error(err);
-      }
+      } catch (err) { alert('Ошибка: ' + err.message); }
     }
 
     function startShopListener() {
-      currentUser = auth.currentUser;
-      if (shopListenerRef) return;
-
       const itemsRef = query(ref(db, 'shopping_items'), orderByChild('createdAt'));
-      shopListenerRef = onValue(itemsRef, (snapshot) => {
+      const unsub = onValue(itemsRef, (snapshot) => {
         shopList.innerHTML = '';
         const items = [];
-        snapshot.forEach((child) => {
-          items.push({ id: child.key, ...child.val() });
-        });
-        // Сортируем в обратном порядке (новые сверху)
+        snapshot.forEach((child) => items.push({ id: child.key, ...child.val() }));
         items.reverse();
-
-        if (items.length === 0) {
-          shopEmpty.style.display = 'block';
-          return;
-        }
+        if (items.length === 0) { shopEmpty.style.display = 'block'; return; }
         shopEmpty.style.display = 'none';
-
         items.forEach((data) => {
           const item = document.createElement('div');
           item.className = 'item' + (data.done ? ' done' : '');
-
           const checkbox = document.createElement('div');
           checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
           checkbox.addEventListener('click', async () => {
-            try {
-              await update(ref(db, 'shopping_items/' + data.id), { done: !data.done });
-            } catch (err) { console.error(err); }
+            await update(ref(db, 'shopping_items/' + data.id), { done: !data.done });
           });
-
           const titleWrap = document.createElement('div');
           titleWrap.style.flex = '1';
           const title = document.createElement('div');
           title.className = 'item-title';
           title.textContent = data.title;
           titleWrap.appendChild(title);
-
           if (data.addedBy && data.addedBy !== currentUser.uid && data.addedByEmail) {
             const meta = document.createElement('div');
             meta.className = 'item-meta';
             meta.textContent = '👤 ' + data.addedByEmail.split('@')[0];
             titleWrap.appendChild(meta);
           }
-
           const delBtn = document.createElement('button');
           delBtn.className = 'delete-btn';
           delBtn.textContent = '×';
           delBtn.addEventListener('click', async () => {
-            try {
-              await remove(ref(db, 'shopping_items/' + data.id));
-            } catch (err) { console.error(err); }
+            await remove(ref(db, 'shopping_items/' + data.id));
           });
-
           item.appendChild(checkbox);
           item.appendChild(titleWrap);
           item.appendChild(delBtn);
           shopList.appendChild(item);
         });
-      }, (err) => {
-        console.error('Ошибка подписки:', err);
       });
+      unsubscribers.push(unsub);
     }
 
-    function stopShopListener() {
-      shopList.innerHTML = '';
-      currentUser = null;
+    // ============ ДЕЛА ============
+    const choreInput = $('choreInput');
+    const choreAssignee = $('choreAssignee');
+    const choreDue = $('choreDue');
+    const choreAddBtn = $('choreAddBtn');
+    const choreForMeList = $('choreForMeList');
+    const choreForMeEmpty = $('choreForMeEmpty');
+    const choreByMeList = $('choreByMeList');
+    const choreByMeEmpty = $('choreByMeEmpty');
+
+    function updateAssigneeDropdown() {
+      const currentValue = choreAssignee.value;
+      choreAssignee.innerHTML = '<option value="">— Кому —</option>';
+      Object.keys(allUsers).forEach((uid) => {
+        if (uid === currentUser.uid) return; // не себе
+        const opt = document.createElement('option');
+        opt.value = uid;
+        opt.textContent = allUsers[uid].split('@')[0];
+        choreAssignee.appendChild(opt);
+      });
+      if (currentValue) choreAssignee.value = currentValue;
+    }
+
+    choreAddBtn.addEventListener('click', async () => {
+      const title = choreInput.value.trim();
+      const assignee = choreAssignee.value;
+      const due = choreDue.value;
+      if (!title) { alert('Введите задачу'); return; }
+      if (!assignee) { alert('Выберите, кому назначить'); return; }
+      try {
+        const choresRef = ref(db, 'chores');
+        const newRef = push(choresRef);
+        const data = {
+          title: title,
+          assignedTo: assignee,
+          assignedToEmail: allUsers[assignee] || '',
+          createdBy: currentUser.uid,
+          createdByEmail: currentUser.email,
+          done: false,
+          createdAt: Date.now()
+        };
+        if (due) data.dueDate = due;
+        await set(newRef, data);
+        choreInput.value = '';
+        choreDue.value = '';
+        choreAssignee.value = '';
+      } catch (err) { alert('Ошибка: ' + err.message); }
+    });
+
+    function startChoresListener() {
+      const choresRef = query(ref(db, 'chores'), orderByChild('createdAt'));
+      const unsub = onValue(choresRef, (snapshot) => {
+        const items = [];
+        snapshot.forEach((child) => items.push({ id: child.key, ...child.val() }));
+        items.reverse();
+
+        const forMe = items.filter(x => x.assignedTo === currentUser.uid);
+        const byMe = items.filter(x => x.createdBy === currentUser.uid);
+
+        renderChores(forMe, choreForMeList, choreForMeEmpty, 'forMe');
+        renderChores(byMe, choreByMeList, choreByMeEmpty, 'byMe');
+      });
+      unsubscribers.push(unsub);
+    }
+
+    function renderChores(items, container, emptyEl, mode) {
+      container.innerHTML = '';
+      if (items.length === 0) {
+        emptyEl.style.display = 'block';
+        return;
+      }
+      emptyEl.style.display = 'none';
+
+      items.forEach((data) => {
+        const item = document.createElement('div');
+        item.className = 'chore-item' + (data.done ? ' done' : '');
+
+        const checkbox = document.createElement('div');
+        checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
+        checkbox.addEventListener('click', async () => {
+          await update(ref(db, 'chores/' + data.id), { done: !data.done });
+        });
+
+        const body = document.createElement('div');
+        body.className = 'chore-item-body';
+
+        const title = document.createElement('div');
+        title.className = 'item-title';
+        title.textContent = data.title;
+        body.appendChild(title);
+
+        // Срок
+        if (data.dueDate) {
+          const due = document.createElement('div');
+          const today = new Date(); today.setHours(0,0,0,0);
+          const dueDate = new Date(data.dueDate + 'T00:00:00');
+          const isOverdue = !data.done && dueDate < today;
+          due.className = 'chore-due' + (isOverdue ? ' overdue' : '');
+          const dd = String(dueDate.getDate()).padStart(2,'0');
+          const mm = String(dueDate.getMonth()+1).padStart(2,'0');
+          due.textContent = '📅 до ' + dd + '.' + mm;
+          body.appendChild(due);
+        }
+
+        // Кто кому (для режима «я попросил» — показываем кому)
+        if (mode === 'byMe' && data.assignedToEmail) {
+          const meta = document.createElement('div');
+          meta.className = 'item-meta';
+          meta.textContent = '👤 ' + data.assignedToEmail.split('@')[0];
+          body.appendChild(meta);
+        }
+        if (mode === 'forMe' && data.createdByEmail) {
+          const meta = document.createElement('div');
+          meta.className = 'item-meta';
+          meta.textContent = 'от ' + data.createdByEmail.split('@')[0];
+          body.appendChild(meta);
+        }
+
+        const delBtn = document.createElement('button');
+        delBtn.className = 'delete-btn';
+        delBtn.textContent = '×';
+        delBtn.addEventListener('click', async () => {
+          await remove(ref(db, 'chores/' + data.id));
+        });
+
+        item.appendChild(checkbox);
+        item.appendChild(body);
+        item.appendChild(delBtn);
+        container.appendChild(item);
+      });
     }
   </script>
 </body>
