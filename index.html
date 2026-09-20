@@ -521,13 +521,14 @@
       } catch (err) { alert('Ошибка: ' + err.message); }
     }
 
-        function startShopListener() {
+            function startShopListener() {
       const itemsRef = ref(db, 'shopping_items');
       const unsub = onValue(itemsRef, (snapshot) => {
+        const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
+        console.log('Загружено элементов:', snapshot.numChildren());
         shopList.innerHTML = '';
         const items = [];
         snapshot.forEach((child) => items.push({ id: child.key, ...child.val() }));
-        // Сортируем на клиенте по убыванию createdAt
         items.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
         if (items.length === 0) { shopEmpty.style.display = 'block'; return; }
         shopEmpty.style.display = 'none';
@@ -545,7 +546,7 @@
           title.className = 'item-title';
           title.textContent = data.title;
           titleWrap.appendChild(title);
-          if (data.addedBy && data.addedBy !== currentUser.uid && data.addedByEmail) {
+          if (data.addedBy && myUid && data.addedBy !== myUid && data.addedByEmail) {
             const meta = document.createElement('div');
             meta.className = 'item-meta';
             meta.textContent = '👤 ' + data.addedByEmail.split('@')[0];
@@ -621,15 +622,16 @@
       }
     });
 
-        function startChoresListener() {
+            function startChoresListener() {
       const choresRef = ref(db, 'chores');
       const unsub = onValue(choresRef, (snapshot) => {
+        const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
         const items = [];
         snapshot.forEach((child) => items.push({ id: child.key, ...child.val() }));
         items.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
 
-        const forMe = items.filter(x => x.assignedTo === currentUser.uid);
-        const byMe = items.filter(x => x.createdBy === currentUser.uid);
+        const forMe = items.filter(x => x.assignedTo === myUid);
+        const byMe = items.filter(x => x.createdBy === myUid);
 
         renderChores(forMe, choreForMeList, choreForMeEmpty, 'forMe');
         renderChores(byMe, choreByMeList, choreByMeEmpty, 'byMe');
