@@ -17,7 +17,6 @@
       overscroll-behavior: none;
     }
 
-    /* ============ ЭКРАН АВТОРИЗАЦИИ ============ */
     #authScreen {
       min-height: 100vh;
       display: flex;
@@ -35,10 +34,7 @@
     }
     .card h1 { font-size: 26px; font-weight: 700; text-align: center; margin-bottom: 8px; }
     .subtitle { font-size: 15px; color: #8a7f76; text-align: center; margin-bottom: 28px; }
-    .tabs {
-      display: flex; background: #f5efe9; border-radius: 14px;
-      padding: 4px; margin-bottom: 24px;
-    }
+    .tabs { display: flex; background: #f5efe9; border-radius: 14px; padding: 4px; margin-bottom: 24px; }
     .tab {
       flex: 1; padding: 12px; text-align: center; border-radius: 10px;
       font-size: 15px; font-weight: 600; color: #8a7f76;
@@ -62,7 +58,6 @@
     button.primary:disabled { opacity: 0.6; }
     .error { color: #c0554e; font-size: 14px; text-align: center; margin-top: 16px; min-height: 20px; }
 
-    /* ============ ОСНОВНОЙ ЭКРАН ============ */
     #appScreen { display: none; min-height: 100vh; padding-bottom: 90px; }
     #appScreen.active { display: block; }
 
@@ -84,12 +79,8 @@
 
     .container { padding: 20px; max-width: 500px; margin: 0 auto; }
 
-    /* ============ МОДУЛЬ МАГАЗИН ============ */
     .add-row { display: flex; gap: 10px; margin-bottom: 20px; }
-    .add-row input {
-      flex: 1; margin-bottom: 0;
-      background: #ffffff; border: 2px solid #ede4db;
-    }
+    .add-row input { flex: 1; margin-bottom: 0; background: #ffffff; border: 2px solid #ede4db; }
     .add-btn {
       width: 56px; height: 56px; flex-shrink: 0;
       background: #c9a88a; color: #ffffff; border: none; border-radius: 14px;
@@ -100,7 +91,6 @@
     .add-btn:active { transform: scale(0.95); background: #b89878; }
 
     .items-list { display: flex; flex-direction: column; gap: 8px; }
-
     .item {
       background: #ffffff; border-radius: 14px; padding: 16px;
       display: flex; align-items: center; gap: 14px;
@@ -117,9 +107,7 @@
       cursor: pointer; transition: all 0.15s;
     }
     .checkbox.checked { background: #c9a88a; border-color: #c9a88a; }
-    .checkbox.checked::after {
-      content: "✓"; color: #ffffff; font-size: 16px; font-weight: 700;
-    }
+    .checkbox.checked::after { content: "✓"; color: #ffffff; font-size: 16px; font-weight: 700; }
     .item-title { flex: 1; font-size: 16px; word-break: break-word; }
     .item-meta { font-size: 12px; color: #a89b90; margin-top: 2px; }
     .delete-btn {
@@ -128,21 +116,14 @@
     }
     .delete-btn:active { color: #c0554e; }
 
-    .empty {
-      text-align: center; padding: 40px 20px;
-      color: #a89b90; font-size: 15px;
-    }
+    .empty { text-align: center; padding: 40px 20px; color: #a89b90; font-size: 15px; }
     .empty-emoji { font-size: 48px; margin-bottom: 12px; }
 
-    /* ============ ЗАГЛУШКИ ============ */
-    .placeholder {
-      text-align: center; padding: 80px 20px; color: #a89b90;
-    }
+    .placeholder { text-align: center; padding: 80px 20px; color: #a89b90; }
     .placeholder-emoji { font-size: 64px; margin-bottom: 16px; }
     .placeholder h3 { font-size: 20px; color: #2d2a26; margin-bottom: 8px; }
     .placeholder p { font-size: 15px; }
 
-    /* ============ НИЖНЯЯ НАВИГАЦИЯ ============ */
     .bottom-nav {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 20;
       background: rgba(255, 255, 255, 0.96);
@@ -165,28 +146,23 @@
 </head>
 <body>
 
-  <!-- ЭКРАН АВТОРИЗАЦИИ -->
   <div id="authScreen">
     <div class="card">
       <div id="authForm">
         <h1>Наше приложение</h1>
         <p class="subtitle">Только для нас двоих</p>
-
         <div class="tabs">
           <button class="tab active" id="loginTab">Вход</button>
           <button class="tab" id="registerTab">Регистрация</button>
         </div>
-
         <input type="email" id="email" placeholder="Email" autocomplete="email">
         <input type="password" id="password" placeholder="Пароль" autocomplete="current-password">
-
         <button class="primary" id="submitBtn">Войти</button>
         <div class="error" id="errorMsg"></div>
       </div>
     </div>
   </div>
 
-  <!-- ОСНОВНОЙ ЭКРАН -->
   <div id="appScreen">
     <div class="topbar">
       <h2 id="pageTitle">🛒 Магазин</h2>
@@ -194,8 +170,6 @@
     </div>
 
     <div class="container">
-
-      <!-- МОДУЛЬ: МАГАЗИН -->
       <div id="page-shop" class="page">
         <div class="add-row">
           <input type="text" id="shopInput" placeholder="Что купить?" autocomplete="off">
@@ -208,7 +182,6 @@
         </div>
       </div>
 
-      <!-- МОДУЛЬ: ДЕЛА -->
       <div id="page-chores" class="page" style="display:none;">
         <div class="placeholder">
           <div class="placeholder-emoji">✅</div>
@@ -217,7 +190,6 @@
         </div>
       </div>
 
-      <!-- МОДУЛЬ: РАСПИСАНИЕ -->
       <div id="page-schedule" class="page" style="display:none;">
         <div class="placeholder">
           <div class="placeholder-emoji">📅</div>
@@ -226,7 +198,6 @@
         </div>
       </div>
 
-      <!-- МОДУЛЬ: ПОДАРКИ -->
       <div id="page-gifts" class="page" style="display:none;">
         <div class="placeholder">
           <div class="placeholder-emoji">🎁</div>
@@ -235,7 +206,6 @@
         </div>
       </div>
 
-      <!-- МОДУЛЬ: ХОТЕЛКИ -->
       <div id="page-wishes" class="page" style="display:none;">
         <div class="placeholder">
           <div class="placeholder-emoji">🏠</div>
@@ -243,10 +213,8 @@
           <p>Скоро здесь появятся крупные покупки</p>
         </div>
       </div>
-
     </div>
 
-    <!-- НИЖНЯЯ НАВИГАЦИЯ -->
     <div class="bottom-nav">
       <button class="nav-btn active" data-page="shop">
         <span class="nav-icon">🛒</span><span class="nav-label">Магазин</span>
@@ -266,7 +234,6 @@
     </div>
   </div>
 
-  <!-- FIREBASE -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import {
@@ -278,41 +245,39 @@
       setPersistence,
       browserLocalPersistence
     } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-        import {
-      initializeFirestore,
-      memoryLocalCache,
-      collection,
-      addDoc,
-      deleteDoc,
-      doc,
-      updateDoc,
-      onSnapshot,
+    import {
+      getDatabase,
+      ref,
+      push,
+      set,
+      update,
+      remove,
+      onValue,
       query,
-      orderBy,
-      serverTimestamp
-    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+      orderByChild
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
     // ⚙️ ВАШ КОНФИГ FIREBASE
     const firebaseConfig = {
       apiKey: "AIzaSyATgY3bBLhvYCxfnU-7jYU7a7Nw3D4Ds6Y",
       authDomain: "my-family-app-32b71.firebaseapp.com",
+      databaseURL: "https://my-family-app-32b71-default-rtdb.europe-west1.firebasedatabase.app",
       projectId: "my-family-app-32b71",
       storageBucket: "my-family-app-32b71.firebasestorage.app",
       messagingSenderId: "1039069353770",
-      appId: "1:1039069353770:web:7a2397066297cf248e3053",
-      measurementId: "G-ZTTRF12YX5"
+      appId: "1:1039069353770:web:7a2397066297cf248e3053"
     };
+
+    // ⚠️ ВАЖНО: значение databaseURL нужно взять из Firebase Console →
+    // Realtime Database → вкладка "Data" → URL в самом верху страницы.
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    // Принудительно используем localStorage для сохранения сессии
     setPersistence(auth, browserLocalPersistence)
       .catch((error) => console.error('Ошибка установки persistence:', error));
 
-        // Используем memoryLocalCache вместо IndexedDB — это решает зависания на iOS
-    const db = initializeFirestore(app, {
-      localCache: memoryLocalCache()
-    });
+    const db = getDatabase(app);
 
     // ============ АВТОРИЗАЦИЯ ============
     let isLoginMode = true;
@@ -366,7 +331,7 @@
       if (user) {
         authScreen.style.display = 'none';
         appScreen.classList.add('active');
-        startShopListener(user.uid);
+        startShopListener();
       } else {
         authScreen.style.display = 'flex';
         appScreen.classList.remove('active');
@@ -390,7 +355,7 @@
       return map[code] || 'Ошибка: ' + code;
     }
 
-    // ============ НАВИГАЦИЯ ПО МОДУЛЯМ ============
+    // ============ НАВИГАЦИЯ ============
     const pageTitles = {
       shop: '🛒 Магазин',
       chores: '✅ Домашние дела',
@@ -410,8 +375,8 @@
       });
     });
 
-    // ============ МОДУЛЬ: МАГАЗИН ============
-    let shopUnsubscribe = null;
+    // ============ МАГАЗИН (Realtime Database) ============
+    let shopListenerRef = null;
     let currentUser = null;
 
     const shopInput = $('shopInput');
@@ -423,58 +388,52 @@
     shopInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') addShopItem();
     });
-        async function addShopItem() {
+
+    async function addShopItem() {
       const title = shopInput.value.trim();
       if (!title) return;
-
-      // Показываем статус прямо на странице
-      const statusEl = document.getElementById('debugStatus') || (() => {
-        const el = document.createElement('div');
-        el.id = 'debugStatus';
-        el.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#333;color:#fff;padding:10px;font-size:12px;z-index:9999;white-space:pre-wrap;';
-        document.body.appendChild(el);
-        return el;
-      })();
-
-      statusEl.textContent = 'Проверка:\ncurrentUser: ' + (currentUser ? currentUser.uid : 'NULL') + '\nemail: ' + (currentUser ? currentUser.email : 'NULL');
-
       if (!currentUser) {
-        statusEl.textContent += '\n\n→ НЕТ ПОЛЬЗОВАТЕЛЯ. Войдите заново.';
+        alert('Нет авторизации');
         return;
       }
-
       shopInput.value = '';
-      statusEl.textContent += '\n\nПопытка записи в Firestore...';
-
       try {
-        const ref = await addDoc(collection(db, 'shopping_items'), {
+        const itemsRef = ref(db, 'shopping_items');
+        const newItemRef = push(itemsRef);
+        await set(newItemRef, {
           title: title,
           done: false,
           addedBy: currentUser.uid,
           addedByEmail: currentUser.email,
-          createdAt: serverTimestamp()
+          createdAt: Date.now()
         });
-        statusEl.textContent += '\n\n✅ УСПЕХ! ID: ' + ref.id;
-        setTimeout(() => statusEl.remove(), 4000);
       } catch (err) {
-        statusEl.textContent += '\n\n❌ ОШИБКА:\nКод: ' + err.code + '\nСообщение: ' + err.message;
+        alert('ОШИБКА: ' + err.message);
+        console.error(err);
       }
     }
-    function startShopListener(uid) {
-      currentUser = auth.currentUser;
-      if (shopUnsubscribe) return;
 
-      const q = query(collection(db, 'shopping_items'), orderBy('createdAt', 'desc'));
-      shopUnsubscribe = onSnapshot(q, (snapshot) => {
+    function startShopListener() {
+      currentUser = auth.currentUser;
+      if (shopListenerRef) return;
+
+      const itemsRef = query(ref(db, 'shopping_items'), orderByChild('createdAt'));
+      shopListenerRef = onValue(itemsRef, (snapshot) => {
         shopList.innerHTML = '';
-        if (snapshot.empty) {
+        const items = [];
+        snapshot.forEach((child) => {
+          items.push({ id: child.key, ...child.val() });
+        });
+        // Сортируем в обратном порядке (новые сверху)
+        items.reverse();
+
+        if (items.length === 0) {
           shopEmpty.style.display = 'block';
           return;
         }
         shopEmpty.style.display = 'none';
 
-        snapshot.forEach((docSnap) => {
-          const data = docSnap.data();
+        items.forEach((data) => {
           const item = document.createElement('div');
           item.className = 'item' + (data.done ? ' done' : '');
 
@@ -482,9 +441,7 @@
           checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
           checkbox.addEventListener('click', async () => {
             try {
-              await updateDoc(doc(db, 'shopping_items', docSnap.id), {
-                done: !data.done
-              });
+              await update(ref(db, 'shopping_items/' + data.id), { done: !data.done });
             } catch (err) { console.error(err); }
           });
 
@@ -495,10 +452,10 @@
           title.textContent = data.title;
           titleWrap.appendChild(title);
 
-          if (data.addedBy && data.addedBy !== uid) {
+          if (data.addedBy && data.addedBy !== currentUser.uid && data.addedByEmail) {
             const meta = document.createElement('div');
             meta.className = 'item-meta';
-            meta.textContent = '👤 ' + (data.addedByEmail || 'партнёр').split('@')[0];
+            meta.textContent = '👤 ' + data.addedByEmail.split('@')[0];
             titleWrap.appendChild(meta);
           }
 
@@ -507,7 +464,7 @@
           delBtn.textContent = '×';
           delBtn.addEventListener('click', async () => {
             try {
-              await deleteDoc(doc(db, 'shopping_items', docSnap.id));
+              await remove(ref(db, 'shopping_items/' + data.id));
             } catch (err) { console.error(err); }
           });
 
@@ -522,12 +479,8 @@
     }
 
     function stopShopListener() {
-      if (shopUnsubscribe) {
-        shopUnsubscribe();
-        shopUnsubscribe = null;
-      }
-      currentUser = null;
       shopList.innerHTML = '';
+      currentUser = null;
     }
   </script>
 </body>
