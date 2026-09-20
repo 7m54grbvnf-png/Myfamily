@@ -278,8 +278,9 @@
       setPersistence,
       browserLocalPersistence
     } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-    import {
-      getFirestore,
+        import {
+      initializeFirestore,
+      memoryLocalCache,
       collection,
       addDoc,
       deleteDoc,
@@ -290,7 +291,6 @@
       orderBy,
       serverTimestamp
     } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
     // ⚙️ ВАШ КОНФИГ FIREBASE
     const firebaseConfig = {
       apiKey: "AIzaSyATgY3bBLhvYCxfnU-7jYU7a7Nw3D4Ds6Y",
@@ -309,7 +309,10 @@
     setPersistence(auth, browserLocalPersistence)
       .catch((error) => console.error('Ошибка установки persistence:', error));
 
-    const db = getFirestore(app);
+        // Используем memoryLocalCache вместо IndexedDB — это решает зависания на iOS
+    const db = initializeFirestore(app, {
+      localCache: memoryLocalCache()
+    });
 
     // ============ АВТОРИЗАЦИЯ ============
     let isLoginMode = true;
