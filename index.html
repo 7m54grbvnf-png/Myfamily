@@ -588,10 +588,13 @@
       if (currentValue) choreAssignee.value = currentValue;
     }
 
-    choreAddBtn.addEventListener('click', async () => {
+        choreAddBtn.addEventListener('click', async () => {
       const title = choreInput.value.trim();
       const assignee = choreAssignee.value;
       const due = choreDue.value;
+
+      alert('Проверка:\nТекст: ' + title + '\nКому: ' + assignee + '\nДата: ' + due);
+
       if (!title) { alert('Введите задачу'); return; }
       if (!assignee) { alert('Выберите, кому назначить'); return; }
       try {
@@ -608,10 +611,13 @@
         };
         if (due) data.dueDate = due;
         await set(newRef, data);
+        alert('✅ Успех! Задача добавлена.');
         choreInput.value = '';
         choreDue.value = '';
         choreAssignee.value = '';
-      } catch (err) { alert('Ошибка: ' + err.message); }
+      } catch (err) {
+        alert('❌ Ошибка: ' + err.code + '\n' + err.message);
+      }
     });
 
     function startChoresListener() {
