@@ -2,21 +2,28 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#fef6f0">
   <title>Семейное приложение</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html, body { height: 100%; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
       background: linear-gradient(160deg, #fef6f0 0%, #f5e6dc 100%);
+      color: #2d2a26;
+      overscroll-behavior: none;
+    }
+
+    /* ============ ЭКРАН АВТОРИЗАЦИИ ============ */
+    #authScreen {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 24px;
-      color: #2d2a26;
     }
     .card {
       background: #ffffff;
@@ -26,231 +33,478 @@
       max-width: 420px;
       box-shadow: 0 12px 40px rgba(180, 140, 110, 0.15);
     }
-    h1 {
-      font-size: 26px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: #2d2a26;
-      text-align: center;
-    }
-    .subtitle {
-      font-size: 15px;
-      color: #8a7f76;
-      text-align: center;
-      margin-bottom: 28px;
-    }
+    .card h1 { font-size: 26px; font-weight: 700; text-align: center; margin-bottom: 8px; }
+    .subtitle { font-size: 15px; color: #8a7f76; text-align: center; margin-bottom: 28px; }
     .tabs {
-      display: flex;
-      background: #f5efe9;
-      border-radius: 14px;
-      padding: 4px;
-      margin-bottom: 24px;
+      display: flex; background: #f5efe9; border-radius: 14px;
+      padding: 4px; margin-bottom: 24px;
     }
     .tab {
-      flex: 1;
-      padding: 12px;
-      text-align: center;
-      border-radius: 10px;
-      font-size: 15px;
-      font-weight: 600;
-      color: #8a7f76;
-      cursor: pointer;
+      flex: 1; padding: 12px; text-align: center; border-radius: 10px;
+      font-size: 15px; font-weight: 600; color: #8a7f76;
+      cursor: pointer; border: none; background: transparent; font-family: inherit;
       transition: all 0.2s;
-      border: none;
-      background: transparent;
-      font-family: inherit;
     }
-    .tab.active {
-      background: #ffffff;
-      color: #2d2a26;
-      box-shadow: 0 2px 8px rgba(180, 140, 110, 0.12);
-    }
-    input {
-      width: 100%;
-      padding: 16px;
-      font-size: 16px;
-      font-family: inherit;
-      border: 2px solid #ede4db;
-      border-radius: 14px;
-      margin-bottom: 12px;
-      background: #fdfaf7;
-      color: #2d2a26;
-      outline: none;
-      transition: border-color 0.2s;
+    .tab.active { background: #ffffff; color: #2d2a26; box-shadow: 0 2px 8px rgba(180,140,110,0.12); }
+    input[type="email"], input[type="password"], input[type="text"] {
+      width: 100%; padding: 16px; font-size: 16px; font-family: inherit;
+      border: 2px solid #ede4db; border-radius: 14px; margin-bottom: 12px;
+      background: #fdfaf7; color: #2d2a26; outline: none; transition: border-color 0.2s;
     }
     input:focus { border-color: #c9a88a; }
     button.primary {
-      width: 100%;
-      padding: 16px;
-      font-size: 16px;
-      font-weight: 600;
-      font-family: inherit;
-      color: #ffffff;
-      background: #c9a88a;
-      border: none;
-      border-radius: 14px;
-      cursor: pointer;
-      margin-top: 8px;
+      width: 100%; padding: 16px; font-size: 16px; font-weight: 600;
+      font-family: inherit; color: #ffffff; background: #c9a88a;
+      border: none; border-radius: 14px; cursor: pointer; margin-top: 8px;
       transition: all 0.2s;
     }
     button.primary:active { transform: scale(0.98); background: #b89878; }
     button.primary:disabled { opacity: 0.6; }
-    .error {
-      color: #c0554e;
-      font-size: 14px;
-      text-align: center;
-      margin-top: 16px;
-      min-height: 20px;
+    .error { color: #c0554e; font-size: 14px; text-align: center; margin-top: 16px; min-height: 20px; }
+
+    /* ============ ОСНОВНОЙ ЭКРАН ============ */
+    #appScreen { display: none; min-height: 100vh; padding-bottom: 90px; }
+    #appScreen.active { display: block; }
+
+    .topbar {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(254, 246, 240, 0.95);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      padding: 16px 20px 12px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid rgba(200, 170, 140, 0.15);
     }
-    .hidden { display: none; }
-    .welcome {
-      text-align: center;
+    .topbar h2 { font-size: 22px; font-weight: 700; }
+    .logout-btn {
+      background: transparent; border: none; font-family: inherit;
+      color: #8a7f76; font-size: 14px; font-weight: 600;
+      padding: 8px 12px; border-radius: 10px; cursor: pointer;
     }
-    .welcome h2 {
-      font-size: 22px;
-      margin-bottom: 12px;
+    .logout-btn:active { background: rgba(200, 170, 140, 0.15); }
+
+    .container { padding: 20px; max-width: 500px; margin: 0 auto; }
+
+    /* ============ МОДУЛЬ МАГАЗИН ============ */
+    .add-row { display: flex; gap: 10px; margin-bottom: 20px; }
+    .add-row input {
+      flex: 1; margin-bottom: 0;
+      background: #ffffff; border: 2px solid #ede4db;
     }
-    .welcome p {
-      color: #8a7f76;
-      margin-bottom: 24px;
+    .add-btn {
+      width: 56px; height: 56px; flex-shrink: 0;
+      background: #c9a88a; color: #ffffff; border: none; border-radius: 14px;
+      font-size: 24px; font-weight: 400; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s; font-family: inherit;
     }
-    .emoji { font-size: 56px; margin-bottom: 16px; }
+    .add-btn:active { transform: scale(0.95); background: #b89878; }
+
+    .items-list { display: flex; flex-direction: column; gap: 8px; }
+
+    .item {
+      background: #ffffff; border-radius: 14px; padding: 16px;
+      display: flex; align-items: center; gap: 14px;
+      box-shadow: 0 2px 8px rgba(180, 140, 110, 0.06);
+      transition: all 0.2s;
+    }
+    .item.done { opacity: 0.55; }
+    .item.done .item-title { text-decoration: line-through; }
+
+    .checkbox {
+      width: 26px; height: 26px; flex-shrink: 0; border-radius: 8px;
+      border: 2px solid #c9a88a; background: #ffffff;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .checkbox.checked { background: #c9a88a; border-color: #c9a88a; }
+    .checkbox.checked::after {
+      content: "✓"; color: #ffffff; font-size: 16px; font-weight: 700;
+    }
+    .item-title { flex: 1; font-size: 16px; word-break: break-word; }
+    .item-meta { font-size: 12px; color: #a89b90; margin-top: 2px; }
+    .delete-btn {
+      background: transparent; border: none; color: #d4c4b6;
+      font-size: 22px; cursor: pointer; padding: 4px 8px; font-family: inherit;
+    }
+    .delete-btn:active { color: #c0554e; }
+
+    .empty {
+      text-align: center; padding: 40px 20px;
+      color: #a89b90; font-size: 15px;
+    }
+    .empty-emoji { font-size: 48px; margin-bottom: 12px; }
+
+    /* ============ ЗАГЛУШКИ ============ */
+    .placeholder {
+      text-align: center; padding: 80px 20px; color: #a89b90;
+    }
+    .placeholder-emoji { font-size: 64px; margin-bottom: 16px; }
+    .placeholder h3 { font-size: 20px; color: #2d2a26; margin-bottom: 8px; }
+    .placeholder p { font-size: 15px; }
+
+    /* ============ НИЖНЯЯ НАВИГАЦИЯ ============ */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 20;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid rgba(200, 170, 140, 0.15);
+      padding: 8px 4px calc(8px + env(safe-area-inset-bottom));
+      display: flex; justify-content: space-around;
+      max-width: 500px; margin: 0 auto;
+    }
+    .nav-btn {
+      flex: 1; background: transparent; border: none; font-family: inherit;
+      padding: 8px 4px; cursor: pointer; color: #a89b90;
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      transition: color 0.2s;
+    }
+    .nav-btn.active { color: #c9a88a; }
+    .nav-icon { font-size: 22px; line-height: 1; }
+    .nav-label { font-size: 10px; font-weight: 600; }
   </style>
 </head>
 <body>
 
-  <div class="card">
-    <!-- Экран входа -->
-    <div id="authScreen">
-      <h1>Наше приложение</h1>
-      <p class="subtitle">Только для нас двоих</p>
+  <!-- ЭКРАН АВТОРИЗАЦИИ -->
+  <div id="authScreen">
+    <div class="card">
+      <div id="authForm">
+        <h1>Наше приложение</h1>
+        <p class="subtitle">Только для нас двоих</p>
 
-      <div class="tabs">
-        <button class="tab active" id="loginTab">Вход</button>
-        <button class="tab" id="registerTab">Регистрация</button>
+        <div class="tabs">
+          <button class="tab active" id="loginTab">Вход</button>
+          <button class="tab" id="registerTab">Регистрация</button>
+        </div>
+
+        <input type="email" id="email" placeholder="Email" autocomplete="email">
+        <input type="password" id="password" placeholder="Пароль" autocomplete="current-password">
+
+        <button class="primary" id="submitBtn">Войти</button>
+        <div class="error" id="errorMsg"></div>
       </div>
-
-      <input type="email" id="email" placeholder="Email" autocomplete="email">
-      <input type="password" id="password" placeholder="Пароль" autocomplete="current-password">
-
-      <button class="primary" id="submitBtn">Войти</button>
-      <div class="error" id="errorMsg"></div>
-    </div>
-
-    <!-- Экран после входа -->
-    <div id="appScreen" class="hidden welcome">
-      <div class="emoji">👋</div>
-      <h2>Привет!</h2>
-      <p id="userEmail"></p>
-      <button class="primary" id="logoutBtn">Выйти</button>
     </div>
   </div>
 
-  <!-- Firebase SDK -->
+  <!-- ОСНОВНОЙ ЭКРАН -->
+  <div id="appScreen">
+    <div class="topbar">
+      <h2 id="pageTitle">🛒 Магазин</h2>
+      <button class="logout-btn" id="logoutBtn">Выйти</button>
+    </div>
+
+    <div class="container">
+
+      <!-- МОДУЛЬ: МАГАЗИН -->
+      <div id="page-shop" class="page">
+        <div class="add-row">
+          <input type="text" id="shopInput" placeholder="Что купить?" autocomplete="off">
+          <button class="add-btn" id="shopAddBtn">+</button>
+        </div>
+        <div class="items-list" id="shopList"></div>
+        <div class="empty" id="shopEmpty">
+          <div class="empty-emoji">🛒</div>
+          <div>Список пуст. Добавьте первую покупку!</div>
+        </div>
+      </div>
+
+      <!-- МОДУЛЬ: ДЕЛА -->
+      <div id="page-chores" class="page" style="display:none;">
+        <div class="placeholder">
+          <div class="placeholder-emoji">✅</div>
+          <h3>Домашние дела</h3>
+          <p>Скоро здесь появятся дела друг для друга</p>
+        </div>
+      </div>
+
+      <!-- МОДУЛЬ: РАСПИСАНИЕ -->
+      <div id="page-schedule" class="page" style="display:none;">
+        <div class="placeholder">
+          <div class="placeholder-emoji">📅</div>
+          <h3>Расписание</h3>
+          <p>Скоро здесь появится распорядок дня</p>
+        </div>
+      </div>
+
+      <!-- МОДУЛЬ: ПОДАРКИ -->
+      <div id="page-gifts" class="page" style="display:none;">
+        <div class="placeholder">
+          <div class="placeholder-emoji">🎁</div>
+          <h3>Подарки</h3>
+          <p>Скоро здесь появятся виш-листы друг для друга</p>
+        </div>
+      </div>
+
+      <!-- МОДУЛЬ: ХОТЕЛКИ -->
+      <div id="page-wishes" class="page" style="display:none;">
+        <div class="placeholder">
+          <div class="placeholder-emoji">🏠</div>
+          <h3>Хотелки</h3>
+          <p>Скоро здесь появятся крупные покупки</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- НИЖНЯЯ НАВИГАЦИЯ -->
+    <div class="bottom-nav">
+      <button class="nav-btn active" data-page="shop">
+        <span class="nav-icon">🛒</span><span class="nav-label">Магазин</span>
+      </button>
+      <button class="nav-btn" data-page="chores">
+        <span class="nav-icon">✅</span><span class="nav-label">Дела</span>
+      </button>
+      <button class="nav-btn" data-page="schedule">
+        <span class="nav-icon">📅</span><span class="nav-label">План</span>
+      </button>
+      <button class="nav-btn" data-page="gifts">
+        <span class="nav-icon">🎁</span><span class="nav-label">Подарки</span>
+      </button>
+      <button class="nav-btn" data-page="wishes">
+        <span class="nav-icon">🏠</span><span class="nav-label">Хотелки</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- FIREBASE -->
   <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import {
-    getAuth,
-    signInWithEmailAndPassword,
-    createUserWithEmailAndPassword,
-    onAuthStateChanged,
-    signOut
-  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import {
+      getAuth,
+      signInWithEmailAndPassword,
+      createUserWithEmailAndPassword,
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      deleteDoc,
+      doc,
+      updateDoc,
+      onSnapshot,
+      query,
+      orderBy,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyATgY3bBLhvYCxfnU-7jYU7a7Nw3D4Ds6Y",
-    authDomain: "my-family-app-32b71.firebaseapp.com",
-    projectId: "my-family-app-32b71",
-    storageBucket: "my-family-app-32b71.firebasestorage.app",
-    messagingSenderId: "1039069353770",
-    appId: "1:1039069353770:web:7a2397066297cf248e3053",
-    measurementId: "G-ZTTRF12YX5"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-
-  let isLoginMode = true;
-
-  const loginTab = document.getElementById('loginTab');
-  const registerTab = document.getElementById('registerTab');
-  const submitBtn = document.getElementById('submitBtn');
-  const emailInput = document.getElementById('email');
-  const passwordInput = document.getElementById('password');
-  const errorMsg = document.getElementById('errorMsg');
-  const authScreen = document.getElementById('authScreen');
-  const appScreen = document.getElementById('appScreen');
-  const userEmail = document.getElementById('userEmail');
-  const logoutBtn = document.getElementById('logoutBtn');
-
-  loginTab.addEventListener('click', () => setMode(true));
-  registerTab.addEventListener('click', () => setMode(false));
-
-  function setMode(login) {
-    isLoginMode = login;
-    loginTab.classList.toggle('active', login);
-    registerTab.classList.toggle('active', !login);
-    submitBtn.textContent = login ? 'Войти' : 'Создать аккаунт';
-    passwordInput.autocomplete = login ? 'current-password' : 'new-password';
-    errorMsg.textContent = '';
-  }
-
-  submitBtn.addEventListener('click', async () => {
-    const email = emailInput.value.trim();
-    const password = passwordInput.value;
-    if (!email || !password) {
-      errorMsg.textContent = 'Заполните email и пароль';
-      return;
-    }
-    if (password.length < 6) {
-      errorMsg.textContent = 'Пароль должен быть минимум 6 символов';
-      return;
-    }
-
-    submitBtn.disabled = true;
-    errorMsg.textContent = '';
-
-    try {
-      if (isLoginMode) {
-        await signInWithEmailAndPassword(auth, email, password);
-      } else {
-        await createUserWithEmailAndPassword(auth, email, password);
-      }
-    } catch (err) {
-      errorMsg.textContent = translateError(err.code);
-    } finally {
-      submitBtn.disabled = false;
-    }
-  });
-
-  logoutBtn.addEventListener('click', () => signOut(auth));
-
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      authScreen.classList.add('hidden');
-      appScreen.classList.remove('hidden');
-      userEmail.textContent = user.email;
-    } else {
-      authScreen.classList.remove('hidden');
-      appScreen.classList.add('hidden');
-      emailInput.value = '';
-      passwordInput.value = '';
-    }
-  });
-
-  function translateError(code) {
-    const map = {
-      'auth/invalid-email': 'Некорректный email',
-      'auth/user-not-found': 'Пользователь не найден',
-      'auth/wrong-password': 'Неверный пароль',
-      'auth/invalid-credential': 'Неверный email или пароль',
-      'auth/email-already-in-use': 'Этот email уже зарегистрирован',
-      'auth/weak-password': 'Слишком простой пароль (минимум 6 символов)',
-      'auth/network-request-failed': 'Нет соединения с интернетом',
-      'auth/too-many-requests': 'Слишком много попыток, попробуйте позже'
+    // ⚙️ ВАШ КОНФИГ FIREBASE
+    const firebaseConfig = {
+      apiKey: "AIzaSyATgY3bBLhvYCxfnU-7jYU7a7Nw3D4Ds6Y",
+      authDomain: "my-family-app-32b71.firebaseapp.com",
+      projectId: "my-family-app-32b71",
+      storageBucket: "my-family-app-32b71.firebasestorage.app",
+      messagingSenderId: "1039069353770",
+      appId: "1:1039069353770:web:7a2397066297cf248e3053",
+      measurementId: "G-ZTTRF12YX5"
     };
-    return map[code] || 'Ошибка: ' + code;
-  }
-</script>
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // ============ АВТОРИЗАЦИЯ ============
+    let isLoginMode = true;
+
+    const $ = (id) => document.getElementById(id);
+    const loginTab = $('loginTab');
+    const registerTab = $('registerTab');
+    const submitBtn = $('submitBtn');
+    const emailInput = $('email');
+    const passwordInput = $('password');
+    const errorMsg = $('errorMsg');
+    const authScreen = $('authScreen');
+    const appScreen = $('appScreen');
+    const logoutBtn = $('logoutBtn');
+
+    loginTab.addEventListener('click', () => setMode(true));
+    registerTab.addEventListener('click', () => setMode(false));
+
+    function setMode(login) {
+      isLoginMode = login;
+      loginTab.classList.toggle('active', login);
+      registerTab.classList.toggle('active', !login);
+      submitBtn.textContent = login ? 'Войти' : 'Создать аккаунт';
+      errorMsg.textContent = '';
+    }
+
+    submitBtn.addEventListener('click', async () => {
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+      if (!email || !password) { errorMsg.textContent = 'Заполните email и пароль'; return; }
+      if (password.length < 6) { errorMsg.textContent = 'Пароль минимум 6 символов'; return; }
+
+      submitBtn.disabled = true;
+      errorMsg.textContent = '';
+      try {
+        if (isLoginMode) {
+          await signInWithEmailAndPassword(auth, email, password);
+        } else {
+          await createUserWithEmailAndPassword(auth, email, password);
+        }
+      } catch (err) {
+        errorMsg.textContent = translateError(err.code);
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+
+    logoutBtn.addEventListener('click', () => signOut(auth));
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        authScreen.style.display = 'none';
+        appScreen.classList.add('active');
+        startShopListener(user.uid);
+      } else {
+        authScreen.style.display = 'flex';
+        appScreen.classList.remove('active');
+        stopShopListener();
+        emailInput.value = '';
+        passwordInput.value = '';
+      }
+    });
+
+    function translateError(code) {
+      const map = {
+        'auth/invalid-email': 'Некорректный email',
+        'auth/user-not-found': 'Пользователь не найден',
+        'auth/wrong-password': 'Неверный пароль',
+        'auth/invalid-credential': 'Неверный email или пароль',
+        'auth/email-already-in-use': 'Этот email уже зарегистрирован',
+        'auth/weak-password': 'Слишком простой пароль (минимум 6 символов)',
+        'auth/network-request-failed': 'Нет соединения с интернетом',
+        'auth/too-many-requests': 'Слишком много попыток, попробуйте позже'
+      };
+      return map[code] || 'Ошибка: ' + code;
+    }
+
+    // ============ НАВИГАЦИЯ ПО МОДУЛЯМ ============
+    const pageTitles = {
+      shop: '🛒 Магазин',
+      chores: '✅ Домашние дела',
+      schedule: '📅 Расписание',
+      gifts: '🎁 Подарки',
+      wishes: '🏠 Хотелки'
+    };
+
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const page = btn.dataset.page;
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b === btn));
+        document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+        $('page-' + page).style.display = 'block';
+        $('pageTitle').textContent = pageTitles[page];
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    // ============ МОДУЛЬ: МАГАЗИН ============
+    let shopUnsubscribe = null;
+    let currentUser = null;
+
+    const shopInput = $('shopInput');
+    const shopAddBtn = $('shopAddBtn');
+    const shopList = $('shopList');
+    const shopEmpty = $('shopEmpty');
+
+    shopAddBtn.addEventListener('click', addShopItem);
+    shopInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') addShopItem();
+    });
+
+    async function addShopItem() {
+      const title = shopInput.value.trim();
+      if (!title || !currentUser) return;
+      shopInput.value = '';
+      try {
+        await addDoc(collection(db, 'shopping_items'), {
+          title: title,
+          done: false,
+          addedBy: currentUser.uid,
+          addedByEmail: currentUser.email,
+          createdAt: serverTimestamp()
+        });
+      } catch (err) {
+        console.error('Ошибка добавления:', err);
+        alert('Не удалось добавить: ' + err.message);
+      }
+    }
+
+    function startShopListener(uid) {
+      currentUser = auth.currentUser;
+      if (shopUnsubscribe) return;
+
+      const q = query(collection(db, 'shopping_items'), orderBy('createdAt', 'desc'));
+      shopUnsubscribe = onSnapshot(q, (snapshot) => {
+        shopList.innerHTML = '';
+        if (snapshot.empty) {
+          shopEmpty.style.display = 'block';
+          return;
+        }
+        shopEmpty.style.display = 'none';
+
+        snapshot.forEach((docSnap) => {
+          const data = docSnap.data();
+          const item = document.createElement('div');
+          item.className = 'item' + (data.done ? ' done' : '');
+
+          // Чекбокс
+          const checkbox = document.createElement('div');
+          checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
+          checkbox.addEventListener('click', async () => {
+            try {
+              await updateDoc(doc(db, 'shopping_items', docSnap.id), {
+                done: !data.done
+              });
+            } catch (err) { console.error(err); }
+          });
+
+          // Текст
+          const titleWrap = document.createElement('div');
+          titleWrap.style.flex = '1';
+          const title = document.createElement('div');
+          title.className = 'item-title';
+          title.textContent = data.title;
+          titleWrap.appendChild(title);
+
+          // Кто добавил (если не я)
+          if (data.addedBy && data.addedBy !== uid) {
+            const meta = document.createElement('div');
+            meta.className = 'item-meta';
+            meta.textContent = '👤 ' + (data.addedByEmail || 'партнёр').split('@')[0];
+            titleWrap.appendChild(meta);
+          }
+
+          // Удалить
+          const delBtn = document.createElement('button');
+          delBtn.className = 'delete-btn';
+          delBtn.textContent = '×';
+          delBtn.addEventListener('click', async () => {
+            try {
+              await deleteDoc(doc(db, 'shopping_items', docSnap.id));
+            } catch (err) { console.error(err); }
+          });
+
+          item.appendChild(checkbox);
+          item.appendChild(titleWrap);
+          item.appendChild(delBtn);
+          shopList.appendChild(item);
+        });
+      }, (err) => {
+        console.error('Ошибка подписки:', err);
+      });
+    }
+
+    function stopShopListener() {
+      if (shopUnsubscribe) {
+        shopUnsubscribe();
+        shopUnsubscribe = null;
+      }
+      currentUser = null;
+      shopList.innerHTML = '';
+    }
+  </script>
 </body>
 </html>
