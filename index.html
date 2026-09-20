@@ -420,32 +420,43 @@
     shopInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') addShopItem();
     });
-
-    async function addShopItem() {
+        async function addShopItem() {
       const title = shopInput.value.trim();
-      if (!title) {
-        alert('Введите название покупки');
-        return;
-      }
+      if (!title) return;
+
+      // Показываем статус прямо на странице
+      const statusEl = document.getElementById('debugStatus') || (() => {
+        const el = document.createElement('div');
+        el.id = 'debugStatus';
+        el.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#333;color:#fff;padding:10px;font-size:12px;z-index:9999;white-space:pre-wrap;';
+        document.body.appendChild(el);
+        return el;
+      })();
+
+      statusEl.textContent = 'Проверка:\ncurrentUser: ' + (currentUser ? currentUser.uid : 'NULL') + '\nemail: ' + (currentUser ? currentUser.email : 'NULL');
+
       if (!currentUser) {
-        alert('Нет авторизации. Попробуйте выйти и войти заново.');
+        statusEl.textContent += '\n\n→ НЕТ ПОЛЬЗОВАТЕЛЯ. Войдите заново.';
         return;
       }
+
       shopInput.value = '';
+      statusEl.textContent += '\n\nПопытка записи в Firestore...';
+
       try {
-        await addDoc(collection(db, 'shopping_items'), {
+        const ref = await addDoc(collection(db, 'shopping_items'), {
           title: title,
           done: false,
           addedBy: currentUser.uid,
           addedByEmail: currentUser.email,
           createdAt: serverTimestamp()
         });
+        statusEl.textContent += '\n\n✅ УСПЕХ! ID: ' + ref.id;
+        setTimeout(() => statusEl.remove(), 4000);
       } catch (err) {
-        console.error('Ошибка добавления:', err);
-        alert('ОШИБКА:\nКод: ' + err.code + '\n' + err.message);
+        statusEl.textContent += '\n\n❌ ОШИБКА:\nКод: ' + err.code + '\nСообщение: ' + err.message;
       }
     }
-
     function startShopListener(uid) {
       currentUser = auth.currentUser;
       if (shopUnsubscribe) return;
