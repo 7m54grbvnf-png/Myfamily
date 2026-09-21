@@ -713,4 +713,26 @@
         }
         if (mode === 'forMe' && data.createdByEmail) {
           const meta = document.createElement('div');
-          meta.className = 'item-meta
+          meta.className = 'item-meta';
+          meta.textContent = 'от ' + data.createdByEmail.split('@')[0];
+          body.appendChild(meta);
+        }
+
+        const delBtn = document.createElement('button');
+        delBtn.className = 'delete-btn';
+        delBtn.textContent = '×';
+        delBtn.addEventListener('click', async () => {
+          try {
+            await remove(ref(db, 'chores/' + data.id));
+          } catch (err) { console.error(err); }
+        });
+
+        item.appendChild(checkbox);
+        item.appendChild(body);
+        item.appendChild(delBtn);
+        container.appendChild(item);
+      });
+    }
+  </script>
+</body>
+</html>
