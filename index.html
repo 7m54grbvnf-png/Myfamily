@@ -18,21 +18,15 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ============ АНИМАЦИИ ============ */
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateX(-8px); }
-      to { opacity: 1; transform: translateX(0); }
     }
     @keyframes toastIn {
       from { opacity: 0; transform: translate(-50%, -20px); }
       to { opacity: 1; transform: translate(-50%, 0); }
     }
 
-    /* ============ ЭКРАН АВТОРИЗАЦИИ ============ */
     #authScreen {
       min-height: 100vh;
       display: flex;
@@ -74,11 +68,10 @@
       transition: all 0.2s;
       box-shadow: 0 4px 16px rgba(140, 105, 70, 0.3);
     }
-    button.primary:active { transform: scale(0.97); box-shadow: 0 2px 8px rgba(140, 105, 70, 0.3); }
+    button.primary:active { transform: scale(0.97); }
     button.primary:disabled { opacity: 0.6; }
     .error { color: #c0554e; font-size: 14px; text-align: center; margin-top: 16px; min-height: 20px; }
 
-    /* ============ ОСНОВНОЙ ЭКРАН ============ */
     #appScreen { display: none; min-height: 100vh; padding-bottom: 100px; }
     #appScreen.active { display: block; }
 
@@ -104,13 +97,12 @@
       background: rgba(166, 124, 82, 0.08); border: none; font-family: inherit;
       color: #8b6844; font-size: 13px; font-weight: 700;
       padding: 8px 14px; border-radius: 12px; cursor: pointer;
-      transition: background 0.15s;
     }
     .logout-btn:active { background: rgba(166, 124, 82, 0.15); }
 
     .container { padding: 20px; max-width: 500px; margin: 0 auto; }
 
-    /* ============ МАГАЗИН ============ */
+    /* МАГАЗИН */
     .add-card {
       background: #ffffff;
       border-radius: 20px;
@@ -119,17 +111,13 @@
       box-shadow: 0 4px 20px rgba(120, 90, 70, 0.06);
     }
     .add-row { display: flex; gap: 10px; }
-    .add-row input {
-      flex: 1; margin-bottom: 0;
-      border: 2px solid #ede4db;
-    }
+    .add-row input { flex: 1; margin-bottom: 0; border: 2px solid #ede4db; }
     .add-btn {
       width: 56px; height: 56px; flex-shrink: 0;
       background: linear-gradient(135deg, #b08860 0%, #8b6844 100%);
       color: #ffffff; border: none; border-radius: 16px;
       font-size: 26px; font-weight: 300; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      transition: all 0.2s;
       box-shadow: 0 4px 12px rgba(140, 105, 70, 0.25);
     }
     .add-btn:active { transform: scale(0.94); }
@@ -147,12 +135,9 @@
       border: 2px solid #ede4db; background: #fdfaf7;
       font-family: inherit; font-size: 13px; font-weight: 600;
       color: #8a7f76; cursor: pointer;
-      transition: all 0.15s;
       display: flex; align-items: center; gap: 4px;
     }
-    .cat-btn.active {
-      background: #f5efe9; border-color: #a67c52; color: #2d2a26;
-    }
+    .cat-btn.active { background: #f5efe9; border-color: #a67c52; color: #2d2a26; }
 
     .section-title {
       font-size: 12px; font-weight: 800; color: #a89b90;
@@ -167,16 +152,11 @@
       background: #ffffff; border-radius: 16px; padding: 14px 16px;
       display: flex; align-items: center; gap: 12px;
       box-shadow: 0 2px 12px rgba(120, 90, 70, 0.05);
-      transition: all 0.2s;
       animation: fadeInUp 0.3s ease;
-      position: relative;
     }
     .item.done { opacity: 0.5; }
     .item.done .item-title { text-decoration: line-through; text-decoration-color: #a89b90; }
-
-    .cat-marker {
-      width: 4px; height: 36px; border-radius: 2px; flex-shrink: 0;
-    }
+    .cat-marker { width: 4px; height: 36px; border-radius: 2px; flex-shrink: 0; }
 
     .checkbox {
       width: 26px; height: 26px; flex-shrink: 0; border-radius: 9px;
@@ -194,23 +174,13 @@
     .delete-btn {
       background: transparent; border: none; color: #d4c4b6;
       font-size: 22px; cursor: pointer; padding: 4px 8px; font-family: inherit;
-      transition: color 0.15s;
     }
     .delete-btn:active { color: #c0554e; }
 
-    .clear-btn {
-      width: 100%; padding: 12px; margin-top: 12px;
-      background: transparent; border: 2px dashed #d4c4b6;
-      border-radius: 14px; font-family: inherit;
-      font-size: 14px; font-weight: 600; color: #a89b90;
-      cursor: pointer; transition: all 0.15s;
-    }
-    .clear-btn:active { background: #f5efe9; border-color: #a67c52; color: #8b6844; }
-
-    .empty { text-align: center; padding: 40px 20px; color: #a89b90; font-size: 15px; animation: fadeInUp 0.4s ease; }
+    .empty { text-align: center; padding: 40px 20px; color: #a89b90; font-size: 15px; }
     .empty-emoji { font-size: 52px; margin-bottom: 12px; opacity: 0.8; }
 
-    /* ============ ДЕЛА ============ */
+    /* ДЕЛА */
     .chore-add-card {
       background: #ffffff;
       border-radius: 20px;
@@ -218,9 +188,7 @@
       margin-bottom: 20px;
       box-shadow: 0 4px 20px rgba(120, 90, 70, 0.06);
     }
-    .chore-add-card h3 {
-      font-size: 14px; color: #8a7f76; margin-bottom: 12px; font-weight: 700;
-    }
+    .chore-add-card h3 { font-size: 14px; color: #8a7f76; margin-bottom: 12px; font-weight: 700; }
     .chore-row { display: flex; gap: 8px; margin-bottom: 10px; }
     .chore-select {
       flex: 1; padding: 14px; font-size: 15px; font-family: inherit;
@@ -237,7 +205,6 @@
       font-family: inherit; color: #ffffff;
       background: linear-gradient(135deg, #b08860 0%, #8b6844 100%);
       border: none; border-radius: 16px; cursor: pointer;
-      transition: all 0.2s;
       box-shadow: 0 4px 12px rgba(140, 105, 70, 0.25);
     }
     .chore-add-btn:active { transform: scale(0.97); }
@@ -247,18 +214,16 @@
       display: flex; align-items: flex-start; gap: 12px;
       box-shadow: 0 2px 12px rgba(120, 90, 70, 0.05);
       margin-bottom: 8px;
-      transition: all 0.2s;
       animation: fadeInUp 0.3s ease;
     }
     .chore-item.done { opacity: 0.5; }
-    .chore-item.done .item-title { text-decoration: line-through; text-decoration-color: #a89b90; }
+    .chore-item.done .item-title { text-decoration: line-through; }
     .chore-item-body { flex: 1; }
 
     .chore-badge {
       display: inline-block;
       font-size: 11px; font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 8px;
+      padding: 3px 8px; border-radius: 8px;
       margin-top: 6px;
       letter-spacing: 0.3px;
     }
@@ -267,7 +232,7 @@
     .chore-badge.overdue { background: #fbe3e1; color: #c0554e; }
     .chore-badge.soon { background: #f0ebff; color: #7050b8; }
 
-    /* ============ РАСПИСАНИЕ ============ */
+    /* РАСПИСАНИЕ */
     .event-add-card {
       background: #ffffff;
       border-radius: 20px;
@@ -275,9 +240,7 @@
       margin-bottom: 20px;
       box-shadow: 0 4px 20px rgba(120, 90, 70, 0.06);
     }
-    .event-add-card h3 {
-      font-size: 14px; color: #8a7f76; margin-bottom: 12px; font-weight: 700;
-    }
+    .event-add-card h3 { font-size: 14px; color: #8a7f76; margin-bottom: 12px; font-weight: 700; }
     .event-time-row { display: flex; gap: 8px; margin-bottom: 10px; position: relative; }
     .event-time-row input { flex: 1; margin-bottom: 0; }
     .now-btn {
@@ -285,7 +248,6 @@
       background: #f5efe9; border: none; border-radius: 10px;
       font-family: inherit; font-size: 12px; font-weight: 700;
       color: #8b6844; padding: 6px 10px; cursor: pointer;
-      pointer-events: auto;
     }
     .event-date-row { margin-bottom: 10px; }
     .event-date-row input { margin-bottom: 0; }
@@ -294,7 +256,6 @@
       font-family: inherit; color: #ffffff;
       background: linear-gradient(135deg, #b08860 0%, #8b6844 100%);
       border: none; border-radius: 16px; cursor: pointer;
-      transition: all 0.2s;
       box-shadow: 0 4px 12px rgba(140, 105, 70, 0.25);
     }
     .event-add-btn:active { transform: scale(0.97); }
@@ -304,7 +265,6 @@
       display: flex; align-items: center; gap: 14px;
       box-shadow: 0 2px 12px rgba(120, 90, 70, 0.05);
       margin-bottom: 8px;
-      transition: all 0.2s;
       animation: fadeInUp 0.3s ease;
       position: relative;
     }
@@ -320,33 +280,23 @@
       color: #e89b3c;
     }
     .event-time {
-      font-size: 16px;
-      font-weight: 800;
-      color: #8b6844;
-      min-width: 60px;
-      text-align: center;
-      flex-shrink: 0;
+      font-size: 16px; font-weight: 800; color: #8b6844;
+      min-width: 60px; text-align: center; flex-shrink: 0;
       letter-spacing: -0.5px;
     }
     .event-time .time-sep {
-      display: block;
-      font-size: 11px;
-      color: #a89b90;
-      font-weight: 500;
-      margin-top: 2px;
-      letter-spacing: 0;
+      display: block; font-size: 11px; color: #a89b90;
+      font-weight: 500; margin-top: 2px; letter-spacing: 0;
     }
     .event-body { flex: 1; padding-right: 12px; }
     .event-title { font-size: 16px; font-weight: 600; word-break: break-word; }
     .event-meta { font-size: 12px; color: #a89b90; margin-top: 3px; }
 
-    /* ============ ЗАГЛУШКИ ============ */
     .placeholder { text-align: center; padding: 80px 20px; color: #a89b90; }
     .placeholder-emoji { font-size: 68px; margin-bottom: 16px; opacity: 0.7; }
     .placeholder h3 { font-size: 22px; color: #2d2a26; margin-bottom: 8px; font-weight: 800; }
     .placeholder p { font-size: 15px; }
 
-    /* ============ НАВИГАЦИЯ ============ */
     .bottom-nav {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 20;
       background: rgba(255, 255, 255, 0.88);
@@ -361,15 +311,12 @@
       flex: 1; background: transparent; border: none; font-family: inherit;
       padding: 8px 4px; cursor: pointer; color: #b8aca1;
       display: flex; flex-direction: column; align-items: center; gap: 3px;
-      transition: color 0.2s;
-      position: relative;
     }
     .nav-btn.active { color: #8b6844; }
     .nav-btn.active .nav-icon { transform: scale(1.1); }
     .nav-icon { font-size: 22px; line-height: 1; transition: transform 0.2s; }
     .nav-label { font-size: 10px; font-weight: 700; }
 
-    /* ============ TOAST ============ */
     .toast {
       position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
       background: rgba(45, 42, 38, 0.95);
@@ -378,7 +325,6 @@
       z-index: 9999;
       box-shadow: 0 8px 32px rgba(0,0,0,0.25);
       animation: toastIn 0.3s ease;
-      backdrop-filter: blur(10px);
     }
   </style>
 </head>
@@ -427,17 +373,10 @@
           </div>
         </div>
 
-        <div class="section-title" id="shopActiveTitle" style="display:none;">Купить</div>
         <div class="items-list" id="shopList"></div>
         <div class="empty" id="shopEmpty">
           <div class="empty-emoji">🛒</div>
           <div>Список пуст. Добавьте первую покупку!</div>
-        </div>
-
-        <div id="shopDoneSection" style="display:none;">
-          <div class="section-title">Куплено</div>
-          <div class="items-list" id="shopDoneList"></div>
-          <button class="clear-btn" id="clearDoneBtn">Очистить купленное</button>
         </div>
       </div>
 
@@ -486,14 +425,14 @@
           <button class="event-add-btn" id="eventAddBtn">Добавить в расписание</button>
         </div>
 
-        <div class="section-title" id="eventsTodayTitle" style="display:none;">Сегодня</div>
+        <div class="section-title">Сегодня</div>
         <div class="items-list" id="eventsTodayList"></div>
         <div class="empty" id="eventsTodayEmpty" style="display:none;">
           <div class="empty-emoji">☀️</div>
           <div>Сегодня событий нет</div>
         </div>
 
-        <div class="section-title" id="eventsFutureTitle" style="display:none;">Предстоящие</div>
+        <div class="section-title">Предстоящие</div>
         <div class="items-list" id="eventsFutureList"></div>
         <div class="empty" id="eventsFutureEmpty" style="display:none;">
           <div class="empty-emoji">📅</div>
@@ -501,7 +440,6 @@
         </div>
       </div>
 
-      <!-- ПОДАРКИ -->
       <div id="page-gifts" class="page" style="display:none;">
         <div class="placeholder">
           <div class="placeholder-emoji">🎁</div>
@@ -510,7 +448,6 @@
         </div>
       </div>
 
-      <!-- ХОТЕЛКИ -->
       <div id="page-wishes" class="page" style="display:none;">
         <div class="placeholder">
           <div class="placeholder-emoji">🏠</div>
@@ -567,19 +504,16 @@
 
     const $ = (id) => document.getElementById(id);
 
-    // ============ TOAST ============
     function toast(msg) {
-      const existing = document.querySelector('.toast');
-      if (existing) existing.remove();
+      const ex = document.querySelector('.toast');
+      if (ex) ex.remove();
       const el = document.createElement('div');
       el.className = 'toast';
       el.textContent = msg;
       document.body.appendChild(el);
       setTimeout(() => el.remove(), 1800);
     }
-    function haptic(ms = 10) {
-      if (navigator.vibrate) navigator.vibrate(ms);
-    }
+    function haptic(ms = 10) { if (navigator.vibrate) navigator.vibrate(ms); }
 
     // ============ АВТОРИЗАЦИЯ ============
     let isLoginMode = true;
@@ -685,7 +619,6 @@
       if (choresUnsub) { choresUnsub(); choresUnsub = null; }
       if (eventsUnsub) { eventsUnsub(); eventsUnsub = null; }
       $('shopList').innerHTML = '';
-      $('shopDoneList').innerHTML = '';
       $('choreForMeList').innerHTML = '';
       $('choreByMeList').innerHTML = '';
       $('eventsTodayList').innerHTML = '';
@@ -693,15 +626,15 @@
       currentUser = null;
     }
 
-    // ============ МАГАЗИН ============
+    // ============ МАГАЗИН (логика как в рабочей версии) ============
     const CATEGORIES = {
-      other: { emoji: '📦', color: '#b8aca1', label: 'Другое' },
-      dairy: { emoji: '🥛', color: '#8bb8e8', label: 'Молочное' },
-      meat: { emoji: '🥩', color: '#e88585', label: 'Мясо' },
-      veg: { emoji: '🥦', color: '#7eb97e', label: 'Овощи' },
-      bread: { emoji: '🍞', color: '#d4a373', label: 'Хлеб' },
-      sweets: { emoji: '🍫', color: '#c89ac8', label: 'Сладкое' },
-      house: { emoji: '🧴', color: '#7eb8b8', label: 'Быт. химия' }
+      other: { emoji: '📦', color: '#b8aca1' },
+      dairy: { emoji: '🥛', color: '#8bb8e8' },
+      meat: { emoji: '🥩', color: '#e88585' },
+      veg: { emoji: '🥦', color: '#7eb97e' },
+      bread: { emoji: '🍞', color: '#d4a373' },
+      sweets: { emoji: '🍫', color: '#c89ac8' },
+      house: { emoji: '🧴', color: '#7eb8b8' }
     };
     let selectedCategory = 'other';
 
@@ -736,86 +669,65 @@
     function startShopListener() {
       const itemsRef = query(ref(db, 'shopping_items'), orderByChild('createdAt'));
       shopUnsub = onValue(itemsRef, (snapshot) => {
+        // ===== ЛОГИКА КАК В РАБОЧЕЙ ВЕРСИИ =====
+        $('shopList').innerHTML = '';
         const items = [];
         snapshot.forEach((child) => items.push({ id: child.key, ...child.val() }));
         items.reverse();
 
-        const active = items.filter(x => !x.done);
-        const done = items.filter(x => x.done);
+        if (items.length === 0) {
+          $('shopEmpty').style.display = 'block';
+        } else {
+          $('shopEmpty').style.display = 'none';
+        }
 
-        renderShopList(active, $('shopList'), $('shopEmpty'));
-        renderShopList(done, $('shopDoneList'), null);
+        const myUid = currentUser ? currentUser.uid : '';
+        items.forEach((data) => {
+          const cat = CATEGORIES[data.category] || CATEGORIES.other;
+          const item = document.createElement('div');
+          item.className = 'item' + (data.done ? ' done' : '');
 
-        // Заголовок со счётчиком
-        $('pageTitle').innerHTML = '🛒 Магазин' + (active.length ? ' <span class="count-badge">' + active.length + '</span>' : '');
-        $('shopActiveTitle').style.display = active.length ? 'block' : 'none';
-        $('shopDoneSection').style.display = done.length ? 'block' : 'none';
+          const marker = document.createElement('div');
+          marker.className = 'cat-marker';
+          marker.style.background = cat.color;
+          item.appendChild(marker);
+
+          const checkbox = document.createElement('div');
+          checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
+          checkbox.addEventListener('click', async () => {
+            haptic(12);
+            await update(ref(db, 'shopping_items/' + data.id), { done: !data.done });
+          });
+          item.appendChild(checkbox);
+
+          const titleWrap = document.createElement('div');
+          titleWrap.style.flex = '1';
+          const title = document.createElement('div');
+          title.className = 'item-title';
+          title.textContent = cat.emoji + ' ' + data.title;
+          titleWrap.appendChild(title);
+          if (data.addedBy && myUid && data.addedBy !== myUid && data.addedByEmail) {
+            const meta = document.createElement('div');
+            meta.className = 'item-meta';
+            meta.textContent = '👤 ' + data.addedByEmail.split('@')[0];
+            titleWrap.appendChild(meta);
+          }
+          item.appendChild(titleWrap);
+
+          const delBtn = document.createElement('button');
+          delBtn.className = 'delete-btn';
+          delBtn.textContent = '×';
+          delBtn.addEventListener('click', async () => {
+            haptic(15);
+            await remove(ref(db, 'shopping_items/' + data.id));
+          });
+          item.appendChild(delBtn);
+          $('shopList').appendChild(item);
+        });
       }, (err) => console.error(err));
     }
 
-    function renderShopList(items, container, emptyEl) {
-      container.innerHTML = '';
-      if (emptyEl) {
-        if (items.length === 0) { emptyEl.style.display = 'block'; return; }
-        emptyEl.style.display = 'none';
-      }
-      const myUid = currentUser ? currentUser.uid : '';
-      items.forEach((data) => {
-        const cat = CATEGORIES[data.category] || CATEGORIES.other;
-        const item = document.createElement('div');
-        item.className = 'item' + (data.done ? ' done' : '');
-
-        const marker = document.createElement('div');
-        marker.className = 'cat-marker';
-        marker.style.background = cat.color;
-        item.appendChild(marker);
-
-        const checkbox = document.createElement('div');
-        checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
-        checkbox.addEventListener('click', async () => {
-          haptic(12);
-          await update(ref(db, 'shopping_items/' + data.id), { done: !data.done });
-        });
-        item.appendChild(checkbox);
-
-        const titleWrap = document.createElement('div');
-        titleWrap.style.flex = '1';
-        const title = document.createElement('div');
-        title.className = 'item-title';
-        title.textContent = (cat.emoji + ' ' + data.title);
-        titleWrap.appendChild(title);
-        if (data.addedBy && myUid && data.addedBy !== myUid && data.addedByEmail) {
-          const meta = document.createElement('div');
-          meta.className = 'item-meta';
-          meta.textContent = '👤 ' + data.addedByEmail.split('@')[0];
-          titleWrap.appendChild(meta);
-        }
-        item.appendChild(titleWrap);
-
-        const delBtn = document.createElement('button');
-        delBtn.className = 'delete-btn';
-        delBtn.textContent = '×';
-        delBtn.addEventListener('click', async () => {
-          haptic(15);
-          await remove(ref(db, 'shopping_items/' + data.id));
-        });
-        item.appendChild(delBtn);
-        container.appendChild(item);
-      });
-    }
-
-    $('clearDoneBtn').addEventListener('click', async () => {
-      const snap = await new Promise(res => {
-        onValue(ref(db, 'shopping_items'), res, { onlyOnce: true });
-      });
-      snap.forEach(async (child) => {
-        if (child.val().done) await remove(ref(db, 'shopping_items/' + child.key));
-      });
-      toast('Купленное очищено');
-      haptic(20);
-    });
-
-    // ============ ДЕЛА ============
+    // ============ ДЕЛА (логика как в рабочей версии) ============
     function updateAssigneeDropdown() {
       if (!currentUser) return;
       const select = $('choreAssignee');
@@ -859,21 +771,17 @@
     function startChoresListener() {
       const ref_ = query(ref(db, 'chores'), orderByChild('createdAt'));
       choresUnsub = onValue(ref_, (snapshot) => {
+        // ===== ЛОГИКА КАК В РАБОЧЕЙ ВЕРСИИ =====
         const items = [];
         snapshot.forEach((child) => items.push({ id: child.key, ...child.val() }));
         items.reverse();
 
         const myUid = currentUser ? currentUser.uid : '';
-        const forMe = items.filter(x => x.assignedTo === myUid && !x.done);
-        const byMe = items.filter(x => x.createdBy === myUid && !x.done);
-        const forMeDone = items.filter(x => x.assignedTo === myUid && x.done);
-        const byMeDone = items.filter(x => x.createdBy === myUid && x.done);
+        const forMe = items.filter(x => x.assignedTo === myUid);
+        const byMe = items.filter(x => x.createdBy === myUid);
 
-        renderChores([...forMe, ...forMeDone], $('choreForMeList'), $('choreForMeEmpty'), 'forMe');
-        renderChores([...byMe, ...byMeDone], $('choreByMeList'), $('choreByMeEmpty'), 'byMe');
-
-        const activeCount = forMe.length + byMe.length;
-        $('pageTitle').innerHTML = '✅ Домашние дела' + (activeCount ? ' <span class="count-badge">' + activeCount + '</span>' : '');
+        renderChores(forMe, $('choreForMeList'), $('choreForMeEmpty'), 'forMe');
+        renderChores(byMe, $('choreByMeList'), $('choreByMeEmpty'), 'byMe');
       }, (err) => console.error(err));
     }
 
@@ -881,6 +789,8 @@
       container.innerHTML = '';
       if (items.length === 0) { emptyEl.style.display = 'block'; return; }
       emptyEl.style.display = 'none';
+
+      const myUid = currentUser ? currentUser.uid : '';
 
       items.forEach((data) => {
         const item = document.createElement('div');
@@ -946,15 +856,11 @@
       });
     }
 
-    // ============ РАСПИСАНИЕ ============
+    // ============ РАСПИСАНИЕ (логика как в рабочей версии) ============
     $('nowBtn').addEventListener('click', () => {
       const now = new Date();
-      const hh = String(now.getHours()).padStart(2, '0');
-      const mm = String(now.getMinutes()).padStart(2, '0');
-      $('eventStart').value = hh + ':' + mm;
-      const dd = String(now.getDate()).padStart(2, '0');
-      const mo = String(now.getMonth() + 1).padStart(2, '0');
-      $('eventDate').value = now.getFullYear() + '-' + mo + '-' + dd;
+      $('eventStart').value = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+      $('eventDate').value = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
       haptic(10);
     });
 
@@ -990,42 +896,29 @@
       eventsUnsub = onValue(ref_, (snapshot) => {
         const items = [];
         snapshot.forEach((child) => items.push({ id: child.key, ...child.val() }));
-        items.sort((a, b) => {
+
+        // ===== ПРОСТАЯ ЛОГИКА: сегодня / будущее =====
+        const today = todayStr();
+        const todayItems = items.filter(x => x.date === today);
+        const futureItems = items.filter(x => x.date && x.date > today);
+
+        // Сортировка по времени
+        const sortByTime = (a, b) => (a.startTime || '').localeCompare(b.startTime || '');
+        todayItems.sort(sortByTime);
+        futureItems.sort((a, b) => {
           const x = (a.date || '') + ' ' + (a.startTime || '');
           const y = (b.date || '') + ' ' + (b.startTime || '');
           return x.localeCompare(y);
         });
 
-        const today = todayStr();
-        const tomorrow = tomorrowStr();
-        const todayItems = items.filter(x => x.date === today);
-        const futureItems = items.filter(x => x.date && x.date > today && x.date <= tomorrow || x.date > tomorrow);
-
         renderEvents(todayItems, $('eventsTodayList'), $('eventsTodayEmpty'), today);
-        renderEvents(futureItems, $('eventsFutureList'), $('eventsFutureEmpty'), tomorrow);
-
-        $('pageTitle').innerHTML = '📅 Расписание' + (todayItems.length ? ' <span class="count-badge">' + todayItems.length + '</span>' : '');
-        $('eventsTodayTitle').style.display = todayItems.length ? 'block' : 'none';
-        $('eventsFutureTitle').style.display = futureItems.length ? 'block' : 'none';
+        renderEvents(futureItems, $('eventsFutureList'), $('eventsFutureEmpty'), today);
       }, (err) => console.error(err));
     }
 
     function todayStr() {
       const d = new Date();
       return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
-    }
-    function tomorrowStr() {
-      const d = new Date();
-      d.setDate(d.getDate() + 1);
-      return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
-    }
-    function formatDateLabel(dateStr, today, tomorrow) {
-      if (dateStr === today) return 'Сегодня';
-      if (dateStr === tomorrow) return 'Завтра';
-      const d = new Date(dateStr + 'T00:00:00');
-      const dd = String(d.getDate()).padStart(2,'0');
-      const mm = String(d.getMonth()+1).padStart(2,'0');
-      return dd + '.' + mm;
     }
 
     function renderEvents(items, container, emptyEl, todayDate) {
@@ -1042,12 +935,12 @@
         const item = document.createElement('div');
         let isNow = false;
         if (data.date === today && data.startTime) {
-          const [sh, sm] = data.startTime.split(':').map(Number);
-          const startMin = sh * 60 + sm;
+          const parts = data.startTime.split(':').map(Number);
+          const startMin = parts[0] * 60 + parts[1];
           let endMin = startMin + 60;
           if (data.endTime) {
-            const [eh, em] = data.endTime.split(':').map(Number);
-            endMin = eh * 60 + em;
+            const ep = data.endTime.split(':').map(Number);
+            endMin = ep[0] * 60 + ep[1];
           }
           isNow = nowMin >= startMin && nowMin <= endMin;
         }
@@ -1073,7 +966,10 @@
 
         const metaParts = [];
         if (data.date !== today) {
-          metaParts.push('📅 ' + formatDateLabel(data.date, today, tomorrowStr()));
+          const d = new Date(data.date + 'T00:00:00');
+          const dd = String(d.getDate()).padStart(2,'0');
+          const mm = String(d.getMonth()+1).padStart(2,'0');
+          metaParts.push('📅 ' + dd + '.' + mm);
         }
         if (data.createdBy && myUid && data.createdBy !== myUid && data.createdByEmail) {
           metaParts.push('👤 ' + data.createdByEmail.split('@')[0]);
