@@ -503,7 +503,7 @@
       await Promise.all([loadShop(), loadChores()]);
     }
 
-    async function loadShop() {
+        async function loadShop() {
       try {
         const snap = await get(ref(db, 'shopping_items'));
         const items = [];
@@ -511,12 +511,16 @@
           snap.forEach((c) => items.push({ id: c.key, ...c.val() }));
         }
         items.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+
+        // ОТЛАДКА: показываем в заголовке
+        document.getElementById('pageTitle').textContent = '🛒 Магазин (' + items.length + ')';
+
         renderShop(items);
       } catch (err) {
+        document.getElementById('pageTitle').textContent = '🛒 ОШИБКА: ' + err.message;
         console.error('Ошибка загрузки магазина:', err);
       }
     }
-
     async function loadChores() {
       try {
         const snap = await get(ref(db, 'chores'));
