@@ -42,7 +42,7 @@
       transition: all 0.2s;
     }
     .tab.active { background: #ffffff; color: #2d2a26; box-shadow: 0 2px 8px rgba(180,140,110,0.12); }
-    input[type="email"], input[type="password"], input[type="text"], input[type="date"] {
+    input[type="email"], input[type="password"], input[type="text"], input[type="date"], input[type="time"] {
       width: 100%; padding: 16px; font-size: 16px; font-family: inherit;
       border: 2px solid #ede4db; border-radius: 14px; margin-bottom: 12px;
       background: #fdfaf7; color: #2d2a26; outline: none; transition: border-color 0.2s;
@@ -180,6 +180,71 @@
     }
     .chore-due.overdue { color: #c0554e; background: #fbeae8; }
 
+    /* ============ РАСПИСАНИЕ ============ */
+    .event-add-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(180, 140, 110, 0.06);
+    }
+    .event-add-card h3 {
+      font-size: 15px; color: #8a7f76; margin-bottom: 12px; font-weight: 600;
+    }
+    .event-time-row {
+      display: flex; gap: 8px; margin-bottom: 10px;
+    }
+    .event-time-row input {
+      flex: 1; margin-bottom: 0;
+    }
+    .event-date-row {
+      margin-bottom: 10px;
+    }
+    .event-date-row input {
+      margin-bottom: 0;
+    }
+    .event-add-btn {
+      width: 100%; padding: 14px; font-size: 16px; font-weight: 600;
+      font-family: inherit; color: #ffffff; background: #c9a88a;
+      border: none; border-radius: 14px; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .event-add-btn:active { transform: scale(0.98); background: #b89878; }
+
+    .event-section-title {
+      font-size: 13px; font-weight: 700; color: #a89b90;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      margin: 20px 0 10px;
+    }
+    .event-section-title:first-child { margin-top: 0; }
+
+    .event-item {
+      background: #ffffff; border-radius: 14px; padding: 14px 16px;
+      display: flex; align-items: center; gap: 14px;
+      box-shadow: 0 2px 8px rgba(180, 140, 110, 0.06);
+      margin-bottom: 8px;
+      transition: all 0.2s;
+    }
+    .event-time {
+      font-size: 15px;
+      font-weight: 700;
+      color: #c9a88a;
+      min-width: 60px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .event-time .time-sep {
+      display: block;
+      font-size: 11px;
+      color: #a89b90;
+      font-weight: 400;
+      margin-top: 2px;
+    }
+    .event-body { flex: 1; }
+    .event-title { font-size: 16px; word-break: break-word; }
+    .event-meta { font-size: 12px; color: #a89b90; margin-top: 2px; }
+    .event-item.past { opacity: 0.5; }
+
     /* ============ ЗАГЛУШКИ ============ */
     .placeholder { text-align: center; padding: 80px 20px; color: #a89b90; }
     .placeholder-emoji { font-size: 64px; margin-bottom: 16px; }
@@ -278,10 +343,31 @@
 
       <!-- РАСПИСАНИЕ -->
       <div id="page-schedule" class="page" style="display:none;">
-        <div class="placeholder">
-          <div class="placeholder-emoji">📅</div>
-          <h3>Расписание</h3>
-          <p>Скоро здесь появится распорядок дня</p>
+        <div class="event-add-card">
+          <h3>Новое событие</h3>
+          <input type="text" id="eventTitle" placeholder="Что? (например: рабочая встреча)" autocomplete="off">
+          <div class="event-time-row">
+            <input type="time" id="eventStart">
+            <input type="time" id="eventEnd">
+          </div>
+          <div class="event-date-row">
+            <input type="date" id="eventDate">
+          </div>
+          <button class="event-add-btn" id="eventAddBtn">Добавить в расписание</button>
+        </div>
+
+        <div class="event-section-title">Сегодня</div>
+        <div class="items-list" id="eventsTodayList"></div>
+        <div class="empty" id="eventsTodayEmpty" style="display:none;">
+          <div class="empty-emoji">☀️</div>
+          <div>Сегодня событий нет</div>
+        </div>
+
+        <div class="event-section-title">Предстоящие</div>
+        <div class="items-list" id="eventsFutureList"></div>
+        <div class="empty" id="eventsFutureEmpty" style="display:none;">
+          <div class="empty-emoji">📅</div>
+          <div>Пока ничего не запланировано</div>
         </div>
       </div>
 
@@ -416,9 +502,10 @@
 
     // ============ ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ============
     let currentUser = null;
-    let allUsers = {}; // uid -> email
+    let allUsers = {};
     let shopUnsubscribe = null;
     let choresUnsubscribe = null;
+    let eventsUnsubscribe = null;
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -472,7 +559,6 @@
     function startAll() {
       currentUser = auth.currentUser;
 
-      // Сохраняем себя в users и слушаем список пользователей
       set(ref(db, 'users/' + currentUser.uid), {
         email: currentUser.email
       }).catch(console.error);
@@ -488,14 +574,18 @@
 
       startShopListener();
       startChoresListener();
+      startEventsListener();
     }
 
     function stopAll() {
       if (shopUnsubscribe) { shopUnsubscribe(); shopUnsubscribe = null; }
       if (choresUnsubscribe) { choresUnsubscribe(); choresUnsubscribe = null; }
+      if (eventsUnsubscribe) { eventsUnsubscribe(); eventsUnsubscribe = null; }
       shopList.innerHTML = '';
       choreForMeList.innerHTML = '';
       choreByMeList.innerHTML = '';
+      eventsTodayList.innerHTML = '';
+      eventsFutureList.innerHTML = '';
       currentUser = null;
     }
 
@@ -730,6 +820,151 @@
         item.appendChild(checkbox);
         item.appendChild(body);
         item.appendChild(delBtn);
+        container.appendChild(item);
+      });
+    }
+
+    // ============ РАСПИСАНИЕ ============
+    const eventTitle = $('eventTitle');
+    const eventStart = $('eventStart');
+    const eventEnd = $('eventEnd');
+    const eventDate = $('eventDate');
+    const eventAddBtn = $('eventAddBtn');
+    const eventsTodayList = $('eventsTodayList');
+    const eventsTodayEmpty = $('eventsTodayEmpty');
+    const eventsFutureList = $('eventsFutureList');
+    const eventsFutureEmpty = $('eventsFutureEmpty');
+
+    eventAddBtn.addEventListener('click', async () => {
+      const title = eventTitle.value.trim();
+      const start = eventStart.value;
+      const end = eventEnd.value;
+      const date = eventDate.value;
+      if (!title) { alert('Введите название'); return; }
+      if (!start) { alert('Укажите время начала'); return; }
+      if (!date) { alert('Выберите дату'); return; }
+      try {
+        const eventsRef = ref(db, 'schedule_events');
+        const newRef = push(eventsRef);
+        const data = {
+          title: title,
+          startTime: start,
+          date: date,
+          createdBy: currentUser.uid,
+          createdByEmail: currentUser.email,
+          createdAt: Date.now()
+        };
+        if (end) data.endTime = end;
+        await set(newRef, data);
+        eventTitle.value = '';
+        eventStart.value = '';
+        eventEnd.value = '';
+        eventDate.value = '';
+      } catch (err) {
+        alert('ОШИБКА: ' + err.code + '\n' + err.message);
+      }
+    });
+
+    function startEventsListener() {
+      const eventsRef = query(ref(db, 'schedule_events'), orderByChild('createdAt'));
+      eventsUnsubscribe = onValue(eventsRef, (snapshot) => {
+        const items = [];
+        snapshot.forEach((child) => {
+          items.push({ id: child.key, ...child.val() });
+        });
+
+        // Сортируем по дате+времени начала
+        items.sort((a, b) => {
+          const da = (a.date || '') + ' ' + (a.startTime || '');
+          const db_ = (b.date || '') + ' ' + (b.startTime || '');
+          return da.localeCompare(db_);
+        });
+
+        const today = todayStr();
+        const todayItems = items.filter(x => x.date === today);
+        const futureItems = items.filter(x => x.date && x.date > today);
+
+        renderEvents(todayItems, eventsTodayList, eventsTodayEmpty, true);
+        renderEvents(futureItems, eventsFutureList, eventsFutureEmpty, false);
+      }, (err) => {
+        console.error('Ошибка подписки расписания:', err);
+      });
+    }
+
+    function todayStr() {
+      const d = new Date();
+      const dd = String(d.getDate()).padStart(2, '0');
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const yyyy = d.getFullYear();
+      return yyyy + '-' + mm + '-' + dd;
+    }
+
+    function renderEvents(items, container, emptyEl, isToday) {
+      container.innerHTML = '';
+      if (items.length === 0) {
+        emptyEl.style.display = 'block';
+        return;
+      }
+      emptyEl.style.display = 'none';
+
+      const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
+
+      items.forEach((data) => {
+        const item = document.createElement('div');
+        item.className = 'event-item';
+
+        // Время
+        const timeEl = document.createElement('div');
+        timeEl.className = 'event-time';
+        timeEl.textContent = data.startTime || '--:--';
+        if (data.endTime) {
+          const sep = document.createElement('span');
+          sep.className = 'time-sep';
+          sep.textContent = 'до ' + data.endTime;
+          timeEl.appendChild(sep);
+        }
+        item.appendChild(timeEl);
+
+        // Тело
+        const body = document.createElement('div');
+        body.className = 'event-body';
+
+        const title = document.createElement('div');
+        title.className = 'event-title';
+        title.textContent = data.title;
+        body.appendChild(title);
+
+        // Мета: дата (если не сегодня) + кто добавил
+        const metaParts = [];
+        if (!isToday && data.date) {
+          const d = new Date(data.date + 'T00:00:00');
+          const dd = String(d.getDate()).padStart(2, '0');
+          const mm = String(d.getMonth() + 1).padStart(2, '0');
+          metaParts.push('📅 ' + dd + '.' + mm);
+        }
+        if (data.createdBy && myUid && data.createdBy !== myUid && data.createdByEmail) {
+          metaParts.push('👤 ' + data.createdByEmail.split('@')[0]);
+        }
+        if (metaParts.length) {
+          const meta = document.createElement('div');
+          meta.className = 'event-meta';
+          meta.textContent = metaParts.join(' • ');
+          body.appendChild(meta);
+        }
+
+        item.appendChild(body);
+
+        // Удаление
+        const delBtn = document.createElement('button');
+        delBtn.className = 'delete-btn';
+        delBtn.textContent = '×';
+        delBtn.addEventListener('click', async () => {
+          try {
+            await remove(ref(db, 'schedule_events/' + data.id));
+          } catch (err) { console.error(err); }
+        });
+        item.appendChild(delBtn);
+
         container.appendChild(item);
       });
     }
