@@ -230,9 +230,12 @@
   </div>
 
   <div id="appScreen">
-    <div class="topbar">
+        <div class="topbar">
       <h2 id="pageTitle">🛒 Магазин</h2>
-      <button class="logout-btn" id="logoutBtn">Выйти</button>
+      <div style="display:flex;gap:4px;">
+        <button class="logout-btn" id="refreshBtn">↻</button>
+        <button class="logout-btn" id="logoutBtn">Выйти</button>
+      </div>
     </div>
 
     <div class="container">
@@ -342,16 +345,15 @@
       setPersistence,
       browserLocalPersistence
     } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-    import {
+        import {
       getDatabase,
       ref,
       push,
       set,
       update,
       remove,
-      onValue,
-      query,
-      orderByChild
+      get,
+      child
     } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
     // ⚙️ ВАШ КОНФИГ FIREBASE
@@ -412,7 +414,9 @@
     });
 
     $('logoutBtn').addEventListener('click', () => signOut(auth));
-
+    $('refreshBtn').addEventListener('click', () => {
+      if (currentUser) loadAllData();
+    });
     onAuthStateChanged(auth, (user) => {
       if (user) {
         authScreen.style.display = 'none';
@@ -465,38 +469,83 @@
     let allUsers = {}; // uid -> email
     const unsubscribers = [];
 
-    function startAllListeners() {
+        function startAllListeners() {
       currentUser = auth.currentUser;
 
-      // Слушаем список пользователей (создаётся автоматически при регистрации)
-      const usersRef = ref(db, 'users');
-      const unsubUsers = onValue(usersRef, (snap) => {
+      // Сохраняем себя в users и один раз читаем список пользователей
+      set(ref(db, 'users/' + currentUser.uid), {
+        email: currentUser.email
+      });
+
+      get(ref(db, 'users')).then((snap) => {
         allUsers = {};
-        snap.forEach((child) => {
-          allUsers[child.key] = child.val().email;
-        });
-        // Сохраняем себя
-        set(ref(db, 'users/' + currentUser.uid), {
-          email: currentUser.email
-        });
+        if (snap.exists()) {
+          snap.forEach((child) => {
+            allUsers[child.key] = child.val().email;
+          });
+        }
         updateAssigneeDropdown();
       });
-      unsubscribers.push(unsubUsers);
 
-      startShopListener();
-      startChoresListener();
+      // Первичная загрузка данных
+      loadAllData();
     }
 
     function stopAllListeners() {
-      unsubscribers.forEach(unsub => { try { unsub(); } catch(e){} });
-      unsubscribers.length = 0;
       shopList.innerHTML = '';
       choreForMeList.innerHTML = '';
       choreByMeList.innerHTML = '';
       currentUser = null;
     }
 
-    // ============ МАГАЗИН ============
+    // ===== ЗАГРУЗКА ДАННЫХ =====
+    async function loadAllData() {
+      await Promise.all([loadShop(), loadChores()]);
+    }
+
+    async function loadShop() {
+      try {
+        const snap = await get(ref(db, 'shopping_items'));
+        const items = [];
+        if (snap.exists()) {
+          snap.forEach((c) => items.push({ id: c.key, ...c.val() }));
+        }
+        items.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+        renderShop(items);
+      } catch (err) {
+        console.error('Ошибка загрузки магазина:', err);
+      }
+    }
+
+    async function loadChores() {
+      try {
+        const snap = await get(ref(db, 'chores'));
+        const items = [];
+        if (snap.exists()) {
+          snap.forEach((c) => items.push({ id: c.key, ...c.val() }));
+        }
+        items.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+
+        const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
+        const forMe = items.filter(x => x.assignedTo === myUid);
+        const byMe = items.filter(x => x.createdBy === myUid);
+
+        renderChores(forMe, choreForMeList, choreForMeEmpty, 'forMe');
+        renderChores(byMe, choreByMeList, choreByMeEmpty, 'byMe');
+      } catch (err) {
+        console.error('Ошибка загрузки дел:', err);
+      }
+    }
+
+    // Кнопка обновления
+    document.addEventListener('DOMContentLoaded', () => {
+      // кнопка уже в DOM
+    });
+    window.refreshAllData = function() {
+      loadAllData();
+    };
+
+    // ===== МАГАЗИН =====
     const shopInput = $('shopInput');
     const shopAddBtn = $('shopAddBtn');
     const shopList = $('shopList');
@@ -518,56 +567,52 @@
           addedByEmail: currentUser.email,
           createdAt: Date.now()
         });
+        loadShop();
       } catch (err) { alert('Ошибка: ' + err.message); }
     }
 
-            function startShopListener() {
-      const itemsRef = ref(db, 'shopping_items');
-      const unsub = onValue(itemsRef, (snapshot) => {
-        const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
-        console.log('Загружено элементов:', snapshot.numChildren());
-        shopList.innerHTML = '';
-        const items = [];
-        snapshot.forEach((child) => items.push({ id: child.key, ...child.val() }));
-        items.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
-        if (items.length === 0) { shopEmpty.style.display = 'block'; return; }
-        shopEmpty.style.display = 'none';
-        items.forEach((data) => {
-          const item = document.createElement('div');
-          item.className = 'item' + (data.done ? ' done' : '');
-          const checkbox = document.createElement('div');
-          checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
-          checkbox.addEventListener('click', async () => {
-            await update(ref(db, 'shopping_items/' + data.id), { done: !data.done });
-          });
-          const titleWrap = document.createElement('div');
-          titleWrap.style.flex = '1';
-          const title = document.createElement('div');
-          title.className = 'item-title';
-          title.textContent = data.title;
-          titleWrap.appendChild(title);
-          if (data.addedBy && myUid && data.addedBy !== myUid && data.addedByEmail) {
-            const meta = document.createElement('div');
-            meta.className = 'item-meta';
-            meta.textContent = '👤 ' + data.addedByEmail.split('@')[0];
-            titleWrap.appendChild(meta);
-          }
-          const delBtn = document.createElement('button');
-          delBtn.className = 'delete-btn';
-          delBtn.textContent = '×';
-          delBtn.addEventListener('click', async () => {
-            await remove(ref(db, 'shopping_items/' + data.id));
-          });
-          item.appendChild(checkbox);
-          item.appendChild(titleWrap);
-          item.appendChild(delBtn);
-          shopList.appendChild(item);
+    function renderShop(items) {
+      shopList.innerHTML = '';
+      if (items.length === 0) { shopEmpty.style.display = 'block'; return; }
+      shopEmpty.style.display = 'none';
+
+      const myUid = currentUser ? currentUser.uid : '';
+      items.forEach((data) => {
+        const item = document.createElement('div');
+        item.className = 'item' + (data.done ? ' done' : '');
+        const checkbox = document.createElement('div');
+        checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
+        checkbox.addEventListener('click', async () => {
+          await update(ref(db, 'shopping_items/' + data.id), { done: !data.done });
+          loadShop();
         });
+        const titleWrap = document.createElement('div');
+        titleWrap.style.flex = '1';
+        const title = document.createElement('div');
+        title.className = 'item-title';
+        title.textContent = data.title;
+        titleWrap.appendChild(title);
+        if (data.addedBy && myUid && data.addedBy !== myUid && data.addedByEmail) {
+          const meta = document.createElement('div');
+          meta.className = 'item-meta';
+          meta.textContent = '👤 ' + data.addedByEmail.split('@')[0];
+          titleWrap.appendChild(meta);
+        }
+        const delBtn = document.createElement('button');
+        delBtn.className = 'delete-btn';
+        delBtn.textContent = '×';
+        delBtn.addEventListener('click', async () => {
+          await remove(ref(db, 'shopping_items/' + data.id));
+          loadShop();
+        });
+        item.appendChild(checkbox);
+        item.appendChild(titleWrap);
+        item.appendChild(delBtn);
+        shopList.appendChild(item);
       });
-      unsubscribers.push(unsub);
     }
 
-    // ============ ДЕЛА ============
+    // ===== ДЕЛА =====
     const choreInput = $('choreInput');
     const choreAssignee = $('choreAssignee');
     const choreDue = $('choreDue');
@@ -581,7 +626,7 @@
       const currentValue = choreAssignee.value;
       choreAssignee.innerHTML = '<option value="">— Кому —</option>';
       Object.keys(allUsers).forEach((uid) => {
-        if (uid === currentUser.uid) return; // не себе
+        if (uid === currentUser.uid) return;
         const opt = document.createElement('option');
         opt.value = uid;
         opt.textContent = allUsers[uid].split('@')[0];
@@ -590,13 +635,10 @@
       if (currentValue) choreAssignee.value = currentValue;
     }
 
-        choreAddBtn.addEventListener('click', async () => {
+    choreAddBtn.addEventListener('click', async () => {
       const title = choreInput.value.trim();
       const assignee = choreAssignee.value;
       const due = choreDue.value;
-
-      alert('Проверка:\nТекст: ' + title + '\nКому: ' + assignee + '\nДата: ' + due);
-
       if (!title) { alert('Введите задачу'); return; }
       if (!assignee) { alert('Выберите, кому назначить'); return; }
       try {
@@ -613,31 +655,14 @@
         };
         if (due) data.dueDate = due;
         await set(newRef, data);
-        alert('✅ Успех! Задача добавлена.');
         choreInput.value = '';
         choreDue.value = '';
         choreAssignee.value = '';
+        loadChores();
       } catch (err) {
-        alert('❌ Ошибка: ' + err.code + '\n' + err.message);
+        alert('Ошибка: ' + err.code + '\n' + err.message);
       }
     });
-
-            function startChoresListener() {
-      const choresRef = ref(db, 'chores');
-      const unsub = onValue(choresRef, (snapshot) => {
-        const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
-        const items = [];
-        snapshot.forEach((child) => items.push({ id: child.key, ...child.val() }));
-        items.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
-
-        const forMe = items.filter(x => x.assignedTo === myUid);
-        const byMe = items.filter(x => x.createdBy === myUid);
-
-        renderChores(forMe, choreForMeList, choreForMeEmpty, 'forMe');
-        renderChores(byMe, choreByMeList, choreByMeEmpty, 'byMe');
-      });
-      unsubscribers.push(unsub);
-    }
 
     function renderChores(items, container, emptyEl, mode) {
       container.innerHTML = '';
@@ -650,22 +675,18 @@
       items.forEach((data) => {
         const item = document.createElement('div');
         item.className = 'chore-item' + (data.done ? ' done' : '');
-
         const checkbox = document.createElement('div');
         checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
         checkbox.addEventListener('click', async () => {
           await update(ref(db, 'chores/' + data.id), { done: !data.done });
+          loadChores();
         });
-
         const body = document.createElement('div');
         body.className = 'chore-item-body';
-
         const title = document.createElement('div');
         title.className = 'item-title';
         title.textContent = data.title;
         body.appendChild(title);
-
-        // Срок
         if (data.dueDate) {
           const due = document.createElement('div');
           const today = new Date(); today.setHours(0,0,0,0);
@@ -677,8 +698,6 @@
           due.textContent = '📅 до ' + dd + '.' + mm;
           body.appendChild(due);
         }
-
-        // Кто кому (для режима «я попросил» — показываем кому)
         if (mode === 'byMe' && data.assignedToEmail) {
           const meta = document.createElement('div');
           meta.className = 'item-meta';
@@ -691,14 +710,13 @@
           meta.textContent = 'от ' + data.createdByEmail.split('@')[0];
           body.appendChild(meta);
         }
-
         const delBtn = document.createElement('button');
         delBtn.className = 'delete-btn';
         delBtn.textContent = '×';
         delBtn.addEventListener('click', async () => {
           await remove(ref(db, 'chores/' + data.id));
+          loadChores();
         });
-
         item.appendChild(checkbox);
         item.appendChild(body);
         item.appendChild(delBtn);
