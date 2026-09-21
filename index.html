@@ -17,6 +17,7 @@
       overscroll-behavior: none;
     }
 
+    /* ============ ЭКРАН АВТОРИЗАЦИИ ============ */
     #authScreen {
       min-height: 100vh;
       display: flex;
@@ -34,7 +35,10 @@
     }
     .card h1 { font-size: 26px; font-weight: 700; text-align: center; margin-bottom: 8px; }
     .subtitle { font-size: 15px; color: #8a7f76; text-align: center; margin-bottom: 28px; }
-    .tabs { display: flex; background: #f5efe9; border-radius: 14px; padding: 4px; margin-bottom: 24px; }
+    .tabs {
+      display: flex; background: #f5efe9; border-radius: 14px;
+      padding: 4px; margin-bottom: 24px;
+    }
     .tab {
       flex: 1; padding: 12px; text-align: center; border-radius: 10px;
       font-size: 15px; font-weight: 600; color: #8a7f76;
@@ -42,7 +46,7 @@
       transition: all 0.2s;
     }
     .tab.active { background: #ffffff; color: #2d2a26; box-shadow: 0 2px 8px rgba(180,140,110,0.12); }
-    input[type="email"], input[type="password"], input[type="text"], input[type="date"] {
+    input[type="email"], input[type="password"], input[type="text"] {
       width: 100%; padding: 16px; font-size: 16px; font-family: inherit;
       border: 2px solid #ede4db; border-radius: 14px; margin-bottom: 12px;
       background: #fdfaf7; color: #2d2a26; outline: none; transition: border-color 0.2s;
@@ -58,6 +62,7 @@
     button.primary:disabled { opacity: 0.6; }
     .error { color: #c0554e; font-size: 14px; text-align: center; margin-top: 16px; min-height: 20px; }
 
+    /* ============ ОСНОВНОЙ ЭКРАН ============ */
     #appScreen { display: none; min-height: 100vh; padding-bottom: 90px; }
     #appScreen.active { display: block; }
 
@@ -79,9 +84,12 @@
 
     .container { padding: 20px; max-width: 500px; margin: 0 auto; }
 
-    /* ============ МАГАЗИН ============ */
+    /* ============ МОДУЛЬ МАГАЗИН ============ */
     .add-row { display: flex; gap: 10px; margin-bottom: 20px; }
-    .add-row input { flex: 1; margin-bottom: 0; background: #ffffff; border: 2px solid #ede4db; }
+    .add-row input {
+      flex: 1; margin-bottom: 0;
+      background: #ffffff; border: 2px solid #ede4db;
+    }
     .add-btn {
       width: 56px; height: 56px; flex-shrink: 0;
       background: #c9a88a; color: #ffffff; border: none; border-radius: 14px;
@@ -92,6 +100,7 @@
     .add-btn:active { transform: scale(0.95); background: #b89878; }
 
     .items-list { display: flex; flex-direction: column; gap: 8px; }
+
     .item {
       background: #ffffff; border-radius: 14px; padding: 16px;
       display: flex; align-items: center; gap: 14px;
@@ -108,7 +117,9 @@
       cursor: pointer; transition: all 0.15s;
     }
     .checkbox.checked { background: #c9a88a; border-color: #c9a88a; }
-    .checkbox.checked::after { content: "✓"; color: #ffffff; font-size: 16px; font-weight: 700; }
+    .checkbox.checked::after {
+      content: "✓"; color: #ffffff; font-size: 16px; font-weight: 700;
+    }
     .item-title { flex: 1; font-size: 16px; word-break: break-word; }
     .item-meta { font-size: 12px; color: #a89b90; margin-top: 2px; }
     .delete-btn {
@@ -117,79 +128,21 @@
     }
     .delete-btn:active { color: #c0554e; }
 
-    .empty { text-align: center; padding: 40px 20px; color: #a89b90; font-size: 15px; }
+    .empty {
+      text-align: center; padding: 40px 20px;
+      color: #a89b90; font-size: 15px;
+    }
     .empty-emoji { font-size: 48px; margin-bottom: 12px; }
 
-    /* ============ ДЕЛА ============ */
-    .chore-add-card {
-      background: #ffffff;
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(180, 140, 110, 0.06);
-    }
-    .chore-add-card h3 {
-      font-size: 15px; color: #8a7f76; margin-bottom: 12px; font-weight: 600;
-    }
-    .chore-row {
-      display: flex; gap: 8px; margin-bottom: 10px;
-    }
-    .chore-row input[type="text"] {
-      flex: 1; margin-bottom: 0;
-    }
-    .chore-select {
-      flex: 1; padding: 14px; font-size: 15px; font-family: inherit;
-      border: 2px solid #ede4db; border-radius: 14px;
-      background: #fdfaf7; color: #2d2a26; outline: none;
-      -webkit-appearance: none; appearance: none;
-      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238a7f76' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-      background-repeat: no-repeat;
-      background-position: right 14px center;
-      padding-right: 36px;
-    }
-    .chore-add-btn {
-      width: 100%; padding: 14px; font-size: 16px; font-weight: 600;
-      font-family: inherit; color: #ffffff; background: #c9a88a;
-      border: none; border-radius: 14px; cursor: pointer;
-      transition: all 0.2s;
-    }
-    .chore-add-btn:active { transform: scale(0.98); background: #b89878; }
-
-    .chore-section-title {
-      font-size: 13px; font-weight: 700; color: #a89b90;
-      text-transform: uppercase; letter-spacing: 0.5px;
-      margin: 20px 0 10px;
-    }
-    .chore-section-title:first-child { margin-top: 0; }
-
-    .chore-item {
-      background: #ffffff; border-radius: 14px; padding: 16px;
-      display: flex; align-items: flex-start; gap: 14px;
-      box-shadow: 0 2px 8px rgba(180, 140, 110, 0.06);
-      margin-bottom: 8px;
-      transition: all 0.2s;
-    }
-    .chore-item.done { opacity: 0.5; }
-    .chore-item.done .item-title { text-decoration: line-through; }
-    .chore-item-body { flex: 1; }
-    .chore-due {
-      display: inline-block;
-      font-size: 12px; font-weight: 600;
-      color: #c9a88a;
-      background: #f5efe9;
-      padding: 3px 8px;
-      border-radius: 6px;
-      margin-top: 6px;
-    }
-    .chore-due.overdue { color: #c0554e; background: #fbeae8; }
-
     /* ============ ЗАГЛУШКИ ============ */
-    .placeholder { text-align: center; padding: 80px 20px; color: #a89b90; }
+    .placeholder {
+      text-align: center; padding: 80px 20px; color: #a89b90;
+    }
     .placeholder-emoji { font-size: 64px; margin-bottom: 16px; }
     .placeholder h3 { font-size: 20px; color: #2d2a26; margin-bottom: 8px; }
     .placeholder p { font-size: 15px; }
 
-    /* ============ НАВИГАЦИЯ ============ */
+    /* ============ НИЖНЯЯ НАВИГАЦИЯ ============ */
     .bottom-nav {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 20;
       background: rgba(255, 255, 255, 0.96);
@@ -212,35 +165,37 @@
 </head>
 <body>
 
+  <!-- ЭКРАН АВТОРИЗАЦИИ -->
   <div id="authScreen">
     <div class="card">
       <div id="authForm">
         <h1>Наше приложение</h1>
         <p class="subtitle">Только для нас двоих</p>
+
         <div class="tabs">
           <button class="tab active" id="loginTab">Вход</button>
           <button class="tab" id="registerTab">Регистрация</button>
         </div>
+
         <input type="email" id="email" placeholder="Email" autocomplete="email">
         <input type="password" id="password" placeholder="Пароль" autocomplete="current-password">
+
         <button class="primary" id="submitBtn">Войти</button>
         <div class="error" id="errorMsg"></div>
       </div>
     </div>
   </div>
 
+  <!-- ОСНОВНОЙ ЭКРАН -->
   <div id="appScreen">
-        <div class="topbar">
+    <div class="topbar">
       <h2 id="pageTitle">🛒 Магазин</h2>
-      <div style="display:flex;gap:4px;">
-        <button class="logout-btn" id="refreshBtn">↻</button>
-        <button class="logout-btn" id="logoutBtn">Выйти</button>
-      </div>
+      <button class="logout-btn" id="logoutBtn">Выйти</button>
     </div>
 
     <div class="container">
 
-      <!-- МАГАЗИН -->
+      <!-- МОДУЛЬ: МАГАЗИН -->
       <div id="page-shop" class="page">
         <div class="add-row">
           <input type="text" id="shopInput" placeholder="Что купить?" autocomplete="off">
@@ -253,40 +208,16 @@
         </div>
       </div>
 
-      <!-- ДЕЛА -->
+      <!-- МОДУЛЬ: ДЕЛА -->
       <div id="page-chores" class="page" style="display:none;">
-        <div class="chore-add-card">
-          <h3>Новая задача для другого</h3>
-          <input type="text" id="choreInput" placeholder="Что нужно сделать?" autocomplete="off">
-          <div class="chore-row">
-            <select class="chore-select" id="choreAssignee">
-              <option value="">— Кому —</option>
-            </select>
-            <input type="date" id="choreDue" style="margin-bottom:0;">
-          </div>
-          <button class="chore-add-btn" id="choreAddBtn">Добавить задачу</button>
-        </div>
-
-        <div id="choreMyTasks">
-          <div class="chore-section-title">Я должен сделать</div>
-          <div class="items-list" id="choreForMeList"></div>
-          <div class="empty" id="choreForMeEmpty" style="display:none;">
-            <div class="empty-emoji">🌸</div>
-            <div>Пока никто ничего не поручал</div>
-          </div>
-        </div>
-
-        <div id="choreAssigned">
-          <div class="chore-section-title">Я попросил(а) сделать</div>
-          <div class="items-list" id="choreByMeList"></div>
-          <div class="empty" id="choreByMeEmpty" style="display:none;">
-            <div class="empty-emoji">💌</div>
-            <div>Вы ещё никому не давали задач</div>
-          </div>
+        <div class="placeholder">
+          <div class="placeholder-emoji">✅</div>
+          <h3>Домашние дела</h3>
+          <p>Скоро здесь появятся дела друг для друга</p>
         </div>
       </div>
 
-      <!-- РАСПИСАНИЕ -->
+      <!-- МОДУЛЬ: РАСПИСАНИЕ -->
       <div id="page-schedule" class="page" style="display:none;">
         <div class="placeholder">
           <div class="placeholder-emoji">📅</div>
@@ -295,7 +226,7 @@
         </div>
       </div>
 
-      <!-- ПОДАРКИ -->
+      <!-- МОДУЛЬ: ПОДАРКИ -->
       <div id="page-gifts" class="page" style="display:none;">
         <div class="placeholder">
           <div class="placeholder-emoji">🎁</div>
@@ -304,7 +235,7 @@
         </div>
       </div>
 
-      <!-- ХОТЕЛКИ -->
+      <!-- МОДУЛЬ: ХОТЕЛКИ -->
       <div id="page-wishes" class="page" style="display:none;">
         <div class="placeholder">
           <div class="placeholder-emoji">🏠</div>
@@ -315,6 +246,7 @@
 
     </div>
 
+    <!-- НИЖНЯЯ НАВИГАЦИЯ -->
     <div class="bottom-nav">
       <button class="nav-btn active" data-page="shop">
         <span class="nav-icon">🛒</span><span class="nav-label">Магазин</span>
@@ -334,6 +266,7 @@
     </div>
   </div>
 
+  <!-- FIREBASE -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import {
@@ -341,41 +274,42 @@
       signInWithEmailAndPassword,
       createUserWithEmailAndPassword,
       onAuthStateChanged,
-      signOut,
-      setPersistence,
-      browserLocalPersistence
-    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-        import {
-      getDatabase,
-      ref,
-      push,
-      set,
-      update,
-      remove,
-      get,
-      child
-    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+      signOut
+      setPersistence, 
+      browserLocalPersistence 
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      deleteDoc,
+      doc,
+      updateDoc,
+      onSnapshot,
+      query,
+      orderBy,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
     // ⚙️ ВАШ КОНФИГ FIREBASE
     const firebaseConfig = {
       apiKey: "AIzaSyATgY3bBLhvYCxfnU-7jYU7a7Nw3D4Ds6Y",
       authDomain: "my-family-app-32b71.firebaseapp.com",
-      databaseURL: "https://my-family-app-32b71-default-rtdb.firebaseio.com/",
       projectId: "my-family-app-32b71",
       storageBucket: "my-family-app-32b71.firebasestorage.app",
       messagingSenderId: "1039069353770",
-      appId: "1:1039069353770:web:7a2397066297cf248e3053"
+      appId: "1:1039069353770:web:7a2397066297cf248e3053",
+      measurementId: "G-ZTTRF12YX5"
     };
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-    setPersistence(auth, browserLocalPersistence).catch(console.error);
-    const db = getDatabase(app);
-
-    const $ = (id) => document.getElementById(id);
+    const db = getFirestore(app);
 
     // ============ АВТОРИЗАЦИЯ ============
     let isLoginMode = true;
+
+    const $ = (id) => document.getElementById(id);
     const loginTab = $('loginTab');
     const registerTab = $('registerTab');
     const submitBtn = $('submitBtn');
@@ -384,6 +318,7 @@
     const errorMsg = $('errorMsg');
     const authScreen = $('authScreen');
     const appScreen = $('appScreen');
+    const logoutBtn = $('logoutBtn');
 
     loginTab.addEventListener('click', () => setMode(true));
     registerTab.addEventListener('click', () => setMode(false));
@@ -401,11 +336,15 @@
       const password = passwordInput.value;
       if (!email || !password) { errorMsg.textContent = 'Заполните email и пароль'; return; }
       if (password.length < 6) { errorMsg.textContent = 'Пароль минимум 6 символов'; return; }
+
       submitBtn.disabled = true;
       errorMsg.textContent = '';
       try {
-        if (isLoginMode) await signInWithEmailAndPassword(auth, email, password);
-        else await createUserWithEmailAndPassword(auth, email, password);
+        if (isLoginMode) {
+          await signInWithEmailAndPassword(auth, email, password);
+        } else {
+          await createUserWithEmailAndPassword(auth, email, password);
+        }
       } catch (err) {
         errorMsg.textContent = translateError(err.code);
       } finally {
@@ -413,19 +352,17 @@
       }
     });
 
-    $('logoutBtn').addEventListener('click', () => signOut(auth));
-    $('refreshBtn').addEventListener('click', () => {
-      if (currentUser) loadAllData();
-    });
+    logoutBtn.addEventListener('click', () => signOut(auth));
+
     onAuthStateChanged(auth, (user) => {
       if (user) {
         authScreen.style.display = 'none';
         appScreen.classList.add('active');
-        startAllListeners();
+        startShopListener(user.uid);
       } else {
         authScreen.style.display = 'flex';
         appScreen.classList.remove('active');
-        stopAllListeners();
+        stopShopListener();
         emailInput.value = '';
         passwordInput.value = '';
       }
@@ -438,14 +375,14 @@
         'auth/wrong-password': 'Неверный пароль',
         'auth/invalid-credential': 'Неверный email или пароль',
         'auth/email-already-in-use': 'Этот email уже зарегистрирован',
-        'auth/weak-password': 'Слишком простой пароль',
-        'auth/network-request-failed': 'Нет соединения',
-        'auth/too-many-requests': 'Слишком много попыток'
+        'auth/weak-password': 'Слишком простой пароль (минимум 6 символов)',
+        'auth/network-request-failed': 'Нет соединения с интернетом',
+        'auth/too-many-requests': 'Слишком много попыток, попробуйте позже'
       };
       return map[code] || 'Ошибка: ' + code;
     }
 
-    // ============ НАВИГАЦИЯ ============
+    // ============ НАВИГАЦИЯ ПО МОДУЛЯМ ============
     const pageTitles = {
       shop: '🛒 Магазин',
       chores: '✅ Домашние дела',
@@ -453,6 +390,7 @@
       gifts: '🎁 Подарки',
       wishes: '🏠 Хотелки'
     };
+
     document.querySelectorAll('.nav-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const page = btn.dataset.page;
@@ -464,268 +402,110 @@
       });
     });
 
-    // ============ ГЛОБАЛЬНОЕ ============
+    // ============ МОДУЛЬ: МАГАЗИН ============
+    let shopUnsubscribe = null;
     let currentUser = null;
-    let allUsers = {}; // uid -> email
-    const unsubscribers = [];
 
-        function startAllListeners() {
-      currentUser = auth.currentUser;
-
-      // Сохраняем себя в users и один раз читаем список пользователей
-      set(ref(db, 'users/' + currentUser.uid), {
-        email: currentUser.email
-      });
-
-      get(ref(db, 'users')).then((snap) => {
-        allUsers = {};
-        if (snap.exists()) {
-          snap.forEach((child) => {
-            allUsers[child.key] = child.val().email;
-          });
-        }
-        updateAssigneeDropdown();
-      });
-
-      // Первичная загрузка данных
-      loadAllData();
-    }
-
-    function stopAllListeners() {
-      shopList.innerHTML = '';
-      choreForMeList.innerHTML = '';
-      choreByMeList.innerHTML = '';
-      currentUser = null;
-    }
-
-    // ===== ЗАГРУЗКА ДАННЫХ =====
-    async function loadAllData() {
-      await Promise.all([loadShop(), loadChores()]);
-    }
-
-        async function loadShop() {
-      try {
-        const snap = await get(ref(db, 'shopping_items'));
-        const items = [];
-        if (snap.exists()) {
-          snap.forEach((c) => items.push({ id: c.key, ...c.val() }));
-        }
-        items.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
-
-        // ОТЛАДКА: показываем в заголовке
-        document.getElementById('pageTitle').textContent = '🛒 Магазин (' + items.length + ')';
-
-        renderShop(items);
-      } catch (err) {
-        document.getElementById('pageTitle').textContent = '🛒 ОШИБКА: ' + err.message;
-        console.error('Ошибка загрузки магазина:', err);
-      }
-    }
-    async function loadChores() {
-      try {
-        const snap = await get(ref(db, 'chores'));
-        const items = [];
-        if (snap.exists()) {
-          snap.forEach((c) => items.push({ id: c.key, ...c.val() }));
-        }
-        items.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
-
-        const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
-        const forMe = items.filter(x => x.assignedTo === myUid);
-        const byMe = items.filter(x => x.createdBy === myUid);
-
-        renderChores(forMe, choreForMeList, choreForMeEmpty, 'forMe');
-        renderChores(byMe, choreByMeList, choreByMeEmpty, 'byMe');
-      } catch (err) {
-        console.error('Ошибка загрузки дел:', err);
-      }
-    }
-
-    // Кнопка обновления
-    document.addEventListener('DOMContentLoaded', () => {
-      // кнопка уже в DOM
-    });
-    window.refreshAllData = function() {
-      loadAllData();
-    };
-
-    // ===== МАГАЗИН =====
     const shopInput = $('shopInput');
     const shopAddBtn = $('shopAddBtn');
     const shopList = $('shopList');
     const shopEmpty = $('shopEmpty');
 
     shopAddBtn.addEventListener('click', addShopItem);
-    shopInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') addShopItem(); });
+    shopInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') addShopItem();
+    });
 
     async function addShopItem() {
       const title = shopInput.value.trim();
       if (!title || !currentUser) return;
       shopInput.value = '';
       try {
-        const itemsRef = ref(db, 'shopping_items');
-        const newRef = push(itemsRef);
-        await set(newRef, {
-          title: title, done: false,
+        await addDoc(collection(db, 'shopping_items'), {
+          title: title,
+          done: false,
           addedBy: currentUser.uid,
           addedByEmail: currentUser.email,
-          createdAt: Date.now()
+          createdAt: serverTimestamp()
         });
-        loadShop();
-      } catch (err) { alert('Ошибка: ' + err.message); }
-    }
-
-    function renderShop(items) {
-      shopList.innerHTML = '';
-      if (items.length === 0) { shopEmpty.style.display = 'block'; return; }
-      shopEmpty.style.display = 'none';
-
-      const myUid = currentUser ? currentUser.uid : '';
-      items.forEach((data) => {
-        const item = document.createElement('div');
-        item.className = 'item' + (data.done ? ' done' : '');
-        const checkbox = document.createElement('div');
-        checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
-        checkbox.addEventListener('click', async () => {
-          await update(ref(db, 'shopping_items/' + data.id), { done: !data.done });
-          loadShop();
-        });
-        const titleWrap = document.createElement('div');
-        titleWrap.style.flex = '1';
-        const title = document.createElement('div');
-        title.className = 'item-title';
-        title.textContent = data.title;
-        titleWrap.appendChild(title);
-        if (data.addedBy && myUid && data.addedBy !== myUid && data.addedByEmail) {
-          const meta = document.createElement('div');
-          meta.className = 'item-meta';
-          meta.textContent = '👤 ' + data.addedByEmail.split('@')[0];
-          titleWrap.appendChild(meta);
-        }
-        const delBtn = document.createElement('button');
-        delBtn.className = 'delete-btn';
-        delBtn.textContent = '×';
-        delBtn.addEventListener('click', async () => {
-          await remove(ref(db, 'shopping_items/' + data.id));
-          loadShop();
-        });
-        item.appendChild(checkbox);
-        item.appendChild(titleWrap);
-        item.appendChild(delBtn);
-        shopList.appendChild(item);
-      });
-    }
-
-    // ===== ДЕЛА =====
-    const choreInput = $('choreInput');
-    const choreAssignee = $('choreAssignee');
-    const choreDue = $('choreDue');
-    const choreAddBtn = $('choreAddBtn');
-    const choreForMeList = $('choreForMeList');
-    const choreForMeEmpty = $('choreForMeEmpty');
-    const choreByMeList = $('choreByMeList');
-    const choreByMeEmpty = $('choreByMeEmpty');
-
-    function updateAssigneeDropdown() {
-      const currentValue = choreAssignee.value;
-      choreAssignee.innerHTML = '<option value="">— Кому —</option>';
-      Object.keys(allUsers).forEach((uid) => {
-        if (uid === currentUser.uid) return;
-        const opt = document.createElement('option');
-        opt.value = uid;
-        opt.textContent = allUsers[uid].split('@')[0];
-        choreAssignee.appendChild(opt);
-      });
-      if (currentValue) choreAssignee.value = currentValue;
-    }
-
-    choreAddBtn.addEventListener('click', async () => {
-      const title = choreInput.value.trim();
-      const assignee = choreAssignee.value;
-      const due = choreDue.value;
-      if (!title) { alert('Введите задачу'); return; }
-      if (!assignee) { alert('Выберите, кому назначить'); return; }
-      try {
-        const choresRef = ref(db, 'chores');
-        const newRef = push(choresRef);
-        const data = {
-          title: title,
-          assignedTo: assignee,
-          assignedToEmail: allUsers[assignee] || '',
-          createdBy: currentUser.uid,
-          createdByEmail: currentUser.email,
-          done: false,
-          createdAt: Date.now()
-        };
-        if (due) data.dueDate = due;
-        await set(newRef, data);
-        choreInput.value = '';
-        choreDue.value = '';
-        choreAssignee.value = '';
-        loadChores();
       } catch (err) {
-        alert('Ошибка: ' + err.code + '\n' + err.message);
+        console.error('Ошибка добавления:', err);
+        alert('Не удалось добавить: ' + err.message);
       }
-    });
+    }
 
-    function renderChores(items, container, emptyEl, mode) {
-      container.innerHTML = '';
-      if (items.length === 0) {
-        emptyEl.style.display = 'block';
-        return;
-      }
-      emptyEl.style.display = 'none';
+    function startShopListener(uid) {
+      currentUser = auth.currentUser;
+      if (shopUnsubscribe) return;
 
-      items.forEach((data) => {
-        const item = document.createElement('div');
-        item.className = 'chore-item' + (data.done ? ' done' : '');
-        const checkbox = document.createElement('div');
-        checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
-        checkbox.addEventListener('click', async () => {
-          await update(ref(db, 'chores/' + data.id), { done: !data.done });
-          loadChores();
+      const q = query(collection(db, 'shopping_items'), orderBy('createdAt', 'desc'));
+      shopUnsubscribe = onSnapshot(q, (snapshot) => {
+        shopList.innerHTML = '';
+        if (snapshot.empty) {
+          shopEmpty.style.display = 'block';
+          return;
+        }
+        shopEmpty.style.display = 'none';
+
+        snapshot.forEach((docSnap) => {
+          const data = docSnap.data();
+          const item = document.createElement('div');
+          item.className = 'item' + (data.done ? ' done' : '');
+
+          // Чекбокс
+          const checkbox = document.createElement('div');
+          checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
+          checkbox.addEventListener('click', async () => {
+            try {
+              await updateDoc(doc(db, 'shopping_items', docSnap.id), {
+                done: !data.done
+              });
+            } catch (err) { console.error(err); }
+          });
+
+          // Текст
+          const titleWrap = document.createElement('div');
+          titleWrap.style.flex = '1';
+          const title = document.createElement('div');
+          title.className = 'item-title';
+          title.textContent = data.title;
+          titleWrap.appendChild(title);
+
+          // Кто добавил (если не я)
+          if (data.addedBy && data.addedBy !== uid) {
+            const meta = document.createElement('div');
+            meta.className = 'item-meta';
+            meta.textContent = '👤 ' + (data.addedByEmail || 'партнёр').split('@')[0];
+            titleWrap.appendChild(meta);
+          }
+
+          // Удалить
+          const delBtn = document.createElement('button');
+          delBtn.className = 'delete-btn';
+          delBtn.textContent = '×';
+          delBtn.addEventListener('click', async () => {
+            try {
+              await deleteDoc(doc(db, 'shopping_items', docSnap.id));
+            } catch (err) { console.error(err); }
+          });
+
+          item.appendChild(checkbox);
+          item.appendChild(titleWrap);
+          item.appendChild(delBtn);
+          shopList.appendChild(item);
         });
-        const body = document.createElement('div');
-        body.className = 'chore-item-body';
-        const title = document.createElement('div');
-        title.className = 'item-title';
-        title.textContent = data.title;
-        body.appendChild(title);
-        if (data.dueDate) {
-          const due = document.createElement('div');
-          const today = new Date(); today.setHours(0,0,0,0);
-          const dueDate = new Date(data.dueDate + 'T00:00:00');
-          const isOverdue = !data.done && dueDate < today;
-          due.className = 'chore-due' + (isOverdue ? ' overdue' : '');
-          const dd = String(dueDate.getDate()).padStart(2,'0');
-          const mm = String(dueDate.getMonth()+1).padStart(2,'0');
-          due.textContent = '📅 до ' + dd + '.' + mm;
-          body.appendChild(due);
-        }
-        if (mode === 'byMe' && data.assignedToEmail) {
-          const meta = document.createElement('div');
-          meta.className = 'item-meta';
-          meta.textContent = '👤 ' + data.assignedToEmail.split('@')[0];
-          body.appendChild(meta);
-        }
-        if (mode === 'forMe' && data.createdByEmail) {
-          const meta = document.createElement('div');
-          meta.className = 'item-meta';
-          meta.textContent = 'от ' + data.createdByEmail.split('@')[0];
-          body.appendChild(meta);
-        }
-        const delBtn = document.createElement('button');
-        delBtn.className = 'delete-btn';
-        delBtn.textContent = '×';
-        delBtn.addEventListener('click', async () => {
-          await remove(ref(db, 'chores/' + data.id));
-          loadChores();
-        });
-        item.appendChild(checkbox);
-        item.appendChild(body);
-        item.appendChild(delBtn);
-        container.appendChild(item);
+      }, (err) => {
+        console.error('Ошибка подписки:', err);
       });
+    }
+
+    function stopShopListener() {
+      if (shopUnsubscribe) {
+        shopUnsubscribe();
+        shopUnsubscribe = null;
+      }
+      currentUser = null;
+      shopList.innerHTML = '';
     }
   </script>
 </body>
