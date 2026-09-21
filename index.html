@@ -5,138 +5,226 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="theme-color" content="#fef6f0">
+  <meta name="theme-color" content="#faf6f2">
   <title>Семейное приложение</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
     html, body { height: 100%; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
-      background: linear-gradient(160deg, #fef6f0 0%, #f5e6dc 100%);
+      background: #faf6f2;
       color: #2d2a26;
       overscroll-behavior: none;
+      -webkit-font-smoothing: antialiased;
     }
 
+    /* ============ АНИМАЦИИ ============ */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-8px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes toastIn {
+      from { opacity: 0; transform: translate(-50%, -20px); }
+      to { opacity: 1; transform: translate(-50%, 0); }
+    }
+
+    /* ============ ЭКРАН АВТОРИЗАЦИИ ============ */
     #authScreen {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 24px;
+      background: linear-gradient(160deg, #faf6f2 0%, #f0e5db 100%);
     }
     .card {
       background: #ffffff;
-      border-radius: 24px;
-      padding: 32px 24px;
+      border-radius: 28px;
+      padding: 36px 28px;
       width: 100%;
       max-width: 420px;
-      box-shadow: 0 12px 40px rgba(180, 140, 110, 0.15);
+      box-shadow: 0 20px 60px rgba(120, 90, 70, 0.12), 0 4px 16px rgba(120, 90, 70, 0.06);
     }
-    .card h1 { font-size: 26px; font-weight: 700; text-align: center; margin-bottom: 8px; }
-    .subtitle { font-size: 15px; color: #8a7f76; text-align: center; margin-bottom: 28px; }
-    .tabs { display: flex; background: #f5efe9; border-radius: 14px; padding: 4px; margin-bottom: 24px; }
+    .card h1 { font-size: 28px; font-weight: 800; text-align: center; margin-bottom: 8px; letter-spacing: -0.5px; }
+    .subtitle { font-size: 15px; color: #8a7f76; text-align: center; margin-bottom: 32px; }
+    .tabs { display: flex; background: #f5efe9; border-radius: 16px; padding: 4px; margin-bottom: 24px; }
     .tab {
-      flex: 1; padding: 12px; text-align: center; border-radius: 10px;
+      flex: 1; padding: 12px; text-align: center; border-radius: 12px;
       font-size: 15px; font-weight: 600; color: #8a7f76;
       cursor: pointer; border: none; background: transparent; font-family: inherit;
-      transition: all 0.2s;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .tab.active { background: #ffffff; color: #2d2a26; box-shadow: 0 2px 8px rgba(180,140,110,0.12); }
+    .tab.active { background: #ffffff; color: #2d2a26; box-shadow: 0 2px 12px rgba(120, 90, 70, 0.12); }
     input[type="email"], input[type="password"], input[type="text"], input[type="date"], input[type="time"] {
       width: 100%; padding: 16px; font-size: 16px; font-family: inherit;
-      border: 2px solid #ede4db; border-radius: 14px; margin-bottom: 12px;
-      background: #fdfaf7; color: #2d2a26; outline: none; transition: border-color 0.2s;
+      border: 2px solid #ede4db; border-radius: 16px; margin-bottom: 12px;
+      background: #fdfaf7; color: #2d2a26; outline: none;
+      transition: border-color 0.2s, background 0.2s;
     }
-    input:focus { border-color: #c9a88a; }
+    input:focus { border-color: #a67c52; background: #ffffff; }
     button.primary {
-      width: 100%; padding: 16px; font-size: 16px; font-weight: 600;
-      font-family: inherit; color: #ffffff; background: #c9a88a;
-      border: none; border-radius: 14px; cursor: pointer; margin-top: 8px;
+      width: 100%; padding: 16px; font-size: 16px; font-weight: 700;
+      font-family: inherit; color: #ffffff;
+      background: linear-gradient(135deg, #b08860 0%, #8b6844 100%);
+      border: none; border-radius: 16px; cursor: pointer; margin-top: 8px;
       transition: all 0.2s;
+      box-shadow: 0 4px 16px rgba(140, 105, 70, 0.3);
     }
-    button.primary:active { transform: scale(0.98); background: #b89878; }
+    button.primary:active { transform: scale(0.97); box-shadow: 0 2px 8px rgba(140, 105, 70, 0.3); }
     button.primary:disabled { opacity: 0.6; }
     .error { color: #c0554e; font-size: 14px; text-align: center; margin-top: 16px; min-height: 20px; }
 
-    #appScreen { display: none; min-height: 100vh; padding-bottom: 90px; }
+    /* ============ ОСНОВНОЙ ЭКРАН ============ */
+    #appScreen { display: none; min-height: 100vh; padding-bottom: 100px; }
     #appScreen.active { display: block; }
 
     .topbar {
       position: sticky; top: 0; z-index: 10;
-      background: rgba(254, 246, 240, 0.95);
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      padding: 16px 20px 12px;
+      background: rgba(250, 246, 242, 0.85);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      padding: 16px 20px 14px;
       display: flex; align-items: center; justify-content: space-between;
-      border-bottom: 1px solid rgba(200, 170, 140, 0.15);
+      border-bottom: 1px solid rgba(166, 124, 82, 0.1);
     }
-    .topbar h2 { font-size: 22px; font-weight: 700; }
+    .topbar h2 { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; }
+    .topbar .count-badge {
+      display: inline-block;
+      background: #a67c52; color: #fff;
+      font-size: 12px; font-weight: 700;
+      padding: 2px 8px; border-radius: 10px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
     .logout-btn {
-      background: transparent; border: none; font-family: inherit;
-      color: #8a7f76; font-size: 14px; font-weight: 600;
-      padding: 8px 12px; border-radius: 10px; cursor: pointer;
+      background: rgba(166, 124, 82, 0.08); border: none; font-family: inherit;
+      color: #8b6844; font-size: 13px; font-weight: 700;
+      padding: 8px 14px; border-radius: 12px; cursor: pointer;
+      transition: background 0.15s;
     }
-    .logout-btn:active { background: rgba(200, 170, 140, 0.15); }
+    .logout-btn:active { background: rgba(166, 124, 82, 0.15); }
 
     .container { padding: 20px; max-width: 500px; margin: 0 auto; }
 
     /* ============ МАГАЗИН ============ */
-    .add-row { display: flex; gap: 10px; margin-bottom: 20px; }
-    .add-row input { flex: 1; margin-bottom: 0; background: #ffffff; border: 2px solid #ede4db; }
+    .add-card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 20px rgba(120, 90, 70, 0.06);
+    }
+    .add-row { display: flex; gap: 10px; }
+    .add-row input {
+      flex: 1; margin-bottom: 0;
+      border: 2px solid #ede4db;
+    }
     .add-btn {
       width: 56px; height: 56px; flex-shrink: 0;
-      background: #c9a88a; color: #ffffff; border: none; border-radius: 14px;
-      font-size: 24px; font-weight: 400; cursor: pointer;
+      background: linear-gradient(135deg, #b08860 0%, #8b6844 100%);
+      color: #ffffff; border: none; border-radius: 16px;
+      font-size: 26px; font-weight: 300; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      transition: all 0.2s; font-family: inherit;
+      transition: all 0.2s;
+      box-shadow: 0 4px 12px rgba(140, 105, 70, 0.25);
     }
-    .add-btn:active { transform: scale(0.95); background: #b89878; }
+    .add-btn:active { transform: scale(0.94); }
+
+    .category-row {
+      display: flex; gap: 6px; margin-top: 10px;
+      overflow-x: auto; padding-bottom: 2px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .category-row::-webkit-scrollbar { display: none; }
+    .cat-btn {
+      flex-shrink: 0;
+      padding: 8px 12px; border-radius: 12px;
+      border: 2px solid #ede4db; background: #fdfaf7;
+      font-family: inherit; font-size: 13px; font-weight: 600;
+      color: #8a7f76; cursor: pointer;
+      transition: all 0.15s;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .cat-btn.active {
+      background: #f5efe9; border-color: #a67c52; color: #2d2a26;
+    }
+
+    .section-title {
+      font-size: 12px; font-weight: 800; color: #a89b90;
+      text-transform: uppercase; letter-spacing: 1px;
+      margin: 20px 0 10px;
+    }
+    .section-title:first-child { margin-top: 0; }
 
     .items-list { display: flex; flex-direction: column; gap: 8px; }
+
     .item {
-      background: #ffffff; border-radius: 14px; padding: 16px;
-      display: flex; align-items: center; gap: 14px;
-      box-shadow: 0 2px 8px rgba(180, 140, 110, 0.06);
+      background: #ffffff; border-radius: 16px; padding: 14px 16px;
+      display: flex; align-items: center; gap: 12px;
+      box-shadow: 0 2px 12px rgba(120, 90, 70, 0.05);
       transition: all 0.2s;
+      animation: fadeInUp 0.3s ease;
+      position: relative;
     }
-    .item.done { opacity: 0.55; }
-    .item.done .item-title { text-decoration: line-through; }
+    .item.done { opacity: 0.5; }
+    .item.done .item-title { text-decoration: line-through; text-decoration-color: #a89b90; }
+
+    .cat-marker {
+      width: 4px; height: 36px; border-radius: 2px; flex-shrink: 0;
+    }
 
     .checkbox {
-      width: 26px; height: 26px; flex-shrink: 0; border-radius: 8px;
-      border: 2px solid #c9a88a; background: #ffffff;
+      width: 26px; height: 26px; flex-shrink: 0; border-radius: 9px;
+      border: 2px solid #c9b8a8; background: #ffffff;
       display: flex; align-items: center; justify-content: center;
       cursor: pointer; transition: all 0.15s;
     }
-    .checkbox.checked { background: #c9a88a; border-color: #c9a88a; }
-    .checkbox.checked::after { content: "✓"; color: #ffffff; font-size: 16px; font-weight: 700; }
+    .checkbox.checked {
+      background: linear-gradient(135deg, #b08860 0%, #8b6844 100%);
+      border-color: #8b6844;
+    }
+    .checkbox.checked::after { content: "✓"; color: #ffffff; font-size: 15px; font-weight: 800; }
     .item-title { flex: 1; font-size: 16px; word-break: break-word; }
     .item-meta { font-size: 12px; color: #a89b90; margin-top: 2px; }
     .delete-btn {
       background: transparent; border: none; color: #d4c4b6;
       font-size: 22px; cursor: pointer; padding: 4px 8px; font-family: inherit;
+      transition: color 0.15s;
     }
     .delete-btn:active { color: #c0554e; }
 
-    .empty { text-align: center; padding: 40px 20px; color: #a89b90; font-size: 15px; }
-    .empty-emoji { font-size: 48px; margin-bottom: 12px; }
+    .clear-btn {
+      width: 100%; padding: 12px; margin-top: 12px;
+      background: transparent; border: 2px dashed #d4c4b6;
+      border-radius: 14px; font-family: inherit;
+      font-size: 14px; font-weight: 600; color: #a89b90;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .clear-btn:active { background: #f5efe9; border-color: #a67c52; color: #8b6844; }
+
+    .empty { text-align: center; padding: 40px 20px; color: #a89b90; font-size: 15px; animation: fadeInUp 0.4s ease; }
+    .empty-emoji { font-size: 52px; margin-bottom: 12px; opacity: 0.8; }
 
     /* ============ ДЕЛА ============ */
     .chore-add-card {
       background: #ffffff;
-      border-radius: 16px;
+      border-radius: 20px;
       padding: 16px;
-      margin-bottom: 24px;
-      box-shadow: 0 2px 8px rgba(180, 140, 110, 0.06);
+      margin-bottom: 20px;
+      box-shadow: 0 4px 20px rgba(120, 90, 70, 0.06);
     }
     .chore-add-card h3 {
-      font-size: 15px; color: #8a7f76; margin-bottom: 12px; font-weight: 600;
+      font-size: 14px; color: #8a7f76; margin-bottom: 12px; font-weight: 700;
     }
-    .chore-row {
-      display: flex; gap: 8px; margin-bottom: 10px;
-    }
+    .chore-row { display: flex; gap: 8px; margin-bottom: 10px; }
     .chore-select {
       flex: 1; padding: 14px; font-size: 15px; font-family: inherit;
-      border: 2px solid #ede4db; border-radius: 14px;
+      border: 2px solid #ede4db; border-radius: 16px;
       background: #fdfaf7; color: #2d2a26; outline: none;
       -webkit-appearance: none; appearance: none;
       background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238a7f76' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
@@ -145,131 +233,153 @@
       padding-right: 36px;
     }
     .chore-add-btn {
-      width: 100%; padding: 14px; font-size: 16px; font-weight: 600;
-      font-family: inherit; color: #ffffff; background: #c9a88a;
-      border: none; border-radius: 14px; cursor: pointer;
+      width: 100%; padding: 14px; font-size: 16px; font-weight: 700;
+      font-family: inherit; color: #ffffff;
+      background: linear-gradient(135deg, #b08860 0%, #8b6844 100%);
+      border: none; border-radius: 16px; cursor: pointer;
       transition: all 0.2s;
+      box-shadow: 0 4px 12px rgba(140, 105, 70, 0.25);
     }
-    .chore-add-btn:active { transform: scale(0.98); background: #b89878; }
-
-    .chore-section-title {
-      font-size: 13px; font-weight: 700; color: #a89b90;
-      text-transform: uppercase; letter-spacing: 0.5px;
-      margin: 20px 0 10px;
-    }
-    .chore-section-title:first-child { margin-top: 0; }
+    .chore-add-btn:active { transform: scale(0.97); }
 
     .chore-item {
-      background: #ffffff; border-radius: 14px; padding: 16px;
-      display: flex; align-items: flex-start; gap: 14px;
-      box-shadow: 0 2px 8px rgba(180, 140, 110, 0.06);
+      background: #ffffff; border-radius: 16px; padding: 14px 16px;
+      display: flex; align-items: flex-start; gap: 12px;
+      box-shadow: 0 2px 12px rgba(120, 90, 70, 0.05);
       margin-bottom: 8px;
       transition: all 0.2s;
+      animation: fadeInUp 0.3s ease;
     }
     .chore-item.done { opacity: 0.5; }
-    .chore-item.done .item-title { text-decoration: line-through; }
+    .chore-item.done .item-title { text-decoration: line-through; text-decoration-color: #a89b90; }
     .chore-item-body { flex: 1; }
-    .chore-due {
+
+    .chore-badge {
       display: inline-block;
-      font-size: 12px; font-weight: 600;
-      color: #c9a88a;
-      background: #f5efe9;
+      font-size: 11px; font-weight: 700;
       padding: 3px 8px;
-      border-radius: 6px;
+      border-radius: 8px;
       margin-top: 6px;
+      letter-spacing: 0.3px;
     }
-    .chore-due.overdue { color: #c0554e; background: #fbeae8; }
+    .chore-badge.today { background: #fff1e0; color: #b8770f; }
+    .chore-badge.tomorrow { background: #e8f0ff; color: #3a6fb5; }
+    .chore-badge.overdue { background: #fbe3e1; color: #c0554e; }
+    .chore-badge.soon { background: #f0ebff; color: #7050b8; }
 
     /* ============ РАСПИСАНИЕ ============ */
     .event-add-card {
       background: #ffffff;
-      border-radius: 16px;
+      border-radius: 20px;
       padding: 16px;
-      margin-bottom: 24px;
-      box-shadow: 0 2px 8px rgba(180, 140, 110, 0.06);
+      margin-bottom: 20px;
+      box-shadow: 0 4px 20px rgba(120, 90, 70, 0.06);
     }
     .event-add-card h3 {
-      font-size: 15px; color: #8a7f76; margin-bottom: 12px; font-weight: 600;
+      font-size: 14px; color: #8a7f76; margin-bottom: 12px; font-weight: 700;
     }
-    .event-time-row {
-      display: flex; gap: 8px; margin-bottom: 10px;
+    .event-time-row { display: flex; gap: 8px; margin-bottom: 10px; position: relative; }
+    .event-time-row input { flex: 1; margin-bottom: 0; }
+    .now-btn {
+      position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+      background: #f5efe9; border: none; border-radius: 10px;
+      font-family: inherit; font-size: 12px; font-weight: 700;
+      color: #8b6844; padding: 6px 10px; cursor: pointer;
+      pointer-events: auto;
     }
-    .event-time-row input {
-      flex: 1; margin-bottom: 0;
-    }
-    .event-date-row {
-      margin-bottom: 10px;
-    }
-    .event-date-row input {
-      margin-bottom: 0;
-    }
+    .event-date-row { margin-bottom: 10px; }
+    .event-date-row input { margin-bottom: 0; }
     .event-add-btn {
-      width: 100%; padding: 14px; font-size: 16px; font-weight: 600;
-      font-family: inherit; color: #ffffff; background: #c9a88a;
-      border: none; border-radius: 14px; cursor: pointer;
+      width: 100%; padding: 14px; font-size: 16px; font-weight: 700;
+      font-family: inherit; color: #ffffff;
+      background: linear-gradient(135deg, #b08860 0%, #8b6844 100%);
+      border: none; border-radius: 16px; cursor: pointer;
       transition: all 0.2s;
+      box-shadow: 0 4px 12px rgba(140, 105, 70, 0.25);
     }
-    .event-add-btn:active { transform: scale(0.98); background: #b89878; }
-
-    .event-section-title {
-      font-size: 13px; font-weight: 700; color: #a89b90;
-      text-transform: uppercase; letter-spacing: 0.5px;
-      margin: 20px 0 10px;
-    }
-    .event-section-title:first-child { margin-top: 0; }
+    .event-add-btn:active { transform: scale(0.97); }
 
     .event-item {
-      background: #ffffff; border-radius: 14px; padding: 14px 16px;
+      background: #ffffff; border-radius: 16px; padding: 14px 16px;
       display: flex; align-items: center; gap: 14px;
-      box-shadow: 0 2px 8px rgba(180, 140, 110, 0.06);
+      box-shadow: 0 2px 12px rgba(120, 90, 70, 0.05);
       margin-bottom: 8px;
       transition: all 0.2s;
+      animation: fadeInUp 0.3s ease;
+      position: relative;
+    }
+    .event-item.now {
+      background: linear-gradient(135deg, #fff8ee 0%, #ffffff 100%);
+      box-shadow: 0 4px 20px rgba(200, 140, 60, 0.15);
+      border-left: 4px solid #e89b3c;
+    }
+    .event-item.now::before {
+      content: "СЕЙЧАС";
+      position: absolute; top: 8px; right: 12px;
+      font-size: 10px; font-weight: 800; letter-spacing: 1px;
+      color: #e89b3c;
     }
     .event-time {
-      font-size: 15px;
-      font-weight: 700;
-      color: #c9a88a;
+      font-size: 16px;
+      font-weight: 800;
+      color: #8b6844;
       min-width: 60px;
       text-align: center;
       flex-shrink: 0;
+      letter-spacing: -0.5px;
     }
     .event-time .time-sep {
       display: block;
       font-size: 11px;
       color: #a89b90;
-      font-weight: 400;
+      font-weight: 500;
       margin-top: 2px;
+      letter-spacing: 0;
     }
-    .event-body { flex: 1; }
-    .event-title { font-size: 16px; word-break: break-word; }
-    .event-meta { font-size: 12px; color: #a89b90; margin-top: 2px; }
-    .event-item.past { opacity: 0.5; }
+    .event-body { flex: 1; padding-right: 12px; }
+    .event-title { font-size: 16px; font-weight: 600; word-break: break-word; }
+    .event-meta { font-size: 12px; color: #a89b90; margin-top: 3px; }
 
     /* ============ ЗАГЛУШКИ ============ */
     .placeholder { text-align: center; padding: 80px 20px; color: #a89b90; }
-    .placeholder-emoji { font-size: 64px; margin-bottom: 16px; }
-    .placeholder h3 { font-size: 20px; color: #2d2a26; margin-bottom: 8px; }
+    .placeholder-emoji { font-size: 68px; margin-bottom: 16px; opacity: 0.7; }
+    .placeholder h3 { font-size: 22px; color: #2d2a26; margin-bottom: 8px; font-weight: 800; }
     .placeholder p { font-size: 15px; }
 
     /* ============ НАВИГАЦИЯ ============ */
     .bottom-nav {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 20;
-      background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-      border-top: 1px solid rgba(200, 170, 140, 0.15);
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: saturate(180%) blur(24px);
+      -webkit-backdrop-filter: saturate(180%) blur(24px);
+      border-top: 1px solid rgba(166, 124, 82, 0.12);
       padding: 8px 4px calc(8px + env(safe-area-inset-bottom));
       display: flex; justify-content: space-around;
       max-width: 500px; margin: 0 auto;
     }
     .nav-btn {
       flex: 1; background: transparent; border: none; font-family: inherit;
-      padding: 8px 4px; cursor: pointer; color: #a89b90;
+      padding: 8px 4px; cursor: pointer; color: #b8aca1;
       display: flex; flex-direction: column; align-items: center; gap: 3px;
       transition: color 0.2s;
+      position: relative;
     }
-    .nav-btn.active { color: #c9a88a; }
-    .nav-icon { font-size: 22px; line-height: 1; }
-    .nav-label { font-size: 10px; font-weight: 600; }
+    .nav-btn.active { color: #8b6844; }
+    .nav-btn.active .nav-icon { transform: scale(1.1); }
+    .nav-icon { font-size: 22px; line-height: 1; transition: transform 0.2s; }
+    .nav-label { font-size: 10px; font-weight: 700; }
+
+    /* ============ TOAST ============ */
+    .toast {
+      position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+      background: rgba(45, 42, 38, 0.95);
+      color: #fff; font-size: 14px; font-weight: 600;
+      padding: 12px 20px; border-radius: 14px;
+      z-index: 9999;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+      animation: toastIn 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
   </style>
 </head>
 <body>
@@ -301,14 +411,33 @@
 
       <!-- МАГАЗИН -->
       <div id="page-shop" class="page">
-        <div class="add-row">
-          <input type="text" id="shopInput" placeholder="Что купить?" autocomplete="off">
-          <button class="add-btn" id="shopAddBtn">+</button>
+        <div class="add-card">
+          <div class="add-row">
+            <input type="text" id="shopInput" placeholder="Что купить?" autocomplete="off">
+            <button class="add-btn" id="shopAddBtn">+</button>
+          </div>
+          <div class="category-row" id="categoryRow">
+            <button class="cat-btn active" data-cat="other" data-color="#b8aca1">📦 Другое</button>
+            <button class="cat-btn" data-cat="dairy" data-color="#8bb8e8">🥛 Молочное</button>
+            <button class="cat-btn" data-cat="meat" data-color="#e88585">🥩 Мясо</button>
+            <button class="cat-btn" data-cat="veg" data-color="#7eb97e">🥦 Овощи</button>
+            <button class="cat-btn" data-cat="bread" data-color="#d4a373">🍞 Хлеб</button>
+            <button class="cat-btn" data-cat="sweets" data-color="#c89ac8">🍫 Сладкое</button>
+            <button class="cat-btn" data-cat="house" data-color="#7eb8b8">🧴 Быт. химия</button>
+          </div>
         </div>
+
+        <div class="section-title" id="shopActiveTitle" style="display:none;">Купить</div>
         <div class="items-list" id="shopList"></div>
         <div class="empty" id="shopEmpty">
           <div class="empty-emoji">🛒</div>
           <div>Список пуст. Добавьте первую покупку!</div>
+        </div>
+
+        <div id="shopDoneSection" style="display:none;">
+          <div class="section-title">Куплено</div>
+          <div class="items-list" id="shopDoneList"></div>
+          <button class="clear-btn" id="clearDoneBtn">Очистить купленное</button>
         </div>
       </div>
 
@@ -326,14 +455,14 @@
           <button class="chore-add-btn" id="choreAddBtn">Добавить задачу</button>
         </div>
 
-        <div class="chore-section-title">Я должен сделать</div>
+        <div class="section-title">Я должен сделать</div>
         <div class="items-list" id="choreForMeList"></div>
         <div class="empty" id="choreForMeEmpty" style="display:none;">
           <div class="empty-emoji">🌸</div>
           <div>Пока никто ничего не поручал</div>
         </div>
 
-        <div class="chore-section-title">Я попросил(а) сделать</div>
+        <div class="section-title">Я попросил(а) сделать</div>
         <div class="items-list" id="choreByMeList"></div>
         <div class="empty" id="choreByMeEmpty" style="display:none;">
           <div class="empty-emoji">💌</div>
@@ -349,6 +478,7 @@
           <div class="event-time-row">
             <input type="time" id="eventStart">
             <input type="time" id="eventEnd">
+            <button class="now-btn" id="nowBtn" type="button">Сейчас</button>
           </div>
           <div class="event-date-row">
             <input type="date" id="eventDate">
@@ -356,14 +486,14 @@
           <button class="event-add-btn" id="eventAddBtn">Добавить в расписание</button>
         </div>
 
-        <div class="event-section-title">Сегодня</div>
+        <div class="section-title" id="eventsTodayTitle" style="display:none;">Сегодня</div>
         <div class="items-list" id="eventsTodayList"></div>
         <div class="empty" id="eventsTodayEmpty" style="display:none;">
           <div class="empty-emoji">☀️</div>
           <div>Сегодня событий нет</div>
         </div>
 
-        <div class="event-section-title">Предстоящие</div>
+        <div class="section-title" id="eventsFutureTitle" style="display:none;">Предстоящие</div>
         <div class="items-list" id="eventsFutureList"></div>
         <div class="empty" id="eventsFutureEmpty" style="display:none;">
           <div class="empty-emoji">📅</div>
@@ -413,27 +543,13 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import {
-      getAuth,
-      signInWithEmailAndPassword,
-      createUserWithEmailAndPassword,
-      onAuthStateChanged,
-      signOut,
-      setPersistence,
-      browserLocalPersistence
+      getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
+      onAuthStateChanged, signOut, setPersistence, browserLocalPersistence
     } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
     import {
-      getDatabase,
-      ref,
-      push,
-      set,
-      update,
-      remove,
-      onValue,
-      query,
-      orderByChild
+      getDatabase, ref, push, set, update, remove, onValue, query, orderByChild
     } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-    // ⚙️ ВАШ КОНФИГ FIREBASE
     const firebaseConfig = {
       apiKey: "AIzaSyATgY3bBLhvYCxfnU-7jYU7a7Nw3D4Ds6Y",
       authDomain: "my-family-app-32b71.firebaseapp.com",
@@ -446,80 +562,56 @@
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-
-    setPersistence(auth, browserLocalPersistence)
-      .catch((error) => console.error('Ошибка установки persistence:', error));
-
+    setPersistence(auth, browserLocalPersistence).catch(console.error);
     const db = getDatabase(app);
+
+    const $ = (id) => document.getElementById(id);
+
+    // ============ TOAST ============
+    function toast(msg) {
+      const existing = document.querySelector('.toast');
+      if (existing) existing.remove();
+      const el = document.createElement('div');
+      el.className = 'toast';
+      el.textContent = msg;
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 1800);
+    }
+    function haptic(ms = 10) {
+      if (navigator.vibrate) navigator.vibrate(ms);
+    }
 
     // ============ АВТОРИЗАЦИЯ ============
     let isLoginMode = true;
-
-    const $ = (id) => document.getElementById(id);
-    const loginTab = $('loginTab');
-    const registerTab = $('registerTab');
-    const submitBtn = $('submitBtn');
-    const emailInput = $('email');
-    const passwordInput = $('password');
-    const errorMsg = $('errorMsg');
-    const authScreen = $('authScreen');
-    const appScreen = $('appScreen');
-    const logoutBtn = $('logoutBtn');
-
-    loginTab.addEventListener('click', () => setMode(true));
-    registerTab.addEventListener('click', () => setMode(false));
+    $('loginTab').addEventListener('click', () => setMode(true));
+    $('registerTab').addEventListener('click', () => setMode(false));
 
     function setMode(login) {
       isLoginMode = login;
-      loginTab.classList.toggle('active', login);
-      registerTab.classList.toggle('active', !login);
-      submitBtn.textContent = login ? 'Войти' : 'Создать аккаунт';
-      errorMsg.textContent = '';
+      $('loginTab').classList.toggle('active', login);
+      $('registerTab').classList.toggle('active', !login);
+      $('submitBtn').textContent = login ? 'Войти' : 'Создать аккаунт';
+      $('errorMsg').textContent = '';
     }
 
-    submitBtn.addEventListener('click', async () => {
-      const email = emailInput.value.trim();
-      const password = passwordInput.value;
-      if (!email || !password) { errorMsg.textContent = 'Заполните email и пароль'; return; }
-      if (password.length < 6) { errorMsg.textContent = 'Пароль минимум 6 символов'; return; }
-
-      submitBtn.disabled = true;
-      errorMsg.textContent = '';
+    $('submitBtn').addEventListener('click', async () => {
+      const email = $('email').value.trim();
+      const password = $('password').value;
+      if (!email || !password) { $('errorMsg').textContent = 'Заполните email и пароль'; return; }
+      if (password.length < 6) { $('errorMsg').textContent = 'Пароль минимум 6 символов'; return; }
+      $('submitBtn').disabled = true;
+      $('errorMsg').textContent = '';
       try {
-        if (isLoginMode) {
-          await signInWithEmailAndPassword(auth, email, password);
-        } else {
-          await createUserWithEmailAndPassword(auth, email, password);
-        }
+        if (isLoginMode) await signInWithEmailAndPassword(auth, email, password);
+        else await createUserWithEmailAndPassword(auth, email, password);
       } catch (err) {
-        errorMsg.textContent = translateError(err.code);
+        $('errorMsg').textContent = translateError(err.code);
       } finally {
-        submitBtn.disabled = false;
+        $('submitBtn').disabled = false;
       }
     });
 
-    logoutBtn.addEventListener('click', () => signOut(auth));
-
-    // ============ ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ============
-    let currentUser = null;
-    let allUsers = {};
-    let shopUnsubscribe = null;
-    let choresUnsubscribe = null;
-    let eventsUnsubscribe = null;
-
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        authScreen.style.display = 'none';
-        appScreen.classList.add('active');
-        startAll();
-      } else {
-        authScreen.style.display = 'flex';
-        appScreen.classList.remove('active');
-        stopAll();
-        emailInput.value = '';
-        passwordInput.value = '';
-      }
-    });
+    $('logoutBtn').addEventListener('click', () => signOut(auth));
 
     function translateError(code) {
       const map = {
@@ -528,24 +620,40 @@
         'auth/wrong-password': 'Неверный пароль',
         'auth/invalid-credential': 'Неверный email или пароль',
         'auth/email-already-in-use': 'Этот email уже зарегистрирован',
-        'auth/weak-password': 'Слишком простой пароль (минимум 6 символов)',
-        'auth/network-request-failed': 'Нет соединения с интернетом',
-        'auth/too-many-requests': 'Слишком много попыток, попробуйте позже'
+        'auth/weak-password': 'Слишком простой пароль',
+        'auth/network-request-failed': 'Нет соединения',
+        'auth/too-many-requests': 'Слишком много попыток'
       };
       return map[code] || 'Ошибка: ' + code;
     }
 
+    // ============ ГЛОБАЛЬНЫЕ ============
+    let currentUser = null;
+    let allUsers = {};
+    let shopUnsub = null, choresUnsub = null, eventsUnsub = null;
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        $('authScreen').style.display = 'none';
+        $('appScreen').classList.add('active');
+        startAll();
+      } else {
+        $('authScreen').style.display = 'flex';
+        $('appScreen').classList.remove('active');
+        stopAll();
+        $('email').value = '';
+        $('password').value = '';
+      }
+    });
+
     // ============ НАВИГАЦИЯ ============
     const pageTitles = {
-      shop: '🛒 Магазин',
-      chores: '✅ Домашние дела',
-      schedule: '📅 Расписание',
-      gifts: '🎁 Подарки',
-      wishes: '🏠 Хотелки'
+      shop: '🛒 Магазин', chores: '✅ Домашние дела', schedule: '📅 Расписание',
+      gifts: '🎁 Подарки', wishes: '🏠 Хотелки'
     };
-
     document.querySelectorAll('.nav-btn').forEach(btn => {
       btn.addEventListener('click', () => {
+        haptic(8);
         const page = btn.dataset.page;
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b === btn));
         document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
@@ -555,14 +663,10 @@
       });
     });
 
-    // ============ СТАРТ И СТОП ============
+    // ============ СТАРТ / СТОП ============
     function startAll() {
       currentUser = auth.currentUser;
-
-      set(ref(db, 'users/' + currentUser.uid), {
-        email: currentUser.email
-      }).catch(console.error);
-
+      set(ref(db, 'users/' + currentUser.uid), { email: currentUser.email }).catch(console.error);
       onValue(ref(db, 'users'), (snap) => {
         allUsers = {};
         snap.forEach((child) => {
@@ -571,196 +675,211 @@
         });
         updateAssigneeDropdown();
       });
-
       startShopListener();
       startChoresListener();
       startEventsListener();
     }
 
     function stopAll() {
-      if (shopUnsubscribe) { shopUnsubscribe(); shopUnsubscribe = null; }
-      if (choresUnsubscribe) { choresUnsubscribe(); choresUnsubscribe = null; }
-      if (eventsUnsubscribe) { eventsUnsubscribe(); eventsUnsubscribe = null; }
-      shopList.innerHTML = '';
-      choreForMeList.innerHTML = '';
-      choreByMeList.innerHTML = '';
-      eventsTodayList.innerHTML = '';
-      eventsFutureList.innerHTML = '';
+      if (shopUnsub) { shopUnsub(); shopUnsub = null; }
+      if (choresUnsub) { choresUnsub(); choresUnsub = null; }
+      if (eventsUnsub) { eventsUnsub(); eventsUnsub = null; }
+      $('shopList').innerHTML = '';
+      $('shopDoneList').innerHTML = '';
+      $('choreForMeList').innerHTML = '';
+      $('choreByMeList').innerHTML = '';
+      $('eventsTodayList').innerHTML = '';
+      $('eventsFutureList').innerHTML = '';
       currentUser = null;
     }
 
     // ============ МАГАЗИН ============
-    const shopInput = $('shopInput');
-    const shopAddBtn = $('shopAddBtn');
-    const shopList = $('shopList');
-    const shopEmpty = $('shopEmpty');
+    const CATEGORIES = {
+      other: { emoji: '📦', color: '#b8aca1', label: 'Другое' },
+      dairy: { emoji: '🥛', color: '#8bb8e8', label: 'Молочное' },
+      meat: { emoji: '🥩', color: '#e88585', label: 'Мясо' },
+      veg: { emoji: '🥦', color: '#7eb97e', label: 'Овощи' },
+      bread: { emoji: '🍞', color: '#d4a373', label: 'Хлеб' },
+      sweets: { emoji: '🍫', color: '#c89ac8', label: 'Сладкое' },
+      house: { emoji: '🧴', color: '#7eb8b8', label: 'Быт. химия' }
+    };
+    let selectedCategory = 'other';
 
-    shopAddBtn.addEventListener('click', addShopItem);
-    shopInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') addShopItem();
+    document.querySelectorAll('.cat-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedCategory = btn.dataset.cat;
+      });
     });
 
+    $('shopAddBtn').addEventListener('click', addShopItem);
+    $('shopInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') addShopItem(); });
+
     async function addShopItem() {
-      const title = shopInput.value.trim();
+      const title = $('shopInput').value.trim();
       if (!title || !currentUser) return;
-      shopInput.value = '';
+      $('shopInput').value = '';
       try {
-        const itemsRef = ref(db, 'shopping_items');
-        const newItemRef = push(itemsRef);
-        await set(newItemRef, {
-          title: title,
-          done: false,
+        const newRef = push(ref(db, 'shopping_items'));
+        await set(newRef, {
+          title, done: false,
+          category: selectedCategory,
           addedBy: currentUser.uid,
           addedByEmail: currentUser.email,
           createdAt: Date.now()
         });
-      } catch (err) {
-        alert('ОШИБКА: ' + err.message);
-        console.error(err);
-      }
+        haptic(15);
+      } catch (err) { toast('Ошибка: ' + err.message); }
     }
 
     function startShopListener() {
       const itemsRef = query(ref(db, 'shopping_items'), orderByChild('createdAt'));
-      shopUnsubscribe = onValue(itemsRef, (snapshot) => {
-        shopList.innerHTML = '';
+      shopUnsub = onValue(itemsRef, (snapshot) => {
         const items = [];
-        snapshot.forEach((child) => {
-          items.push({ id: child.key, ...child.val() });
-        });
+        snapshot.forEach((child) => items.push({ id: child.key, ...child.val() }));
         items.reverse();
 
-        if (items.length === 0) {
-          shopEmpty.style.display = 'block';
-          return;
-        }
-        shopEmpty.style.display = 'none';
+        const active = items.filter(x => !x.done);
+        const done = items.filter(x => x.done);
 
-        const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
+        renderShopList(active, $('shopList'), $('shopEmpty'));
+        renderShopList(done, $('shopDoneList'), null);
 
-        items.forEach((data) => {
-          const item = document.createElement('div');
-          item.className = 'item' + (data.done ? ' done' : '');
+        // Заголовок со счётчиком
+        $('pageTitle').innerHTML = '🛒 Магазин' + (active.length ? ' <span class="count-badge">' + active.length + '</span>' : '');
+        $('shopActiveTitle').style.display = active.length ? 'block' : 'none';
+        $('shopDoneSection').style.display = done.length ? 'block' : 'none';
+      }, (err) => console.error(err));
+    }
 
-          const checkbox = document.createElement('div');
-          checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
-          checkbox.addEventListener('click', async () => {
-            try {
-              await update(ref(db, 'shopping_items/' + data.id), { done: !data.done });
-            } catch (err) { console.error(err); }
-          });
+    function renderShopList(items, container, emptyEl) {
+      container.innerHTML = '';
+      if (emptyEl) {
+        if (items.length === 0) { emptyEl.style.display = 'block'; return; }
+        emptyEl.style.display = 'none';
+      }
+      const myUid = currentUser ? currentUser.uid : '';
+      items.forEach((data) => {
+        const cat = CATEGORIES[data.category] || CATEGORIES.other;
+        const item = document.createElement('div');
+        item.className = 'item' + (data.done ? ' done' : '');
 
-          const titleWrap = document.createElement('div');
-          titleWrap.style.flex = '1';
-          const title = document.createElement('div');
-          title.className = 'item-title';
-          title.textContent = data.title;
-          titleWrap.appendChild(title);
+        const marker = document.createElement('div');
+        marker.className = 'cat-marker';
+        marker.style.background = cat.color;
+        item.appendChild(marker);
 
-          if (data.addedBy && myUid && data.addedBy !== myUid && data.addedByEmail) {
-            const meta = document.createElement('div');
-            meta.className = 'item-meta';
-            meta.textContent = '👤 ' + data.addedByEmail.split('@')[0];
-            titleWrap.appendChild(meta);
-          }
-
-          const delBtn = document.createElement('button');
-          delBtn.className = 'delete-btn';
-          delBtn.textContent = '×';
-          delBtn.addEventListener('click', async () => {
-            try {
-              await remove(ref(db, 'shopping_items/' + data.id));
-            } catch (err) { console.error(err); }
-          });
-
-          item.appendChild(checkbox);
-          item.appendChild(titleWrap);
-          item.appendChild(delBtn);
-          shopList.appendChild(item);
+        const checkbox = document.createElement('div');
+        checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
+        checkbox.addEventListener('click', async () => {
+          haptic(12);
+          await update(ref(db, 'shopping_items/' + data.id), { done: !data.done });
         });
-      }, (err) => {
-        console.error('Ошибка подписки магазина:', err);
+        item.appendChild(checkbox);
+
+        const titleWrap = document.createElement('div');
+        titleWrap.style.flex = '1';
+        const title = document.createElement('div');
+        title.className = 'item-title';
+        title.textContent = (cat.emoji + ' ' + data.title);
+        titleWrap.appendChild(title);
+        if (data.addedBy && myUid && data.addedBy !== myUid && data.addedByEmail) {
+          const meta = document.createElement('div');
+          meta.className = 'item-meta';
+          meta.textContent = '👤 ' + data.addedByEmail.split('@')[0];
+          titleWrap.appendChild(meta);
+        }
+        item.appendChild(titleWrap);
+
+        const delBtn = document.createElement('button');
+        delBtn.className = 'delete-btn';
+        delBtn.textContent = '×';
+        delBtn.addEventListener('click', async () => {
+          haptic(15);
+          await remove(ref(db, 'shopping_items/' + data.id));
+        });
+        item.appendChild(delBtn);
+        container.appendChild(item);
       });
     }
 
-    // ============ ДЕЛА ============
-    const choreInput = $('choreInput');
-    const choreAssignee = $('choreAssignee');
-    const choreDue = $('choreDue');
-    const choreAddBtn = $('choreAddBtn');
-    const choreForMeList = $('choreForMeList');
-    const choreForMeEmpty = $('choreForMeEmpty');
-    const choreByMeList = $('choreByMeList');
-    const choreByMeEmpty = $('choreByMeEmpty');
+    $('clearDoneBtn').addEventListener('click', async () => {
+      const snap = await new Promise(res => {
+        onValue(ref(db, 'shopping_items'), res, { onlyOnce: true });
+      });
+      snap.forEach(async (child) => {
+        if (child.val().done) await remove(ref(db, 'shopping_items/' + child.key));
+      });
+      toast('Купленное очищено');
+      haptic(20);
+    });
 
+    // ============ ДЕЛА ============
     function updateAssigneeDropdown() {
       if (!currentUser) return;
-      const currentValue = choreAssignee.value;
-      choreAssignee.innerHTML = '<option value="">— Кому —</option>';
+      const select = $('choreAssignee');
+      const currentValue = select.value;
+      select.innerHTML = '<option value="">— Кому —</option>';
       Object.keys(allUsers).forEach((uid) => {
         if (uid === currentUser.uid) return;
         const opt = document.createElement('option');
         opt.value = uid;
         opt.textContent = allUsers[uid].split('@')[0];
-        choreAssignee.appendChild(opt);
+        select.appendChild(opt);
       });
-      if (currentValue) choreAssignee.value = currentValue;
+      if (currentValue) select.value = currentValue;
     }
 
-    choreAddBtn.addEventListener('click', async () => {
-      const title = choreInput.value.trim();
-      const assignee = choreAssignee.value;
-      const due = choreDue.value;
-      if (!title) { alert('Введите задачу'); return; }
-      if (!assignee) { alert('Выберите, кому назначить'); return; }
+    $('choreAddBtn').addEventListener('click', async () => {
+      const title = $('choreInput').value.trim();
+      const assignee = $('choreAssignee').value;
+      const due = $('choreDue').value;
+      if (!title) { toast('Введите задачу'); return; }
+      if (!assignee) { toast('Выберите, кому назначить'); return; }
       try {
-        const choresRef = ref(db, 'chores');
-        const newRef = push(choresRef);
+        const newRef = push(ref(db, 'chores'));
         const data = {
-          title: title,
-          assignedTo: assignee,
+          title, assignedTo: assignee,
           assignedToEmail: allUsers[assignee] || '',
           createdBy: currentUser.uid,
           createdByEmail: currentUser.email,
-          done: false,
-          createdAt: Date.now()
+          done: false, createdAt: Date.now()
         };
         if (due) data.dueDate = due;
         await set(newRef, data);
-        choreInput.value = '';
-        choreDue.value = '';
-        choreAssignee.value = '';
-      } catch (err) {
-        alert('ОШИБКА: ' + err.code + '\n' + err.message);
-      }
+        $('choreInput').value = '';
+        $('choreDue').value = '';
+        $('choreAssignee').value = '';
+        toast('Задача добавлена');
+        haptic(15);
+      } catch (err) { toast('Ошибка: ' + err.message); }
     });
 
     function startChoresListener() {
-      const choresRef = query(ref(db, 'chores'), orderByChild('createdAt'));
-      choresUnsubscribe = onValue(choresRef, (snapshot) => {
+      const ref_ = query(ref(db, 'chores'), orderByChild('createdAt'));
+      choresUnsub = onValue(ref_, (snapshot) => {
         const items = [];
-        snapshot.forEach((child) => {
-          items.push({ id: child.key, ...child.val() });
-        });
+        snapshot.forEach((child) => items.push({ id: child.key, ...child.val() }));
         items.reverse();
 
-        const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
-        const forMe = items.filter(x => x.assignedTo === myUid);
-        const byMe = items.filter(x => x.createdBy === myUid);
+        const myUid = currentUser ? currentUser.uid : '';
+        const forMe = items.filter(x => x.assignedTo === myUid && !x.done);
+        const byMe = items.filter(x => x.createdBy === myUid && !x.done);
+        const forMeDone = items.filter(x => x.assignedTo === myUid && x.done);
+        const byMeDone = items.filter(x => x.createdBy === myUid && x.done);
 
-        renderChores(forMe, choreForMeList, choreForMeEmpty, 'forMe');
-        renderChores(byMe, choreByMeList, choreByMeEmpty, 'byMe');
-      }, (err) => {
-        console.error('Ошибка подписки дел:', err);
-      });
+        renderChores([...forMe, ...forMeDone], $('choreForMeList'), $('choreForMeEmpty'), 'forMe');
+        renderChores([...byMe, ...byMeDone], $('choreByMeList'), $('choreByMeEmpty'), 'byMe');
+
+        const activeCount = forMe.length + byMe.length;
+        $('pageTitle').innerHTML = '✅ Домашние дела' + (activeCount ? ' <span class="count-badge">' + activeCount + '</span>' : '');
+      }, (err) => console.error(err));
     }
 
     function renderChores(items, container, emptyEl, mode) {
       container.innerHTML = '';
-      if (items.length === 0) {
-        emptyEl.style.display = 'block';
-        return;
-      }
+      if (items.length === 0) { emptyEl.style.display = 'block'; return; }
       emptyEl.style.display = 'none';
 
       items.forEach((data) => {
@@ -770,14 +889,13 @@
         const checkbox = document.createElement('div');
         checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
         checkbox.addEventListener('click', async () => {
-          try {
-            await update(ref(db, 'chores/' + data.id), { done: !data.done });
-          } catch (err) { console.error(err); }
+          haptic(12);
+          await update(ref(db, 'chores/' + data.id), { done: !data.done });
         });
+        item.appendChild(checkbox);
 
         const body = document.createElement('div');
         body.className = 'chore-item-body';
-
         const title = document.createElement('div');
         title.className = 'item-title';
         title.textContent = data.title;
@@ -787,11 +905,18 @@
           const due = document.createElement('div');
           const today = new Date(); today.setHours(0,0,0,0);
           const dueDate = new Date(data.dueDate + 'T00:00:00');
-          const isOverdue = !data.done && dueDate < today;
-          due.className = 'chore-due' + (isOverdue ? ' overdue' : '');
-          const dd = String(dueDate.getDate()).padStart(2,'0');
-          const mm = String(dueDate.getMonth()+1).padStart(2,'0');
-          due.textContent = '📅 до ' + dd + '.' + mm;
+          const diff = Math.round((dueDate - today) / 86400000);
+          let cls = 'soon', text = '';
+          if (!data.done && diff < 0) { cls = 'overdue'; text = '⚠ Просрочено'; }
+          else if (diff === 0) { cls = 'today'; text = '🔥 Сегодня'; }
+          else if (diff === 1) { cls = 'tomorrow'; text = '📅 Завтра'; }
+          else {
+            const dd = String(dueDate.getDate()).padStart(2,'0');
+            const mm = String(dueDate.getMonth()+1).padStart(2,'0');
+            text = '📅 до ' + dd + '.' + mm;
+          }
+          due.className = 'chore-badge ' + cls;
+          due.textContent = text;
           body.appendChild(due);
         }
 
@@ -807,113 +932,127 @@
           meta.textContent = 'от ' + data.createdByEmail.split('@')[0];
           body.appendChild(meta);
         }
+        item.appendChild(body);
 
         const delBtn = document.createElement('button');
         delBtn.className = 'delete-btn';
         delBtn.textContent = '×';
         delBtn.addEventListener('click', async () => {
-          try {
-            await remove(ref(db, 'chores/' + data.id));
-          } catch (err) { console.error(err); }
+          haptic(15);
+          await remove(ref(db, 'chores/' + data.id));
         });
-
-        item.appendChild(checkbox);
-        item.appendChild(body);
         item.appendChild(delBtn);
         container.appendChild(item);
       });
     }
 
     // ============ РАСПИСАНИЕ ============
-    const eventTitle = $('eventTitle');
-    const eventStart = $('eventStart');
-    const eventEnd = $('eventEnd');
-    const eventDate = $('eventDate');
-    const eventAddBtn = $('eventAddBtn');
-    const eventsTodayList = $('eventsTodayList');
-    const eventsTodayEmpty = $('eventsTodayEmpty');
-    const eventsFutureList = $('eventsFutureList');
-    const eventsFutureEmpty = $('eventsFutureEmpty');
+    $('nowBtn').addEventListener('click', () => {
+      const now = new Date();
+      const hh = String(now.getHours()).padStart(2, '0');
+      const mm = String(now.getMinutes()).padStart(2, '0');
+      $('eventStart').value = hh + ':' + mm;
+      const dd = String(now.getDate()).padStart(2, '0');
+      const mo = String(now.getMonth() + 1).padStart(2, '0');
+      $('eventDate').value = now.getFullYear() + '-' + mo + '-' + dd;
+      haptic(10);
+    });
 
-    eventAddBtn.addEventListener('click', async () => {
-      const title = eventTitle.value.trim();
-      const start = eventStart.value;
-      const end = eventEnd.value;
-      const date = eventDate.value;
-      if (!title) { alert('Введите название'); return; }
-      if (!start) { alert('Укажите время начала'); return; }
-      if (!date) { alert('Выберите дату'); return; }
+    $('eventAddBtn').addEventListener('click', async () => {
+      const title = $('eventTitle').value.trim();
+      const start = $('eventStart').value;
+      const end = $('eventEnd').value;
+      const date = $('eventDate').value;
+      if (!title) { toast('Введите название'); return; }
+      if (!start) { toast('Укажите время начала'); return; }
+      if (!date) { toast('Выберите дату'); return; }
       try {
-        const eventsRef = ref(db, 'schedule_events');
-        const newRef = push(eventsRef);
+        const newRef = push(ref(db, 'schedule_events'));
         const data = {
-          title: title,
-          startTime: start,
-          date: date,
+          title, startTime: start, date,
           createdBy: currentUser.uid,
           createdByEmail: currentUser.email,
           createdAt: Date.now()
         };
         if (end) data.endTime = end;
         await set(newRef, data);
-        eventTitle.value = '';
-        eventStart.value = '';
-        eventEnd.value = '';
-        eventDate.value = '';
-      } catch (err) {
-        alert('ОШИБКА: ' + err.code + '\n' + err.message);
-      }
+        $('eventTitle').value = '';
+        $('eventStart').value = '';
+        $('eventEnd').value = '';
+        $('eventDate').value = '';
+        toast('Событие добавлено');
+        haptic(15);
+      } catch (err) { toast('Ошибка: ' + err.message); }
     });
 
     function startEventsListener() {
-      const eventsRef = query(ref(db, 'schedule_events'), orderByChild('createdAt'));
-      eventsUnsubscribe = onValue(eventsRef, (snapshot) => {
+      const ref_ = query(ref(db, 'schedule_events'), orderByChild('createdAt'));
+      eventsUnsub = onValue(ref_, (snapshot) => {
         const items = [];
-        snapshot.forEach((child) => {
-          items.push({ id: child.key, ...child.val() });
-        });
-
-        // Сортируем по дате+времени начала
+        snapshot.forEach((child) => items.push({ id: child.key, ...child.val() }));
         items.sort((a, b) => {
-          const da = (a.date || '') + ' ' + (a.startTime || '');
-          const db_ = (b.date || '') + ' ' + (b.startTime || '');
-          return da.localeCompare(db_);
+          const x = (a.date || '') + ' ' + (a.startTime || '');
+          const y = (b.date || '') + ' ' + (b.startTime || '');
+          return x.localeCompare(y);
         });
 
         const today = todayStr();
+        const tomorrow = tomorrowStr();
         const todayItems = items.filter(x => x.date === today);
-        const futureItems = items.filter(x => x.date && x.date > today);
+        const futureItems = items.filter(x => x.date && x.date > today && x.date <= tomorrow || x.date > tomorrow);
 
-        renderEvents(todayItems, eventsTodayList, eventsTodayEmpty, true);
-        renderEvents(futureItems, eventsFutureList, eventsFutureEmpty, false);
-      }, (err) => {
-        console.error('Ошибка подписки расписания:', err);
-      });
+        renderEvents(todayItems, $('eventsTodayList'), $('eventsTodayEmpty'), today);
+        renderEvents(futureItems, $('eventsFutureList'), $('eventsFutureEmpty'), tomorrow);
+
+        $('pageTitle').innerHTML = '📅 Расписание' + (todayItems.length ? ' <span class="count-badge">' + todayItems.length + '</span>' : '');
+        $('eventsTodayTitle').style.display = todayItems.length ? 'block' : 'none';
+        $('eventsFutureTitle').style.display = futureItems.length ? 'block' : 'none';
+      }, (err) => console.error(err));
     }
 
     function todayStr() {
       const d = new Date();
-      const dd = String(d.getDate()).padStart(2, '0');
-      const mm = String(d.getMonth() + 1).padStart(2, '0');
-      const yyyy = d.getFullYear();
-      return yyyy + '-' + mm + '-' + dd;
+      return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+    }
+    function tomorrowStr() {
+      const d = new Date();
+      d.setDate(d.getDate() + 1);
+      return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+    }
+    function formatDateLabel(dateStr, today, tomorrow) {
+      if (dateStr === today) return 'Сегодня';
+      if (dateStr === tomorrow) return 'Завтра';
+      const d = new Date(dateStr + 'T00:00:00');
+      const dd = String(d.getDate()).padStart(2,'0');
+      const mm = String(d.getMonth()+1).padStart(2,'0');
+      return dd + '.' + mm;
     }
 
-    function renderEvents(items, container, emptyEl, isToday) {
+    function renderEvents(items, container, emptyEl, todayDate) {
       container.innerHTML = '';
-      if (items.length === 0) {
-        emptyEl.style.display = 'block';
-        return;
-      }
+      if (items.length === 0) { emptyEl.style.display = 'block'; return; }
       emptyEl.style.display = 'none';
 
-      const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
+      const myUid = currentUser ? currentUser.uid : '';
+      const now = new Date();
+      const nowMin = now.getHours() * 60 + now.getMinutes();
+      const today = todayStr();
 
       items.forEach((data) => {
         const item = document.createElement('div');
-        item.className = 'event-item';
+        let isNow = false;
+        if (data.date === today && data.startTime) {
+          const [sh, sm] = data.startTime.split(':').map(Number);
+          const startMin = sh * 60 + sm;
+          let endMin = startMin + 60;
+          if (data.endTime) {
+            const [eh, em] = data.endTime.split(':').map(Number);
+            endMin = eh * 60 + em;
+          }
+          isNow = nowMin >= startMin && nowMin <= endMin;
+        }
+        item.className = 'event-item' + (isNow ? ' now' : '');
 
-        // Время
         const timeEl = document.createElement('div');
         timeEl.className = 'event-time';
         timeEl.textContent = data.startTime || '--:--';
@@ -925,22 +1064,16 @@
         }
         item.appendChild(timeEl);
 
-        // Тело
         const body = document.createElement('div');
         body.className = 'event-body';
-
         const title = document.createElement('div');
         title.className = 'event-title';
         title.textContent = data.title;
         body.appendChild(title);
 
-        // Мета: дата (если не сегодня) + кто добавил
         const metaParts = [];
-        if (!isToday && data.date) {
-          const d = new Date(data.date + 'T00:00:00');
-          const dd = String(d.getDate()).padStart(2, '0');
-          const mm = String(d.getMonth() + 1).padStart(2, '0');
-          metaParts.push('📅 ' + dd + '.' + mm);
+        if (data.date !== today) {
+          metaParts.push('📅 ' + formatDateLabel(data.date, today, tomorrowStr()));
         }
         if (data.createdBy && myUid && data.createdBy !== myUid && data.createdByEmail) {
           metaParts.push('👤 ' + data.createdByEmail.split('@')[0]);
@@ -951,20 +1084,16 @@
           meta.textContent = metaParts.join(' • ');
           body.appendChild(meta);
         }
-
         item.appendChild(body);
 
-        // Удаление
         const delBtn = document.createElement('button');
         delBtn.className = 'delete-btn';
         delBtn.textContent = '×';
         delBtn.addEventListener('click', async () => {
-          try {
-            await remove(ref(db, 'schedule_events/' + data.id));
-          } catch (err) { console.error(err); }
+          haptic(15);
+          await remove(ref(db, 'schedule_events/' + data.id));
         });
         item.appendChild(delBtn);
-
         container.appendChild(item);
       });
     }
