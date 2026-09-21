@@ -304,6 +304,10 @@
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
+    const auth = getAuth(app);
+// Принудительно используем localStorage для сохранения сессии
+setPersistence(auth, browserLocalPersistence)
+  .catch((error) => console.error('Ошибка установки persistence:', error));
     const db = getFirestore(app);
 
     // ============ АВТОРИЗАЦИЯ ============
