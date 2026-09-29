@@ -12,15 +12,152 @@
     html, body { height: 100%; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
-      background: #f6f3ee;
+      background: var(--bg);
       background-image:
-        radial-gradient(ellipse 70% 50% at 50% 0%, rgba(217, 179, 130, 0.18) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 50% at 100% 100%, rgba(184, 137, 78, 0.08) 0%, transparent 60%);
+        radial-gradient(ellipse 70% 50% at 50% 0%, var(--glow1) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 100% 100%, var(--glow2) 0%, transparent 60%);
       background-attachment: fixed;
-      color: #1c1a17;
+      color: var(--text);
       overscroll-behavior: none;
       -webkit-font-smoothing: antialiased;
       letter-spacing: -0.2px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    :root, body[data-accent="gold"] {
+      --accent1: #d9b382; --accent2: #b8894e;
+      --accent-text: #b8894e;
+      --accent-soft: rgba(184, 137, 78, 0.12);
+      --accent-border: rgba(184, 137, 78, 0.15);
+      --bg: #f6f3ee;
+      --glow1: rgba(217, 179, 130, 0.18);
+      --glow2: rgba(184, 137, 78, 0.08);
+      --text: #1c1a17;
+      --text-soft: #9a8f80;
+      --text-muted: #b5a898;
+      --card: #ffffff;
+      --card-border: #f0ebe1;
+      --input-bg: #fbf9f5;
+      --input-border: #e6dfd3;
+      --topbar-bg: rgba(246, 243, 238, 0.82);
+      --topbar-border: rgba(184, 137, 78, 0.1);
+      --nav-bg: rgba(255, 255, 255, 0.92);
+      --nav-border: rgba(184, 137, 78, 0.1);
+      --shadow: rgba(120, 90, 50, 0.06);
+      --shadow-strong: rgba(120, 90, 50, 0.14);
+      --done-color: #b5a898;
+    }
+    body[data-accent="emerald"] {
+      --accent1: #7ce0c0; --accent2: #3fae8a;
+      --accent-text: #2f9d7a;
+      --accent-soft: rgba(63, 174, 138, 0.12);
+      --accent-border: rgba(63, 174, 138, 0.15);
+      --bg: #f0f5f2;
+      --glow1: rgba(124, 224, 192, 0.2);
+      --glow2: rgba(63, 174, 138, 0.1);
+      --text: #16201c;
+      --text-soft: #7d948a;
+      --text-muted: #a5b5ae;
+      --card: #ffffff;
+      --card-border: #e6efe9;
+      --input-bg: #f5faf7;
+      --input-border: #d8e6de;
+      --topbar-bg: rgba(240, 245, 242, 0.82);
+      --topbar-border: rgba(63, 174, 138, 0.1);
+      --nav-bg: rgba(255, 255, 255, 0.92);
+      --nav-border: rgba(63, 174, 138, 0.1);
+      --shadow: rgba(50, 120, 90, 0.06);
+      --shadow-strong: rgba(50, 120, 90, 0.14);
+      --done-color: #a5b5ae;
+    }
+    body[data-accent="sapphire"] {
+      --accent1: #8bb8e8; --accent2: #4a7fc4;
+      --accent-text: #3a6fb5;
+      --accent-soft: rgba(74, 127, 196, 0.12);
+      --accent-border: rgba(74, 127, 196, 0.15);
+      --bg: #f2f5f9;
+      --glow1: rgba(139, 184, 232, 0.2);
+      --glow2: rgba(74, 127, 196, 0.1);
+      --text: #141a22;
+      --text-soft: #8292a5;
+      --text-muted: #aebac9;
+      --card: #ffffff;
+      --card-border: #e6ecf3;
+      --input-bg: #f5f8fc;
+      --input-border: #d8e2ed;
+      --topbar-bg: rgba(242, 245, 249, 0.82);
+      --topbar-border: rgba(74, 127, 196, 0.1);
+      --nav-bg: rgba(255, 255, 255, 0.92);
+      --nav-border: rgba(74, 127, 196, 0.1);
+      --shadow: rgba(50, 80, 130, 0.06);
+      --shadow-strong: rgba(50, 80, 130, 0.14);
+      --done-color: #aebac9;
+    }
+    body[data-accent="rose"] {
+      --accent1: #e8a8b8; --accent2: #c46a86;
+      --accent-text: #b05572;
+      --accent-soft: rgba(196, 106, 134, 0.12);
+      --accent-border: rgba(196, 106, 134, 0.15);
+      --bg: #f9f2f5;
+      --glow1: rgba(232, 168, 184, 0.2);
+      --glow2: rgba(196, 106, 134, 0.1);
+      --text: #22161b;
+      --text-soft: #a58590;
+      --text-muted: #c9aeb8;
+      --card: #ffffff;
+      --card-border: #f3e6eb;
+      --input-bg: #fcf5f8;
+      --input-border: #edd8e0;
+      --topbar-bg: rgba(249, 242, 245, 0.82);
+      --topbar-border: rgba(196, 106, 134, 0.1);
+      --nav-bg: rgba(255, 255, 255, 0.92);
+      --nav-border: rgba(196, 106, 134, 0.1);
+      --shadow: rgba(130, 50, 80, 0.06);
+      --shadow-strong: rgba(130, 50, 80, 0.14);
+      --done-color: #c9aeb8;
+    }
+    body[data-accent="graphite"] {
+      --accent1: #8a8a95; --accent2: #4a4a55;
+      --accent-text: #5a5a65;
+      --accent-soft: rgba(74, 74, 85, 0.1);
+      --accent-border: rgba(74, 74, 85, 0.15);
+      --bg: #f4f4f5;
+      --glow1: rgba(138, 138, 149, 0.15);
+      --glow2: rgba(74, 74, 85, 0.08);
+      --text: #1a1a1f;
+      --text-soft: #88888f;
+      --text-muted: #b0b0b8;
+      --card: #ffffff;
+      --card-border: #ebebee;
+      --input-bg: #f9f9fa;
+      --input-border: #e0e0e5;
+      --topbar-bg: rgba(244, 244, 245, 0.82);
+      --topbar-border: rgba(74, 74, 85, 0.1);
+      --nav-bg: rgba(255, 255, 255, 0.92);
+      --nav-border: rgba(74, 74, 85, 0.1);
+      --shadow: rgba(50, 50, 70, 0.06);
+      --shadow-strong: rgba(50, 50, 70, 0.14);
+      --done-color: #b0b0b8;
+    }
+
+    body[data-theme="dark"] {
+      --bg: #14161a;
+      --glow1: rgba(217, 179, 130, 0.08);
+      --glow2: rgba(184, 137, 78, 0.05);
+      --text: #e8e6e2;
+      --text-soft: #8a8a90;
+      --text-muted: #5a5a62;
+      --card: #1e2026;
+      --card-border: #2a2d33;
+      --input-bg: #23252b;
+      --input-border: #2f3238;
+      --topbar-bg: rgba(20, 22, 26, 0.82);
+      --topbar-border: rgba(255, 255, 255, 0.06);
+      --nav-bg: rgba(30, 32, 38, 0.95);
+      --nav-border: rgba(255, 255, 255, 0.06);
+      --shadow: rgba(0, 0, 0, 0.4);
+      --shadow-strong: rgba(0, 0, 0, 0.6);
+      --done-color: #5a5a62;
     }
 
     @keyframes fadeInUp {
@@ -32,8 +169,12 @@
       to { opacity: 1; transform: translate(-50%, 0); }
     }
     @keyframes nowPulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(184, 137, 78, 0.3); }
-      50% { box-shadow: 0 0 0 6px rgba(184, 137, 78, 0); }
+      0%, 100% { box-shadow: 0 0 0 0 var(--accent-soft); }
+      50% { box-shadow: 0 0 0 6px transparent; }
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(30px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     /* ============ АВТОРИЗАЦИЯ ============ */
@@ -45,64 +186,72 @@
       padding: 24px;
     }
     .card {
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: saturate(180%) blur(30px);
-      -webkit-backdrop-filter: saturate(180%) blur(30px);
-      border: 1px solid rgba(255, 255, 255, 1);
+      background: var(--card);
+      border: 1px solid var(--card-border);
       border-radius: 28px;
       padding: 40px 28px;
       width: 100%;
       max-width: 420px;
       box-shadow:
-        0 24px 70px rgba(120, 90, 50, 0.14),
-        0 8px 24px rgba(120, 90, 50, 0.06),
-        inset 0 1px 0 rgba(255, 255, 255, 1);
+        0 24px 70px var(--shadow-strong),
+        0 8px 24px var(--shadow);
       animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .card h1 {
       font-size: 30px; font-weight: 800; text-align: center;
       margin-bottom: 10px; letter-spacing: -0.8px;
-      background: linear-gradient(135deg, #1c1a17 0%, #b8894e 100%);
+      background: linear-gradient(135deg, var(--text) 0%, var(--accent-text) 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    .subtitle { font-size: 15px; color: #9a8f80; text-align: center; margin-bottom: 32px; font-weight: 500; }
+    .subtitle { font-size: 15px; color: var(--text-soft); text-align: center; margin-bottom: 32px; font-weight: 500; }
     .tabs {
-      display: flex; background: rgba(184, 137, 78, 0.08);
+      display: flex; background: var(--accent-soft);
       border-radius: 16px; padding: 4px; margin-bottom: 26px;
-      border: 1px solid rgba(184, 137, 78, 0.1);
+      border: 1px solid var(--accent-border);
     }
     .tab {
       flex: 1; padding: 12px; text-align: center; border-radius: 12px;
-      font-size: 15px; font-weight: 700; color: #9a8f80;
+      font-size: 15px; font-weight: 700; color: var(--text-soft);
       cursor: pointer; border: none; background: transparent; font-family: inherit;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .tab.active {
-      background: linear-gradient(135deg, #d9b382 0%, #b8894e 100%);
+      background: linear-gradient(135deg, var(--accent1) 0%, var(--accent2) 100%);
       color: #ffffff;
-      box-shadow: 0 4px 14px rgba(184, 137, 78, 0.35);
+      box-shadow: 0 4px 14px var(--accent-soft);
     }
-    input[type="email"], input[type="password"], input[type="text"], input[type="date"], input[type="time"] {
+    input[type="email"], input[type="password"], input[type="text"], input[type="date"], input[type="time"], input[type="number"], input[type="url"] {
       width: 100%; padding: 16px; font-size: 16px; font-family: inherit;
-      border: 1px solid #e6dfd3; border-radius: 16px; margin-bottom: 12px;
-      background: #fbf9f5; color: #1c1a17; outline: none;
+      border: 1px solid var(--input-border); border-radius: 16px; margin-bottom: 12px;
+      background: var(--input-bg); color: var(--text); outline: none;
       transition: all 0.2s;
     }
-    input::placeholder { color: #b5a898; }
+    input::placeholder { color: var(--text-muted); }
     input:focus {
-      border-color: #b8894e;
-      background: #ffffff;
-      box-shadow: 0 0 0 4px rgba(184, 137, 78, 0.12);
+      border-color: var(--accent2);
+      background: var(--card);
+      box-shadow: 0 0 0 4px var(--accent-soft);
+    }
+    textarea {
+      width: 100%; padding: 16px; font-size: 16px; font-family: inherit;
+      border: 1px solid var(--input-border); border-radius: 16px; margin-bottom: 12px;
+      background: var(--input-bg); color: var(--text); outline: none;
+      transition: all 0.2s; resize: vertical; min-height: 70px;
+    }
+    textarea:focus {
+      border-color: var(--accent2);
+      background: var(--card);
+      box-shadow: 0 0 0 4px var(--accent-soft);
     }
     button.primary {
       width: 100%; padding: 17px; font-size: 16px; font-weight: 700;
       font-family: inherit; color: #ffffff;
-      background: linear-gradient(135deg, #d9b382 0%, #b8894e 100%);
+      background: linear-gradient(135deg, var(--accent1) 0%, var(--accent2) 100%);
       border: none; border-radius: 16px; cursor: pointer; margin-top: 10px;
       transition: all 0.2s;
       box-shadow:
-        0 10px 24px rgba(184, 137, 78, 0.35),
+        0 10px 24px var(--accent-soft),
         inset 0 1px 0 rgba(255, 255, 255, 0.25);
       letter-spacing: 0.2px;
     }
@@ -111,80 +260,86 @@
     .error { color: #c0554e; font-size: 14px; text-align: center; margin-top: 16px; min-height: 20px; }
 
     /* ============ ОСНОВНОЙ ЭКРАН ============ */
-    #appScreen { display: none; min-height: 100vh; padding-bottom: 110px; }
+    #appScreen { display: none; min-height: 100vh; padding-bottom: 120px; }
     #appScreen.active { display: block; }
 
     .topbar {
       position: sticky; top: 0; z-index: 10;
-      background: rgba(246, 243, 238, 0.82);
+      background: var(--topbar-bg);
       backdrop-filter: saturate(180%) blur(28px);
       -webkit-backdrop-filter: saturate(180%) blur(28px);
       padding: 16px 20px 12px;
       display: flex; align-items: center; justify-content: space-between;
-      border-bottom: 1px solid rgba(184, 137, 78, 0.1);
+      border-bottom: 1px solid var(--topbar-border);
     }
     .topbar-left { display: flex; align-items: center; gap: 12px; }
     .topbar-icon {
       width: 40px; height: 40px;
-      background: linear-gradient(135deg, #d9b382 0%, #b8894e 100%);
+      background: linear-gradient(135deg, var(--accent1) 0%, var(--accent2) 100%);
       border-radius: 12px;
       display: flex; align-items: center; justify-content: center;
       color: #ffffff;
-      box-shadow: 0 4px 14px rgba(184, 137, 78, 0.35);
+      box-shadow: 0 4px 14px var(--accent-soft);
       flex-shrink: 0;
+      transition: all 0.3s;
     }
     .topbar h2 {
       font-size: 22px; font-weight: 800; letter-spacing: -0.6px;
-      color: #1c1a17;
+      color: var(--text);
     }
     .count-badge {
       display: inline-block;
-      background: linear-gradient(135deg, #d9b382 0%, #b8894e 100%);
+      background: linear-gradient(135deg, var(--accent1) 0%, var(--accent2) 100%);
       color: #fff;
       font-size: 12px; font-weight: 800;
       padding: 3px 9px; border-radius: 10px;
       margin-left: 8px;
       vertical-align: middle;
-      box-shadow: 0 2px 8px rgba(184, 137, 78, 0.4);
+      box-shadow: 0 2px 8px var(--accent-soft);
     }
-    .logout-btn {
-      background: rgba(184, 137, 78, 0.1); border: none; font-family: inherit;
-      color: #b8894e; font-size: 13px; font-weight: 700;
-      padding: 9px 14px; border-radius: 12px; cursor: pointer;
+    .topbar-actions { display: flex; gap: 6px; }
+    .icon-btn {
+      width: 40px; height: 40px;
+      background: var(--accent-soft); border: none;
+      color: var(--accent-text);
+      border-radius: 12px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
       transition: all 0.2s;
-      letter-spacing: 0.2px;
-      border: 1px solid rgba(184, 137, 78, 0.15);
+      border: 1px solid var(--accent-border);
     }
-    .logout-btn:active { background: rgba(184, 137, 78, 0.2); transform: scale(0.95); }
+    .icon-btn:active { transform: scale(0.92); background: var(--accent-border); }
 
     .container { padding: 20px; max-width: 500px; margin: 0 auto; }
 
-    /* ============ МАГАЗИН ============ */
+    /* ============ УНИВЕРСАЛЬНЫЕ ============ */
     .add-card {
-      background: #ffffff;
-      border: 1px solid #f0ebe1;
+      background: var(--card);
+      border: 1px solid var(--card-border);
       border-radius: 20px;
       padding: 16px;
       margin-bottom: 22px;
-      box-shadow:
-        0 4px 16px rgba(120, 90, 50, 0.05),
-        0 1px 3px rgba(120, 90, 50, 0.03);
+      box-shadow: 0 4px 16px var(--shadow);
+      animation: fadeInUp 0.3s ease;
+    }
+    .add-card h3 {
+      font-size: 13px; color: var(--accent-text); margin-bottom: 14px;
+      font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase;
     }
     .add-row { display: flex; gap: 10px; }
     .add-row input {
       flex: 1; margin-bottom: 0;
-      background: #fbf9f5;
-      border: 1px solid #e6dfd3;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
     }
     .add-btn {
       width: 56px; height: 56px; flex-shrink: 0;
-      background: linear-gradient(135deg, #d9b382 0%, #b8894e 100%);
+      background: linear-gradient(135deg, var(--accent1) 0%, var(--accent2) 100%);
       color: #ffffff; border: none; border-radius: 16px;
       font-size: 28px; font-weight: 300; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
       transition: all 0.2s;
       box-shadow:
-        0 10px 22px rgba(184, 137, 78, 0.4),
+        0 10px 22px var(--accent-soft),
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
     }
     .add-btn:active { transform: scale(0.94); }
@@ -199,64 +354,62 @@
     .cat-btn {
       flex-shrink: 0;
       padding: 8px 12px; border-radius: 12px;
-      border: 1.5px solid #e6dfd3; background: #fbf9f5;
+      border: 1.5px solid var(--input-border); background: var(--input-bg);
       font-family: inherit; font-size: 13px; font-weight: 600;
-      color: #9a8f80; cursor: pointer;
+      color: var(--text-soft); cursor: pointer;
       display: flex; align-items: center; gap: 4px;
       transition: all 0.15s;
       white-space: nowrap;
     }
     .cat-btn.active {
-      background: linear-gradient(135deg, #d9b382 0%, #b8894e 100%);
+      background: linear-gradient(135deg, var(--accent1) 0%, var(--accent2) 100%);
       border-color: transparent; color: #ffffff;
-      box-shadow: 0 4px 12px rgba(184, 137, 78, 0.3);
+      box-shadow: 0 4px 12px var(--accent-soft);
     }
 
     .section-title {
-      font-size: 12px; font-weight: 800; color: #9a8f80;
+      font-size: 12px; font-weight: 800; color: var(--text-soft);
       text-transform: uppercase; letter-spacing: 1.4px;
       margin: 20px 0 10px;
     }
     .section-title:first-child { margin-top: 0; }
 
     .items-list { display: flex; flex-direction: column; gap: 8px; }
+
     .item {
-      background: #ffffff;
-      border: 1px solid #f0ebe1;
+      background: var(--card);
+      border: 1px solid var(--card-border);
       border-radius: 16px; padding: 16px;
       display: flex; align-items: center; gap: 14px;
-      box-shadow:
-        0 4px 16px rgba(120, 90, 50, 0.05),
-        0 1px 3px rgba(120, 90, 50, 0.03);
+      box-shadow: 0 4px 16px var(--shadow);
       transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       animation: fadeInUp 0.3s ease;
       position: relative;
     }
     .item:active { transform: scale(0.99); }
     .item.done { opacity: 0.5; }
-    .item.done .item-title { text-decoration: line-through; text-decoration-color: #b5a898; }
+    .item.done .item-title { text-decoration: line-through; text-decoration-color: var(--done-color); }
 
-    .cat-marker {
-      width: 4px; height: 36px; border-radius: 2px; flex-shrink: 0;
-    }
+    .cat-marker { width: 4px; height: 36px; border-radius: 2px; flex-shrink: 0; }
 
     .checkbox {
       width: 28px; height: 28px; flex-shrink: 0; border-radius: 10px;
-      border: 2px solid #d9b382; background: #ffffff;
+      border: 2px solid var(--accent1); background: var(--card);
       display: flex; align-items: center; justify-content: center;
       cursor: pointer; transition: all 0.2s;
     }
     .checkbox:active { transform: scale(0.9); }
     .checkbox.checked {
-      background: linear-gradient(135deg, #d9b382 0%, #b8894e 100%);
+      background: linear-gradient(135deg, var(--accent1) 0%, var(--accent2) 100%);
       border-color: transparent;
-      box-shadow: 0 4px 12px rgba(184, 137, 78, 0.4);
+      box-shadow: 0 4px 12px var(--accent-soft);
     }
     .checkbox.checked::after { content: "✓"; color: #ffffff; font-size: 16px; font-weight: 900; }
-    .item-title { flex: 1; font-size: 16px; font-weight: 500; word-break: break-word; color: #1c1a17; }
-    .item-meta { font-size: 12px; color: #9a8f80; margin-top: 3px; font-weight: 500; }
+    .item-title { flex: 1; font-size: 16px; font-weight: 500; word-break: break-word; color: var(--text); }
+    .item-meta { font-size: 12px; color: var(--text-soft); margin-top: 3px; font-weight: 500; }
+    .item-link { color: var(--accent-text); text-decoration: none; font-weight: 600; }
     .delete-btn {
-      background: transparent; border: none; color: #d4c8b8;
+      background: transparent; border: none; color: var(--text-muted);
       font-size: 22px; cursor: pointer; padding: 4px 8px; font-family: inherit;
       transition: all 0.2s;
     }
@@ -264,245 +417,423 @@
 
     .clear-btn {
       width: 100%; padding: 14px; margin-top: 12px;
-      background: transparent; border: 1.5px dashed #d9b382;
+      background: transparent; border: 1.5px dashed var(--accent1);
       border-radius: 14px; font-family: inherit;
-      font-size: 14px; font-weight: 700; color: #b8894e;
+      font-size: 14px; font-weight: 700; color: var(--accent-text);
       cursor: pointer; transition: all 0.2s;
     }
-    .clear-btn:active {
-      background: rgba(184, 137, 78, 0.08);
-      transform: scale(0.98);
-    }
+    .clear-btn:active { background: var(--accent-soft); transform: scale(0.98); }
 
     .empty {
-      text-align: center; padding: 40px 20px; color: #9a8f80; font-size: 15px;
+      text-align: center; padding: 40px 20px; color: var(--text-soft); font-size: 15px;
       font-weight: 500; animation: fadeInUp 0.4s ease;
     }
     .empty-emoji { font-size: 52px; margin-bottom: 14px; opacity: 0.65; }
 
     /* ============ ДЕЛА ============ */
-    .chore-add-card {
-      background: #ffffff;
-      border: 1px solid #f0ebe1;
-      border-radius: 20px;
-      padding: 18px;
-      margin-bottom: 24px;
-      box-shadow:
-        0 6px 24px rgba(120, 90, 50, 0.06),
-        0 1px 3px rgba(120, 90, 50, 0.03);
-      animation: fadeInUp 0.3s ease;
-    }
-    .chore-add-card h3 {
-      font-size: 13px; color: #b8894e; margin-bottom: 14px;
-      font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase;
-    }
     .chore-row { display: flex; gap: 8px; margin-bottom: 10px; }
     .chore-select {
       flex: 1; padding: 14px; font-size: 15px; font-family: inherit;
-      border: 1px solid #e6dfd3; border-radius: 16px;
-      background: #fbf9f5; color: #1c1a17; outline: none;
+      border: 1px solid var(--input-border); border-radius: 16px;
+      background: var(--input-bg); color: var(--text); outline: none;
       -webkit-appearance: none; appearance: none;
-      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23b8894e' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239a8f80' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
       background-repeat: no-repeat;
       background-position: right 14px center;
       padding-right: 36px;
       transition: all 0.2s;
     }
-    .chore-select:focus { border-color: #b8894e; box-shadow: 0 0 0 4px rgba(184, 137, 78, 0.12); }
+    .chore-select:focus { border-color: var(--accent2); box-shadow: 0 0 0 4px var(--accent-soft); }
     .chore-add-btn {
       width: 100%; padding: 15px; font-size: 16px; font-weight: 700;
       font-family: inherit; color: #ffffff;
-      background: linear-gradient(135deg, #d9b382 0%, #b8894e 100%);
+      background: linear-gradient(135deg, var(--accent1) 0%, var(--accent2) 100%);
       border: none; border-radius: 16px; cursor: pointer;
       transition: all 0.2s;
-      box-shadow:
-        0 10px 22px rgba(184, 137, 78, 0.35),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      box-shadow: 0 10px 22px var(--accent-soft), inset 0 1px 0 rgba(255, 255, 255, 0.3);
     }
     .chore-add-btn:active { transform: scale(0.97); }
 
-    .chore-section-title {
-      font-size: 12px; font-weight: 800; color: #9a8f80;
-      text-transform: uppercase; letter-spacing: 1.4px;
-      margin: 24px 0 12px;
-    }
-    .chore-section-title:first-child { margin-top: 0; }
-
     .chore-item {
-      background: #ffffff;
-      border: 1px solid #f0ebe1;
+      background: var(--card);
+      border: 1px solid var(--card-border);
       border-radius: 16px; padding: 16px;
       display: flex; align-items: flex-start; gap: 14px;
-      box-shadow:
-        0 4px 16px rgba(120, 90, 50, 0.05),
-        0 1px 3px rgba(120, 90, 50, 0.03);
+      box-shadow: 0 4px 16px var(--shadow);
       margin-bottom: 8px;
       transition: all 0.25s;
       animation: fadeInUp 0.3s ease;
     }
     .chore-item.done { opacity: 0.5; }
-    .chore-item.done .item-title { text-decoration: line-through; text-decoration-color: #b5a898; }
+    .chore-item.done .item-title { text-decoration: line-through; text-decoration-color: var(--done-color); }
     .chore-item-body { flex: 1; }
 
     .chore-badge {
       display: inline-block;
       font-size: 11px; font-weight: 800;
-      padding: 4px 10px;
-      border-radius: 8px;
-      margin-top: 8px;
-      letter-spacing: 0.3px;
+      padding: 4px 10px; border-radius: 8px;
+      margin-top: 8px; letter-spacing: 0.3px;
     }
     .chore-badge.today { background: #fff4e0; color: #b8770f; border: 1px solid #f5e0b8; }
     .chore-badge.tomorrow { background: #eaf1fb; color: #3a6fb5; border: 1px solid #d5e3f5; }
     .chore-badge.overdue { background: #fbeae8; color: #c0554e; border: 1px solid #f3d5d2; }
-    .chore-badge.soon { background: #faf3e6; color: #b8894e; border: 1px solid #f0e0c4; }
+    .chore-badge.soon { background: var(--accent-soft); color: var(--accent-text); border: 1px solid var(--accent-border); }
+    body[data-theme="dark"] .chore-badge.today { background: #3a2f1a; color: #f5c072; border-color: #4a3a1e; }
+    body[data-theme="dark"] .chore-badge.tomorrow { background: #1a2538; color: #8bb8e8; border-color: #223350; }
+    body[data-theme="dark"] .chore-badge.overdue { background: #3a1f1e; color: #ff8a80; border-color: #4a2827; }
 
     /* ============ РАСПИСАНИЕ ============ */
-    .event-add-card {
-      background: #ffffff;
-      border: 1px solid #f0ebe1;
-      border-radius: 20px;
-      padding: 18px;
-      margin-bottom: 24px;
-      box-shadow:
-        0 6px 24px rgba(120, 90, 50, 0.06),
-        0 1px 3px rgba(120, 90, 50, 0.03);
-      animation: fadeInUp 0.3s ease;
-    }
-    .event-add-card h3 {
-      font-size: 13px; color: #b8894e; margin-bottom: 14px;
-      font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase;
-    }
     .event-time-row { display: flex; gap: 8px; margin-bottom: 10px; position: relative; }
     .event-time-row input { flex: 1; margin-bottom: 0; padding-right: 76px; }
     .now-btn {
       position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
-      background: rgba(184, 137, 78, 0.12); border: none;
+      background: var(--accent-soft); border: none;
       border-radius: 10px; font-family: inherit;
       font-size: 12px; font-weight: 800;
-      color: #b8894e; padding: 7px 11px; cursor: pointer;
-      letter-spacing: 0.3px;
-      transition: all 0.15s;
+      color: var(--accent-text); padding: 7px 11px; cursor: pointer;
+      letter-spacing: 0.3px; transition: all 0.15s;
     }
-    .now-btn:active { background: rgba(184, 137, 78, 0.22); transform: translateY(-50%) scale(0.95); }
+    .now-btn:active { background: var(--accent-border); transform: translateY(-50%) scale(0.95); }
     .event-date-row { margin-bottom: 10px; }
     .event-date-row input { margin-bottom: 0; }
     .event-add-btn {
       width: 100%; padding: 15px; font-size: 16px; font-weight: 700;
       font-family: inherit; color: #ffffff;
-      background: linear-gradient(135deg, #d9b382 0%, #b8894e 100%);
+      background: linear-gradient(135deg, var(--accent1) 0%, var(--accent2) 100%);
       border: none; border-radius: 16px; cursor: pointer;
       transition: all 0.2s;
-      box-shadow:
-        0 10px 22px rgba(184, 137, 78, 0.35),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      box-shadow: 0 10px 22px var(--accent-soft), inset 0 1px 0 rgba(255, 255, 255, 0.3);
     }
     .event-add-btn:active { transform: scale(0.97); }
 
-    .event-section-title {
-      font-size: 12px; font-weight: 800; color: #9a8f80;
-      text-transform: uppercase; letter-spacing: 1.4px;
-      margin: 24px 0 12px;
-    }
-    .event-section-title:first-child { margin-top: 0; }
-
     .event-item {
-      background: #ffffff;
-      border: 1px solid #f0ebe1;
+      background: var(--card);
+      border: 1px solid var(--card-border);
       border-radius: 16px; padding: 16px;
       display: flex; align-items: center; gap: 14px;
-      box-shadow:
-        0 4px 16px rgba(120, 90, 50, 0.05),
-        0 1px 3px rgba(120, 90, 50, 0.03);
+      box-shadow: 0 4px 16px var(--shadow);
       margin-bottom: 8px;
       transition: all 0.25s;
       animation: fadeInUp 0.3s ease;
       position: relative;
     }
     .event-item.now {
-      border: 1.5px solid #b8894e;
-      box-shadow:
-        0 6px 24px rgba(184, 137, 78, 0.18),
-        0 2px 8px rgba(184, 137, 78, 0.1);
+      border: 1.5px solid var(--accent2);
+      box-shadow: 0 6px 24px var(--accent-soft), 0 2px 8px var(--accent-soft);
       animation: fadeInUp 0.3s ease, nowPulse 2.5s ease-in-out infinite;
     }
     .event-item.now::before {
       content: "СЕЙЧАС";
       position: absolute; top: 8px; right: 12px;
       font-size: 9px; font-weight: 900; letter-spacing: 1.2px;
-      color: #b8894e;
-      background: rgba(184, 137, 78, 0.12);
+      color: var(--accent-text);
+      background: var(--accent-soft);
       padding: 3px 7px; border-radius: 6px;
     }
+    .event-item.repeat::after {
+      content: "↻";
+      position: absolute; bottom: 8px; right: 14px;
+      font-size: 14px; font-weight: 700;
+      color: var(--text-muted);
+    }
     .event-time {
-      font-size: 16px;
-      font-weight: 800;
-      color: #b8894e;
-      min-width: 64px;
-      text-align: center;
-      flex-shrink: 0;
+      font-size: 16px; font-weight: 800; color: var(--accent-text);
+      min-width: 64px; text-align: center; flex-shrink: 0;
       letter-spacing: -0.4px;
     }
     .event-time .time-sep {
-      display: block;
-      font-size: 11px;
-      color: #9a8f80;
-      font-weight: 500;
-      margin-top: 3px;
-      letter-spacing: 0;
+      display: block; font-size: 11px; color: var(--text-soft);
+      font-weight: 500; margin-top: 3px; letter-spacing: 0;
     }
     .event-body { flex: 1; padding-right: 12px; }
-    .event-title { font-size: 16px; font-weight: 600; word-break: break-word; color: #1c1a17; }
-    .event-meta { font-size: 12px; color: #9a8f80; margin-top: 3px; font-weight: 500; }
-    .event-item.past { opacity: 0.5; }
+    .event-title { font-size: 16px; font-weight: 600; word-break: break-word; color: var(--text); }
+    .event-meta { font-size: 12px; color: var(--text-soft); margin-top: 3px; font-weight: 500; }
 
-    /* ============ ЗАГЛУШКИ ============ */
-    .placeholder { text-align: center; padding: 80px 20px; color: #9a8f80; }
-    .placeholder-emoji { font-size: 68px; margin-bottom: 18px; opacity: 0.55; }
-    .placeholder h3 {
-      font-size: 22px; color: #1c1a17; margin-bottom: 8px; font-weight: 800;
-      letter-spacing: -0.4px;
+    .repeat-row {
+      display: flex; gap: 6px; margin-bottom: 10px;
     }
-    .placeholder p { font-size: 15px; font-weight: 500; }
+    .repeat-btn {
+      flex: 1; padding: 10px 8px; border-radius: 12px;
+      border: 1.5px solid var(--input-border); background: var(--input-bg);
+      font-family: inherit; font-size: 13px; font-weight: 600;
+      color: var(--text-soft); cursor: pointer;
+      transition: all 0.15s;
+    }
+    .repeat-btn.active {
+      background: linear-gradient(135deg, var(--accent1) 0%, var(--accent2) 100%);
+      border-color: transparent; color: #ffffff;
+      box-shadow: 0 4px 12px var(--accent-soft);
+    }
+
+    /* ============ ПОДАРКИ ============ */
+    .gift-tabs {
+      display: flex; background: var(--accent-soft);
+      border-radius: 14px; padding: 4px; margin-bottom: 20px;
+      border: 1px solid var(--accent-border);
+    }
+    .gift-tab {
+      flex: 1; padding: 10px; text-align: center; border-radius: 10px;
+      font-size: 13px; font-weight: 700; color: var(--text-soft);
+      cursor: pointer; border: none; background: transparent; font-family: inherit;
+      transition: all 0.25s;
+    }
+    .gift-tab.active {
+      background: var(--card); color: var(--text);
+      box-shadow: 0 2px 10px var(--shadow);
+    }
+
+    .gift-item {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 16px; padding: 16px;
+      box-shadow: 0 4px 16px var(--shadow);
+      margin-bottom: 8px;
+      animation: fadeInUp 0.3s ease;
+      display: flex; align-items: flex-start; gap: 12px;
+    }
+    .gift-item.done { opacity: 0.55; }
+    .gift-item.done .gift-title { text-decoration: line-through; text-decoration-color: var(--done-color); }
+
+    .gift-emoji {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: var(--accent-soft);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+    }
+    .gift-body { flex: 1; min-width: 0; }
+    .gift-title { font-size: 16px; font-weight: 600; word-break: break-word; color: var(--text); }
+    .gift-meta { font-size: 12px; color: var(--text-soft); margin-top: 4px; font-weight: 500; }
+    .gift-meta .occasion {
+      display: inline-block;
+      background: var(--accent-soft); color: var(--accent-text);
+      padding: 2px 8px; border-radius: 6px;
+      font-size: 11px; font-weight: 700;
+      margin-right: 6px;
+    }
+    .gift-link {
+      color: var(--accent-text); font-weight: 600;
+      text-decoration: none;
+      font-size: 13px;
+      display: inline-block;
+      margin-top: 6px;
+      word-break: break-all;
+    }
+    .gift-note {
+      font-size: 13px; color: var(--text-soft);
+      margin-top: 6px;
+      padding: 8px 10px;
+      background: var(--input-bg);
+      border-radius: 10px;
+      font-style: italic;
+    }
+    .gift-price {
+      font-size: 14px; font-weight: 800;
+      color: var(--accent-text);
+      white-space: nowrap;
+    }
+    .gift-buy-btn {
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-border);
+      color: var(--accent-text);
+      font-family: inherit; font-size: 12px; font-weight: 700;
+      padding: 6px 12px; border-radius: 10px;
+      cursor: pointer; margin-top: 8px;
+      transition: all 0.15s;
+    }
+    .gift-buy-btn:active { transform: scale(0.95); }
+
+    /* ============ ХОТЕЛКИ ============ */
+    .wish-item {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 16px; padding: 16px;
+      box-shadow: 0 4px 16px var(--shadow);
+      margin-bottom: 8px;
+      animation: fadeInUp 0.3s ease;
+    }
+    .wish-top { display: flex; align-items: flex-start; gap: 12px; }
+    .wish-body { flex: 1; min-width: 0; }
+    .wish-title { font-size: 16px; font-weight: 600; color: var(--text); }
+    .wish-price {
+      font-size: 15px; font-weight: 800;
+      color: var(--accent-text);
+      white-space: nowrap;
+    }
+    .wish-priority {
+      display: inline-block;
+      font-size: 11px; font-weight: 800;
+      padding: 3px 8px; border-radius: 6px;
+      margin-top: 6px;
+      letter-spacing: 0.3px;
+    }
+    .wish-priority.high { background: #fbeae8; color: #c0554e; }
+    .wish-priority.medium { background: #fff4e0; color: #b8770f; }
+    .wish-priority.low { background: var(--accent-soft); color: var(--accent-text); }
+    body[data-theme="dark"] .wish-priority.high { background: #3a1f1e; color: #ff8a80; }
+    body[data-theme="dark"] .wish-priority.medium { background: #3a2f1a; color: #f5c072; }
+
+    .wish-status-row {
+      display: flex; gap: 6px; margin-top: 10px;
+    }
+    .wish-status-btn {
+      flex: 1; padding: 8px 6px; border-radius: 10px;
+      border: 1.5px solid var(--input-border); background: var(--input-bg);
+      font-family: inherit; font-size: 12px; font-weight: 700;
+      color: var(--text-soft); cursor: pointer;
+      transition: all 0.15s;
+    }
+    .wish-status-btn.active {
+      background: linear-gradient(135deg, var(--accent1) 0%, var(--accent2) 100%);
+      border-color: transparent; color: #ffffff;
+      box-shadow: 0 3px 10px var(--accent-soft);
+    }
+    .wish-total {
+      background: linear-gradient(135deg, var(--accent1) 0%, var(--accent2) 100%);
+      color: #ffffff;
+      border-radius: 16px;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      display: flex; justify-content: space-between; align-items: center;
+      box-shadow: 0 6px 20px var(--accent-soft);
+    }
+    .wish-total-label { font-size: 13px; opacity: 0.9; font-weight: 600; }
+    .wish-total-value { font-size: 20px; font-weight: 800; }
 
     /* ============ НАВИГАЦИЯ ============ */
     .bottom-nav {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 20;
-      background: rgba(255, 255, 255, 0.92);
+      background: var(--nav-bg);
       backdrop-filter: saturate(180%) blur(28px);
       -webkit-backdrop-filter: saturate(180%) blur(28px);
-      border-top: 1px solid rgba(184, 137, 78, 0.1);
+      border-top: 1px solid var(--nav-border);
       padding: 8px 4px calc(8px + env(safe-area-inset-bottom));
       display: flex; justify-content: space-around;
       max-width: 500px; margin: 0 auto;
-      box-shadow: 0 -8px 32px rgba(120, 90, 50, 0.06);
+      box-shadow: 0 -8px 32px var(--shadow);
     }
     .nav-btn {
       flex: 1; background: transparent; border: none; font-family: inherit;
-      padding: 4px 4px; cursor: pointer; color: #a89f92;
+      padding: 4px 2px; cursor: pointer; color: var(--text-muted);
       display: flex; flex-direction: column; align-items: center; gap: 3px;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.25s;
       position: relative;
     }
-    .nav-btn.active { color: #b8894e; }
+    .nav-btn.active { color: var(--accent-text); }
     .nav-icon {
-      width: 40px; height: 36px;
+      width: 36px; height: 34px;
       display: flex; align-items: center; justify-content: center;
       border-radius: 12px;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
+    .nav-icon svg { width: 20px; height: 20px; }
     .nav-btn.active .nav-icon {
-      background: linear-gradient(135deg, #d9b382 0%, #b8894e 100%);
+      background: linear-gradient(135deg, var(--accent1) 0%, var(--accent2) 100%);
       color: #ffffff;
       transform: translateY(-2px) scale(1.05);
-      box-shadow: 0 6px 16px rgba(184, 137, 78, 0.4);
+      box-shadow: 0 6px 16px var(--accent-soft);
     }
     .nav-label {
-      font-size: 10px; font-weight: 700;
+      font-size: 9px; font-weight: 700;
       transition: all 0.25s;
       letter-spacing: 0.2px;
     }
-    .nav-btn.active .nav-label { letter-spacing: 0.4px; }
+
+    /* ============ ЗАГЛУШКИ ============ */
+    .placeholder { text-align: center; padding: 80px 20px; color: var(--text-soft); }
+    .placeholder-emoji { font-size: 68px; margin-bottom: 18px; opacity: 0.55; }
+    .placeholder h3 { font-size: 22px; color: var(--text); margin-bottom: 8px; font-weight: 800; letter-spacing: -0.4px; }
+    .placeholder p { font-size: 15px; font-weight: 500; }
+
+    /* ============ МОДАЛЬНОЕ ОКНО ============ */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 100;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex; align-items: flex-end; justify-content: center;
+      padding: 16px;
+      animation: fadeInUp 0.2s ease;
+    }
+    .modal {
+      background: var(--card);
+      border-radius: 24px 24px 20px 20px;
+      padding: 24px;
+      width: 100%; max-width: 500px;
+      max-height: 88vh; overflow-y: auto;
+      box-shadow: 0 -20px 60px rgba(0,0,0,0.3);
+      animation: modalIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .modal h3 {
+      font-size: 20px; font-weight: 800; color: var(--text);
+      margin-bottom: 20px; letter-spacing: -0.4px;
+    }
+    .modal-actions {
+      display: flex; gap: 10px; margin-top: 16px;
+    }
+    .modal-cancel {
+      flex: 1; padding: 15px;
+      background: var(--input-bg); border: 1px solid var(--input-border);
+      border-radius: 14px; font-family: inherit;
+      font-size: 15px; font-weight: 700; color: var(--text-soft);
+      cursor: pointer;
+    }
+    .modal-cancel:active { background: var(--card-border); }
+    .modal-confirm {
+      flex: 2; padding: 15px;
+      background: linear-gradient(135deg, var(--accent1) 0%, var(--accent2) 100%);
+      color: #ffffff; border: none; border-radius: 14px;
+      font-family: inherit; font-size: 15px; font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 6px 16px var(--accent-soft);
+    }
+    .modal-confirm:active { transform: scale(0.97); }
+    .field-label {
+      display: block;
+      font-size: 12px; font-weight: 800; color: var(--text-soft);
+      text-transform: uppercase; letter-spacing: 0.8px;
+      margin-bottom: 8px; margin-top: 12px;
+    }
+    .field-label:first-of-type { margin-top: 0; }
+
+    /* ============ ПЕРСОНАЛИЗАЦИЯ ============ */
+    .accent-grid {
+      display: flex; gap: 10px; flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .accent-dot {
+      width: 44px; height: 44px; border-radius: 14px;
+      border: 3px solid transparent; cursor: pointer;
+      transition: all 0.2s;
+      display: flex; align-items: center; justify-content: center;
+      color: #ffffff; font-size: 18px;
+    }
+    .accent-dot.active {
+      border-color: var(--text);
+      transform: scale(1.1);
+    }
+    .theme-toggle-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0;
+      border-top: 1px solid var(--card-border);
+    }
+    .theme-toggle-label { font-size: 15px; font-weight: 600; color: var(--text); }
+    .switch {
+      position: relative; width: 52px; height: 30px;
+      background: var(--input-border); border-radius: 15px;
+      cursor: pointer; transition: background 0.2s;
+      border: none;
+    }
+    .switch.on { background: linear-gradient(135deg, var(--accent1) 0%, var(--accent2) 100%); }
+    .switch::after {
+      content: ""; position: absolute;
+      width: 24px; height: 24px; border-radius: 50%;
+      background: #ffffff;
+      top: 3px; left: 3px;
+      transition: transform 0.25s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .switch.on::after { transform: translateX(22px); }
 
     /* ============ TOAST ============ */
     .toast {
@@ -518,10 +849,34 @@
       max-width: 90vw;
       text-align: center;
     }
+
+    /* ============ ЗАГРУЗКА ============ */
+    .loading-screen {
+      position: fixed; inset: 0; z-index: 200;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 16px;
+      color: var(--text-soft); font-size: 15px; font-weight: 600;
+    }
+    .spinner {
+      width: 40px; height: 40px;
+      border: 3px solid var(--accent-soft);
+      border-top-color: var(--accent2);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
-<body>
+<body data-accent="gold" data-theme="light">
 
+  <!-- ЭКРАН ЗАГРУЗКИ -->
+  <div id="loadingScreen" class="loading-screen" style="display:none;">
+    <div class="spinner"></div>
+    <div>Загрузка…</div>
+  </div>
+
+  <!-- АВТОРИЗАЦИЯ -->
   <div id="authScreen">
     <div class="card">
       <div id="authForm">
@@ -539,13 +894,31 @@
     </div>
   </div>
 
+  <!-- ПЕРВЫЙ ВХОД: ВВОД ИМЕНИ -->
+  <div id="nameModal" class="modal-overlay" style="display:none;">
+    <div class="modal">
+      <h3>Как вас называть?</h3>
+      <p style="color:var(--text-soft);font-size:14px;margin-bottom:16px;">Это имя увидит ваш партнёр. Можно поменять в настройках.</p>
+      <input type="text" id="nameInput" placeholder="Например: Алёша" autocomplete="off" maxlength="20">
+      <button class="primary" id="nameSaveBtn">Сохранить</button>
+    </div>
+  </div>
+
+  <!-- ОСНОВНОЙ ЭКРАН -->
   <div id="appScreen">
     <div class="topbar">
       <div class="topbar-left">
         <div class="topbar-icon" id="topbarIcon"></div>
         <h2 id="pageTitle">Магазин</h2>
       </div>
-      <button class="logout-btn" id="logoutBtn">Выйти</button>
+      <div class="topbar-actions">
+        <button class="icon-btn" id="settingsBtn" title="Настройки">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
+        <button class="icon-btn" id="logoutBtn" title="Выйти">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        </button>
+      </div>
     </div>
 
     <div class="container">
@@ -584,7 +957,7 @@
 
       <!-- ДЕЛА -->
       <div id="page-chores" class="page" style="display:none;">
-        <div class="chore-add-card">
+        <div class="add-card">
           <h3>Новая задача для другого</h3>
           <input type="text" id="choreInput" placeholder="Что нужно сделать?" autocomplete="off">
           <div class="chore-row">
@@ -596,14 +969,14 @@
           <button class="chore-add-btn" id="choreAddBtn">Добавить задачу</button>
         </div>
 
-        <div class="chore-section-title">Я должен сделать</div>
+        <div class="section-title">Я должен сделать</div>
         <div class="items-list" id="choreForMeList"></div>
         <div class="empty" id="choreForMeEmpty" style="display:none;">
           <div class="empty-emoji">🌸</div>
           <div>Пока никто ничего не поручал</div>
         </div>
 
-        <div class="chore-section-title">Я попросил(а) сделать</div>
+        <div class="section-title">Я попросил(а) сделать</div>
         <div class="items-list" id="choreByMeList"></div>
         <div class="empty" id="choreByMeEmpty" style="display:none;">
           <div class="empty-emoji">💌</div>
@@ -613,7 +986,7 @@
 
       <!-- РАСПИСАНИЕ -->
       <div id="page-schedule" class="page" style="display:none;">
-        <div class="event-add-card">
+        <div class="add-card">
           <h3>Новое событие</h3>
           <input type="text" id="eventTitle" placeholder="Что? (например: рабочая встреча)" autocomplete="off">
           <div class="event-time-row">
@@ -621,22 +994,28 @@
             <button class="now-btn" id="nowBtn" type="button">СЕЙЧАС</button>
           </div>
           <div class="event-time-row">
-            <input type="time" id="eventEnd" placeholder="Конец (необязательно)">
+            <input type="time" id="eventEnd">
           </div>
           <div class="event-date-row">
             <input type="date" id="eventDate">
           </div>
+          <label class="field-label" style="margin-top:4px;">Повтор</label>
+          <div class="repeat-row">
+            <button class="repeat-btn active" data-repeat="none">Один раз</button>
+            <button class="repeat-btn" data-repeat="daily">Ежедневно</button>
+            <button class="repeat-btn" data-repeat="weekly">Еженедельно</button>
+          </div>
           <button class="event-add-btn" id="eventAddBtn">Добавить в расписание</button>
         </div>
 
-        <div class="event-section-title" id="eventsTodayTitle" style="display:none;">Сегодня</div>
+        <div class="section-title" id="eventsTodayTitle" style="display:none;">Сегодня</div>
         <div class="items-list" id="eventsTodayList"></div>
         <div class="empty" id="eventsTodayEmpty" style="display:none;">
           <div class="empty-emoji">☀️</div>
           <div>Сегодня событий нет</div>
         </div>
 
-        <div class="event-section-title" id="eventsFutureTitle" style="display:none;">Предстоящие</div>
+        <div class="section-title" id="eventsFutureTitle" style="display:none;">Предстоящие</div>
         <div class="items-list" id="eventsFutureList"></div>
         <div class="empty" id="eventsFutureEmpty" style="display:none;">
           <div class="empty-emoji">📅</div>
@@ -646,19 +1025,62 @@
 
       <!-- ПОДАРКИ -->
       <div id="page-gifts" class="page" style="display:none;">
-        <div class="placeholder">
-          <div class="placeholder-emoji">🎁</div>
-          <h3>Подарки</h3>
-          <p>Скоро здесь появятся виш-листы друг для друга</p>
+        <div class="gift-tabs">
+          <button class="gift-tab active" data-view="wishlist">✨ Мои желания</button>
+          <button class="gift-tab" data-view="giving">🎁 Я дарю</button>
+        </div>
+
+        <div class="add-card">
+          <h3 id="giftAddTitle">Что я хочу в подарок</h3>
+          <input type="text" id="giftTitle" placeholder="Название" autocomplete="off">
+          <div class="chore-row">
+            <select class="chore-select" id="giftOccasion">
+              <option value="birthday">🎂 День рождения</option>
+              <option value="newyear">🎄 Новый год</option>
+              <option value="valentine">💝 14 февраля</option>
+              <option value="anniversary">💍 Годовщина</option>
+              <option value="just">🎁 Просто так</option>
+            </select>
+            <input type="number" id="giftPrice" placeholder="Цена ₽" style="margin-bottom:0;" inputmode="numeric">
+          </div>
+          <input type="url" id="giftUrl" placeholder="Ссылка на товар (необязательно)" autocomplete="off">
+          <textarea id="giftNote" placeholder="Заметка (размер, цвет, пожелания)" rows="2"></textarea>
+          <button class="chore-add-btn" id="giftAddBtn">Добавить</button>
+        </div>
+
+        <div class="items-list" id="giftsList"></div>
+        <div class="empty" id="giftsEmpty">
+          <div class="empty-emoji">🎁</div>
+          <div>Пока пусто. Добавьте первое желание!</div>
         </div>
       </div>
 
       <!-- ХОТЕЛКИ -->
       <div id="page-wishes" class="page" style="display:none;">
-        <div class="placeholder">
-          <div class="placeholder-emoji">🏠</div>
-          <h3>Хотелки</h3>
-          <p>Скоро здесь появятся крупные покупки</p>
+        <div id="wishTotalCard" class="wish-total" style="display:none;">
+          <span class="wish-total-label">Общая сумма желаний</span>
+          <span class="wish-total-value" id="wishTotalValue">0 ₽</span>
+        </div>
+
+        <div class="add-card">
+          <h3>Новая крупная покупка</h3>
+          <input type="text" id="wishTitle" placeholder="Что хотим (например: робот-пылесос)" autocomplete="off">
+          <div class="chore-row">
+            <input type="number" id="wishPrice" placeholder="Цена ₽" style="margin-bottom:0;" inputmode="numeric">
+            <select class="chore-select" id="wishPriority">
+              <option value="high">🔴 Очень хочу</option>
+              <option value="medium" selected>🟡 Хочу</option>
+              <option value="low">⚪ Когда-нибудь</option>
+            </select>
+          </div>
+          <textarea id="wishNote" placeholder="Зачем, где купить, детали" rows="2"></textarea>
+          <button class="chore-add-btn" id="wishAddBtn">Добавить в хотелки</button>
+        </div>
+
+        <div class="items-list" id="wishesList"></div>
+        <div class="empty" id="wishesEmpty">
+          <div class="empty-emoji">🏠</div>
+          <div>Пока пусто. Добавьте первую хотелку!</div>
         </div>
       </div>
 
@@ -688,27 +1110,43 @@
     </div>
   </div>
 
+  <!-- МОДАЛКА НАСТРОЕК -->
+  <div id="settingsModal" class="modal-overlay" style="display:none;">
+    <div class="modal">
+      <h3>Настройки</h3>
+
+      <label class="field-label">Ваше имя</label>
+      <input type="text" id="settingsName" placeholder="Имя" maxlength="20" autocomplete="off">
+
+      <label class="field-label" style="margin-top:20px;">Цвет приложения</label>
+      <div class="accent-grid" id="accentGrid">
+        <div class="accent-dot" data-accent="gold" style="background: linear-gradient(135deg, #d9b382 0%, #b8894e 100%);"></div>
+        <div class="accent-dot" data-accent="emerald" style="background: linear-gradient(135deg, #7ce0c0 0%, #3fae8a 100%);"></div>
+        <div class="accent-dot" data-accent="sapphire" style="background: linear-gradient(135deg, #8bb8e8 0%, #4a7fc4 100%);"></div>
+        <div class="accent-dot" data-accent="rose" style="background: linear-gradient(135deg, #e8a8b8 0%, #c46a86 100%);"></div>
+        <div class="accent-dot" data-accent="graphite" style="background: linear-gradient(135deg, #8a8a95 0%, #4a4a55 100%);"></div>
+      </div>
+
+      <div class="theme-toggle-row">
+        <span class="theme-toggle-label">🌙 Тёмная тема</span>
+        <button class="switch" id="themeSwitch"></button>
+      </div>
+
+      <div class="modal-actions">
+        <button class="modal-cancel" id="settingsCancel">Закрыть</button>
+        <button class="modal-confirm" id="settingsSave">Сохранить</button>
+      </div>
+    </div>
+  </div>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import {
-      getAuth,
-      signInWithEmailAndPassword,
-      createUserWithEmailAndPassword,
-      onAuthStateChanged,
-      signOut,
-      setPersistence,
-      browserLocalPersistence
+      getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
+      onAuthStateChanged, signOut, setPersistence, browserLocalPersistence
     } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
     import {
-      getDatabase,
-      ref,
-      push,
-      set,
-      update,
-      remove,
-      onValue,
-      query,
-      orderByChild
+      getDatabase, ref, push, set, update, remove, onValue, query, orderByChild
     } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
     // ⚙️ ВАШ КОНФИГ FIREBASE
@@ -724,11 +1162,10 @@
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-
-    setPersistence(auth, browserLocalPersistence)
-      .catch((error) => console.error('Ошибка установки persistence:', error));
-
+    setPersistence(auth, browserLocalPersistence).catch(console.error);
     const db = getDatabase(app);
+
+    const $ = (id) => document.getElementById(id);
 
     // ============ УТИЛИТЫ ============
     function toast(msg) {
@@ -740,58 +1177,57 @@
       document.body.appendChild(el);
       setTimeout(() => el.remove(), 1800);
     }
-    function haptic(ms = 10) {
-      if (navigator.vibrate) navigator.vibrate(ms);
-    }
+    function haptic(ms = 10) { if (navigator.vibrate) navigator.vibrate(ms); }
 
-    // ============ ИКОНКИ SVG ============
+    // ============ ИКОНКИ ============
     const SVG_ICONS = {
-      shop: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>',
-      chores: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>',
-      schedule: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="12" cy="15" r="1" fill="currentColor"/></svg>',
-      gifts: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>',
-      wishes: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>'
+      shop: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>',
+      chores: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>',
+      schedule: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+      gifts: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>',
+      wishes: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>'
     };
-
     document.querySelectorAll('.nav-icon[data-icon]').forEach(el => {
       el.innerHTML = SVG_ICONS[el.dataset.icon] || '';
     });
-    const topbarIcon = document.getElementById('topbarIcon');
+    const topbarIcon = $('topbarIcon');
     if (topbarIcon) topbarIcon.innerHTML = SVG_ICONS.shop;
+
+    // ============ ПЕРСОНАЛИЗАЦИЯ (локально) ============
+    function applyAccent(accent) {
+      document.body.setAttribute('data-accent', accent);
+      localStorage.setItem('familyAccent', accent);
+    }
+    function applyTheme(theme) {
+      document.body.setAttribute('data-theme', theme);
+      localStorage.setItem('familyTheme', theme);
+      const sw = $('themeSwitch');
+      if (sw) sw.classList.toggle('on', theme === 'dark');
+    }
+    // Загружаем сохранённые настройки
+    applyAccent(localStorage.getItem('familyAccent') || 'gold');
+    applyTheme(localStorage.getItem('familyTheme') || 'light');
 
     // ============ АВТОРИЗАЦИЯ ============
     let isLoginMode = true;
-
-    const $ = (id) => document.getElementById(id);
-    const loginTab = $('loginTab');
-    const registerTab = $('registerTab');
-    const submitBtn = $('submitBtn');
-    const emailInput = $('email');
-    const passwordInput = $('password');
-    const errorMsg = $('errorMsg');
-    const authScreen = $('authScreen');
-    const appScreen = $('appScreen');
-    const logoutBtn = $('logoutBtn');
-
-    loginTab.addEventListener('click', () => setMode(true));
-    registerTab.addEventListener('click', () => setMode(false));
+    $('loginTab').addEventListener('click', () => setMode(true));
+    $('registerTab').addEventListener('click', () => setMode(false));
 
     function setMode(login) {
       isLoginMode = login;
-      loginTab.classList.toggle('active', login);
-      registerTab.classList.toggle('active', !login);
-      submitBtn.textContent = login ? 'Войти' : 'Создать аккаунт';
-      errorMsg.textContent = '';
+      $('loginTab').classList.toggle('active', login);
+      $('registerTab').classList.toggle('active', !login);
+      $('submitBtn').textContent = login ? 'Войти' : 'Создать аккаунт';
+      $('errorMsg').textContent = '';
     }
 
-    submitBtn.addEventListener('click', async () => {
-      const email = emailInput.value.trim();
-      const password = passwordInput.value;
-      if (!email || !password) { errorMsg.textContent = 'Заполните email и пароль'; return; }
-      if (password.length < 6) { errorMsg.textContent = 'Пароль минимум 6 символов'; return; }
-
-      submitBtn.disabled = true;
-      errorMsg.textContent = '';
+    $('submitBtn').addEventListener('click', async () => {
+      const email = $('email').value.trim();
+      const password = $('password').value;
+      if (!email || !password) { $('errorMsg').textContent = 'Заполните email и пароль'; return; }
+      if (password.length < 6) { $('errorMsg').textContent = 'Пароль минимум 6 символов'; return; }
+      $('submitBtn').disabled = true;
+      $('errorMsg').textContent = '';
       try {
         if (isLoginMode) {
           await signInWithEmailAndPassword(auth, email, password);
@@ -799,34 +1235,13 @@
           await createUserWithEmailAndPassword(auth, email, password);
         }
       } catch (err) {
-        errorMsg.textContent = translateError(err.code);
+        $('errorMsg').textContent = translateError(err.code);
       } finally {
-        submitBtn.disabled = false;
+        $('submitBtn').disabled = false;
       }
     });
 
-    logoutBtn.addEventListener('click', () => signOut(auth));
-
-    // ============ ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ============
-    let currentUser = null;
-    let allUsers = {};
-    let shopUnsubscribe = null;
-    let choresUnsubscribe = null;
-    let eventsUnsubscribe = null;
-
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        authScreen.style.display = 'none';
-        appScreen.classList.add('active');
-        startAll();
-      } else {
-        authScreen.style.display = 'flex';
-        appScreen.classList.remove('active');
-        stopAll();
-        emailInput.value = '';
-        passwordInput.value = '';
-      }
-    });
+    $('logoutBtn').addEventListener('click', () => signOut(auth));
 
     function translateError(code) {
       const map = {
@@ -842,6 +1257,68 @@
       return map[code] || 'Ошибка: ' + code;
     }
 
+    // ============ ГЛОБАЛЬНЫЕ ============
+    let currentUser = null;
+    let allUsers = {}; // uid -> email
+    let userNames = {}; // uid -> name
+    let shopUnsub = null, choresUnsub = null, eventsUnsub = null, giftsUnsub = null, wishesUnsub = null;
+    let currentGiftView = 'wishlist';
+    let eventRepeat = 'none';
+    let settingsTempAccent = 'gold';
+    let settingsTempTheme = 'light';
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        currentUser = user;
+        $('authScreen').style.display = 'none';
+        $('appScreen').classList.add('active');
+        // Проверяем есть ли имя
+        await ensureUserName(user);
+        startAll();
+      } else {
+        $('authScreen').style.display = 'flex';
+        $('appScreen').classList.remove('active');
+        stopAll();
+        $('email').value = '';
+        $('password').value = '';
+      }
+    });
+
+    // ============ ИМЯ ПОЛЬЗОВАТЕЛЯ ============
+    async function ensureUserName(user) {
+      // Проверяем есть ли имя в localStorage
+      const savedName = localStorage.getItem('familyName_' + user.uid);
+      if (savedName) return;
+
+      // Проверяем в базе
+      const userRef = ref(db, 'users/' + user.uid);
+      const snap = await new Promise(res => {
+        const unsub = onValue(userRef, (s) => { unsub(); res(s); }, { onlyOnce: true });
+      });
+      const data = snap.val();
+      if (data && data.name) {
+        localStorage.setItem('familyName_' + user.uid, data.name);
+        return;
+      }
+
+      // Показываем модалку для ввода имени
+      $('nameModal').style.display = 'flex';
+    }
+
+    $('nameSaveBtn').addEventListener('click', async () => {
+      const name = $('nameInput').value.trim();
+      if (!name) { toast('Введите имя'); return; }
+      try {
+        await update(ref(db, 'users/' + currentUser.uid), { name });
+        localStorage.setItem('familyName_' + currentUser.uid, name);
+        $('nameModal').style.display = 'none';
+        toast('Приятно познакомиться, ' + name + '!');
+        haptic(15);
+      } catch (err) {
+        toast('Ошибка: ' + err.message);
+      }
+    });
+
     // ============ НАВИГАЦИЯ ============
     const pageTitles = {
       shop: 'Магазин',
@@ -850,7 +1327,6 @@
       gifts: 'Подарки',
       wishes: 'Хотелки'
     };
-
     document.querySelectorAll('.nav-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         haptic(8);
@@ -861,22 +1337,70 @@
         $('pageTitle').textContent = pageTitles[page];
         if (topbarIcon) topbarIcon.innerHTML = SVG_ICONS[page] || SVG_ICONS.shop;
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        updateCounters();
       });
     });
 
-    // ============ СТАРТ И СТОП ============
+    // ============ НАСТРОЙКИ ============
+    $('settingsBtn').addEventListener('click', () => {
+      haptic(8);
+      settingsTempAccent = localStorage.getItem('familyAccent') || 'gold';
+      settingsTempTheme = localStorage.getItem('familyTheme') || 'light';
+      $('settingsName').value = localStorage.getItem('familyName_' + currentUser.uid) || '';
+      document.querySelectorAll('.accent-dot').forEach(d => {
+        d.classList.toggle('active', d.dataset.accent === settingsTempAccent);
+      });
+      $('themeSwitch').classList.toggle('on', settingsTempTheme === 'dark');
+      $('settingsModal').style.display = 'flex';
+    });
+
+    document.querySelectorAll('.accent-dot').forEach(dot => {
+      dot.addEventListener('click', () => {
+        haptic(8);
+        settingsTempAccent = dot.dataset.accent;
+        document.querySelectorAll('.accent-dot').forEach(d => d.classList.toggle('active', d === dot));
+      });
+    });
+
+    $('themeSwitch').addEventListener('click', () => {
+      haptic(8);
+      settingsTempTheme = settingsTempTheme === 'dark' ? 'light' : 'dark';
+      $('themeSwitch').classList.toggle('on', settingsTempTheme === 'dark');
+    });
+
+    $('settingsCancel').addEventListener('click', () => {
+      $('settingsModal').style.display = 'none';
+    });
+
+    $('settingsSave').addEventListener('click', async () => {
+      try {
+        const newName = $('settingsName').value.trim();
+        if (newName && newName !== localStorage.getItem('familyName_' + currentUser.uid)) {
+          await update(ref(db, 'users/' + currentUser.uid), { name: newName });
+          localStorage.setItem('familyName_' + currentUser.uid, newName);
+        }
+        applyAccent(settingsTempAccent);
+        applyTheme(settingsTempTheme);
+        $('settingsModal').style.display = 'none';
+        toast('Настройки сохранены');
+        haptic(15);
+      } catch (err) {
+        toast('Ошибка: ' + err.message);
+      }
+    });
+
+    // ============ СТАРТ / СТОП ============
     function startAll() {
-      currentUser = auth.currentUser;
-
-      set(ref(db, 'users/' + currentUser.uid), {
-        email: currentUser.email
-      }).catch(console.error);
-
+      // Слушаем список пользователей
       onValue(ref(db, 'users'), (snap) => {
         allUsers = {};
+        userNames = {};
         snap.forEach((child) => {
           const v = child.val();
-          if (v && v.email) allUsers[child.key] = v.email;
+          if (v && v.email) {
+            allUsers[child.key] = v.email;
+            userNames[child.key] = v.name || v.email.split('@')[0];
+          }
         });
         updateAssigneeDropdown();
       });
@@ -884,19 +1408,22 @@
       startShopListener();
       startChoresListener();
       startEventsListener();
+      startGiftsListener();
+      startWishesListener();
     }
 
     function stopAll() {
-      if (shopUnsubscribe) { shopUnsubscribe(); shopUnsubscribe = null; }
-      if (choresUnsubscribe) { choresUnsubscribe(); choresUnsubscribe = null; }
-      if (eventsUnsubscribe) { eventsUnsubscribe(); eventsUnsubscribe = null; }
-      shopList.innerHTML = '';
-      shopDoneList.innerHTML = '';
-      choreForMeList.innerHTML = '';
-      choreByMeList.innerHTML = '';
-      eventsTodayList.innerHTML = '';
-      eventsFutureList.innerHTML = '';
+      [shopUnsub, choresUnsub, eventsUnsub, giftsUnsub, wishesUnsub].forEach(u => {
+        if (u) try { u(); } catch(e) {}
+      });
+      shopUnsub = choresUnsub = eventsUnsub = giftsUnsub = wishesUnsub = null;
       currentUser = null;
+      updateCounters();
+    }
+
+    function getUserName(uid) {
+      if (!uid) return 'партнёр';
+      return userNames[uid] || (allUsers[uid] ? allUsers[uid].split('@')[0] : 'партнёр');
     }
 
     // ============ МАГАЗИН ============
@@ -909,7 +1436,12 @@
       sweets: { emoji: '🍫', color: '#c89ac8' },
       house: { emoji: '🧴', color: '#7eb8b8' }
     };
-    let selectedCategory = 'other';
+    let selectedCategory = localStorage.getItem('familyLastCategory') || 'other';
+    // применим последнюю категорию
+    document.querySelectorAll('.cat-btn').forEach(btn => {
+      if (btn.dataset.cat === selectedCategory) btn.classList.add('active');
+      else btn.classList.remove('active');
+    });
 
     document.querySelectorAll('.cat-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -917,77 +1449,52 @@
         document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         selectedCategory = btn.dataset.cat;
+        localStorage.setItem('familyLastCategory', selectedCategory);
       });
     });
 
-    const shopInput = $('shopInput');
-    const shopAddBtn = $('shopAddBtn');
-    const shopList = $('shopList');
-    const shopDoneList = $('shopDoneList');
-    const shopEmpty = $('shopEmpty');
-    const shopActiveTitle = $('shopActiveTitle');
-    const shopDoneSection = $('shopDoneSection');
-
-    shopAddBtn.addEventListener('click', addShopItem);
-    shopInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') addShopItem();
-    });
+    $('shopAddBtn').addEventListener('click', addShopItem);
+    $('shopInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') addShopItem(); });
 
     async function addShopItem() {
-      const title = shopInput.value.trim();
+      const title = $('shopInput').value.trim();
       if (!title || !currentUser) return;
-      shopInput.value = '';
+      $('shopInput').value = '';
       try {
-        const itemsRef = ref(db, 'shopping_items');
-        const newItemRef = push(itemsRef);
-        await set(newItemRef, {
-          title: title,
-          done: false,
-          category: selectedCategory,
+        const newRef = push(ref(db, 'shopping_items'));
+        await set(newRef, {
+          title, done: false, category: selectedCategory,
           addedBy: currentUser.uid,
           addedByEmail: currentUser.email,
           createdAt: Date.now()
         });
         haptic(15);
-      } catch (err) {
-        toast('Ошибка: ' + err.message);
-        console.error(err);
-      }
+      } catch (err) { toast('Ошибка: ' + err.message); }
     }
 
     function startShopListener() {
-      const itemsRef = query(ref(db, 'shopping_items'), orderByChild('createdAt'));
-      shopUnsubscribe = onValue(itemsRef, (snapshot) => {
+      const q = query(ref(db, 'shopping_items'), orderByChild('createdAt'));
+      shopUnsub = onValue(q, (snapshot) => {
         const items = [];
-        snapshot.forEach((child) => {
-          items.push({ id: child.key, ...child.val() });
-        });
+        snapshot.forEach((c) => items.push({ id: c.key, ...c.val() }));
         items.reverse();
 
-        // Активные и выполненные
         const active = items.filter(x => !x.done);
         const done = items.filter(x => x.done);
 
-        renderShopList(active, shopList);
-        renderShopList(done, shopDoneList);
+        renderShopList(active, $('shopList'));
+        renderShopList(done, $('shopDoneList'));
 
-        // Управление видимостью секций
-        shopActiveTitle.style.display = active.length > 0 ? 'block' : 'none';
-        shopDoneSection.style.display = done.length > 0 ? 'block' : 'none';
-        shopEmpty.style.display = items.length === 0 ? 'block' : 'none';
-
-        // Счётчик в заголовке
-        const badge = active.length > 0 ? ' <span class="count-badge">' + active.length + '</span>' : '';
-        $('pageTitle').innerHTML = 'Магазин' + badge;
-      }, (err) => {
-        console.error('Ошибка подписки магазина:', err);
+        $('shopActiveTitle').style.display = active.length > 0 ? 'block' : 'none';
+        $('shopDoneSection').style.display = done.length > 0 ? 'block' : 'none';
+        $('shopEmpty').style.display = items.length === 0 ? 'block' : 'none';
+        updateCounters();
       });
     }
 
     function renderShopList(items, container) {
       container.innerHTML = '';
-      const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
-
+      const myUid = currentUser ? currentUser.uid : '';
       items.forEach((data) => {
         const cat = CATEGORY_DATA[data.category] || CATEGORY_DATA.other;
         const item = document.createElement('div');
@@ -1002,38 +1509,32 @@
         checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
         checkbox.addEventListener('click', async () => {
           haptic(12);
-          try {
-            await update(ref(db, 'shopping_items/' + data.id), { done: !data.done });
-          } catch (err) { console.error(err); }
+          try { await update(ref(db, 'shopping_items/' + data.id), { done: !data.done }); } catch(e){}
         });
         item.appendChild(checkbox);
 
-        const titleWrap = document.createElement('div');
-        titleWrap.style.flex = '1';
+        const wrap = document.createElement('div');
+        wrap.style.flex = '1';
         const title = document.createElement('div');
         title.className = 'item-title';
         title.textContent = cat.emoji + ' ' + data.title;
-        titleWrap.appendChild(title);
-
-        if (data.addedBy && myUid && data.addedBy !== myUid && data.addedByEmail) {
+        wrap.appendChild(title);
+        if (data.addedBy && myUid && data.addedBy !== myUid) {
           const meta = document.createElement('div');
           meta.className = 'item-meta';
-          meta.textContent = '👤 ' + data.addedByEmail.split('@')[0];
-          titleWrap.appendChild(meta);
+          meta.textContent = '👤 ' + getUserName(data.addedBy);
+          wrap.appendChild(meta);
         }
-        item.appendChild(titleWrap);
+        item.appendChild(wrap);
 
         const delBtn = document.createElement('button');
         delBtn.className = 'delete-btn';
         delBtn.textContent = '×';
         delBtn.addEventListener('click', async () => {
           haptic(15);
-          try {
-            await remove(ref(db, 'shopping_items/' + data.id));
-          } catch (err) { console.error(err); }
+          try { await remove(ref(db, 'shopping_items/' + data.id)); } catch(e){}
         });
         item.appendChild(delBtn);
-
         container.appendChild(item);
       });
     }
@@ -1041,107 +1542,79 @@
     $('clearDoneBtn').addEventListener('click', async () => {
       try {
         const snap = await new Promise(res => {
-          onValue(ref(db, 'shopping_items'), res, { onlyOnce: true });
+          const unsub = onValue(ref(db, 'shopping_items'), (s) => { unsub(); res(s); }, { onlyOnce: true });
         });
         const tasks = [];
         snap.forEach((child) => {
-          if (child.val().done) {
-            tasks.push(remove(ref(db, 'shopping_items/' + child.key)));
-          }
+          if (child.val().done) tasks.push(remove(ref(db, 'shopping_items/' + child.key)));
         });
         await Promise.all(tasks);
         haptic(20);
         toast('Купленное очищено');
-      } catch (err) {
-        toast('Ошибка: ' + err.message);
-      }
+      } catch (err) { toast('Ошибка: ' + err.message); }
     });
 
     // ============ ДЕЛА ============
-    const choreInput = $('choreInput');
-    const choreAssignee = $('choreAssignee');
-    const choreDue = $('choreDue');
-    const choreAddBtn = $('choreAddBtn');
-    const choreForMeList = $('choreForMeList');
-    const choreForMeEmpty = $('choreForMeEmpty');
-    const choreByMeList = $('choreByMeList');
-    const choreByMeEmpty = $('choreByMeEmpty');
-
     function updateAssigneeDropdown() {
       if (!currentUser) return;
-      const currentValue = choreAssignee.value;
-      choreAssignee.innerHTML = '<option value="">— Кому —</option>';
+      const select = $('choreAssignee');
+      const cv = select.value;
+      select.innerHTML = '<option value="">— Кому —</option>';
       Object.keys(allUsers).forEach((uid) => {
         if (uid === currentUser.uid) return;
         const opt = document.createElement('option');
         opt.value = uid;
-        opt.textContent = allUsers[uid].split('@')[0];
-        choreAssignee.appendChild(opt);
+        opt.textContent = userNames[uid] || allUsers[uid].split('@')[0];
+        select.appendChild(opt);
       });
-      if (currentValue) choreAssignee.value = currentValue;
+      if (cv) select.value = cv;
     }
 
-    choreAddBtn.addEventListener('click', async () => {
-      const title = choreInput.value.trim();
-      const assignee = choreAssignee.value;
-      const due = choreDue.value;
+    $('choreAddBtn').addEventListener('click', async () => {
+      const title = $('choreInput').value.trim();
+      const assignee = $('choreAssignee').value;
+      const due = $('choreDue').value;
       if (!title) { toast('Введите задачу'); return; }
       if (!assignee) { toast('Выберите, кому назначить'); return; }
       try {
-        const choresRef = ref(db, 'chores');
-        const newRef = push(choresRef);
+        const newRef = push(ref(db, 'chores'));
         const data = {
-          title: title,
-          assignedTo: assignee,
+          title, assignedTo: assignee,
           assignedToEmail: allUsers[assignee] || '',
           createdBy: currentUser.uid,
           createdByEmail: currentUser.email,
-          done: false,
-          createdAt: Date.now()
+          done: false, createdAt: Date.now()
         };
         if (due) data.dueDate = due;
         await set(newRef, data);
-        choreInput.value = '';
-        choreDue.value = '';
-        choreAssignee.value = '';
+        $('choreInput').value = '';
+        $('choreDue').value = '';
+        $('choreAssignee').value = '';
         haptic(15);
         toast('Задача добавлена');
-      } catch (err) {
-        toast('Ошибка: ' + err.message);
-      }
+      } catch (err) { toast('Ошибка: ' + err.message); }
     });
 
     function startChoresListener() {
-      const choresRef = query(ref(db, 'chores'), orderByChild('createdAt'));
-      choresUnsubscribe = onValue(choresRef, (snapshot) => {
+      const q = query(ref(db, 'chores'), orderByChild('createdAt'));
+      choresUnsub = onValue(q, (snapshot) => {
         const items = [];
-        snapshot.forEach((child) => {
-          items.push({ id: child.key, ...child.val() });
-        });
+        snapshot.forEach((c) => items.push({ id: c.key, ...c.val() }));
         items.reverse();
 
-        const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
+        const myUid = currentUser ? currentUser.uid : '';
         const forMe = items.filter(x => x.assignedTo === myUid);
         const byMe = items.filter(x => x.createdBy === myUid);
 
-        renderChores(forMe, choreForMeList, choreForMeEmpty, 'forMe');
-        renderChores(byMe, choreByMeList, choreByMeEmpty, 'byMe');
-
-        // Счётчик активных задач
-        const activeCount = forMe.filter(x => !x.done).length + byMe.filter(x => !x.done).length;
-        const badge = activeCount > 0 ? ' <span class="count-badge">' + activeCount + '</span>' : '';
-        $('pageTitle').innerHTML = 'Домашние дела' + badge;
-      }, (err) => {
-        console.error('Ошибка подписки дел:', err);
+        renderChores(forMe, $('choreForMeList'), $('choreForMeEmpty'), 'forMe');
+        renderChores(byMe, $('choreByMeList'), $('choreByMeEmpty'), 'byMe');
+        updateCounters();
       });
     }
 
     function renderChores(items, container, emptyEl, mode) {
       container.innerHTML = '';
-      if (items.length === 0) {
-        emptyEl.style.display = 'block';
-        return;
-      }
+      if (items.length === 0) { emptyEl.style.display = 'block'; return; }
       emptyEl.style.display = 'none';
 
       items.forEach((data) => {
@@ -1152,9 +1625,7 @@
         checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
         checkbox.addEventListener('click', async () => {
           haptic(12);
-          try {
-            await update(ref(db, 'chores/' + data.id), { done: !data.done });
-          } catch (err) { console.error(err); }
+          try { await update(ref(db, 'chores/' + data.id), { done: !data.done }); } catch(e){}
         });
 
         const body = document.createElement('div');
@@ -1170,39 +1641,30 @@
           const today = new Date(); today.setHours(0,0,0,0);
           const dueDate = new Date(data.dueDate + 'T00:00:00');
           const diff = Math.round((dueDate - today) / 86400000);
-
-          let cls = 'soon';
-          let text = '';
-          if (!data.done && diff < 0) {
-            cls = 'overdue';
-            text = '⚠ Просрочено';
-          } else if (diff === 0) {
-            cls = 'today';
-            text = '🔥 Сегодня';
-          } else if (diff === 1) {
-            cls = 'tomorrow';
-            text = '📅 Завтра';
-          } else {
+          let cls = 'soon', text = '';
+          if (!data.done && diff < 0) { cls = 'overdue'; text = '⚠ Просрочено'; }
+          else if (diff === 0) { cls = 'today'; text = '🔥 Сегодня'; }
+          else if (diff === 1) { cls = 'tomorrow'; text = '📅 Завтра'; }
+          else {
             const dd = String(dueDate.getDate()).padStart(2,'0');
             const mm = String(dueDate.getMonth()+1).padStart(2,'0');
             text = '📅 до ' + dd + '.' + mm;
           }
-
           due.className = 'chore-badge ' + cls;
           due.textContent = text;
           body.appendChild(due);
         }
 
-        if (mode === 'byMe' && data.assignedToEmail) {
+        if (mode === 'byMe' && data.assignedTo) {
           const meta = document.createElement('div');
           meta.className = 'item-meta';
-          meta.textContent = '👤 ' + data.assignedToEmail.split('@')[0];
+          meta.textContent = '👤 ' + getUserName(data.assignedTo);
           body.appendChild(meta);
         }
-        if (mode === 'forMe' && data.createdByEmail) {
+        if (mode === 'forMe' && data.createdBy) {
           const meta = document.createElement('div');
           meta.className = 'item-meta';
-          meta.textContent = 'от ' + data.createdByEmail.split('@')[0];
+          meta.textContent = 'от ' + getUserName(data.createdBy);
           body.appendChild(meta);
         }
 
@@ -1211,9 +1673,7 @@
         delBtn.textContent = '×';
         delBtn.addEventListener('click', async () => {
           haptic(15);
-          try {
-            await remove(ref(db, 'chores/' + data.id));
-          } catch (err) { console.error(err); }
+          try { await remove(ref(db, 'chores/' + data.id)); } catch(e){}
         });
 
         item.appendChild(checkbox);
@@ -1224,71 +1684,57 @@
     }
 
     // ============ РАСПИСАНИЕ ============
-    const eventTitle = $('eventTitle');
-    const eventStart = $('eventStart');
-    const eventEnd = $('eventEnd');
-    const eventDate = $('eventDate');
-    const eventAddBtn = $('eventAddBtn');
-    const eventsTodayList = $('eventsTodayList');
-    const eventsTodayEmpty = $('eventsTodayEmpty');
-    const eventsFutureList = $('eventsFutureList');
-    const eventsFutureEmpty = $('eventsFutureEmpty');
-    const eventsTodayTitle = $('eventsTodayTitle');
-    const eventsFutureTitle = $('eventsFutureTitle');
-
-    // Кнопка "Сейчас"
     $('nowBtn').addEventListener('click', () => {
       haptic(10);
       const now = new Date();
-      const hh = String(now.getHours()).padStart(2, '0');
-      const mm = String(now.getMinutes()).padStart(2, '0');
-      eventStart.value = hh + ':' + mm;
-      // Дата
-      const dd = String(now.getDate()).padStart(2, '0');
-      const mo = String(now.getMonth() + 1).padStart(2, '0');
-      const yyyy = now.getFullYear();
-      eventDate.value = yyyy + '-' + mo + '-' + dd;
+      $('eventStart').value = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+      $('eventDate').value = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0');
     });
 
-    eventAddBtn.addEventListener('click', async () => {
-      const title = eventTitle.value.trim();
-      const start = eventStart.value;
-      const end = eventEnd.value;
-      const date = eventDate.value;
+    document.querySelectorAll('.repeat-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        haptic(8);
+        document.querySelectorAll('.repeat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        eventRepeat = btn.dataset.repeat;
+      });
+    });
+
+    $('eventAddBtn').addEventListener('click', async () => {
+      const title = $('eventTitle').value.trim();
+      const start = $('eventStart').value;
+      const end = $('eventEnd').value;
+      const date = $('eventDate').value;
       if (!title) { toast('Введите название'); return; }
       if (!start) { toast('Укажите время начала'); return; }
       if (!date) { toast('Выберите дату'); return; }
       try {
-        const eventsRef = ref(db, 'schedule_events');
-        const newRef = push(eventsRef);
+        const newRef = push(ref(db, 'schedule_events'));
         const data = {
-          title: title,
-          startTime: start,
-          date: date,
+          title, startTime: start, date,
+          repeat: eventRepeat,
           createdBy: currentUser.uid,
           createdByEmail: currentUser.email,
           createdAt: Date.now()
         };
         if (end) data.endTime = end;
         await set(newRef, data);
-        eventTitle.value = '';
-        eventStart.value = '';
-        eventEnd.value = '';
-        eventDate.value = '';
+        $('eventTitle').value = '';
+        $('eventStart').value = '';
+        $('eventEnd').value = '';
+        $('eventDate').value = '';
+        document.querySelectorAll('.repeat-btn').forEach(b => b.classList.toggle('active', b.dataset.repeat === 'none'));
+        eventRepeat = 'none';
         haptic(15);
         toast('Событие добавлено');
-      } catch (err) {
-        toast('Ошибка: ' + err.message);
-      }
+      } catch (err) { toast('Ошибка: ' + err.message); }
     });
 
     function startEventsListener() {
-      const eventsRef = query(ref(db, 'schedule_events'), orderByChild('createdAt'));
-      eventsUnsubscribe = onValue(eventsRef, (snapshot) => {
+      const q = query(ref(db, 'schedule_events'), orderByChild('createdAt'));
+      eventsUnsub = onValue(q, (snapshot) => {
         const items = [];
-        snapshot.forEach((child) => {
-          items.push({ id: child.key, ...child.val() });
-        });
+        snapshot.forEach((c) => items.push({ id: c.key, ...c.val() }));
 
         items.sort((a, b) => {
           const da = (a.date || '') + ' ' + (a.startTime || '');
@@ -1297,41 +1743,30 @@
         });
 
         const today = todayStr();
+        // Простая логика: сегодня и будущее. Повторяющиеся показываем как обычно
         const todayItems = items.filter(x => x.date === today);
         const futureItems = items.filter(x => x.date && x.date > today);
 
-        renderEvents(todayItems, eventsTodayList, eventsTodayEmpty, true);
-        renderEvents(futureItems, eventsFutureList, eventsFutureEmpty, false);
+        renderEvents(todayItems, $('eventsTodayList'), $('eventsTodayEmpty'), true);
+        renderEvents(futureItems, $('eventsFutureList'), $('eventsFutureEmpty'), false);
 
-        // Управление заголовками
-        eventsTodayTitle.style.display = todayItems.length > 0 ? 'block' : 'none';
-        eventsFutureTitle.style.display = futureItems.length > 0 ? 'block' : 'none';
-
-        // Счётчик событий на сегодня
-        const badge = todayItems.length > 0 ? ' <span class="count-badge">' + todayItems.length + '</span>' : '';
-        $('pageTitle').innerHTML = 'Расписание' + badge;
-      }, (err) => {
-        console.error('Ошибка подписки расписания:', err);
+        $('eventsTodayTitle').style.display = todayItems.length > 0 ? 'block' : 'none';
+        $('eventsFutureTitle').style.display = futureItems.length > 0 ? 'block' : 'none';
+        updateCounters();
       });
     }
 
     function todayStr() {
       const d = new Date();
-      const dd = String(d.getDate()).padStart(2, '0');
-      const mm = String(d.getMonth() + 1).padStart(2, '0');
-      const yyyy = d.getFullYear();
-      return yyyy + '-' + mm + '-' + dd;
+      return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
     }
 
     function renderEvents(items, container, emptyEl, isToday) {
       container.innerHTML = '';
-      if (items.length === 0) {
-        emptyEl.style.display = 'block';
-        return;
-      }
+      if (items.length === 0) { emptyEl.style.display = 'block'; return; }
       emptyEl.style.display = 'none';
 
-      const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
+      const myUid = currentUser ? currentUser.uid : '';
       const now = new Date();
       const nowMin = now.getHours() * 60 + now.getMinutes();
       const today = todayStr();
@@ -1339,7 +1774,6 @@
       items.forEach((data) => {
         const item = document.createElement('div');
         let isNow = false;
-
         if (data.date === today && data.startTime) {
           const parts = data.startTime.split(':').map(Number);
           const startMin = parts[0] * 60 + parts[1];
@@ -1350,8 +1784,7 @@
           }
           isNow = nowMin >= startMin && nowMin <= endMin;
         }
-
-        item.className = 'event-item' + (isNow ? ' now' : '');
+        item.className = 'event-item' + (isNow ? ' now' : '') + (data.repeat && data.repeat !== 'none' ? ' repeat' : '');
 
         const timeEl = document.createElement('div');
         timeEl.className = 'event-time';
@@ -1366,7 +1799,6 @@
 
         const body = document.createElement('div');
         body.className = 'event-body';
-
         const title = document.createElement('div');
         title.className = 'event-title';
         title.textContent = data.title;
@@ -1375,12 +1807,12 @@
         const metaParts = [];
         if (!isToday && data.date) {
           const d = new Date(data.date + 'T00:00:00');
-          const dd = String(d.getDate()).padStart(2, '0');
-          const mm = String(d.getMonth() + 1).padStart(2, '0');
-          metaParts.push('📅 ' + dd + '.' + mm);
+          metaParts.push('📅 ' + String(d.getDate()).padStart(2,'0') + '.' + String(d.getMonth()+1).padStart(2,'0'));
         }
-        if (data.createdBy && myUid && data.createdBy !== myUid && data.createdByEmail) {
-          metaParts.push('👤 ' + data.createdByEmail.split('@')[0]);
+        if (data.repeat === 'daily') metaParts.push('↻ ежедневно');
+        else if (data.repeat === 'weekly') metaParts.push('↻ еженедельно');
+        if (data.createdBy && myUid && data.createdBy !== myUid) {
+          metaParts.push('👤 ' + getUserName(data.createdBy));
         }
         if (metaParts.length) {
           const meta = document.createElement('div');
@@ -1388,7 +1820,6 @@
           meta.textContent = metaParts.join(' • ');
           body.appendChild(meta);
         }
-
         item.appendChild(body);
 
         const delBtn = document.createElement('button');
@@ -1396,14 +1827,348 @@
         delBtn.textContent = '×';
         delBtn.addEventListener('click', async () => {
           haptic(15);
-          try {
-            await remove(ref(db, 'schedule_events/' + data.id));
-          } catch (err) { console.error(err); }
+          try { await remove(ref(db, 'schedule_events/' + data.id)); } catch(e){}
         });
         item.appendChild(delBtn);
-
         container.appendChild(item);
       });
+    }
+
+    // ============ ПОДАРКИ ============
+    const OCCASIONS = {
+      birthday: { emoji: '🎂', label: 'День рождения' },
+      newyear: { emoji: '🎄', label: 'Новый год' },
+      valentine: { emoji: '💝', label: '14 февраля' },
+      anniversary: { emoji: '💍', label: 'Годовщина' },
+      just: { emoji: '🎁', label: 'Просто так' }
+    };
+
+    document.querySelectorAll('.gift-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        haptic(8);
+        document.querySelectorAll('.gift-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentGiftView = tab.dataset.view;
+        $('giftAddTitle').textContent = currentGiftView === 'wishlist' ? 'Что я хочу в подарок' : 'Что я хочу подарить';
+        // Перечитать данные
+        refreshGifts();
+      });
+    });
+
+    $('giftAddBtn').addEventListener('click', async () => {
+      const title = $('giftTitle').value.trim();
+      const occasion = $('giftOccasion').value;
+      const price = $('giftPrice').value;
+      const url = $('giftUrl').value.trim();
+      const note = $('giftNote').value.trim();
+      if (!title) { toast('Введите название'); return; }
+      try {
+        const newRef = push(ref(db, 'gifts'));
+        const data = {
+          title,
+          occasion,
+          ownerId: currentUser.uid,
+          ownerEmail: currentUser.email,
+          type: currentGiftView, // 'wishlist' (мои желания) или 'giving' (я дарю)
+          done: false,
+          createdBy: currentUser.uid,
+          createdAt: Date.now()
+        };
+        if (price) data.price = price;
+        if (url) data.url = url;
+        if (note) data.note = note;
+        await set(newRef, data);
+        $('giftTitle').value = '';
+        $('giftPrice').value = '';
+        $('giftUrl').value = '';
+        $('giftNote').value = '';
+        haptic(15);
+        toast('Добавлено');
+      } catch (err) { toast('Ошибка: ' + err.message); }
+    });
+
+    let giftsCache = [];
+    function startGiftsListener() {
+      const q = query(ref(db, 'gifts'), orderByChild('createdAt'));
+      giftsUnsub = onValue(q, (snapshot) => {
+        giftsCache = [];
+        snapshot.forEach((c) => giftsCache.push({ id: c.key, ...c.val() }));
+        giftsCache.reverse();
+        refreshGifts();
+      });
+    }
+
+    function refreshGifts() {
+      if (!currentUser) return;
+      const list = $('giftsList');
+      list.innerHTML = '';
+      const myUid = currentUser.uid;
+
+      let visible = [];
+      if (currentGiftView === 'wishlist') {
+        // Мои желания: только то, что owner = я
+        visible = giftsCache.filter(g => g.ownerId === myUid);
+      } else {
+        // Что я дарю: type=giving и создано мной, ИЛИ type=wishlist и owner=партнёр
+        // Проще: показать всё, что НЕ моё wishlist и не создано мной как wishlist
+        // Логика: в "Я дарю" показываем:
+        //   1) то, что я создал в режиме giving
+        //   2) то, что партнёр создал в режиме wishlist (его желания) — но чтобы я видел идеи для подарков
+        visible = giftsCache.filter(g => {
+          if (g.type === 'giving' && g.createdBy === myUid) return true;
+          if (g.type === 'wishlist' && g.ownerId !== myUid) return true;
+          return false;
+        });
+      }
+
+      $('giftsEmpty').style.display = visible.length === 0 ? 'block' : 'none';
+
+      visible.forEach((data) => {
+        const occ = OCCASIONS[data.occasion] || OCCASIONS.just;
+        const el = document.createElement('div');
+        el.className = 'gift-item' + (data.done ? ' done' : '');
+
+        const emoji = document.createElement('div');
+        emoji.className = 'gift-emoji';
+        emoji.textContent = occ.emoji;
+        el.appendChild(emoji);
+
+        const body = document.createElement('div');
+        body.className = 'gift-body';
+
+        const title = document.createElement('div');
+        title.className = 'gift-title';
+        title.textContent = data.title;
+        body.appendChild(title);
+
+        const meta = document.createElement('div');
+        meta.className = 'gift-meta';
+        const occSpan = document.createElement('span');
+        occSpan.className = 'occasion';
+        occSpan.textContent = occ.label;
+        meta.appendChild(occSpan);
+        if (currentGiftView === 'giving' && data.ownerId && data.ownerId !== myUid) {
+          meta.appendChild(document.createTextNode('для ' + getUserName(data.ownerId)));
+        } else if (currentGiftView === 'wishlist' && data.ownerId === myUid) {
+          meta.appendChild(document.createTextNode('моё желание'));
+        }
+        body.appendChild(meta);
+
+        if (data.url) {
+          const link = document.createElement('a');
+          link.className = 'gift-link';
+          link.href = data.url;
+          link.target = '_blank';
+          link.rel = 'noopener';
+          link.textContent = '🔗 Открыть ссылку';
+          body.appendChild(link);
+        }
+
+        if (data.note) {
+          const note = document.createElement('div');
+          note.className = 'gift-note';
+          note.textContent = data.note;
+          body.appendChild(note);
+        }
+
+        if (currentGiftView === 'giving') {
+          const buyBtn = document.createElement('button');
+          buyBtn.className = 'gift-buy-btn';
+          buyBtn.textContent = data.done ? '✓ Куплено' : 'Отметить купленным';
+          buyBtn.addEventListener('click', async () => {
+            haptic(12);
+            try { await update(ref(db, 'gifts/' + data.id), { done: !data.done }); } catch(e){}
+          });
+          body.appendChild(buyBtn);
+        }
+
+        el.appendChild(body);
+
+        if (data.price) {
+          const price = document.createElement('div');
+          price.className = 'gift-price';
+          price.textContent = formatPrice(data.price);
+          el.appendChild(price);
+        }
+
+        const delBtn = document.createElement('button');
+        delBtn.className = 'delete-btn';
+        delBtn.textContent = '×';
+        delBtn.addEventListener('click', async () => {
+          haptic(15);
+          try { await remove(ref(db, 'gifts/' + data.id)); } catch(e){}
+        });
+        el.appendChild(delBtn);
+
+        list.appendChild(el);
+      });
+    }
+
+    // ============ ХОТЕЛКИ ============
+    $('wishAddBtn').addEventListener('click', async () => {
+      const title = $('wishTitle').value.trim();
+      const price = $('wishPrice').value;
+      const priority = $('wishPriority').value;
+      const note = $('wishNote').value.trim();
+      if (!title) { toast('Введите название'); return; }
+      try {
+        const newRef = push(ref(db, 'wishes'));
+        const data = {
+          title, priority,
+          status: 'want', // want / saving / bought
+          createdBy: currentUser.uid,
+          createdByEmail: currentUser.email,
+          createdAt: Date.now()
+        };
+        if (price) data.price = price;
+        if (note) data.note = note;
+        await set(newRef, data);
+        $('wishTitle').value = '';
+        $('wishPrice').value = '';
+        $('wishNote').value = '';
+        haptic(15);
+        toast('Хотелка добавлена');
+      } catch (err) { toast('Ошибка: ' + err.message); }
+    });
+
+    function startWishesListener() {
+      const q = query(ref(db, 'wishes'), orderByChild('createdAt'));
+      wishesUnsub = onValue(q, (snapshot) => {
+        const items = [];
+        snapshot.forEach((c) => items.push({ id: c.key, ...c.val() }));
+        items.reverse();
+        renderWishes(items);
+      });
+    }
+
+    function renderWishes(items) {
+      const list = $('wishesList');
+      list.innerHTML = '';
+      $('wishesEmpty').style.display = items.length === 0 ? 'block' : 'none';
+
+      // Общая сумма (только "хочу" и "копим")
+      const activeTotal = items
+        .filter(x => x.status !== 'bought' && x.price)
+        .reduce((sum, x) => sum + Number(x.price || 0), 0);
+
+      if (activeTotal > 0) {
+        $('wishTotalCard').style.display = 'flex';
+        $('wishTotalValue').textContent = formatPrice(activeTotal);
+      } else {
+        $('wishTotalCard').style.display = 'none';
+      }
+
+      items.forEach((data) => {
+        const el = document.createElement('div');
+        el.className = 'wish-item';
+
+        const top = document.createElement('div');
+        top.className = 'wish-top';
+
+        const body = document.createElement('div');
+        body.className = 'wish-body';
+
+        const title = document.createElement('div');
+        title.className = 'wish-title';
+        title.textContent = data.title;
+        body.appendChild(title);
+
+        const prio = document.createElement('span');
+        prio.className = 'wish-priority ' + (data.priority || 'medium');
+        prio.textContent = data.priority === 'high' ? '🔴 Очень хочу' : data.priority === 'low' ? '⚪ Когда-нибудь' : '🟡 Хочу';
+        body.appendChild(prio);
+
+        if (data.note) {
+          const note = document.createElement('div');
+          note.className = 'gift-note';
+          note.textContent = data.note;
+          body.appendChild(note);
+        }
+
+        if (data.createdBy) {
+          const meta = document.createElement('div');
+          meta.className = 'item-meta';
+          meta.textContent = '👤 ' + getUserName(data.createdBy);
+          body.appendChild(meta);
+        }
+
+        top.appendChild(body);
+
+        if (data.price) {
+          const price = document.createElement('div');
+          price.className = 'wish-price';
+          price.textContent = formatPrice(data.price);
+          top.appendChild(price);
+        }
+
+        el.appendChild(top);
+
+        const statusRow = document.createElement('div');
+        statusRow.className = 'wish-status-row';
+        [
+          { key: 'want', label: 'Хочу' },
+          { key: 'saving', label: 'Копим' },
+          { key: 'bought', label: 'Куплено' }
+        ].forEach(opt => {
+          const btn = document.createElement('button');
+          btn.className = 'wish-status-btn' + (data.status === opt.key ? ' active' : '');
+          btn.textContent = opt.label;
+          btn.addEventListener('click', async () => {
+            haptic(10);
+            try { await update(ref(db, 'wishes/' + data.id), { status: opt.key }); } catch(e){}
+          });
+          statusRow.appendChild(btn);
+        });
+        el.appendChild(statusRow);
+
+        const delBtn = document.createElement('button');
+        delBtn.className = 'delete-btn';
+        delBtn.textContent = '×';
+        delBtn.style.position = 'absolute';
+        delBtn.style.top = '8px';
+        delBtn.style.right = '8px';
+        delBtn.addEventListener('click', async () => {
+          haptic(15);
+          try { await remove(ref(db, 'wishes/' + data.id)); } catch(e){}
+        });
+        el.style.position = 'relative';
+        el.appendChild(delBtn);
+
+        list.appendChild(el);
+      });
+    }
+
+    // ============ УТИЛИТЫ ФОРМАТИРОВАНИЯ ============
+    function formatPrice(n) {
+      const num = Number(n) || 0;
+      return num.toLocaleString('ru-RU') + ' ₽';
+    }
+
+    // ============ СЧЁТЧИКИ В ШАПКЕ ============
+    function updateCounters() {
+      // Для каждой страницы свой счётчик. Обновляем только текущий
+      const activePage = document.querySelector('.nav-btn.active');
+      if (!activePage) return;
+      const page = activePage.dataset.page;
+      let count = 0;
+
+      if (page === 'shop') {
+        count = $('shopList').querySelectorAll('.item:not(.done)').length;
+      } else if (page === 'chores') {
+        count = $('choreForMeList').querySelectorAll('.chore-item:not(.done)').length
+              + $('choreByMeList').querySelectorAll('.chore-item:not(.done)').length;
+      } else if (page === 'schedule') {
+        count = $('eventsTodayList').querySelectorAll('.event-item').length;
+      } else if (page === 'gifts') {
+        count = $('giftsList').querySelectorAll('.gift-item:not(.done)').length;
+      } else if (page === 'wishes') {
+        count = $('wishesList').querySelectorAll('.wish-item').length;
+      }
+
+      const badge = count > 0 ? ' <span class="count-badge">' + count + '</span>' : '';
+      const title = $('pageTitle');
+      const baseTitle = pageTitles[page] || 'Магазин';
+      title.innerHTML = baseTitle + badge;
     }
   </script>
 </body>
