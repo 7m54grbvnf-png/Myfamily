@@ -27,6 +27,14 @@
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
+    @keyframes toastIn {
+      from { opacity: 0; transform: translate(-50%, -20px); }
+      to { opacity: 1; transform: translate(-50%, 0); }
+    }
+    @keyframes nowPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(184, 137, 78, 0.3); }
+      50% { box-shadow: 0 0 0 6px rgba(184, 137, 78, 0); }
+    }
 
     /* ============ АВТОРИЗАЦИЯ ============ */
     #authScreen {
@@ -98,10 +106,7 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.25);
       letter-spacing: 0.2px;
     }
-    button.primary:active {
-      transform: scale(0.97);
-      box-shadow: 0 4px 12px rgba(184, 137, 78, 0.3);
-    }
+    button.primary:active { transform: scale(0.97); }
     button.primary:disabled { opacity: 0.6; }
     .error { color: #c0554e; font-size: 14px; text-align: center; margin-top: 16px; min-height: 20px; }
 
@@ -118,9 +123,7 @@
       display: flex; align-items: center; justify-content: space-between;
       border-bottom: 1px solid rgba(184, 137, 78, 0.1);
     }
-    .topbar-left {
-      display: flex; align-items: center; gap: 12px;
-    }
+    .topbar-left { display: flex; align-items: center; gap: 12px; }
     .topbar-icon {
       width: 40px; height: 40px;
       background: linear-gradient(135deg, #d9b382 0%, #b8894e 100%);
@@ -134,6 +137,16 @@
       font-size: 22px; font-weight: 800; letter-spacing: -0.6px;
       color: #1c1a17;
     }
+    .count-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #d9b382 0%, #b8894e 100%);
+      color: #fff;
+      font-size: 12px; font-weight: 800;
+      padding: 3px 9px; border-radius: 10px;
+      margin-left: 8px;
+      vertical-align: middle;
+      box-shadow: 0 2px 8px rgba(184, 137, 78, 0.4);
+    }
     .logout-btn {
       background: rgba(184, 137, 78, 0.1); border: none; font-family: inherit;
       color: #b8894e; font-size: 13px; font-weight: 700;
@@ -142,20 +155,26 @@
       letter-spacing: 0.2px;
       border: 1px solid rgba(184, 137, 78, 0.15);
     }
-    .logout-btn:active {
-      background: rgba(184, 137, 78, 0.2);
-      transform: scale(0.95);
-    }
+    .logout-btn:active { background: rgba(184, 137, 78, 0.2); transform: scale(0.95); }
 
     .container { padding: 20px; max-width: 500px; margin: 0 auto; }
 
     /* ============ МАГАЗИН ============ */
-    .add-row { display: flex; gap: 10px; margin-bottom: 22px; }
+    .add-card {
+      background: #ffffff;
+      border: 1px solid #f0ebe1;
+      border-radius: 20px;
+      padding: 16px;
+      margin-bottom: 22px;
+      box-shadow:
+        0 4px 16px rgba(120, 90, 50, 0.05),
+        0 1px 3px rgba(120, 90, 50, 0.03);
+    }
+    .add-row { display: flex; gap: 10px; }
     .add-row input {
       flex: 1; margin-bottom: 0;
-      background: #ffffff;
-      border: 1px solid #ede6d9;
-      box-shadow: 0 2px 8px rgba(120, 90, 50, 0.04);
+      background: #fbf9f5;
+      border: 1px solid #e6dfd3;
     }
     .add-btn {
       width: 56px; height: 56px; flex-shrink: 0;
@@ -170,6 +189,36 @@
     }
     .add-btn:active { transform: scale(0.94); }
 
+    .category-row {
+      display: flex; gap: 6px; margin-top: 12px;
+      overflow-x: auto; padding-bottom: 4px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .category-row::-webkit-scrollbar { display: none; }
+    .cat-btn {
+      flex-shrink: 0;
+      padding: 8px 12px; border-radius: 12px;
+      border: 1.5px solid #e6dfd3; background: #fbf9f5;
+      font-family: inherit; font-size: 13px; font-weight: 600;
+      color: #9a8f80; cursor: pointer;
+      display: flex; align-items: center; gap: 4px;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .cat-btn.active {
+      background: linear-gradient(135deg, #d9b382 0%, #b8894e 100%);
+      border-color: transparent; color: #ffffff;
+      box-shadow: 0 4px 12px rgba(184, 137, 78, 0.3);
+    }
+
+    .section-title {
+      font-size: 12px; font-weight: 800; color: #9a8f80;
+      text-transform: uppercase; letter-spacing: 1.4px;
+      margin: 20px 0 10px;
+    }
+    .section-title:first-child { margin-top: 0; }
+
     .items-list { display: flex; flex-direction: column; gap: 8px; }
     .item {
       background: #ffffff;
@@ -181,10 +230,15 @@
         0 1px 3px rgba(120, 90, 50, 0.03);
       transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       animation: fadeInUp 0.3s ease;
+      position: relative;
     }
     .item:active { transform: scale(0.99); }
     .item.done { opacity: 0.5; }
     .item.done .item-title { text-decoration: line-through; text-decoration-color: #b5a898; }
+
+    .cat-marker {
+      width: 4px; height: 36px; border-radius: 2px; flex-shrink: 0;
+    }
 
     .checkbox {
       width: 28px; height: 28px; flex-shrink: 0; border-radius: 10px;
@@ -208,8 +262,20 @@
     }
     .delete-btn:active { color: #c0554e; transform: scale(1.15); }
 
+    .clear-btn {
+      width: 100%; padding: 14px; margin-top: 12px;
+      background: transparent; border: 1.5px dashed #d9b382;
+      border-radius: 14px; font-family: inherit;
+      font-size: 14px; font-weight: 700; color: #b8894e;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .clear-btn:active {
+      background: rgba(184, 137, 78, 0.08);
+      transform: scale(0.98);
+    }
+
     .empty {
-      text-align: center; padding: 48px 20px; color: #9a8f80; font-size: 15px;
+      text-align: center; padding: 40px 20px; color: #9a8f80; font-size: 15px;
       font-weight: 500; animation: fadeInUp 0.4s ease;
     }
     .empty-emoji { font-size: 52px; margin-bottom: 14px; opacity: 0.65; }
@@ -277,22 +343,19 @@
     .chore-item.done { opacity: 0.5; }
     .chore-item.done .item-title { text-decoration: line-through; text-decoration-color: #b5a898; }
     .chore-item-body { flex: 1; }
-    .chore-due {
+
+    .chore-badge {
       display: inline-block;
-      font-size: 11px; font-weight: 700;
-      color: #b8894e;
-      background: #faf3e6;
-      border: 1px solid #f0e0c4;
+      font-size: 11px; font-weight: 800;
       padding: 4px 10px;
       border-radius: 8px;
       margin-top: 8px;
       letter-spacing: 0.3px;
     }
-    .chore-due.overdue {
-      color: #c0554e;
-      background: #fbeae8;
-      border-color: #f3d5d2;
-    }
+    .chore-badge.today { background: #fff4e0; color: #b8770f; border: 1px solid #f5e0b8; }
+    .chore-badge.tomorrow { background: #eaf1fb; color: #3a6fb5; border: 1px solid #d5e3f5; }
+    .chore-badge.overdue { background: #fbeae8; color: #c0554e; border: 1px solid #f3d5d2; }
+    .chore-badge.soon { background: #faf3e6; color: #b8894e; border: 1px solid #f0e0c4; }
 
     /* ============ РАСПИСАНИЕ ============ */
     .event-add-card {
@@ -310,8 +373,18 @@
       font-size: 13px; color: #b8894e; margin-bottom: 14px;
       font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase;
     }
-    .event-time-row { display: flex; gap: 8px; margin-bottom: 10px; }
-    .event-time-row input { flex: 1; margin-bottom: 0; }
+    .event-time-row { display: flex; gap: 8px; margin-bottom: 10px; position: relative; }
+    .event-time-row input { flex: 1; margin-bottom: 0; padding-right: 76px; }
+    .now-btn {
+      position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+      background: rgba(184, 137, 78, 0.12); border: none;
+      border-radius: 10px; font-family: inherit;
+      font-size: 12px; font-weight: 800;
+      color: #b8894e; padding: 7px 11px; cursor: pointer;
+      letter-spacing: 0.3px;
+      transition: all 0.15s;
+    }
+    .now-btn:active { background: rgba(184, 137, 78, 0.22); transform: translateY(-50%) scale(0.95); }
     .event-date-row { margin-bottom: 10px; }
     .event-date-row input { margin-bottom: 0; }
     .event-add-btn {
@@ -344,6 +417,22 @@
       margin-bottom: 8px;
       transition: all 0.25s;
       animation: fadeInUp 0.3s ease;
+      position: relative;
+    }
+    .event-item.now {
+      border: 1.5px solid #b8894e;
+      box-shadow:
+        0 6px 24px rgba(184, 137, 78, 0.18),
+        0 2px 8px rgba(184, 137, 78, 0.1);
+      animation: fadeInUp 0.3s ease, nowPulse 2.5s ease-in-out infinite;
+    }
+    .event-item.now::before {
+      content: "СЕЙЧАС";
+      position: absolute; top: 8px; right: 12px;
+      font-size: 9px; font-weight: 900; letter-spacing: 1.2px;
+      color: #b8894e;
+      background: rgba(184, 137, 78, 0.12);
+      padding: 3px 7px; border-radius: 6px;
     }
     .event-time {
       font-size: 16px;
@@ -362,7 +451,7 @@
       margin-top: 3px;
       letter-spacing: 0;
     }
-    .event-body { flex: 1; }
+    .event-body { flex: 1; padding-right: 12px; }
     .event-title { font-size: 16px; font-weight: 600; word-break: break-word; color: #1c1a17; }
     .event-meta { font-size: 12px; color: #9a8f80; margin-top: 3px; font-weight: 500; }
     .event-item.past { opacity: 0.5; }
@@ -414,6 +503,21 @@
       letter-spacing: 0.2px;
     }
     .nav-btn.active .nav-label { letter-spacing: 0.4px; }
+
+    /* ============ TOAST ============ */
+    .toast {
+      position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+      background: rgba(28, 26, 23, 0.95);
+      color: #fff; font-size: 14px; font-weight: 600;
+      padding: 13px 22px; border-radius: 14px;
+      z-index: 9999;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+      animation: toastIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      max-width: 90vw;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -448,14 +552,33 @@
 
       <!-- МАГАЗИН -->
       <div id="page-shop" class="page">
-        <div class="add-row">
-          <input type="text" id="shopInput" placeholder="Что купить?" autocomplete="off">
-          <button class="add-btn" id="shopAddBtn">+</button>
+        <div class="add-card">
+          <div class="add-row">
+            <input type="text" id="shopInput" placeholder="Что купить?" autocomplete="off">
+            <button class="add-btn" id="shopAddBtn">+</button>
+          </div>
+          <div class="category-row" id="categoryRow">
+            <button class="cat-btn active" data-cat="other">📦 Другое</button>
+            <button class="cat-btn" data-cat="dairy">🥛 Молочное</button>
+            <button class="cat-btn" data-cat="meat">🥩 Мясо</button>
+            <button class="cat-btn" data-cat="veg">🥦 Овощи</button>
+            <button class="cat-btn" data-cat="bread">🍞 Хлеб</button>
+            <button class="cat-btn" data-cat="sweets">🍫 Сладкое</button>
+            <button class="cat-btn" data-cat="house">🧴 Быт. химия</button>
+          </div>
         </div>
+
+        <div class="section-title" id="shopActiveTitle" style="display:none;">Купить</div>
         <div class="items-list" id="shopList"></div>
         <div class="empty" id="shopEmpty">
           <div class="empty-emoji">🛒</div>
           <div>Список пуст. Добавьте первую покупку!</div>
+        </div>
+
+        <div id="shopDoneSection" style="display:none;">
+          <div class="section-title">Куплено</div>
+          <div class="items-list" id="shopDoneList"></div>
+          <button class="clear-btn" id="clearDoneBtn">Очистить купленное</button>
         </div>
       </div>
 
@@ -495,7 +618,10 @@
           <input type="text" id="eventTitle" placeholder="Что? (например: рабочая встреча)" autocomplete="off">
           <div class="event-time-row">
             <input type="time" id="eventStart">
-            <input type="time" id="eventEnd">
+            <button class="now-btn" id="nowBtn" type="button">СЕЙЧАС</button>
+          </div>
+          <div class="event-time-row">
+            <input type="time" id="eventEnd" placeholder="Конец (необязательно)">
           </div>
           <div class="event-date-row">
             <input type="date" id="eventDate">
@@ -503,14 +629,14 @@
           <button class="event-add-btn" id="eventAddBtn">Добавить в расписание</button>
         </div>
 
-        <div class="event-section-title">Сегодня</div>
+        <div class="event-section-title" id="eventsTodayTitle" style="display:none;">Сегодня</div>
         <div class="items-list" id="eventsTodayList"></div>
         <div class="empty" id="eventsTodayEmpty" style="display:none;">
           <div class="empty-emoji">☀️</div>
           <div>Сегодня событий нет</div>
         </div>
 
-        <div class="event-section-title">Предстоящие</div>
+        <div class="event-section-title" id="eventsFutureTitle" style="display:none;">Предстоящие</div>
         <div class="items-list" id="eventsFutureList"></div>
         <div class="empty" id="eventsFutureEmpty" style="display:none;">
           <div class="empty-emoji">📅</div>
@@ -604,6 +730,20 @@
 
     const db = getDatabase(app);
 
+    // ============ УТИЛИТЫ ============
+    function toast(msg) {
+      const ex = document.querySelector('.toast');
+      if (ex) ex.remove();
+      const el = document.createElement('div');
+      el.className = 'toast';
+      el.textContent = msg;
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 1800);
+    }
+    function haptic(ms = 10) {
+      if (navigator.vibrate) navigator.vibrate(ms);
+    }
+
     // ============ ИКОНКИ SVG ============
     const SVG_ICONS = {
       shop: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>',
@@ -613,11 +753,9 @@
       wishes: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>'
     };
 
-    // Заполняем иконки в навигации
     document.querySelectorAll('.nav-icon[data-icon]').forEach(el => {
       el.innerHTML = SVG_ICONS[el.dataset.icon] || '';
     });
-    // Заполняем иконку в шапке
     const topbarIcon = document.getElementById('topbarIcon');
     if (topbarIcon) topbarIcon.innerHTML = SVG_ICONS.shop;
 
@@ -715,6 +853,7 @@
 
     document.querySelectorAll('.nav-btn').forEach(btn => {
       btn.addEventListener('click', () => {
+        haptic(8);
         const page = btn.dataset.page;
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b === btn));
         document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
@@ -752,6 +891,7 @@
       if (choresUnsubscribe) { choresUnsubscribe(); choresUnsubscribe = null; }
       if (eventsUnsubscribe) { eventsUnsubscribe(); eventsUnsubscribe = null; }
       shopList.innerHTML = '';
+      shopDoneList.innerHTML = '';
       choreForMeList.innerHTML = '';
       choreByMeList.innerHTML = '';
       eventsTodayList.innerHTML = '';
@@ -760,10 +900,33 @@
     }
 
     // ============ МАГАЗИН ============
+    const CATEGORY_DATA = {
+      other: { emoji: '📦', color: '#b8aca1' },
+      dairy: { emoji: '🥛', color: '#8bb8e8' },
+      meat: { emoji: '🥩', color: '#e88585' },
+      veg: { emoji: '🥦', color: '#7eb97e' },
+      bread: { emoji: '🍞', color: '#d4a373' },
+      sweets: { emoji: '🍫', color: '#c89ac8' },
+      house: { emoji: '🧴', color: '#7eb8b8' }
+    };
+    let selectedCategory = 'other';
+
+    document.querySelectorAll('.cat-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        haptic(8);
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedCategory = btn.dataset.cat;
+      });
+    });
+
     const shopInput = $('shopInput');
     const shopAddBtn = $('shopAddBtn');
     const shopList = $('shopList');
+    const shopDoneList = $('shopDoneList');
     const shopEmpty = $('shopEmpty');
+    const shopActiveTitle = $('shopActiveTitle');
+    const shopDoneSection = $('shopDoneSection');
 
     shopAddBtn.addEventListener('click', addShopItem);
     shopInput.addEventListener('keypress', (e) => {
@@ -780,12 +943,14 @@
         await set(newItemRef, {
           title: title,
           done: false,
+          category: selectedCategory,
           addedBy: currentUser.uid,
           addedByEmail: currentUser.email,
           createdAt: Date.now()
         });
+        haptic(15);
       } catch (err) {
-        alert('ОШИБКА: ' + err.message);
+        toast('Ошибка: ' + err.message);
         console.error(err);
       }
     }
@@ -793,65 +958,104 @@
     function startShopListener() {
       const itemsRef = query(ref(db, 'shopping_items'), orderByChild('createdAt'));
       shopUnsubscribe = onValue(itemsRef, (snapshot) => {
-        shopList.innerHTML = '';
         const items = [];
         snapshot.forEach((child) => {
           items.push({ id: child.key, ...child.val() });
         });
         items.reverse();
 
-        if (items.length === 0) {
-          shopEmpty.style.display = 'block';
-          return;
-        }
-        shopEmpty.style.display = 'none';
+        // Активные и выполненные
+        const active = items.filter(x => !x.done);
+        const done = items.filter(x => x.done);
 
-        const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
+        renderShopList(active, shopList);
+        renderShopList(done, shopDoneList);
 
-        items.forEach((data) => {
-          const item = document.createElement('div');
-          item.className = 'item' + (data.done ? ' done' : '');
+        // Управление видимостью секций
+        shopActiveTitle.style.display = active.length > 0 ? 'block' : 'none';
+        shopDoneSection.style.display = done.length > 0 ? 'block' : 'none';
+        shopEmpty.style.display = items.length === 0 ? 'block' : 'none';
 
-          const checkbox = document.createElement('div');
-          checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
-          checkbox.addEventListener('click', async () => {
-            try {
-              await update(ref(db, 'shopping_items/' + data.id), { done: !data.done });
-            } catch (err) { console.error(err); }
-          });
-
-          const titleWrap = document.createElement('div');
-          titleWrap.style.flex = '1';
-          const title = document.createElement('div');
-          title.className = 'item-title';
-          title.textContent = data.title;
-          titleWrap.appendChild(title);
-
-          if (data.addedBy && myUid && data.addedBy !== myUid && data.addedByEmail) {
-            const meta = document.createElement('div');
-            meta.className = 'item-meta';
-            meta.textContent = '👤 ' + data.addedByEmail.split('@')[0];
-            titleWrap.appendChild(meta);
-          }
-
-          const delBtn = document.createElement('button');
-          delBtn.className = 'delete-btn';
-          delBtn.textContent = '×';
-          delBtn.addEventListener('click', async () => {
-            try {
-              await remove(ref(db, 'shopping_items/' + data.id));
-            } catch (err) { console.error(err); }
-          });
-
-          item.appendChild(checkbox);
-          item.appendChild(titleWrap);
-          item.appendChild(delBtn);
-          shopList.appendChild(item);
-        });
+        // Счётчик в заголовке
+        const badge = active.length > 0 ? ' <span class="count-badge">' + active.length + '</span>' : '';
+        $('pageTitle').innerHTML = 'Магазин' + badge;
       }, (err) => {
         console.error('Ошибка подписки магазина:', err);
       });
     }
+
+    function renderShopList(items, container) {
+      container.innerHTML = '';
+      const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
+
+      items.forEach((data) => {
+        const cat = CATEGORY_DATA[data.category] || CATEGORY_DATA.other;
+        const item = document.createElement('div');
+        item.className = 'item' + (data.done ? ' done' : '');
+
+        const marker = document.createElement('div');
+        marker.className = 'cat-marker';
+        marker.style.background = cat.color;
+        item.appendChild(marker);
+
+        const checkbox = document.createElement('div');
+        checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
+        checkbox.addEventListener('click', async () => {
+          haptic(12);
+          try {
+            await update(ref(db, 'shopping_items/' + data.id), { done: !data.done });
+          } catch (err) { console.error(err); }
+        });
+        item.appendChild(checkbox);
+
+        const titleWrap = document.createElement('div');
+        titleWrap.style.flex = '1';
+        const title = document.createElement('div');
+        title.className = 'item-title';
+        title.textContent = cat.emoji + ' ' + data.title;
+        titleWrap.appendChild(title);
+
+        if (data.addedBy && myUid && data.addedBy !== myUid && data.addedByEmail) {
+          const meta = document.createElement('div');
+          meta.className = 'item-meta';
+          meta.textContent = '👤 ' + data.addedByEmail.split('@')[0];
+          titleWrap.appendChild(meta);
+        }
+        item.appendChild(titleWrap);
+
+        const delBtn = document.createElement('button');
+        delBtn.className = 'delete-btn';
+        delBtn.textContent = '×';
+        delBtn.addEventListener('click', async () => {
+          haptic(15);
+          try {
+            await remove(ref(db, 'shopping_items/' + data.id));
+          } catch (err) { console.error(err); }
+        });
+        item.appendChild(delBtn);
+
+        container.appendChild(item);
+      });
+    }
+
+    $('clearDoneBtn').addEventListener('click', async () => {
+      try {
+        const snap = await new Promise(res => {
+          onValue(ref(db, 'shopping_items'), res, { onlyOnce: true });
+        });
+        const tasks = [];
+        snap.forEach((child) => {
+          if (child.val().done) {
+            tasks.push(remove(ref(db, 'shopping_items/' + child.key)));
+          }
+        });
+        await Promise.all(tasks);
+        haptic(20);
+        toast('Купленное очищено');
+      } catch (err) {
+        toast('Ошибка: ' + err.message);
+      }
+    });
 
     // ============ ДЕЛА ============
     const choreInput = $('choreInput');
@@ -881,8 +1085,8 @@
       const title = choreInput.value.trim();
       const assignee = choreAssignee.value;
       const due = choreDue.value;
-      if (!title) { alert('Введите задачу'); return; }
-      if (!assignee) { alert('Выберите, кому назначить'); return; }
+      if (!title) { toast('Введите задачу'); return; }
+      if (!assignee) { toast('Выберите, кому назначить'); return; }
       try {
         const choresRef = ref(db, 'chores');
         const newRef = push(choresRef);
@@ -900,8 +1104,10 @@
         choreInput.value = '';
         choreDue.value = '';
         choreAssignee.value = '';
+        haptic(15);
+        toast('Задача добавлена');
       } catch (err) {
-        alert('ОШИБКА: ' + err.code + '\n' + err.message);
+        toast('Ошибка: ' + err.message);
       }
     });
 
@@ -920,6 +1126,11 @@
 
         renderChores(forMe, choreForMeList, choreForMeEmpty, 'forMe');
         renderChores(byMe, choreByMeList, choreByMeEmpty, 'byMe');
+
+        // Счётчик активных задач
+        const activeCount = forMe.filter(x => !x.done).length + byMe.filter(x => !x.done).length;
+        const badge = activeCount > 0 ? ' <span class="count-badge">' + activeCount + '</span>' : '';
+        $('pageTitle').innerHTML = 'Домашние дела' + badge;
       }, (err) => {
         console.error('Ошибка подписки дел:', err);
       });
@@ -940,6 +1151,7 @@
         const checkbox = document.createElement('div');
         checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
         checkbox.addEventListener('click', async () => {
+          haptic(12);
           try {
             await update(ref(db, 'chores/' + data.id), { done: !data.done });
           } catch (err) { console.error(err); }
@@ -957,11 +1169,27 @@
           const due = document.createElement('div');
           const today = new Date(); today.setHours(0,0,0,0);
           const dueDate = new Date(data.dueDate + 'T00:00:00');
-          const isOverdue = !data.done && dueDate < today;
-          due.className = 'chore-due' + (isOverdue ? ' overdue' : '');
-          const dd = String(dueDate.getDate()).padStart(2,'0');
-          const mm = String(dueDate.getMonth()+1).padStart(2,'0');
-          due.textContent = '📅 до ' + dd + '.' + mm;
+          const diff = Math.round((dueDate - today) / 86400000);
+
+          let cls = 'soon';
+          let text = '';
+          if (!data.done && diff < 0) {
+            cls = 'overdue';
+            text = '⚠ Просрочено';
+          } else if (diff === 0) {
+            cls = 'today';
+            text = '🔥 Сегодня';
+          } else if (diff === 1) {
+            cls = 'tomorrow';
+            text = '📅 Завтра';
+          } else {
+            const dd = String(dueDate.getDate()).padStart(2,'0');
+            const mm = String(dueDate.getMonth()+1).padStart(2,'0');
+            text = '📅 до ' + dd + '.' + mm;
+          }
+
+          due.className = 'chore-badge ' + cls;
+          due.textContent = text;
           body.appendChild(due);
         }
 
@@ -982,6 +1210,7 @@
         delBtn.className = 'delete-btn';
         delBtn.textContent = '×';
         delBtn.addEventListener('click', async () => {
+          haptic(15);
           try {
             await remove(ref(db, 'chores/' + data.id));
           } catch (err) { console.error(err); }
@@ -1004,15 +1233,31 @@
     const eventsTodayEmpty = $('eventsTodayEmpty');
     const eventsFutureList = $('eventsFutureList');
     const eventsFutureEmpty = $('eventsFutureEmpty');
+    const eventsTodayTitle = $('eventsTodayTitle');
+    const eventsFutureTitle = $('eventsFutureTitle');
+
+    // Кнопка "Сейчас"
+    $('nowBtn').addEventListener('click', () => {
+      haptic(10);
+      const now = new Date();
+      const hh = String(now.getHours()).padStart(2, '0');
+      const mm = String(now.getMinutes()).padStart(2, '0');
+      eventStart.value = hh + ':' + mm;
+      // Дата
+      const dd = String(now.getDate()).padStart(2, '0');
+      const mo = String(now.getMonth() + 1).padStart(2, '0');
+      const yyyy = now.getFullYear();
+      eventDate.value = yyyy + '-' + mo + '-' + dd;
+    });
 
     eventAddBtn.addEventListener('click', async () => {
       const title = eventTitle.value.trim();
       const start = eventStart.value;
       const end = eventEnd.value;
       const date = eventDate.value;
-      if (!title) { alert('Введите название'); return; }
-      if (!start) { alert('Укажите время начала'); return; }
-      if (!date) { alert('Выберите дату'); return; }
+      if (!title) { toast('Введите название'); return; }
+      if (!start) { toast('Укажите время начала'); return; }
+      if (!date) { toast('Выберите дату'); return; }
       try {
         const eventsRef = ref(db, 'schedule_events');
         const newRef = push(eventsRef);
@@ -1030,8 +1275,10 @@
         eventStart.value = '';
         eventEnd.value = '';
         eventDate.value = '';
+        haptic(15);
+        toast('Событие добавлено');
       } catch (err) {
-        alert('ОШИБКА: ' + err.code + '\n' + err.message);
+        toast('Ошибка: ' + err.message);
       }
     });
 
@@ -1055,6 +1302,14 @@
 
         renderEvents(todayItems, eventsTodayList, eventsTodayEmpty, true);
         renderEvents(futureItems, eventsFutureList, eventsFutureEmpty, false);
+
+        // Управление заголовками
+        eventsTodayTitle.style.display = todayItems.length > 0 ? 'block' : 'none';
+        eventsFutureTitle.style.display = futureItems.length > 0 ? 'block' : 'none';
+
+        // Счётчик событий на сегодня
+        const badge = todayItems.length > 0 ? ' <span class="count-badge">' + todayItems.length + '</span>' : '';
+        $('pageTitle').innerHTML = 'Расписание' + badge;
       }, (err) => {
         console.error('Ошибка подписки расписания:', err);
       });
@@ -1077,10 +1332,26 @@
       emptyEl.style.display = 'none';
 
       const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
+      const now = new Date();
+      const nowMin = now.getHours() * 60 + now.getMinutes();
+      const today = todayStr();
 
       items.forEach((data) => {
         const item = document.createElement('div');
-        item.className = 'event-item';
+        let isNow = false;
+
+        if (data.date === today && data.startTime) {
+          const parts = data.startTime.split(':').map(Number);
+          const startMin = parts[0] * 60 + parts[1];
+          let endMin = startMin + 60;
+          if (data.endTime) {
+            const ep = data.endTime.split(':').map(Number);
+            endMin = ep[0] * 60 + ep[1];
+          }
+          isNow = nowMin >= startMin && nowMin <= endMin;
+        }
+
+        item.className = 'event-item' + (isNow ? ' now' : '');
 
         const timeEl = document.createElement('div');
         timeEl.className = 'event-time';
@@ -1124,6 +1395,7 @@
         delBtn.className = 'delete-btn';
         delBtn.textContent = '×';
         delBtn.addEventListener('click', async () => {
+          haptic(15);
           try {
             await remove(ref(db, 'schedule_events/' + data.id));
           } catch (err) { console.error(err); }
