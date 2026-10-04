@@ -767,6 +767,63 @@
       flex: 1;
     }
     .modal-confirm-style { flex: 2; }
+        /* ШЕФ-ПОВАР */
+    .chef-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #ffd1a8 0%, #ffb070 100%);
+      color: #7d3f00;
+      border: none;
+      border-radius: 14px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      box-shadow: 0 6px 20px rgba(255, 150, 80, 0.3);
+      transition: all 0.15s;
+    }
+    body[data-theme="dark"] .chef-btn {
+      background: linear-gradient(135deg, #6b3a20 0%, #4a280f 100%);
+      color: #ffd1a8;
+    }
+    .chef-btn:active { transform: scale(0.97); }
+
+    .chef-result {
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-top: 12px;
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--text);
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 45vh;
+      overflow-y: auto;
+    }
+    .chef-loader {
+      text-align: center;
+      padding: 24px;
+      color: var(--text-soft);
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .chef-loader .chef-spinner {
+      width: 32px; height: 32px;
+      border: 3px solid var(--accent-soft);
+      border-top-color: var(--accent-2);
+      border-radius: 50%;
+      animation: chefspin 0.8s linear infinite;
+      margin: 0 auto 10px;
+    }
+    @keyframes chefspin { to { transform: rotate(360deg); } }
+
     .export-btn {
       background: var(--accent-soft) !important; color: var(--accent-text) !important;
       box-shadow: none !important;
@@ -896,7 +953,7 @@
         </div>
       </div>
 
-      <div id="page-shop" class="page" style="display:none;">
+      <div id="page-shop" class="page"         <button class="chef-btn" id="chefOpenBtn" type="button">🍳 Личный шеф-повар</button>
         <div class="add-row">
           <input type="text" id="shopInput" placeholder="Что купить? (можно через запятую)" autocomplete="off">
           <button class="add-btn" id="shopAddBtn">+</button>
@@ -1174,6 +1231,27 @@
         <button class="primary modal-cancel-style" id="togetherCancelBtn">Отмена</button>
         <button class="primary modal-confirm-style" id="togetherSaveBtn">Сохранить</button>
       </div>
+    </div>
+  </div>
+  <div id="chefModal" class="theme-modal" style="display:none;">
+    <div class="theme-modal-content">
+      <h3>🍳 Личный шеф-повар</h3>
+      <p class="modal-hint">Напишите, что есть дома — придумаю рецепт.</p>
+      <textarea id="chefIngredients" placeholder="Например: молоко, яйца, хлеб, сыр" rows="3"></textarea>
+      <div class="chore-row" style="margin-bottom:8px;">
+        <select class="chore-select" id="chefMealType">
+          <option value="ужин" selected>🍽 Ужин</option>
+          <option value="завтрак">🌅 Завтрак</option>
+          <option value="обед">☀️ Обед</option>
+          <option value="перекус">🍎 Перекус</option>
+        </select>
+      </div>
+      <div class="modal-actions-row">
+        <button class="primary modal-cancel-style" id="chefCloseBtn">Закрыть</button>
+        <button class="primary modal-confirm-style" id="chefGenerateBtn">Придумать рецепт</button>
+      </div>
+      <div id="chefOutput"></div>
+      <button class="primary" id="chefAgainBtn" style="display:none;margin-top:8px;">🔄 Ещё рецепт</button>
     </div>
   </div>
 
@@ -2974,6 +3052,62 @@
       if (!confirm('Удалить ' + bought.length + ' купленных хотелок?')) return;
       for (const item of bought) { try { await remove(ref(db, 'wishes/' + item.id)); } catch (e) { console.error(e); } }
     });
+        // ============ ШЕФ-ПОВАР ============
+    $('chefOpenBtn').addEventListener('click', () => {
+      const activeItems = currentShopItems.filter(x => !x.done);
+      const names = activeItems.map(x => x.title).join(', ');
+      $('chefIngredients').value = names;
+      $('chefOutput').innerHTML = '';
+      $('chefAgainBtn').style.display = 'none';
+      $('chefModal').style.display = 'flex';
+    });
+
+    $('chefCloseBtn').addEventListener('click', () => {
+      $('chefModal').style.display = 'none';
+    });
+    $('chefModal').addEventListener('click', (e) => {
+      if (e.target === $('chefModal')) $('chefModal').style.display = 'none';
+    });
+
+    async function generateChefRecipe() {
+      const ingredients = $('chefIngredients').value.trim();
+      if (!ingredients) { alert('Укажите продукты'); return; }
+      const meal = $('chefMealType').value;
+      const output = $('chefOutput');
+      const btn = $('chefGenerateBtn');
+      btn.disabled = true;
+      output.innerHTML = '<div class="chef-loader"><div class="chef-spinner"></div>Придумываю рецепт...</div>';
+      $('chefAgainBtn').style.display = 'none';
+
+      try {
+        const seed = Math.floor(Math.random() * 1000000);
+        const prompt = 'Ты семейный шеф-повар. Придумай простой рецепт на ' + meal +
+          ' для двоих из этих продуктов: ' + ingredients +
+          '. Формат ответа строго такой:' +
+          ' 1) Название блюда.' +
+          ' 2) Ингредиенты (список с граммовками).' +
+          ' 3) Приготовление (5-8 коротких шагов).' +
+          ' Отвечай только на русском, без вступлений и лишних слов.';
+        const url = 'https://text.pollinations.ai/' + encodeURIComponent(prompt) +
+          '?model=openai&seed=' + seed;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('Сеть ' + res.status);
+        let text = await res.text();
+        text = text.replace(/\*\*/g, '').replace(/^#+\s*/gm, '').replace(/^\s*[-*]\s+/gm, '• ');
+        output.innerHTML = '<div class="chef-result"></div>';
+        output.querySelector('.chef-result').textContent = text;
+        $('chefAgainBtn').style.display = 'block';
+      } catch (err) {
+        output.innerHTML = '<div class="chef-result" style="color:#c0554e;">' +
+          'Не удалось получить рецепт. Проверьте интернет и попробуйте снова.\n\n' +
+          'Техническая ошибка: ' + err.message + '</div>';
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    $('chefGenerateBtn').addEventListener('click', generateChefRecipe);
+    $('chefAgainBtn').addEventListener('click', generateChefRecipe);
   </script>
 </body>
 </html>
