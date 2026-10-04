@@ -21,27 +21,14 @@
 
     html[data-theme="gold"], :root {
       --bg: #f6f3ee;
-      --bg-glow-1: rgba(217, 179, 130, 0.18);
-      --bg-glow-2: rgba(184, 137, 78, 0.08);
-      --text: #1c1a17;
-      --text-soft: #9a8f80;
-      --text-muted: #b5a898;
-      --card: #ffffff;
-      --card-blur: rgba(255, 255, 255, 0.9);
-      --card-border: #f0ebe1;
-      --input-bg: #fbf9f5;
-      --input-border: #e6dfd3;
-      --accent-1: #d9b382;
-      --accent-2: #b8894e;
-      --accent-text: #b8894e;
-      --accent-soft: rgba(184, 137, 78, 0.08);
-      --accent-soft-light: rgba(184, 137, 78, 0.06);
-      --accent-soft-strong: rgba(184, 137, 78, 0.12);
-      --accent-border: rgba(184, 137, 78, 0.1);
-      --accent-shadow: rgba(184, 137, 78, 0.35);
-      --accent-shadow-strong: rgba(184, 137, 78, 0.4);
-      --topbar-bg: rgba(246, 243, 238, 0.82);
-      --nav-bg: rgba(255, 255, 255, 0.92);
+      --bg-glow-1: rgba(217, 179, 130, 0.18); --bg-glow-2: rgba(184, 137, 78, 0.08);
+      --text: #1c1a17; --text-soft: #9a8f80; --text-muted: #b5a898;
+      --card: #ffffff; --card-blur: rgba(255, 255, 255, 0.9); --card-border: #f0ebe1;
+      --input-bg: #fbf9f5; --input-border: #e6dfd3;
+      --accent-1: #d9b382; --accent-2: #b8894e; --accent-text: #b8894e;
+      --accent-soft: rgba(184, 137, 78, 0.08); --accent-soft-light: rgba(184, 137, 78, 0.06); --accent-soft-strong: rgba(184, 137, 78, 0.12);
+      --accent-border: rgba(184, 137, 78, 0.1); --accent-shadow: rgba(184, 137, 78, 0.35); --accent-shadow-strong: rgba(184, 137, 78, 0.4);
+      --topbar-bg: rgba(246, 243, 238, 0.82); --nav-bg: rgba(255, 255, 255, 0.92);
       --accent-grad: linear-gradient(135deg, #d9b382 0%, #b8894e 100%);
       --h1-grad: linear-gradient(135deg, #1c1a17 0%, #b8894e 100%);
     }
@@ -133,8 +120,7 @@
       border: 1px solid var(--card-border);
       border-radius: 28px;
       padding: 40px 28px;
-      width: 100%;
-      max-width: 420px;
+      width: 100%; max-width: 420px;
       box-shadow: 0 24px 70px rgba(0, 0, 0, 0.08), 0 8px 24px rgba(0, 0, 0, 0.04);
       animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -157,11 +143,7 @@
       cursor: pointer; border: none; background: transparent; font-family: inherit;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .tab.active {
-      background: var(--accent-grad);
-      color: #ffffff;
-      box-shadow: 0 4px 14px var(--accent-shadow);
-    }
+    .tab.active { background: var(--accent-grad); color: #ffffff; box-shadow: 0 4px 14px var(--accent-shadow); }
     input[type="email"], input[type="password"], input[type="text"], input[type="date"], input[type="time"], input[type="number"], input[type="url"] {
       width: 100%; padding: 16px; font-size: 16px; font-family: inherit;
       border: 1px solid var(--input-border); border-radius: 16px; margin-bottom: 12px;
@@ -169,22 +151,14 @@
       transition: all 0.2s;
     }
     input::placeholder { color: var(--text-muted); }
-    input:focus {
-      border-color: var(--accent-2);
-      background: var(--card);
-      box-shadow: 0 0 0 4px var(--accent-soft-strong);
-    }
+    input:focus { border-color: var(--accent-2); background: var(--card); box-shadow: 0 0 0 4px var(--accent-soft-strong); }
     textarea {
       width: 100%; padding: 16px; font-size: 16px; font-family: inherit;
       border: 1px solid var(--input-border); border-radius: 16px; margin-bottom: 12px;
       background: var(--input-bg); color: var(--text); outline: none;
       transition: all 0.2s; resize: vertical; min-height: 60px;
     }
-    textarea:focus {
-      border-color: var(--accent-2);
-      background: var(--card);
-      box-shadow: 0 0 0 4px var(--accent-soft-strong);
-    }
+    textarea:focus { border-color: var(--accent-2); background: var(--card); box-shadow: 0 0 0 4px var(--accent-soft-strong); }
     button.primary {
       width: 100%; padding: 17px; font-size: 16px; font-weight: 700;
       font-family: inherit; color: #ffffff;
@@ -255,60 +229,39 @@
     .add-btn:active { transform: scale(0.94); }
 
     .categories-row {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 20px;
-      overflow-x: auto;
-      padding-bottom: 4px;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
+      display: flex; gap: 6px; margin-bottom: 20px;
+      overflow-x: auto; padding-bottom: 4px;
+      -webkit-overflow-scrolling: touch; scrollbar-width: none;
     }
     .categories-row::-webkit-scrollbar { display: none; }
     .cat-btn {
       flex-shrink: 0;
-      padding: 8px 12px;
-      border-radius: 12px;
+      padding: 8px 12px; border-radius: 12px;
       border: 1.5px solid var(--input-border);
       background: var(--input-bg);
-      font-family: inherit;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-soft);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      transition: all 0.15s;
-      white-space: nowrap;
+      font-family: inherit; font-size: 13px; font-weight: 600;
+      color: var(--text-soft); cursor: pointer;
+      display: flex; align-items: center; gap: 4px;
+      transition: all 0.15s; white-space: nowrap;
     }
     .cat-btn:active { transform: scale(0.96); }
     .cat-btn.active {
       background: var(--accent-grad);
-      border-color: transparent;
-      color: #ffffff;
+      border-color: transparent; color: #ffffff;
       box-shadow: 0 4px 12px var(--accent-shadow);
     }
 
     .cat-group-title {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      font-weight: 800;
-      color: var(--text-soft);
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 800; color: var(--text-soft);
+      text-transform: uppercase; letter-spacing: 1.2px;
       margin: 18px 4px 8px;
     }
     .cat-group-title:first-child { margin-top: 0; }
     .cat-group-title .count-badge {
-      background: var(--accent-soft);
-      color: var(--accent-text);
-      font-size: 10px;
-      padding: 2px 7px;
-      border-radius: 6px;
-      font-weight: 800;
-      letter-spacing: 0;
+      background: var(--accent-soft); color: var(--accent-text);
+      font-size: 10px; padding: 2px 7px;
+      border-radius: 6px; font-weight: 800; letter-spacing: 0;
     }
 
     .cat-marker { width: 4px; height: 36px; border-radius: 2px; flex-shrink: 0; }
@@ -355,25 +308,17 @@
     }
     .empty-emoji { font-size: 52px; margin-bottom: 14px; opacity: 0.65; }
 
-    /* Кнопка очистить купленное */
     .clear-btn {
-      width: 100%;
-      padding: 14px;
-      margin-top: 20px;
+      width: 100%; padding: 14px; margin-top: 20px;
       background: transparent;
       border: 1.5px dashed var(--accent-1);
       border-radius: 14px;
-      font-family: inherit;
-      font-size: 14px;
-      font-weight: 700;
+      font-family: inherit; font-size: 14px; font-weight: 700;
       color: var(--accent-text);
       cursor: pointer;
       transition: all 0.2s;
     }
-    .clear-btn:active {
-      background: var(--accent-soft);
-      transform: scale(0.98);
-    }
+    .clear-btn:active { background: var(--accent-soft); transform: scale(0.98); }
 
     /* ДЕЛА */
     .chore-add-card {
@@ -412,12 +357,26 @@
     }
     .chore-add-btn:active { transform: scale(0.97); }
 
+    .chore-section-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin: 28px 0 12px;
+    }
+    .chore-add-card + .chore-section-head { margin-top: 0; }
     .chore-section-title {
       font-size: 12px; font-weight: 800; color: var(--text-soft);
       text-transform: uppercase; letter-spacing: 1.4px;
-      margin: 24px 0 12px;
+      margin: 0;
     }
-    .chore-section-title:first-child { margin-top: 0; }
+    .chore-count-badge {
+      background: var(--accent-soft);
+      color: var(--accent-text);
+      font-size: 11px; font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--accent-border);
+      min-width: 26px;
+      text-align: center;
+    }
 
     .chore-item {
       background: var(--card);
@@ -440,10 +399,43 @@
       border: 1px solid var(--accent-border);
       padding: 4px 10px;
       border-radius: 8px;
-      margin-top: 8px;
       letter-spacing: 0.3px;
     }
     .chore-due.overdue { color: #c0554e; background: #fbeae8; border-color: #f3d5d2; }
+    .chore-due.today { color: #b8770f; background: #fff4e0; border-color: #f5e0b8; }
+    .chore-due.tomorrow { color: #3a6fb5; background: #eaf1fb; border-color: #d5e3f5; }
+
+    .priority-badge {
+      display: inline-block;
+      font-size: 10px; font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.3px;
+    }
+    .priority-badge.high { background: #fbeae8; color: #c0554e; border: 1px solid #f3d5d2; }
+    .priority-badge.low { background: var(--accent-soft); color: var(--accent-text); border: 1px solid var(--accent-border); }
+
+    .chore-done-subtitle {
+      font-size: 11px; font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin: 16px 4px 8px;
+    }
+
+    .clear-chores-btn {
+      width: 100%; padding: 11px;
+      margin-top: 8px;
+      background: transparent;
+      border: 1.5px dashed var(--accent-1);
+      border-radius: 12px;
+      font-family: inherit; font-size: 13px; font-weight: 700;
+      color: var(--accent-text);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .clear-chores-btn:active { background: var(--accent-soft); transform: scale(0.98); }
+
     .gift-link {
       display: inline-block;
       margin-top: 6px;
@@ -460,9 +452,7 @@
       border-radius: 16px;
       padding: 14px 18px;
       margin-bottom: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      display: flex; justify-content: space-between; align-items: center;
       box-shadow: 0 6px 20px var(--accent-shadow);
       animation: fadeInUp 0.3s ease;
     }
@@ -475,9 +465,7 @@
       border-radius: 12px;
       border: 1.5px solid var(--input-border);
       background: var(--input-bg);
-      font-family: inherit;
-      font-size: 12px;
-      font-weight: 700;
+      font-family: inherit; font-size: 12px; font-weight: 700;
       color: var(--text-soft);
       cursor: pointer;
       transition: all 0.15s;
@@ -485,17 +473,14 @@
     .wish-status-btn:active { transform: scale(0.96); }
     .wish-status-btn.active {
       background: var(--accent-grad);
-      border-color: transparent;
-      color: #ffffff;
+      border-color: transparent; color: #ffffff;
       box-shadow: 0 3px 10px var(--accent-shadow);
     }
 
     .wish-priority {
       display: inline-block;
-      font-size: 11px;
-      font-weight: 800;
-      padding: 3px 8px;
-      border-radius: 6px;
+      font-size: 11px; font-weight: 800;
+      padding: 3px 8px; border-radius: 6px;
       margin-top: 8px;
       letter-spacing: 0.3px;
     }
@@ -504,11 +489,8 @@
     .wish-priority.low { background: var(--accent-soft); color: var(--accent-text); border: 1px solid var(--accent-border); }
 
     .wish-price-tag {
-      font-size: 15px;
-      font-weight: 800;
-      color: var(--accent-text);
-      white-space: nowrap;
-      margin-left: 8px;
+      font-size: 15px; font-weight: 800; color: var(--accent-text);
+      white-space: nowrap; margin-left: 8px;
     }
 
     .event-add-card {
@@ -552,8 +534,7 @@
       display: flex; align-items: center; gap: 14px;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
       margin-bottom: 8px;
-      transition: all 0.25s;
-      animation: fadeInUp 0.3s ease;
+      transition: all 0.25s; animation: fadeInUp 0.3s ease;
     }
     .event-time {
       font-size: 16px; font-weight: 800; color: var(--accent-text);
@@ -607,8 +588,7 @@
     .theme-modal {
       position: fixed; inset: 0; z-index: 100;
       background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
       display: flex; align-items: flex-end; justify-content: center;
       padding: 16px;
       animation: fadeInUp 0.2s ease;
@@ -626,53 +606,24 @@
       font-size: 20px; font-weight: 800; color: var(--text);
       margin-bottom: 20px; letter-spacing: -0.4px;
     }
-    .theme-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-bottom: 20px;
-    }
+    .theme-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; }
     .theme-option {
-      background: var(--input-bg);
-      border: 2px solid var(--input-border);
-      border-radius: 16px;
-      padding: 14px;
-      cursor: pointer;
+      background: var(--input-bg); border: 2px solid var(--input-border);
+      border-radius: 16px; padding: 14px; cursor: pointer;
       font-family: inherit;
-      display: flex; flex-direction: column;
-      align-items: center; gap: 10px;
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
       transition: all 0.2s;
     }
     .theme-option:active { transform: scale(0.97); }
-    .theme-option.active {
-      border-color: var(--accent-2);
-      background: var(--accent-soft);
-      box-shadow: 0 4px 14px var(--accent-soft-strong);
-    }
-    .theme-preview {
-      width: 100%;
-      height: 60px;
-      border-radius: 12px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
+    .theme-option.active { border-color: var(--accent-2); background: var(--accent-soft); box-shadow: 0 4px 14px var(--accent-soft-strong); }
+    .theme-preview { width: 100%; height: 60px; border-radius: 12px; position: relative; overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); }
     .theme-preview-dot {
-      position: absolute;
-      width: 22px; height: 22px;
-      border-radius: 50%;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
+      position: absolute; width: 22px; height: 22px; border-radius: 50%;
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
       background: rgba(255, 255, 255, 0.6);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
     }
-    .theme-name {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text);
-      letter-spacing: 0.2px;
-    }
+    .theme-name { font-size: 13px; font-weight: 700; color: var(--text); letter-spacing: 0.2px; }
   </style>
 </head>
 <body>
@@ -745,18 +696,33 @@
             </select>
             <input type="date" id="choreDue" style="margin-bottom:0;">
           </div>
+          <div class="chore-row">
+            <select class="chore-select" id="chorePriority" style="flex:1;">
+              <option value="medium" selected>🟡 Обычный приоритет</option>
+              <option value="high">🔴 Важно</option>
+              <option value="low">⚪ Когда-нибудь</option>
+            </select>
+          </div>
           <button class="chore-add-btn" id="choreAddBtn">Добавить задачу</button>
         </div>
 
-        <div class="chore-section-title">Я должен сделать</div>
+        <div class="chore-section-head">
+          <div class="chore-section-title">Я должен сделать</div>
+          <div class="chore-count-badge" id="choreForMeCount">0</div>
+        </div>
         <div class="items-list" id="choreForMeList"></div>
+        <button class="clear-chores-btn" id="choreForMeClear" style="display:none;">🧹 Очистить выполненные</button>
         <div class="empty" id="choreForMeEmpty" style="display:none;">
           <div class="empty-emoji">🌸</div>
           <div>Пока никто ничего не поручал</div>
         </div>
 
-        <div class="chore-section-title">Я попросил(а) сделать</div>
+        <div class="chore-section-head">
+          <div class="chore-section-title">Я попросил(а) сделать</div>
+          <div class="chore-count-badge" id="choreByMeCount">0</div>
+        </div>
         <div class="items-list" id="choreByMeList"></div>
+        <button class="clear-chores-btn" id="choreByMeClear" style="display:none;">🧹 Очистить выполненные</button>
         <div class="empty" id="choreByMeEmpty" style="display:none;">
           <div class="empty-emoji">💌</div>
           <div>Вы ещё никому не давали задач</div>
@@ -922,24 +888,11 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import {
-      getAuth,
-      signInWithEmailAndPassword,
-      createUserWithEmailAndPassword,
-      onAuthStateChanged,
-      signOut,
-      setPersistence,
-      browserLocalPersistence
+      getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
+      onAuthStateChanged, signOut, setPersistence, browserLocalPersistence
     } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
     import {
-      getDatabase,
-      ref,
-      push,
-      set,
-      update,
-      remove,
-      onValue,
-      query,
-      orderByChild
+      getDatabase, ref, push, set, update, remove, onValue, query, orderByChild
     } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
     const firebaseConfig = {
@@ -986,7 +939,6 @@
         meta.setAttribute('content', colors[theme] || '#f6f3ee');
       }
     }
-
     applyTheme(localStorage.getItem('familyTheme') || 'gold');
 
     $('themeBtn').addEventListener('click', () => {
@@ -996,15 +948,10 @@
       });
       $('themeModal').style.display = 'flex';
     });
-
     document.querySelectorAll('.theme-option').forEach(btn => {
       btn.addEventListener('click', () => applyTheme(btn.dataset.theme));
     });
-
-    $('themeCloseBtn').addEventListener('click', () => {
-      $('themeModal').style.display = 'none';
-    });
-
+    $('themeCloseBtn').addEventListener('click', () => { $('themeModal').style.display = 'none'; });
     $('themeModal').addEventListener('click', (e) => {
       if (e.target === $('themeModal')) $('themeModal').style.display = 'none';
     });
@@ -1060,10 +1007,12 @@
     let giftsUnsubscribe = null;
     let wishesUnsubscribe = null;
 
-    // Магазин: выбранная категория (для фильтра и для новых продуктов)
     let selectedCategory = 'all';
-    // Кеш текущих покупок для кнопки "Очистить купленное"
     let currentShopItems = [];
+
+    // Кеш задач для кнопок "Очистить выполненные"
+    let currentChoresForMe = [];
+    let currentChoresByMe = [];
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -1093,7 +1042,6 @@
       return map[code] || 'Ошибка: ' + code;
     }
 
-    // НАВИГАЦИЯ
     const pageTitles = {
       shop: 'Магазин',
       chores: 'Домашние дела',
@@ -1114,14 +1062,9 @@
       });
     });
 
-    // СТАРТ / СТОП
     function startAll() {
       currentUser = auth.currentUser;
-
-      set(ref(db, 'users/' + currentUser.uid), {
-        email: currentUser.email
-      }).catch(console.error);
-
+      set(ref(db, 'users/' + currentUser.uid), { email: currentUser.email }).catch(console.error);
       onValue(ref(db, 'users'), (snap) => {
         allUsers = {};
         snap.forEach((child) => {
@@ -1163,57 +1106,45 @@
 
     const CATEGORY_ORDER = ['dairy', 'meat', 'veg', 'fruit', 'bread', 'drinks', 'sweets', 'house', 'other'];
     const CATEGORY_META = {
-      dairy:  { emoji: '🥛', name: 'Молочное',    color: '#8bb8e8' },
-      meat:   { emoji: '🥩', name: 'Мясо',         color: '#e88585' },
-      veg:    { emoji: '🥦', name: 'Овощи',        color: '#7eb97e' },
-      fruit:  { emoji: '🍎', name: 'Фрукты',       color: '#e8b85c' },
-      bread:  { emoji: '🍞', name: 'Хлеб',         color: '#d4a373' },
-      drinks: { emoji: '🥤', name: 'Напитки',      color: '#7ab8d4' },
-      sweets: { emoji: '🍫', name: 'Сладкое',      color: '#c89ac8' },
-      house:  { emoji: '🧴', name: 'Быт. химия',   color: '#7eb8b8' },
-      other:  { emoji: '📦', name: 'Другое',       color: '#b8aca1' }
+      dairy:  { emoji: '🥛', name: 'Молочное', color: '#8bb8e8' },
+      meat:   { emoji: '🥩', name: 'Мясо',      color: '#e88585' },
+      veg:    { emoji: '🥦', name: 'Овощи',     color: '#7eb97e' },
+      fruit:  { emoji: '🍎', name: 'Фрукты',    color: '#e8b85c' },
+      bread:  { emoji: '🍞', name: 'Хлеб',      color: '#d4a373' },
+      drinks: { emoji: '🥤', name: 'Напитки',   color: '#7ab8d4' },
+      sweets: { emoji: '🍫', name: 'Сладкое',   color: '#c89ac8' },
+      house:  { emoji: '🧴', name: 'Быт. химия', color: '#7eb8b8' },
+      other:  { emoji: '📦', name: 'Другое',    color: '#b8aca1' }
     };
 
-    // Обработчики категорий
     document.querySelectorAll('.cat-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         selectedCategory = btn.dataset.cat;
-        // Перерисовать список с новым фильтром
         renderShopList();
       });
     });
 
     shopAddBtn.addEventListener('click', addShopItem);
-    shopInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') addShopItem();
-    });
+    shopInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') addShopItem(); });
 
     async function addShopItem() {
       const raw = shopInput.value.trim();
       if (!raw || !currentUser) return;
       shopInput.value = '';
-
-      // Разделяем по запятой, чистим
       const titles = raw.split(',').map(t => t.trim()).filter(t => t);
-      // Категория: если "Все" выбрано — в "Другое", иначе в выбранную
       const cat = (selectedCategory === 'all') ? 'other' : selectedCategory;
-
       for (const title of titles) {
         try {
           const newItemRef = push(ref(db, 'shopping_items'));
           await set(newItemRef, {
-            title: title,
-            done: false,
-            category: cat,
+            title: title, done: false, category: cat,
             addedBy: currentUser.uid,
             addedByEmail: currentUser.email,
             createdAt: Date.now()
           });
-        } catch (err) {
-          console.error(err);
-        }
+        } catch (err) { console.error(err); }
       }
     }
 
@@ -1221,47 +1152,33 @@
       const itemsRef = query(ref(db, 'shopping_items'), orderByChild('createdAt'));
       shopUnsubscribe = onValue(itemsRef, (snapshot) => {
         const items = [];
-        snapshot.forEach((child) => {
-          items.push({ id: child.key, ...child.val() });
-        });
+        snapshot.forEach((child) => { items.push({ id: child.key, ...child.val() }); });
         items.reverse();
-
         currentShopItems = items;
         renderShopList();
-      }, (err) => {
-        console.error('Ошибка подписки магазина:', err);
-      });
+      }, (err) => { console.error('Ошибка подписки магазина:', err); });
     }
 
     function renderShopList() {
       shopList.innerHTML = '';
-
       const items = currentShopItems;
-
-      // Пустой список?
       if (items.length === 0) {
         shopEmpty.style.display = 'block';
         clearDoneBtn.style.display = 'none';
         return;
       }
       shopEmpty.style.display = 'none';
-
-      // Считаем сколько куплено — для кнопки "Очистить"
       const doneCount = items.filter(x => x.done).length;
       clearDoneBtn.style.display = doneCount > 0 ? 'block' : 'none';
 
       const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
 
-      // Фильтрация
       let filtered;
-      if (selectedCategory === 'all') {
-        filtered = items;
-      } else {
-        filtered = items.filter(x => {
-          const cat = (x.category && CATEGORY_META[x.category]) ? x.category : 'other';
-          return cat === selectedCategory;
-        });
-      }
+      if (selectedCategory === 'all') filtered = items;
+      else filtered = items.filter(x => {
+        const cat = (x.category && CATEGORY_META[x.category]) ? x.category : 'other';
+        return cat === selectedCategory;
+      });
 
       if (filtered.length === 0) {
         const emptyMsg = document.createElement('div');
@@ -1271,7 +1188,6 @@
         return;
       }
 
-      // Группировка
       const grouped = {};
       filtered.forEach(item => {
         const cat = (item.category && CATEGORY_META[item.category]) ? item.category : 'other';
@@ -1280,23 +1196,18 @@
       });
 
       if (selectedCategory === 'all') {
-        // С заголовками групп
         CATEGORY_ORDER.forEach(catKey => {
           if (!grouped[catKey]) return;
           const meta = CATEGORY_META[catKey];
-          // Счётчик = только НЕ купленные
           const activeInGroup = grouped[catKey].filter(x => !x.done).length;
-
           const groupTitle = document.createElement('div');
           groupTitle.className = 'cat-group-title';
           groupTitle.innerHTML = '<span>' + meta.emoji + '</span> ' + meta.name +
             ' <span class="count-badge">' + activeInGroup + '</span>';
           shopList.appendChild(groupTitle);
-
           grouped[catKey].forEach(data => renderShopItem(data, meta, myUid));
         });
       } else {
-        // Одна категория — без заголовка
         const meta = CATEGORY_META[selectedCategory] || CATEGORY_META.other;
         filtered.forEach(data => renderShopItem(data, meta, myUid));
       }
@@ -1314,9 +1225,7 @@
       const checkbox = document.createElement('div');
       checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
       checkbox.addEventListener('click', async () => {
-        try {
-          await update(ref(db, 'shopping_items/' + data.id), { done: !data.done });
-        } catch (err) { console.error(err); }
+        try { await update(ref(db, 'shopping_items/' + data.id), { done: !data.done }); } catch (err) { console.error(err); }
       });
 
       const titleWrap = document.createElement('div');
@@ -1337,9 +1246,7 @@
       delBtn.className = 'delete-btn';
       delBtn.textContent = '×';
       delBtn.addEventListener('click', async () => {
-        try {
-          await remove(ref(db, 'shopping_items/' + data.id));
-        } catch (err) { console.error(err); }
+        try { await remove(ref(db, 'shopping_items/' + data.id)); } catch (err) { console.error(err); }
       });
 
       item.appendChild(checkbox);
@@ -1348,7 +1255,6 @@
       shopList.appendChild(item);
     }
 
-    // Очистить купленное
     clearDoneBtn.addEventListener('click', async () => {
       const doneItems = currentShopItems.filter(x => x.done);
       if (doneItems.length === 0) return;
@@ -1357,15 +1263,14 @@
         for (const item of doneItems) {
           await remove(ref(db, 'shopping_items/' + item.id));
         }
-      } catch (err) {
-        console.error(err);
-      }
+      } catch (err) { console.error(err); }
     });
 
     // ============ ДЕЛА ============
     const choreInput = $('choreInput');
     const choreAssignee = $('choreAssignee');
     const choreDue = $('choreDue');
+    const chorePriority = $('chorePriority');
     const choreAddBtn = $('choreAddBtn');
     const choreForMeList = $('choreForMeList');
     const choreForMeEmpty = $('choreForMeEmpty');
@@ -1390,6 +1295,7 @@
       const title = choreInput.value.trim();
       const assignee = choreAssignee.value;
       const due = choreDue.value;
+      const priority = chorePriority.value;
       if (!title) { alert('Введите задачу'); return; }
       if (!assignee) { alert('Выберите, кому назначить'); return; }
       try {
@@ -1402,6 +1308,7 @@
           createdBy: currentUser.uid,
           createdByEmail: currentUser.email,
           done: false,
+          priority: priority,
           createdAt: Date.now()
         };
         if (due) data.dueDate = due;
@@ -1409,6 +1316,7 @@
         choreInput.value = '';
         choreDue.value = '';
         choreAssignee.value = '';
+        chorePriority.value = 'medium';
       } catch (err) {
         alert('ОШИБКА: ' + err.code + '\n' + err.message);
       }
@@ -1418,21 +1326,38 @@
       const choresRef = query(ref(db, 'chores'), orderByChild('createdAt'));
       choresUnsubscribe = onValue(choresRef, (snapshot) => {
         const items = [];
-        snapshot.forEach((child) => {
-          items.push({ id: child.key, ...child.val() });
-        });
+        snapshot.forEach((child) => { items.push({ id: child.key, ...child.val() }); });
         items.reverse();
 
         const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
         const forMe = items.filter(x => x.assignedTo === myUid);
         const byMe = items.filter(x => x.createdBy === myUid);
 
+        currentChoresForMe = forMe;
+        currentChoresByMe = byMe;
+
+        // Счётчики активных
+        const forMeActive = forMe.filter(x => !x.done).length;
+        const byMeActive = byMe.filter(x => !x.done).length;
+        const forMeDone = forMe.filter(x => x.done).length;
+        const byMeDone = byMe.filter(x => x.done).length;
+
+        const forMeCountEl = $('choreForMeCount');
+        const byMeCountEl = $('choreByMeCount');
+        if (forMeCountEl) forMeCountEl.textContent = forMeActive;
+        if (byMeCountEl) byMeCountEl.textContent = byMeActive;
+
+        const forMeClear = $('choreForMeClear');
+        const byMeClear = $('choreByMeClear');
+        if (forMeClear) forMeClear.style.display = forMeDone > 0 ? 'block' : 'none';
+        if (byMeClear) byMeClear.style.display = byMeDone > 0 ? 'block' : 'none';
+
         renderChores(forMe, choreForMeList, choreForMeEmpty, 'forMe');
         renderChores(byMe, choreByMeList, choreByMeEmpty, 'byMe');
-      }, (err) => {
-        console.error('Ошибка подписки дел:', err);
-      });
+      }, (err) => { console.error('Ошибка подписки дел:', err); });
     }
+
+    const PRIORITY_ORDER = { high: 0, medium: 1, low: 2 };
 
     function renderChores(items, container, emptyEl, mode) {
       container.innerHTML = '';
@@ -1442,66 +1367,132 @@
       }
       emptyEl.style.display = 'none';
 
-      items.forEach((data) => {
-        const item = document.createElement('div');
-        item.className = 'chore-item' + (data.done ? ' done' : '');
+      const active = items.filter(x => !x.done);
+      const done = items.filter(x => x.done);
 
-        const checkbox = document.createElement('div');
-        checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
-        checkbox.addEventListener('click', async () => {
-          try {
-            await update(ref(db, 'chores/' + data.id), { done: !data.done });
-          } catch (err) { console.error(err); }
-        });
+      // Сортировка активных: важные выше, потом по сроку (ближайшие/просроченные выше)
+      active.sort((a, b) => {
+        const pa = PRIORITY_ORDER[a.priority] ?? 1;
+        const pb = PRIORITY_ORDER[b.priority] ?? 1;
+        if (pa !== pb) return pa - pb;
+        const da = a.dueDate || '9999-99-99';
+        const db_ = b.dueDate || '9999-99-99';
+        return da.localeCompare(db_);
+      });
 
-        const body = document.createElement('div');
-        body.className = 'chore-item-body';
+      // Отрисовка активных
+      active.forEach(data => container.appendChild(buildChoreItem(data, mode)));
 
-        const title = document.createElement('div');
-        title.className = 'item-title';
-        title.textContent = data.title;
-        body.appendChild(title);
+      // Отрисовка выполненных под подзаголовком
+      if (done.length > 0) {
+        const sub = document.createElement('div');
+        sub.className = 'chore-done-subtitle';
+        sub.textContent = '✓ Выполнено (' + done.length + ')';
+        container.appendChild(sub);
+        done.forEach(data => container.appendChild(buildChoreItem(data, mode)));
+      }
+    }
 
-        if (data.dueDate) {
-          const due = document.createElement('div');
-          const today = new Date(); today.setHours(0,0,0,0);
-          const dueDate = new Date(data.dueDate + 'T00:00:00');
-          const isOverdue = !data.done && dueDate < today;
-          due.className = 'chore-due' + (isOverdue ? ' overdue' : '');
+    function buildChoreItem(data, mode) {
+      const item = document.createElement('div');
+      item.className = 'chore-item' + (data.done ? ' done' : '');
+
+      const checkbox = document.createElement('div');
+      checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
+      checkbox.addEventListener('click', async () => {
+        try { await update(ref(db, 'chores/' + data.id), { done: !data.done }); } catch (err) { console.error(err); }
+      });
+
+      const body = document.createElement('div');
+      body.className = 'chore-item-body';
+
+      const title = document.createElement('div');
+      title.className = 'item-title';
+      title.textContent = data.title;
+      body.appendChild(title);
+
+      // Бейджи: приоритет + срок
+      const badges = document.createElement('div');
+      badges.style.display = 'flex';
+      badges.style.flexWrap = 'wrap';
+      badges.style.gap = '6px';
+      badges.style.alignItems = 'center';
+      badges.style.marginTop = '8px';
+
+      const priority = data.priority || 'medium';
+      if (priority === 'high' || priority === 'low') {
+        const pBadge = document.createElement('span');
+        pBadge.className = 'priority-badge ' + priority;
+        pBadge.textContent = priority === 'high' ? '🔴 Важно' : '⚪ Когда-нибудь';
+        badges.appendChild(pBadge);
+      }
+
+      if (data.dueDate) {
+        const due = document.createElement('span');
+        const today = new Date(); today.setHours(0,0,0,0);
+        const dueDate = new Date(data.dueDate + 'T00:00:00');
+        const diff = Math.round((dueDate - today) / 86400000);
+        let cls = '', text = '';
+        if (!data.done && diff < 0) { cls = 'overdue'; text = '⚠ Просрочено'; }
+        else if (diff === 0) { cls = 'today'; text = '🔥 Сегодня'; }
+        else if (diff === 1) { cls = 'tomorrow'; text = '📅 Завтра'; }
+        else {
           const dd = String(dueDate.getDate()).padStart(2,'0');
           const mm = String(dueDate.getMonth()+1).padStart(2,'0');
-          due.textContent = '📅 до ' + dd + '.' + mm;
-          body.appendChild(due);
+          text = '📅 до ' + dd + '.' + mm;
         }
+        due.className = 'chore-due' + (cls ? ' ' + cls : '');
+        due.textContent = text;
+        badges.appendChild(due);
+      }
 
-        if (mode === 'byMe' && data.assignedToEmail) {
-          const meta = document.createElement('div');
-          meta.className = 'item-meta';
-          meta.textContent = '👤 ' + data.assignedToEmail.split('@')[0];
-          body.appendChild(meta);
-        }
-        if (mode === 'forMe' && data.createdByEmail) {
-          const meta = document.createElement('div');
-          meta.className = 'item-meta';
-          meta.textContent = 'от ' + data.createdByEmail.split('@')[0];
-          body.appendChild(meta);
-        }
+      if (badges.children.length > 0) body.appendChild(badges);
 
-        const delBtn = document.createElement('button');
-        delBtn.className = 'delete-btn';
-        delBtn.textContent = '×';
-        delBtn.addEventListener('click', async () => {
-          try {
-            await remove(ref(db, 'chores/' + data.id));
-          } catch (err) { console.error(err); }
-        });
+      // Кто
+      if (mode === 'byMe' && data.assignedToEmail) {
+        const meta = document.createElement('div');
+        meta.className = 'item-meta';
+        meta.textContent = '👤 ' + data.assignedToEmail.split('@')[0];
+        body.appendChild(meta);
+      }
+      if (mode === 'forMe' && data.createdByEmail) {
+        const meta = document.createElement('div');
+        meta.className = 'item-meta';
+        meta.textContent = 'от ' + data.createdByEmail.split('@')[0];
+        body.appendChild(meta);
+      }
 
-        item.appendChild(checkbox);
-        item.appendChild(body);
-        item.appendChild(delBtn);
-        container.appendChild(item);
+      const delBtn = document.createElement('button');
+      delBtn.className = 'delete-btn';
+      delBtn.textContent = '×';
+      delBtn.addEventListener('click', async () => {
+        try { await remove(ref(db, 'chores/' + data.id)); } catch (err) { console.error(err); }
       });
+
+      item.appendChild(checkbox);
+      item.appendChild(body);
+      item.appendChild(delBtn);
+      return item;
     }
+
+    // Кнопки "Очистить выполненные"
+    $('choreForMeClear').addEventListener('click', async () => {
+      const done = currentChoresForMe.filter(x => x.done);
+      if (done.length === 0) return;
+      if (!confirm('Удалить ' + done.length + ' выполненных задач?')) return;
+      for (const item of done) {
+        try { await remove(ref(db, 'chores/' + item.id)); } catch (e) { console.error(e); }
+      }
+    });
+
+    $('choreByMeClear').addEventListener('click', async () => {
+      const done = currentChoresByMe.filter(x => x.done);
+      if (done.length === 0) return;
+      if (!confirm('Удалить ' + done.length + ' выполненных задач?')) return;
+      for (const item of done) {
+        try { await remove(ref(db, 'chores/' + item.id)); } catch (e) { console.error(e); }
+      }
+    });
 
     // ============ РАСПИСАНИЕ ============
     const eventTitle = $('eventTitle');
@@ -1526,9 +1517,7 @@
         const eventsRef = ref(db, 'schedule_events');
         const newRef = push(eventsRef);
         const data = {
-          title: title,
-          startTime: start,
-          date: date,
+          title: title, startTime: start, date: date,
           createdBy: currentUser.uid,
           createdByEmail: currentUser.email,
           createdAt: Date.now()
@@ -1548,49 +1537,33 @@
       const eventsRef = query(ref(db, 'schedule_events'), orderByChild('createdAt'));
       eventsUnsubscribe = onValue(eventsRef, (snapshot) => {
         const items = [];
-        snapshot.forEach((child) => {
-          items.push({ id: child.key, ...child.val() });
-        });
-
+        snapshot.forEach((child) => { items.push({ id: child.key, ...child.val() }); });
         items.sort((a, b) => {
           const da = (a.date || '') + ' ' + (a.startTime || '');
           const db_ = (b.date || '') + ' ' + (b.startTime || '');
           return da.localeCompare(db_);
         });
-
         const today = todayStr();
         const todayItems = items.filter(x => x.date === today);
         const futureItems = items.filter(x => x.date && x.date > today);
-
         renderEvents(todayItems, eventsTodayList, eventsTodayEmpty, true);
         renderEvents(futureItems, eventsFutureList, eventsFutureEmpty, false);
-      }, (err) => {
-        console.error('Ошибка подписки расписания:', err);
-      });
+      }, (err) => { console.error('Ошибка подписки расписания:', err); });
     }
 
     function todayStr() {
       const d = new Date();
-      const dd = String(d.getDate()).padStart(2, '0');
-      const mm = String(d.getMonth() + 1).padStart(2, '0');
-      const yyyy = d.getFullYear();
-      return yyyy + '-' + mm + '-' + dd;
+      return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
     }
 
     function renderEvents(items, container, emptyEl, isToday) {
       container.innerHTML = '';
-      if (items.length === 0) {
-        emptyEl.style.display = 'block';
-        return;
-      }
+      if (items.length === 0) { emptyEl.style.display = 'block'; return; }
       emptyEl.style.display = 'none';
-
       const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
-
       items.forEach((data) => {
         const item = document.createElement('div');
         item.className = 'event-item';
-
         const timeEl = document.createElement('div');
         timeEl.className = 'event-time';
         timeEl.textContent = data.startTime || '--:--';
@@ -1601,21 +1574,16 @@
           timeEl.appendChild(sep);
         }
         item.appendChild(timeEl);
-
         const body = document.createElement('div');
         body.className = 'event-body';
-
         const title = document.createElement('div');
         title.className = 'event-title';
         title.textContent = data.title;
         body.appendChild(title);
-
         const metaParts = [];
         if (!isToday && data.date) {
           const d = new Date(data.date + 'T00:00:00');
-          const dd = String(d.getDate()).padStart(2, '0');
-          const mm = String(d.getMonth() + 1).padStart(2, '0');
-          metaParts.push('📅 ' + dd + '.' + mm);
+          metaParts.push('📅 ' + String(d.getDate()).padStart(2,'0') + '.' + String(d.getMonth()+1).padStart(2,'0'));
         }
         if (data.createdBy && myUid && data.createdBy !== myUid && data.createdByEmail) {
           metaParts.push('👤 ' + data.createdByEmail.split('@')[0]);
@@ -1626,19 +1594,14 @@
           meta.textContent = metaParts.join(' • ');
           body.appendChild(meta);
         }
-
         item.appendChild(body);
-
         const delBtn = document.createElement('button');
         delBtn.className = 'delete-btn';
         delBtn.textContent = '×';
         delBtn.addEventListener('click', async () => {
-          try {
-            await remove(ref(db, 'schedule_events/' + data.id));
-          } catch (err) { console.error(err); }
+          try { await remove(ref(db, 'schedule_events/' + data.id)); } catch (err) { console.error(err); }
         });
         item.appendChild(delBtn);
-
         container.appendChild(item);
       });
     }
@@ -1670,8 +1633,7 @@
         const giftsRef = ref(db, 'gifts');
         const newRef = push(giftsRef);
         const data = {
-          title: title,
-          occasion: occasion,
+          title, occasion,
           ownerId: currentUser.uid,
           ownerEmail: currentUser.email,
           done: false,
@@ -1694,50 +1656,34 @@
       giftsUnsubscribe = onValue(giftsRef, (snapshot) => {
         giftsList.innerHTML = '';
         const items = [];
-        snapshot.forEach((child) => {
-          items.push({ id: child.key, ...child.val() });
-        });
+        snapshot.forEach((child) => { items.push({ id: child.key, ...child.val() }); });
         items.reverse();
-
-        if (items.length === 0) {
-          giftsEmpty.style.display = 'block';
-          return;
-        }
+        if (items.length === 0) { giftsEmpty.style.display = 'block'; return; }
         giftsEmpty.style.display = 'none';
-
         const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
-
         items.forEach((data) => {
           const occ = OCCASIONS[data.occasion] || OCCASIONS.just;
           const isMine = data.ownerId === myUid;
-
           const item = document.createElement('div');
           item.className = 'chore-item' + (data.done ? ' done' : '');
-
           if (!isMine) {
             const checkbox = document.createElement('div');
             checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
             checkbox.addEventListener('click', async () => {
-              try {
-                await update(ref(db, 'gifts/' + data.id), { done: !data.done });
-              } catch (err) { console.error(err); }
+              try { await update(ref(db, 'gifts/' + data.id), { done: !data.done }); } catch (err) { console.error(err); }
             });
             item.appendChild(checkbox);
           }
-
           const body = document.createElement('div');
           body.className = 'chore-item-body';
-
           const title = document.createElement('div');
           title.className = 'item-title';
           title.textContent = occ.emoji + ' ' + data.title;
           body.appendChild(title);
-
           const badge = document.createElement('div');
           badge.className = 'chore-due';
           badge.textContent = occ.label + (data.price ? ' • ' + data.price + ' ₽' : '');
           body.appendChild(badge);
-
           if (data.url) {
             const link = document.createElement('a');
             link.className = 'gift-link';
@@ -1747,30 +1693,22 @@
             link.textContent = '🔗 Открыть ссылку';
             body.appendChild(link);
           }
-
           const meta = document.createElement('div');
           meta.className = 'item-meta';
           if (isMine) meta.textContent = '✨ моё желание';
           else meta.textContent = '👤 ' + (data.ownerEmail || 'партнёр').split('@')[0];
           body.appendChild(meta);
-
           item.appendChild(body);
-
           const delBtn = document.createElement('button');
           delBtn.className = 'delete-btn';
           delBtn.textContent = '×';
           delBtn.addEventListener('click', async () => {
-            try {
-              await remove(ref(db, 'gifts/' + data.id));
-            } catch (err) { console.error(err); }
+            try { await remove(ref(db, 'gifts/' + data.id)); } catch (err) { console.error(err); }
           });
           item.appendChild(delBtn);
-
           giftsList.appendChild(item);
         });
-      }, (err) => {
-        console.error('Ошибка подписки подарков:', err);
-      });
+      }, (err) => { console.error('Ошибка подписки подарков:', err); });
     }
 
     // ============ ХОТЕЛКИ ============
@@ -1805,8 +1743,7 @@
         const wishesRef = ref(db, 'wishes');
         const newRef = push(wishesRef);
         const data = {
-          title: title,
-          priority: priority,
+          title, priority,
           status: 'want',
           createdBy: currentUser.uid,
           createdByEmail: currentUser.email,
@@ -1829,48 +1766,38 @@
       wishesUnsubscribe = onValue(wishesRef, (snapshot) => {
         wishesList.innerHTML = '';
         const items = [];
-        snapshot.forEach((child) => {
-          items.push({ id: child.key, ...child.val() });
-        });
+        snapshot.forEach((child) => { items.push({ id: child.key, ...child.val() }); });
         items.reverse();
-
         if (items.length === 0) {
           wishesEmpty.style.display = 'block';
           wishTotalCard.style.display = 'none';
           return;
         }
         wishesEmpty.style.display = 'none';
-
         const activeTotal = items
           .filter(x => x.status !== 'bought' && x.price)
           .reduce((sum, x) => sum + Number(x.price || 0), 0);
-
         if (activeTotal > 0) {
           wishTotalCard.style.display = 'flex';
           wishTotalValue.textContent = activeTotal.toLocaleString('ru-RU') + ' ₽';
         } else {
           wishTotalCard.style.display = 'none';
         }
-
         items.forEach((data) => {
           const prio = WISH_PRIORITIES[data.priority] || WISH_PRIORITIES.medium;
           const item = document.createElement('div');
           item.className = 'chore-item' + (data.status === 'bought' ? ' done' : '');
-
           const body = document.createElement('div');
           body.className = 'chore-item-body';
-
           const titleRow = document.createElement('div');
           titleRow.style.display = 'flex';
           titleRow.style.alignItems = 'flex-start';
           titleRow.style.gap = '8px';
-
           const title = document.createElement('div');
           title.className = 'item-title';
           title.style.flex = '1';
           title.textContent = data.title;
           titleRow.appendChild(title);
-
           if (data.price) {
             const priceTag = document.createElement('span');
             priceTag.className = 'wish-price-tag';
@@ -1878,12 +1805,10 @@
             titleRow.appendChild(priceTag);
           }
           body.appendChild(titleRow);
-
           const prioBadge = document.createElement('span');
           prioBadge.className = 'wish-priority ' + prio.cls;
           prioBadge.textContent = prio.label;
           body.appendChild(prioBadge);
-
           if (data.note) {
             const note = document.createElement('div');
             note.style.fontSize = '13px';
@@ -1893,14 +1818,12 @@
             note.textContent = data.note;
             body.appendChild(note);
           }
-
           if (data.createdByEmail) {
             const meta = document.createElement('div');
             meta.className = 'item-meta';
             meta.textContent = '👤 ' + data.createdByEmail.split('@')[0];
             body.appendChild(meta);
           }
-
           const statusRow = document.createElement('div');
           statusRow.className = 'wish-status-row';
           WISH_STATUSES.forEach(opt => {
@@ -1908,31 +1831,22 @@
             btn.className = 'wish-status-btn' + (data.status === opt.key ? ' active' : '');
             btn.textContent = opt.label;
             btn.addEventListener('click', async () => {
-              try {
-                await update(ref(db, 'wishes/' + data.id), { status: opt.key });
-              } catch (err) { console.error(err); }
+              try { await update(ref(db, 'wishes/' + data.id), { status: opt.key }); } catch (err) { console.error(err); }
             });
             statusRow.appendChild(btn);
           });
           body.appendChild(statusRow);
-
           item.appendChild(body);
-
           const delBtn = document.createElement('button');
           delBtn.className = 'delete-btn';
           delBtn.textContent = '×';
           delBtn.addEventListener('click', async () => {
-            try {
-              await remove(ref(db, 'wishes/' + data.id));
-            } catch (err) { console.error(err); }
+            try { await remove(ref(db, 'wishes/' + data.id)); } catch (err) { console.error(err); }
           });
           item.appendChild(delBtn);
-
           wishesList.appendChild(item);
         });
-      }, (err) => {
-        console.error('Ошибка подписки хотелок:', err);
-      });
+      }, (err) => { console.error('Ошибка подписки хотелок:', err); });
     }
   </script>
 </body>
