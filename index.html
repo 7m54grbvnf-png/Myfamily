@@ -193,7 +193,7 @@
     .logout-btn {
       background: var(--accent-soft); border: none; font-family: inherit;
       color: var(--accent-text); font-size: 13px; font-weight: 700;
-      padding: 9px 14px; border-radius: 12px; cursor: pointer;
+      padding: 9px 12px; border-radius: 12px; cursor: pointer;
       transition: all 0.2s;
       letter-spacing: 0.2px;
       border: 1px solid var(--accent-border);
@@ -298,9 +298,7 @@
       -webkit-appearance: none; appearance: none;
       background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23b8894e' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
       background-repeat: no-repeat; background-position: right 10px center;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
+      text-overflow: ellipsis; white-space: nowrap; overflow: hidden;
       transition: all 0.2s;
     }
     .chore-select:focus { border-color: var(--accent-2); box-shadow: 0 0 0 4px var(--accent-soft-strong); }
@@ -399,8 +397,7 @@
     }
     .gift-stat {
       font-size: 12px; font-weight: 700; color: var(--text-soft);
-      flex: 1;
-      min-width: 0;
+      flex: 1; min-width: 0;
     }
     .gift-stat .num { color: var(--accent-text); font-weight: 800; }
 
@@ -425,25 +422,9 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
       animation: fadeInUp 0.3s ease;
     }
-    .wish-bd-item {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      min-width: 0;
-    }
-    .wish-bd-label {
-      font-size: 11px; font-weight: 700;
-      color: var(--text-soft);
-      text-transform: uppercase; letter-spacing: 0.5px;
-    }
-    .wish-bd-value {
-      font-size: 15px; font-weight: 800;
-      color: var(--accent-text);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+    .wish-bd-item { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .wish-bd-label { font-size: 11px; font-weight: 700; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.5px; }
+    .wish-bd-value { font-size: 15px; font-weight: 800; color: var(--accent-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
     .wish-status-row { display: flex; gap: 6px; margin-top: 12px; }
     .wish-status-btn {
@@ -576,21 +557,13 @@
       z-index: 0;
     }
     .today-greeting .greet-line {
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--text);
-      letter-spacing: -0.6px;
-      margin-bottom: 4px;
-      position: relative;
-      z-index: 1;
+      font-size: 22px; font-weight: 800; color: var(--text);
+      letter-spacing: -0.6px; margin-bottom: 4px;
+      position: relative; z-index: 1;
     }
     .today-greeting .greet-date {
-      font-size: 14px;
-      color: var(--text-soft);
-      font-weight: 500;
-      position: relative;
-      z-index: 1;
-      text-transform: capitalize;
+      font-size: 14px; color: var(--text-soft); font-weight: 500;
+      position: relative; z-index: 1; text-transform: capitalize;
     }
 
     .today-quick {
@@ -619,62 +592,34 @@
       width: 34px; height: 34px;
       background: var(--accent-soft);
       border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent-text);
-      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent-text); flex-shrink: 0;
     }
-    .today-quick-btn .quick-text {
-      flex: 1;
-      min-width: 0;
-    }
+    .today-quick-btn .quick-text { flex: 1; min-width: 0; }
     .today-quick-btn .quick-label {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      font-size: 13px; font-weight: 700; color: var(--text);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
     .today-quick-btn .quick-sub {
-      font-size: 11px;
-      color: var(--text-soft);
-      font-weight: 600;
-      margin-top: 1px;
+      font-size: 11px; color: var(--text-soft); font-weight: 600; margin-top: 1px;
     }
 
-    .today-section {
-      margin-bottom: 20px;
-      animation: fadeInUp 0.3s ease;
-    }
+    .today-section { margin-bottom: 20px; animation: fadeInUp 0.3s ease; }
     .today-section-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      padding: 0 4px;
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 10px; padding: 0 4px;
     }
     .today-section-title {
-      font-size: 12px;
-      font-weight: 800;
-      color: var(--text-soft);
-      text-transform: uppercase;
-      letter-spacing: 1.4px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      font-size: 12px; font-weight: 800; color: var(--text-soft);
+      text-transform: uppercase; letter-spacing: 1.4px;
+      display: flex; align-items: center; gap: 6px;
     }
     .today-section-count {
-      background: var(--accent-soft);
-      color: var(--accent-text);
-      font-size: 11px;
-      font-weight: 800;
-      padding: 3px 10px;
-      border-radius: 8px;
+      background: var(--accent-soft); color: var(--accent-text);
+      font-size: 11px; font-weight: 800;
+      padding: 3px 10px; border-radius: 8px;
       border: 1px solid var(--accent-border);
-      min-width: 26px;
-      text-align: center;
+      min-width: 26px; text-align: center;
     }
 
     .today-card {
@@ -682,58 +627,200 @@
       border: 1px solid var(--card-border);
       border-radius: 14px;
       padding: 12px 14px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
+      display: flex; align-items: center; gap: 12px;
       margin-bottom: 8px;
       box-shadow: 0 3px 12px rgba(0, 0, 0, 0.03);
       animation: fadeInUp 0.3s ease;
     }
     .today-card-time {
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--accent-text);
-      min-width: 50px;
-      text-align: center;
-      flex-shrink: 0;
+      font-size: 14px; font-weight: 800; color: var(--accent-text);
+      min-width: 50px; text-align: center; flex-shrink: 0;
     }
     .today-card-body { flex: 1; min-width: 0; }
-    .today-card-title {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text);
-      word-break: break-word;
-    }
-    .today-card-meta {
-      font-size: 11px;
-      color: var(--text-soft);
-      margin-top: 2px;
-      font-weight: 500;
-    }
-    .today-card .cat-marker {
-      width: 3px;
-      height: 26px;
-      border-radius: 2px;
-      flex-shrink: 0;
-    }
+    .today-card-title { font-size: 15px; font-weight: 600; color: var(--text); word-break: break-word; }
+    .today-card-meta { font-size: 11px; color: var(--text-soft); margin-top: 2px; font-weight: 500; }
+    .today-card .cat-marker { width: 3px; height: 26px; border-radius: 2px; flex-shrink: 0; }
     .today-card .today-prio {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
     }
     .today-card .today-prio.high { background: #e88585; }
     .today-card .today-prio.low { background: #b8aca1; }
     .today-card .today-prio.medium { background: #f0c070; }
 
     .today-empty {
-      text-align: center;
-      padding: 16px;
-      color: var(--text-muted);
-      font-size: 13px;
-      font-weight: 500;
+      text-align: center; padding: 16px;
+      color: var(--text-muted); font-size: 13px; font-weight: 500;
       background: var(--card);
       border: 1px dashed var(--card-border);
       border-radius: 14px;
+    }
+
+    /* ЗАПИСКИ */
+    .note-section {
+      background: linear-gradient(135deg, rgba(255, 245, 232, 0.95) 0%, rgba(255, 232, 209, 0.9) 100%);
+      border: 1px solid #f5e0c4;
+      border-radius: 20px;
+      padding: 16px 18px;
+      margin-bottom: 18px;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04);
+      animation: fadeInUp 0.3s ease;
+    }
+    body[data-theme="dark"] .note-section {
+      background: linear-gradient(135deg, rgba(42, 36, 24, 0.9) 0%, rgba(30, 26, 16, 0.9) 100%);
+      border-color: #3a3020;
+    }
+    .note-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .note-header-title {
+      font-size: 13px; font-weight: 800; color: var(--accent-text);
+      letter-spacing: 0.8px; text-transform: uppercase;
+    }
+    .note-input-row { display: flex; gap: 8px; margin-bottom: 10px; }
+    .note-input-row input {
+      flex: 1; margin-bottom: 0; padding: 12px 14px; font-size: 14px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid #f0e0c4;
+    }
+    body[data-theme="dark"] .note-input-row input {
+      background: rgba(0, 0, 0, 0.3);
+      border-color: #3a3020;
+    }
+    .note-send-btn {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: var(--accent-grad);
+      color: #fff; border: none; border-radius: 12px;
+      font-size: 18px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 12px var(--accent-shadow);
+      transition: all 0.15s;
+    }
+    .note-send-btn:active { transform: scale(0.94); }
+    .note-cards {
+      display: flex; gap: 8px; overflow-x: auto;
+      padding-bottom: 4px; scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .note-cards::-webkit-scrollbar { display: none; }
+    .note-card {
+      flex-shrink: 0;
+      background: var(--card);
+      border-radius: 14px;
+      padding: 10px 12px;
+      min-width: 150px; max-width: 220px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      position: relative;
+      animation: fadeInUp 0.3s ease;
+    }
+    .note-card-text {
+      font-size: 14px; color: var(--text); font-weight: 500;
+      word-break: break-word; padding-right: 18px; line-height: 1.3;
+    }
+    .note-card-meta {
+      font-size: 10px; color: var(--text-soft);
+      margin-top: 6px; font-weight: 600;
+    }
+    .note-card-del {
+      position: absolute; top: 2px; right: 2px;
+      background: transparent; border: none;
+      color: var(--text-muted); font-size: 16px;
+      padding: 4px 6px; cursor: pointer; line-height: 1;
+    }
+    .note-empty {
+      font-size: 13px; color: var(--text-soft);
+      font-style: italic; padding: 4px 0;
+    }
+
+    /* ВАЖНЫЕ ДАТЫ */
+    .date-section {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 16px 18px;
+      margin-bottom: 18px;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
+      animation: fadeInUp 0.3s ease;
+    }
+    .date-section-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .date-section-title {
+      font-size: 13px; font-weight: 800; color: var(--accent-text);
+      letter-spacing: 0.8px; text-transform: uppercase;
+    }
+    .date-section-add {
+      background: var(--accent-soft); border: 1px solid var(--accent-border);
+      color: var(--accent-text); font-family: inherit;
+      font-size: 12px; font-weight: 700;
+      padding: 6px 12px; border-radius: 10px; cursor: pointer;
+      transition: all 0.15s;
+    }
+    .date-section-add:active { transform: scale(0.95); }
+    .date-cards { display: flex; flex-direction: column; gap: 8px; }
+    .date-card {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 12px;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 12px;
+      animation: fadeInUp 0.3s ease;
+    }
+    .date-card-icon {
+      width: 40px; height: 40px;
+      background: var(--accent-soft);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; flex-shrink: 0;
+    }
+    .date-card-body { flex: 1; min-width: 0; }
+    .date-card-title {
+      font-size: 14px; font-weight: 700; color: var(--text);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .date-card-sub {
+      font-size: 11px; color: var(--text-soft); font-weight: 600; margin-top: 2px;
+    }
+    .date-card-days {
+      flex-shrink: 0; text-align: right;
+      font-size: 13px; font-weight: 800;
+      color: var(--accent-text); white-space: nowrap;
+    }
+    .date-card-days.today { color: #c0554e; }
+    .date-card-days.soon { color: #b8770f; }
+    .date-empty {
+      font-size: 13px; color: var(--text-soft);
+      font-style: italic; padding: 4px 0;
+    }
+
+    /* СТАТИСТИКА */
+    .stats-modal-content { padding: 24px; }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .stat-card {
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 14px;
+      padding: 12px 14px;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .stat-label {
+      font-size: 11px; font-weight: 700;
+      color: var(--text-soft);
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .stat-value { font-size: 20px; font-weight: 800; color: var(--accent-text); }
+    .stat-sub { font-size: 11px; color: var(--text-soft); font-weight: 600; }
+    .stat-section-title {
+      font-size: 12px; font-weight: 800;
+      color: var(--text-soft);
+      text-transform: uppercase; letter-spacing: 1.2px;
+      margin: 18px 0 10px;
     }
 
     .bottom-nav {
@@ -784,6 +871,16 @@
     .theme-preview { width: 100%; height: 60px; border-radius: 12px; position: relative; overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); }
     .theme-preview-dot { position: absolute; width: 22px; height: 22px; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
     .theme-name { font-size: 13px; font-weight: 700; color: var(--text); letter-spacing: 0.2px; }
+    .modal-actions-row { display: flex; gap: 10px; margin-top: 16px; }
+    .modal-actions-row button { margin-top: 0; }
+    .modal-cancel-style {
+      background: var(--input-bg) !important;
+      color: var(--text-soft) !important;
+      box-shadow: none !important;
+      border: 1px solid var(--input-border) !important;
+      flex: 1;
+    }
+    .modal-confirm-style { flex: 2; }
   </style>
 </head>
 <body>
@@ -812,8 +909,9 @@
         <h2 id="pageTitle">Сегодня</h2>
       </div>
       <div class="topbar-actions">
+        <button class="logout-btn" id="statsBtn" title="Статистика">📊</button>
         <button class="logout-btn" id="nameBtn" title="Моё имя">👤</button>
-        <button class="logout-btn" id="themeBtn" title="Тема оформления">🎨</button>
+        <button class="logout-btn" id="themeBtn" title="Тема">🎨</button>
         <button class="logout-btn" id="logoutBtn">Выйти</button>
       </div>
     </div>
@@ -825,6 +923,21 @@
         <div class="today-greeting">
           <div class="greet-line" id="greetLine">Привет!</div>
           <div class="greet-date" id="greetDate"></div>
+        </div>
+
+        <!-- ЗАПИСКИ -->
+        <div class="note-section" id="todayNotesSection">
+          <div class="note-header">
+            <div class="note-header-title">💌 Записки</div>
+          </div>
+          <div class="note-input-row">
+            <input type="text" id="noteInput" placeholder="Оставь записку..." maxlength="120" autocomplete="off">
+            <button class="note-send-btn" id="noteSendBtn" type="button">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </div>
+          <div class="note-cards" id="noteCards"></div>
+          <div class="note-empty" id="noteEmpty">Пока нет записок. Оставь первую! 💕</div>
         </div>
 
         <div class="today-quick" id="todayQuick">
@@ -872,6 +985,16 @@
             <div class="today-section-count" id="todayEventsCount">0</div>
           </div>
           <div id="todayEventsList"></div>
+        </div>
+
+        <!-- ВАЖНЫЕ ДАТЫ -->
+        <div class="date-section" id="todayDatesSection">
+          <div class="date-section-head">
+            <div class="date-section-title">🎂 Важные даты</div>
+            <button class="date-section-add" id="addDateBtn" type="button">+ Добавить</button>
+          </div>
+          <div class="date-cards" id="dateCards"></div>
+          <div class="date-empty" id="dateEmpty">Пока нет важных дат</div>
         </div>
 
         <div class="today-section">
@@ -1198,6 +1321,35 @@
     </div>
   </div>
 
+  <div id="dateModal" class="theme-modal" style="display:none;">
+    <div class="theme-modal-content">
+      <h3>🎂 Важная дата</h3>
+      <p class="modal-hint">День рождения, годовщина или другое важное событие.</p>
+      <input type="text" id="dateTitleInput" placeholder="Например: День рождения мамы" maxlength="40" autocomplete="off">
+      <input type="date" id="dateValueInput">
+      <label style="display:block;font-size:12px;font-weight:800;color:var(--text-soft);text-transform:uppercase;letter-spacing:0.8px;margin:8px 0 6px;">Напомнить за</label>
+      <select class="chore-select" id="dateRemindInput" style="width:100%;margin-bottom:8px;">
+        <option value="1">За 1 день</option>
+        <option value="3" selected>За 3 дня</option>
+        <option value="7">За 7 дней</option>
+        <option value="14">За 2 недели</option>
+        <option value="30">За месяц</option>
+      </select>
+      <div class="modal-actions-row">
+        <button class="primary modal-cancel-style" id="dateCancelBtn">Отмена</button>
+        <button class="primary modal-confirm-style" id="dateSaveBtn">Сохранить</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="statsModal" class="theme-modal" style="display:none;">
+    <div class="theme-modal-content stats-modal-content">
+      <h3>📊 Статистика</h3>
+      <div id="statsContent"></div>
+      <button class="primary" id="statsCloseBtn" style="margin-top:16px;">Готово</button>
+    </div>
+  </div>
+
   <div id="themeModal" class="theme-modal" style="display:none;">
     <div class="theme-modal-content">
       <h3>Тема оформления</h3>
@@ -1279,7 +1431,6 @@
       wishes: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>'
     };
 
-    // SVG_ICONS содержит svg без width/height — добавим их через .nav-icon svg CSS
     document.querySelectorAll('.nav-icon[data-icon]').forEach(el => {
       el.innerHTML = SVG_ICONS[el.dataset.icon] || '';
     });
@@ -1367,12 +1518,16 @@
     let eventsUnsubscribe = null;
     let giftsUnsubscribe = null;
     let wishesUnsubscribe = null;
+    let notesUnsubscribe = null;
+    let datesUnsubscribe = null;
 
     let selectedCategory = 'all';
     let currentShopItems = [];
     let currentChoresForMe = [];
     let currentChoresByMe = [];
     let currentEvents = [];
+    let currentNotes = [];
+    let currentImportantDates = [];
 
     let currentGiftView = 'mine';
     let selectedGiftOccasion = 'all';
@@ -1476,7 +1631,6 @@
       });
     });
 
-    // Быстрые ссылки на дашборде
     document.querySelectorAll('.today-quick-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const page = btn.dataset.goto;
@@ -1508,6 +1662,8 @@
       startEventsListener();
       startGiftsListener();
       startWishesListener();
+      startNotesListener();
+      startDatesListener();
     }
 
     function stopAll() {
@@ -1516,6 +1672,8 @@
       if (eventsUnsubscribe) { eventsUnsubscribe(); eventsUnsubscribe = null; }
       if (giftsUnsubscribe) { giftsUnsubscribe(); giftsUnsubscribe = null; }
       if (wishesUnsubscribe) { wishesUnsubscribe(); wishesUnsubscribe = null; }
+      if (notesUnsubscribe) { notesUnsubscribe(); notesUnsubscribe = null; }
+      if (datesUnsubscribe) { datesUnsubscribe(); datesUnsubscribe = null; }
       shopList.innerHTML = '';
       choreForMeList.innerHTML = '';
       choreByMeList.innerHTML = '';
@@ -1526,12 +1684,315 @@
       currentUser = null;
     }
 
-    // Перерисовать дашборд, если он открыт
     function refreshTodayIfActive() {
       const activeBtn = document.querySelector('.nav-btn.active');
       if (activeBtn && activeBtn.dataset.page === 'today') {
         renderTodayDashboard();
       }
+    }
+
+    // ============ ЗАПИСКИ ============
+    function startNotesListener() {
+      const notesRef = query(ref(db, 'notes'), orderByChild('createdAt'));
+      notesUnsubscribe = onValue(notesRef, (snapshot) => {
+        const items = [];
+        const now = Date.now();
+        const TTL = 24 * 60 * 60 * 1000;
+        snapshot.forEach((child) => {
+          const data = child.val();
+          if (now - (data.createdAt || 0) > TTL) {
+            remove(ref(db, 'notes/' + child.key)).catch(console.error);
+          } else {
+            items.push({ id: child.key, ...data });
+          }
+        });
+        items.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+        currentNotes = items;
+        renderNotes();
+      }, (err) => { console.error('Ошибка подписки записок:', err); });
+    }
+
+    function renderNotes() {
+      const cardsEl = $('noteCards');
+      const emptyEl = $('noteEmpty');
+      if (!cardsEl || !emptyEl) return;
+      cardsEl.innerHTML = '';
+      if (currentNotes.length === 0) {
+        emptyEl.style.display = 'block';
+        return;
+      }
+      emptyEl.style.display = 'none';
+      const myUid = currentUser ? currentUser.uid : '';
+      currentNotes.forEach(n => {
+        const card = document.createElement('div');
+        card.className = 'note-card';
+        const text = document.createElement('div');
+        text.className = 'note-card-text';
+        text.textContent = n.text;
+        card.appendChild(text);
+        const meta = document.createElement('div');
+        meta.className = 'note-card-meta';
+        const isMine = n.fromUid === myUid;
+        const fromName = isMine ? 'Ты' : getUserName(n.fromUid, n.fromEmail);
+        meta.textContent = '👤 ' + fromName;
+        card.appendChild(meta);
+        if (isMine) {
+          const del = document.createElement('button');
+          del.className = 'note-card-del';
+          del.textContent = '×';
+          del.addEventListener('click', async () => {
+            try { await remove(ref(db, 'notes/' + n.id)); } catch (e) { console.error(e); }
+          });
+          card.appendChild(del);
+        }
+        cardsEl.appendChild(card);
+      });
+    }
+
+    async function sendNote() {
+      const text = $('noteInput').value.trim();
+      if (!text || !currentUser) return;
+      $('noteInput').value = '';
+      try {
+        const newRef = push(ref(db, 'notes'));
+        await set(newRef, {
+          text: text,
+          fromUid: currentUser.uid,
+          fromEmail: currentUser.email,
+          createdAt: Date.now()
+        });
+      } catch (e) { console.error(e); }
+    }
+
+    $('noteSendBtn').addEventListener('click', sendNote);
+    $('noteInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') sendNote(); });
+
+    // ============ ВАЖНЫЕ ДАТЫ ============
+    function startDatesListener() {
+      const datesRef = ref(db, 'important_dates');
+      datesUnsubscribe = onValue(datesRef, (snapshot) => {
+        const items = [];
+        snapshot.forEach((child) => {
+          const data = child.val();
+          items.push({ id: child.key, ...data });
+        });
+        items.forEach(it => { it._nextDate = computeNextOccurrence(it.date); });
+        items.sort((a, b) => a._nextDate - b._nextDate);
+        currentImportantDates = items;
+        renderImportantDates();
+      }, (err) => { console.error('Ошибка подписки дат:', err); });
+    }
+
+    function computeNextOccurrence(dateStr) {
+      if (!dateStr) return new Date(9999, 0, 1);
+      const parts = dateStr.split('-');
+      const month = parseInt(parts[1], 10) - 1;
+      const day = parseInt(parts[2], 10);
+      const today = new Date(); today.setHours(0,0,0,0);
+      let d = new Date(today.getFullYear(), month, day);
+      if (d < today) d = new Date(today.getFullYear() + 1, month, day);
+      return d;
+    }
+
+    function renderImportantDates() {
+      const cardsEl = $('dateCards');
+      const emptyEl = $('dateEmpty');
+      if (!cardsEl || !emptyEl) return;
+      cardsEl.innerHTML = '';
+      if (currentImportantDates.length === 0) {
+        emptyEl.style.display = 'block';
+        return;
+      }
+      emptyEl.style.display = 'none';
+      const today = new Date(); today.setHours(0,0,0,0);
+      currentImportantDates.slice(0, 5).forEach(item => {
+        const diffMs = item._nextDate - today;
+        const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24));
+        const card = document.createElement('div');
+        card.className = 'date-card';
+        const icon = document.createElement('div');
+        icon.className = 'date-card-icon';
+        icon.textContent = '🎂';
+        card.appendChild(icon);
+        const body = document.createElement('div');
+        body.className = 'date-card-body';
+        const title = document.createElement('div');
+        title.className = 'date-card-title';
+        title.textContent = item.title || 'Дата';
+        body.appendChild(title);
+        const sub = document.createElement('div');
+        sub.className = 'date-card-sub';
+        const d = item._nextDate;
+        const months = ['янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'];
+        sub.textContent = d.getDate() + ' ' + months[d.getMonth()];
+        body.appendChild(sub);
+        card.appendChild(body);
+        const days = document.createElement('div');
+        days.className = 'date-card-days';
+        if (diffDays === 0) { days.textContent = '🎉 Сегодня!'; days.classList.add('today'); }
+        else if (diffDays === 1) { days.textContent = 'Завтра'; days.classList.add('soon'); }
+        else if (diffDays <= 7) { days.textContent = 'Через ' + diffDays + ' дн.'; days.classList.add('soon'); }
+        else { days.textContent = 'Через ' + diffDays + ' дн.'; }
+        card.appendChild(days);
+        const del = document.createElement('button');
+        del.className = 'delete-btn';
+        del.textContent = '×';
+        del.addEventListener('click', async () => {
+          try { await remove(ref(db, 'important_dates/' + item.id)); } catch (e) { console.error(e); }
+        });
+        card.appendChild(del);
+        cardsEl.appendChild(card);
+      });
+    }
+
+    $('addDateBtn').addEventListener('click', () => {
+      $('dateTitleInput').value = '';
+      $('dateValueInput').value = '';
+      $('dateRemindInput').value = '3';
+      $('dateModal').style.display = 'flex';
+    });
+
+    $('dateCancelBtn').addEventListener('click', () => { $('dateModal').style.display = 'none'; });
+    $('dateModal').addEventListener('click', (e) => {
+      if (e.target === $('dateModal')) $('dateModal').style.display = 'none';
+    });
+
+    $('dateSaveBtn').addEventListener('click', async () => {
+      const title = $('dateTitleInput').value.trim();
+      const dateVal = $('dateValueInput').value;
+      const remind = parseInt($('dateRemindInput').value, 10) || 3;
+      if (!title) { alert('Введите название'); return; }
+      if (!dateVal) { alert('Выберите дату'); return; }
+      try {
+        const newRef = push(ref(db, 'important_dates'));
+        await set(newRef, {
+          title: title,
+          date: dateVal,
+          remindDays: remind,
+          createdBy: currentUser.uid,
+          createdAt: Date.now()
+        });
+        $('dateModal').style.display = 'none';
+      } catch (e) { alert('Ошибка: ' + e.message); }
+    });
+
+    // ============ СТАТИСТИКА ============
+    $('statsBtn').addEventListener('click', () => {
+      renderStats();
+      $('statsModal').style.display = 'flex';
+    });
+
+    $('statsCloseBtn').addEventListener('click', () => { $('statsModal').style.display = 'none'; });
+    $('statsModal').addEventListener('click', (e) => {
+      if (e.target === $('statsModal')) $('statsModal').style.display = 'none';
+    });
+
+    function renderStats() {
+      const myUid = currentUser ? currentUser.uid : '';
+      const now = new Date();
+      const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
+      const weekStart = new Date(now); weekStart.setDate(now.getDate() - 7);
+      const weekStartTs = weekStart.getTime();
+      const todayStr = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0');
+
+      const shopItems = currentShopItems || [];
+      const shopActive = shopItems.filter(x => !x.done).length;
+      const shopDone = shopItems.filter(x => x.done).length;
+      const shopMonth = shopItems.filter(x => (x.createdAt || 0) >= monthStart).length;
+
+      const myTasks = currentChoresForMe || [];
+      const tasksActive = myTasks.filter(x => !x.done).length;
+      const tasksDone = myTasks.filter(x => x.done).length;
+
+      const events = currentEvents || [];
+      const eventsWeek = events.filter(x => {
+        if (!x.date) return false;
+        const d = new Date(x.date + 'T00:00:00').getTime();
+        return d >= weekStartTs && d <= now.getTime() + 7 * 24 * 60 * 60 * 1000;
+      }).length;
+      const eventsToday = events.filter(x => x.date === todayStr && !x.done).length;
+
+      const myGifts = (currentGiftItems || []).filter(g => g.ownerId === myUid);
+      const giftsActive = myGifts.filter(g => !g.done).length;
+      const giftsSum = myGifts.filter(g => !g.done && g.price).reduce((s, g) => s + Number(g.price || 0), 0);
+
+      const wishes = currentWishItems || [];
+      const wishesActive = wishes.filter(x => x.status !== 'bought').length;
+      const wishesBought = wishes.filter(x => x.status === 'bought').length;
+      const wishesSum = wishes.filter(x => x.status !== 'bought' && x.price).reduce((s, x) => s + Number(x.price || 0), 0);
+
+      const html = `
+        <div class="stat-section-title">🛒 Магазин</div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-label">Купить</span>
+            <span class="stat-value">${shopActive}</span>
+            <span class="stat-sub">${shopDone} куплено</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">За месяц</span>
+            <span class="stat-value">${shopMonth}</span>
+            <span class="stat-sub">добавлено</span>
+          </div>
+        </div>
+
+        <div class="stat-section-title">✅ Дела</div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-label">Активных</span>
+            <span class="stat-value">${tasksActive}</span>
+            <span class="stat-sub">у тебя</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Выполнено</span>
+            <span class="stat-value">${tasksDone}</span>
+            <span class="stat-sub">у тебя</span>
+          </div>
+        </div>
+
+        <div class="stat-section-title">📅 Расписание</div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-label">Сегодня</span>
+            <span class="stat-value">${eventsToday}</span>
+            <span class="stat-sub">событий</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">На неделю</span>
+            <span class="stat-value">${eventsWeek}</span>
+            <span class="stat-sub">событий</span>
+          </div>
+        </div>
+
+        <div class="stat-section-title">🎁 Подарки</div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-label">Желаний</span>
+            <span class="stat-value">${giftsActive}</span>
+            <span class="stat-sub">в виш-листе</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Сумма</span>
+            <span class="stat-value" style="font-size:16px;">${giftsSum.toLocaleString('ru-RU')} ₽</span>
+            <span class="stat-sub">активных</span>
+          </div>
+        </div>
+
+        <div class="stat-section-title">🏠 Хотелки</div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-label">Активных</span>
+            <span class="stat-value">${wishesActive}</span>
+            <span class="stat-sub">${wishesBought} куплено</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Сумма</span>
+            <span class="stat-value" style="font-size:16px;">${wishesSum.toLocaleString('ru-RU')} ₽</span>
+            <span class="stat-sub">активных</span>
+          </div>
+        </div>
+      `;
+      $('statsContent').innerHTML = html;
     }
 
     // ============ ДАШБОРД «СЕГОДНЯ» ============
@@ -1540,7 +2001,6 @@
       const d = new Date();
       const todayStr = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
 
-      // Приветствие
       const hour = d.getHours();
       let greet = 'Добрый день';
       if (hour < 6) greet = 'Доброй ночи';
@@ -1558,7 +2018,6 @@
       $('greetLine').textContent = greet + ', ' + myName + '!';
       $('greetDate').textContent = dateStr;
 
-      // Быстрые подписи
       const shopActive = currentShopItems.filter(x => !x.done).length;
       $('quickShopSub').textContent = shopActive > 0 ? shopActive + ' к покупке' : 'всё куплено';
 
@@ -1580,7 +2039,7 @@
       if (sortedEvents.length === 0) {
         eventsList.innerHTML = '<div class="today-empty">☀️ На сегодня событий нет</div>';
       } else {
-                sortedEvents.forEach(ev => {
+        sortedEvents.forEach(ev => {
           const card = document.createElement('div');
           card.className = 'today-card';
           const time = document.createElement('div');
@@ -1804,39 +2263,33 @@
     function renderShopItem(data, meta, myUid) {
       const item = document.createElement('div');
       item.className = 'item' + (data.done ? ' done' : '');
-
       const marker = document.createElement('div');
       marker.className = 'cat-marker';
       marker.style.background = meta.color;
       item.appendChild(marker);
-
       const checkbox = document.createElement('div');
       checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
       checkbox.addEventListener('click', async () => {
         try { await update(ref(db, 'shopping_items/' + data.id), { done: !data.done }); } catch (err) { console.error(err); }
       });
-
       const titleWrap = document.createElement('div');
       titleWrap.style.flex = '1';
       const title = document.createElement('div');
       title.className = 'item-title';
       title.textContent = data.title;
       titleWrap.appendChild(title);
-
       if (data.addedBy && myUid && data.addedBy !== myUid) {
         const metaEl = document.createElement('div');
         metaEl.className = 'item-meta';
         metaEl.textContent = '👤 ' + getUserName(data.addedBy, data.addedByEmail);
         titleWrap.appendChild(metaEl);
       }
-
       const delBtn = document.createElement('button');
       delBtn.className = 'delete-btn';
       delBtn.textContent = '×';
       delBtn.addEventListener('click', async () => {
         try { await remove(ref(db, 'shopping_items/' + data.id)); } catch (err) { console.error(err); }
       });
-
       item.appendChild(checkbox);
       item.appendChild(titleWrap);
       item.appendChild(delBtn);
@@ -1847,11 +2300,9 @@
       const doneItems = currentShopItems.filter(x => x.done);
       if (doneItems.length === 0) return;
       if (!confirm('Удалить ' + doneItems.length + ' купленных продуктов?')) return;
-      try {
-        for (const item of doneItems) {
-          await remove(ref(db, 'shopping_items/' + item.id));
-        }
-      } catch (err) { console.error(err); }
+      for (const item of doneItems) {
+        try { await remove(ref(db, 'shopping_items/' + item.id)); } catch (err) { console.error(err); }
+      }
     });
 
     // ============ ДЕЛА ============
@@ -1887,8 +2338,7 @@
       if (!title) { alert('Введите задачу'); return; }
       if (!assignee) { alert('Выберите, кому назначить'); return; }
       try {
-        const choresRef = ref(db, 'chores');
-        const newRef = push(choresRef);
+        const newRef = push(ref(db, 'chores'));
         const data = {
           title: title,
           assignedTo: assignee,
@@ -1981,28 +2431,19 @@
     function buildChoreItem(data, mode) {
       const item = document.createElement('div');
       item.className = 'chore-item' + (data.done ? ' done' : '');
-
       const checkbox = document.createElement('div');
       checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
       checkbox.addEventListener('click', async () => {
         try { await update(ref(db, 'chores/' + data.id), { done: !data.done }); } catch (err) { console.error(err); }
       });
-
       const body = document.createElement('div');
       body.className = 'chore-item-body';
-
       const title = document.createElement('div');
       title.className = 'item-title';
       title.textContent = data.title;
       body.appendChild(title);
-
       const badges = document.createElement('div');
-      badges.style.display = 'flex';
-      badges.style.flexWrap = 'wrap';
-      badges.style.gap = '6px';
-      badges.style.alignItems = 'center';
-      badges.style.marginTop = '8px';
-
+      badges.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px;';
       const priority = data.priority || 'medium';
       if (priority === 'high' || priority === 'low') {
         const pBadge = document.createElement('span');
@@ -2010,7 +2451,6 @@
         pBadge.textContent = priority === 'high' ? '🔴 Важно' : '⚪ Когда-нибудь';
         badges.appendChild(pBadge);
       }
-
       if (data.dueDate) {
         const due = document.createElement('span');
         const today = new Date(); today.setHours(0,0,0,0);
@@ -2029,9 +2469,7 @@
         due.textContent = text;
         badges.appendChild(due);
       }
-
       if (badges.children.length > 0) body.appendChild(badges);
-
       if (mode === 'byMe') {
         const meta = document.createElement('div');
         meta.className = 'item-meta';
@@ -2044,14 +2482,12 @@
         meta.textContent = 'от ' + getUserName(data.createdBy, data.createdByEmail);
         body.appendChild(meta);
       }
-
       const delBtn = document.createElement('button');
       delBtn.className = 'delete-btn';
       delBtn.textContent = '×';
       delBtn.addEventListener('click', async () => {
         try { await remove(ref(db, 'chores/' + data.id)); } catch (err) { console.error(err); }
       });
-
       item.appendChild(checkbox);
       item.appendChild(body);
       item.appendChild(delBtn);
@@ -2096,19 +2532,10 @@
       btn.addEventListener('click', () => {
         const kind = btn.dataset.quick;
         const now = new Date();
-        if (kind === 'date-today') {
-          eventDate.value = toDateStr(now);
-        } else if (kind === 'date-tomorrow') {
-          const t = new Date(now);
-          t.setDate(t.getDate() + 1);
-          eventDate.value = toDateStr(t);
-        } else if (kind === 'time-now') {
-          eventStart.value = toTimeStr(now);
-        } else if (kind === 'time-now-plus1') {
-          const t = new Date(now);
-          t.setHours(t.getHours() + 1);
-          eventStart.value = toTimeStr(t);
-        }
+        if (kind === 'date-today') eventDate.value = toDateStr(now);
+        else if (kind === 'date-tomorrow') { const t = new Date(now); t.setDate(t.getDate() + 1); eventDate.value = toDateStr(t); }
+        else if (kind === 'time-now') eventStart.value = toTimeStr(now);
+        else if (kind === 'time-now-plus1') { const t = new Date(now); t.setHours(t.getHours() + 1); eventStart.value = toTimeStr(t); }
       });
     });
 
@@ -2122,12 +2549,10 @@
       if (!start) { alert('Укажите время начала'); return; }
       if (!date) { alert('Выберите дату'); return; }
       try {
-        const eventsRef = ref(db, 'schedule_events');
-        const newRef = push(eventsRef);
+        const newRef = push(ref(db, 'schedule_events'));
         const data = {
           title: title, startTime: start, date: date,
-          repeat: repeat,
-          done: false,
+          repeat: repeat, done: false,
           createdBy: currentUser.uid,
           createdByEmail: currentUser.email,
           createdAt: Date.now()
@@ -2139,9 +2564,7 @@
         eventEnd.value = '';
         eventDate.value = '';
         eventRepeat.value = 'none';
-      } catch (err) {
-        alert('ОШИБКА: ' + err.code + '\n' + err.message);
-      }
+      } catch (err) { alert('ОШИБКА: ' + err.code + '\n' + err.message); }
     });
 
     function startEventsListener() {
@@ -2162,7 +2585,6 @@
         const todayActive = todayItems.filter(x => !x.done).length;
         const todayCountEl = $('eventsTodayCount');
         if (todayCountEl) todayCountEl.textContent = todayActive;
-
         const futureActive = futureItems.filter(x => !x.done).length;
         const futureCountEl = $('eventsFutureCount');
         if (futureCountEl) futureCountEl.textContent = futureActive;
@@ -2182,10 +2604,8 @@
       container.innerHTML = '';
       if (items.length === 0) { emptyEl.style.display = 'block'; return; }
       emptyEl.style.display = 'none';
-
       const active = items.filter(x => !x.done);
       const done = items.filter(x => x.done);
-
       active.forEach(data => container.appendChild(buildEventItem(data, isToday)));
       if (done.length > 0) {
         const sub = document.createElement('div');
@@ -2199,7 +2619,6 @@
     function buildEventItem(data, isToday) {
       const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
       const item = document.createElement('div');
-
       let isNow = false;
       const now = new Date();
       const nowMin = now.getHours() * 60 + now.getMinutes();
@@ -2214,7 +2633,6 @@
         }
         if (nowMin >= startMin && nowMin <= endMin) isNow = true;
       }
-
       let cls = 'event-item';
       if (data.done) cls += ' done';
       if (isNow) cls += ' now';
@@ -2246,7 +2664,6 @@
       title.className = 'event-title';
       title.textContent = data.title;
       body.appendChild(title);
-
       const metaParts = [];
       if (!isToday && data.date) {
         const d = new Date(data.date + 'T00:00:00');
@@ -2273,7 +2690,6 @@
         try { await remove(ref(db, 'schedule_events/' + data.id)); } catch (err) { console.error(err); }
       });
       item.appendChild(delBtn);
-
       return item;
     }
 
@@ -2285,7 +2701,6 @@
       anniversary: { emoji: '💍', label: 'Годовщина' },
       just: { emoji: '🎁', label: 'Просто так' }
     };
-
     const GIFT_PRIORITY = {
       high: { label: '🔴 Очень хочу', cls: 'high' },
       medium: { label: '🟡 Хочу', cls: 'medium' },
@@ -2345,11 +2760,9 @@
       const price = giftPrice.value;
       const url = giftUrl.value.trim();
       const note = giftNote.value.trim();
-
       if (!title) { alert('Введите название'); return; }
       try {
-        const giftsRef = ref(db, 'gifts');
-        const newRef = push(giftsRef);
+        const newRef = push(ref(db, 'gifts'));
         const data = {
           title, occasion, priority,
           ownerId: currentUser.uid,
@@ -2367,9 +2780,7 @@
         giftNote.value = '';
         giftOccasion.value = 'birthday';
         giftPriority.value = 'medium';
-      } catch (err) {
-        alert('ОШИБКА: ' + err.code + '\n' + err.message);
-      }
+      } catch (err) { alert('ОШИБКА: ' + err.code + '\n' + err.message); }
     });
 
     function startGiftsListener() {
@@ -2379,15 +2790,13 @@
         snapshot.forEach((child) => { items.push({ id: child.key, ...child.val() }); });
         items.reverse();
         currentGiftItems = items;
-
         const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
         const mineCount = items.filter(g => g.ownerId === myUid && !g.done).length;
         const givingCount = items.filter(g => g.ownerId !== myUid && !g.done).length;
-        const myWishesCountEl = $('myWishesCount');
-        const givingCountEl = $('givingCount');
-        if (myWishesCountEl) myWishesCountEl.textContent = mineCount;
-        if (givingCountEl) givingCountEl.textContent = givingCount;
-
+        const mwc = $('myWishesCount');
+        const gc = $('givingCount');
+        if (mwc) mwc.textContent = mineCount;
+        if (gc) gc.textContent = givingCount;
         renderGiftsList();
         refreshTodayIfActive();
       }, (err) => { console.error('Ошибка подписки подарков:', err); });
@@ -2396,61 +2805,35 @@
     function renderGiftsList() {
       const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
       giftsList.innerHTML = '';
-
       let base = currentGiftItems.filter(g => {
         if (currentGiftView === 'mine') return g.ownerId === myUid;
         else return g.ownerId !== myUid;
       });
-
-      if (selectedGiftOccasion !== 'all') {
-        base = base.filter(g => (g.occasion || 'just') === selectedGiftOccasion);
-      }
-
-      if (hideDoneGifts) {
-        base = base.filter(g => !g.done);
-      }
+      if (selectedGiftOccasion !== 'all') base = base.filter(g => (g.occasion || 'just') === selectedGiftOccasion);
+      if (hideDoneGifts) base = base.filter(g => !g.done);
 
       if (currentGiftView === 'mine') {
-        const activeTotal = base
-          .filter(g => !g.done && g.price)
-          .reduce((sum, g) => sum + Number(g.price || 0), 0);
+        const activeTotal = base.filter(g => !g.done && g.price).reduce((s, g) => s + Number(g.price || 0), 0);
         if (activeTotal > 0) {
           giftTotalCard.style.display = 'flex';
           giftTotalValue.textContent = activeTotal.toLocaleString('ru-RU') + ' ₽';
-        } else {
-          giftTotalCard.style.display = 'none';
-        }
-      } else {
-        giftTotalCard.style.display = 'none';
-      }
+        } else giftTotalCard.style.display = 'none';
+      } else giftTotalCard.style.display = 'none';
 
       const totalCount = base.length;
       const doneCount = base.filter(g => g.done).length;
       const activeCount = totalCount - doneCount;
-      if (totalCount === 0) {
-        giftStatLine.innerHTML = 'Ничего не найдено';
-      } else {
-        giftStatLine.innerHTML = 'Активных: <span class="num">' + activeCount + '</span>' +
-          (doneCount > 0 ? ' • Куплено: <span class="num">' + doneCount + '</span>' : '');
-      }
+      if (totalCount === 0) giftStatLine.innerHTML = 'Ничего не найдено';
+      else giftStatLine.innerHTML = 'Активных: <span class="num">' + activeCount + '</span>' + (doneCount > 0 ? ' • Куплено: <span class="num">' + doneCount + '</span>' : '');
 
-      if (base.length === 0) {
-        giftsEmpty.style.display = 'block';
-        return;
-      }
+      if (base.length === 0) { giftsEmpty.style.display = 'block'; return; }
       giftsEmpty.style.display = 'none';
 
       const active = base.filter(g => !g.done);
       const done = base.filter(g => g.done);
-      const PRIORITY_ORDER_G = { high: 0, medium: 1, low: 2 };
-      active.sort((a, b) => {
-        const pa = PRIORITY_ORDER_G[a.priority] ?? 1;
-        const pb = PRIORITY_ORDER_G[b.priority] ?? 1;
-        return pa - pb;
-      });
-
+      const PO = { high: 0, medium: 1, low: 2 };
+      active.sort((a, b) => (PO[a.priority] ?? 1) - (PO[b.priority] ?? 1));
       active.forEach(g => giftsList.appendChild(buildGiftItem(g, myUid)));
-
       if (done.length > 0 && !hideDoneGifts) {
         const sub = document.createElement('div');
         sub.className = 'chore-done-subtitle';
@@ -2464,99 +2847,74 @@
       const occ = OCCASIONS[data.occasion] || OCCASIONS.just;
       const prio = GIFT_PRIORITY[data.priority] || GIFT_PRIORITY.medium;
       const isMine = data.ownerId === myUid;
-
       const item = document.createElement('div');
       item.className = 'chore-item' + (data.done ? ' done' : '');
-
       if (!isMine) {
-        const checkbox = document.createElement('div');
-        checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
-        checkbox.addEventListener('click', async () => {
+        const cb = document.createElement('div');
+        cb.className = 'checkbox' + (data.done ? ' checked' : '');
+        cb.addEventListener('click', async () => {
           try { await update(ref(db, 'gifts/' + data.id), { done: !data.done }); } catch (err) { console.error(err); }
         });
-        item.appendChild(checkbox);
+        item.appendChild(cb);
       }
-
       const body = document.createElement('div');
       body.className = 'chore-item-body';
-
       const titleRow = document.createElement('div');
-      titleRow.style.display = 'flex';
-      titleRow.style.alignItems = 'flex-start';
-      titleRow.style.gap = '8px';
-
+      titleRow.style.cssText = 'display:flex;align-items:flex-start;gap:8px;';
       const title = document.createElement('div');
       title.className = 'item-title';
       title.style.flex = '1';
       title.textContent = occ.emoji + ' ' + data.title;
       titleRow.appendChild(title);
-
       if (data.price) {
-        const priceTag = document.createElement('span');
-        priceTag.className = 'wish-price-tag';
-        priceTag.textContent = Number(data.price).toLocaleString('ru-RU') + ' ₽';
-        titleRow.appendChild(priceTag);
+        const pt = document.createElement('span');
+        pt.className = 'wish-price-tag';
+        pt.textContent = Number(data.price).toLocaleString('ru-RU') + ' ₽';
+        titleRow.appendChild(pt);
       }
       body.appendChild(titleRow);
-
       const badges = document.createElement('div');
-      badges.style.display = 'flex';
-      badges.style.flexWrap = 'wrap';
-      badges.style.gap = '6px';
-      badges.style.alignItems = 'center';
-      badges.style.marginTop = '8px';
-
-      const occBadge = document.createElement('span');
-      occBadge.className = 'chore-due';
-      occBadge.textContent = occ.label;
-      badges.appendChild(occBadge);
-
+      badges.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px;';
+      const ob = document.createElement('span');
+      ob.className = 'chore-due';
+      ob.textContent = occ.label;
+      badges.appendChild(ob);
       if (data.priority === 'high' || data.priority === 'low') {
-        const pBadge = document.createElement('span');
-        pBadge.className = 'wish-priority ' + prio.cls;
-        pBadge.style.marginTop = '0';
-        pBadge.textContent = prio.label;
-        badges.appendChild(pBadge);
+        const pb = document.createElement('span');
+        pb.className = 'wish-priority ' + prio.cls;
+        pb.style.marginTop = '0';
+        pb.textContent = prio.label;
+        badges.appendChild(pb);
       }
-
       body.appendChild(badges);
-
       if (data.note) {
-        const note = document.createElement('div');
-        note.style.fontSize = '13px';
-        note.style.color = 'var(--text-soft)';
-        note.style.marginTop = '8px';
-        note.style.fontStyle = 'italic';
-        note.textContent = '📝 ' + data.note;
-        body.appendChild(note);
+        const n = document.createElement('div');
+        n.style.cssText = 'font-size:13px;color:var(--text-soft);margin-top:8px;font-style:italic;';
+        n.textContent = '📝 ' + data.note;
+        body.appendChild(n);
       }
-
       if (data.url) {
-        const link = document.createElement('a');
-        link.className = 'gift-link';
-        link.href = data.url;
-        link.target = '_blank';
-        link.rel = 'noopener';
-        link.textContent = '🔗 Открыть ссылку';
-        body.appendChild(link);
+        const l = document.createElement('a');
+        l.className = 'gift-link';
+        l.href = data.url;
+        l.target = '_blank';
+        l.rel = 'noopener';
+        l.textContent = '🔗 Открыть ссылку';
+        body.appendChild(l);
       }
-
       const meta = document.createElement('div');
       meta.className = 'item-meta';
       if (isMine) meta.textContent = '✨ моё желание';
       else meta.textContent = '👤 ' + getUserName(data.ownerId, data.ownerEmail);
       body.appendChild(meta);
-
       item.appendChild(body);
-
-      const delBtn = document.createElement('button');
-      delBtn.className = 'delete-btn';
-      delBtn.textContent = '×';
-      delBtn.addEventListener('click', async () => {
+      const del = document.createElement('button');
+      del.className = 'delete-btn';
+      del.textContent = '×';
+      del.addEventListener('click', async () => {
         try { await remove(ref(db, 'gifts/' + data.id)); } catch (err) { console.error(err); }
       });
-      item.appendChild(delBtn);
-
+      item.appendChild(del);
       return item;
     }
 
@@ -2572,12 +2930,12 @@
       { key: 'bought', label: 'Куплено' }
     ];
     const WISH_CATEGORIES = {
-      appliance:   { emoji: '🔌', label: 'Быт. техника' },
+      appliance: { emoji: '🔌', label: 'Быт. техника' },
       electronics: { emoji: '💻', label: 'Электроника' },
-      furniture:   { emoji: '🪑', label: 'Мебель' },
-      home:        { emoji: '🏠', label: 'Для дома' },
-      vacation:    { emoji: '✈️', label: 'Отпуск' },
-      other:       { emoji: '📦', label: 'Другое' }
+      furniture: { emoji: '🪑', label: 'Мебель' },
+      home: { emoji: '🏠', label: 'Для дома' },
+      vacation: { emoji: '✈️', label: 'Отпуск' },
+      other: { emoji: '📦', label: 'Другое' }
     };
 
     const wishInput = $('wishInput');
@@ -2611,10 +2969,7 @@
       });
     });
 
-    wishSortSelect.addEventListener('change', () => {
-      wishSortMode = wishSortSelect.value;
-      renderWishes();
-    });
+    wishSortSelect.addEventListener('change', () => { wishSortMode = wishSortSelect.value; renderWishes(); });
 
     wishHideDoneBtn.addEventListener('click', () => {
       hideDoneWishes = !hideDoneWishes;
@@ -2630,11 +2985,9 @@
       const category = wishCategory.value;
       const url = wishUrl.value.trim();
       const note = wishNote.value.trim();
-
       if (!title) { alert('Введите название'); return; }
       try {
-        const wishesRef = ref(db, 'wishes');
-        const newRef = push(wishesRef);
+        const newRef = push(ref(db, 'wishes'));
         const data = {
           title, priority, category,
           status: 'want',
@@ -2652,9 +3005,7 @@
         wishNote.value = '';
         wishPriority.value = 'medium';
         wishCategory.value = 'other';
-      } catch (err) {
-        alert('ОШИБКА: ' + err.code + '\n' + err.message);
-      }
+      } catch (err) { alert('ОШИБКА: ' + err.code + '\n' + err.message); }
     });
 
     function startWishesListener() {
@@ -2664,19 +3015,14 @@
         snapshot.forEach((child) => { items.push({ id: child.key, ...child.val() }); });
         items.reverse();
         currentWishItems = items;
-
         const wantCount = items.filter(x => (x.status || 'want') === 'want').length;
         const savingCount = items.filter(x => x.status === 'saving').length;
         const boughtCount = items.filter(x => x.status === 'bought').length;
-        const elAll = $('wishCntAll');
-        const elWant = $('wishCntWant');
-        const elSaving = $('wishCntSaving');
-        const elBought = $('wishCntBought');
+        const elAll = $('wishCntAll'); const elWant = $('wishCntWant'); const elSaving = $('wishCntSaving'); const elBought = $('wishCntBought');
         if (elAll) elAll.textContent = items.length;
         if (elWant) elWant.textContent = wantCount;
         if (elSaving) elSaving.textContent = savingCount;
         if (elBought) elBought.textContent = boughtCount;
-
         renderWishes();
         refreshTodayIfActive();
       }, (err) => { console.error('Ошибка подписки хотелок:', err); });
@@ -2685,7 +3031,6 @@
     function renderWishes() {
       wishesList.innerHTML = '';
       const items = currentWishItems;
-
       if (items.length === 0) {
         wishesEmpty.style.display = 'block';
         $('wishBreakdown').style.display = 'none';
@@ -2694,47 +3039,29 @@
         return;
       }
       wishesEmpty.style.display = 'none';
-
-      const wantSum = items.filter(x => (x.status || 'want') === 'want' && x.price)
-        .reduce((s, x) => s + Number(x.price || 0), 0);
-      const savingSum = items.filter(x => x.status === 'saving' && x.price)
-        .reduce((s, x) => s + Number(x.price || 0), 0);
-      const boughtSum = items.filter(x => x.status === 'bought' && x.price)
-        .reduce((s, x) => s + Number(x.price || 0), 0);
+      const wantSum = items.filter(x => (x.status || 'want') === 'want' && x.price).reduce((s, x) => s + Number(x.price || 0), 0);
+      const savingSum = items.filter(x => x.status === 'saving' && x.price).reduce((s, x) => s + Number(x.price || 0), 0);
+      const boughtSum = items.filter(x => x.status === 'bought' && x.price).reduce((s, x) => s + Number(x.price || 0), 0);
       $('wishBdWant').textContent = wantSum.toLocaleString('ru-RU') + ' ₽';
       $('wishBdSaving').textContent = savingSum.toLocaleString('ru-RU') + ' ₽';
       $('wishBdBought').textContent = boughtSum.toLocaleString('ru-RU') + ' ₽';
       $('wishBreakdown').style.display = wantSum + savingSum + boughtSum > 0 ? 'flex' : 'none';
 
       let filtered = items;
-      if (selectedWishStatus !== 'all') {
-        filtered = filtered.filter(x => (x.status || 'want') === selectedWishStatus);
-      }
-      if (selectedWishCategory !== 'all') {
-        filtered = filtered.filter(x => (x.category || 'other') === selectedWishCategory);
-      }
-      if (hideDoneWishes) {
-        filtered = filtered.filter(x => x.status !== 'bought');
-      }
+      if (selectedWishStatus !== 'all') filtered = filtered.filter(x => (x.status || 'want') === selectedWishStatus);
+      if (selectedWishCategory !== 'all') filtered = filtered.filter(x => (x.category || 'other') === selectedWishCategory);
+      if (hideDoneWishes) filtered = filtered.filter(x => x.status !== 'bought');
 
-      const PRIORITY_ORDER_W = { high: 0, medium: 1, low: 2 };
-      if (wishSortMode === 'priority') {
-        filtered.sort((a, b) => (PRIORITY_ORDER_W[a.priority] ?? 1) - (PRIORITY_ORDER_W[b.priority] ?? 1));
-      } else if (wishSortMode === 'price-desc') {
-        filtered.sort((a, b) => Number(b.price || 0) - Number(a.price || 0));
-      } else if (wishSortMode === 'price-asc') {
-        filtered.sort((a, b) => Number(a.price || 0) - Number(b.price || 0));
-      }
+      const PO = { high: 0, medium: 1, low: 2 };
+      if (wishSortMode === 'priority') filtered.sort((a, b) => (PO[a.priority] ?? 1) - (PO[b.priority] ?? 1));
+      else if (wishSortMode === 'price-desc') filtered.sort((a, b) => Number(b.price || 0) - Number(a.price || 0));
+      else if (wishSortMode === 'price-asc') filtered.sort((a, b) => Number(a.price || 0) - Number(b.price || 0));
 
       const totalCount = filtered.length;
       const doneCount = filtered.filter(x => x.status === 'bought').length;
       const activeCount = totalCount - doneCount;
-      if (totalCount === 0) {
-        wishStatLine.textContent = 'Ничего не найдено';
-      } else {
-        wishStatLine.innerHTML = 'Активных: <span class="num">' + activeCount + '</span>' +
-          (doneCount > 0 ? ' • Куплено: <span class="num">' + doneCount + '</span>' : '');
-      }
+      if (totalCount === 0) wishStatLine.textContent = 'Ничего не найдено';
+      else wishStatLine.innerHTML = 'Активных: <span class="num">' + activeCount + '</span>' + (doneCount > 0 ? ' • Куплено: <span class="num">' + doneCount + '</span>' : '');
 
       const allBoughtCount = items.filter(x => x.status === 'bought').length;
       $('wishClearBought').style.display = allBoughtCount > 0 ? 'block' : 'none';
@@ -2746,7 +3073,6 @@
         wishesList.appendChild(emptyMsg);
         return;
       }
-
       filtered.forEach(data => wishesList.appendChild(buildWishItem(data)));
     }
 
@@ -2755,78 +3081,57 @@
       const cat = WISH_CATEGORIES[data.category] || WISH_CATEGORIES.other;
       const item = document.createElement('div');
       item.className = 'chore-item' + (data.status === 'bought' ? ' done' : '');
-
       const body = document.createElement('div');
       body.className = 'chore-item-body';
-
       const titleRow = document.createElement('div');
-      titleRow.style.display = 'flex';
-      titleRow.style.alignItems = 'flex-start';
-      titleRow.style.gap = '8px';
-
+      titleRow.style.cssText = 'display:flex;align-items:flex-start;gap:8px;';
       const title = document.createElement('div');
       title.className = 'item-title';
       title.style.flex = '1';
       title.textContent = data.title;
       titleRow.appendChild(title);
-
       if (data.price) {
-        const priceTag = document.createElement('span');
-        priceTag.className = 'wish-price-tag';
-        priceTag.textContent = Number(data.price).toLocaleString('ru-RU') + ' ₽';
-        titleRow.appendChild(priceTag);
+        const pt = document.createElement('span');
+        pt.className = 'wish-price-tag';
+        pt.textContent = Number(data.price).toLocaleString('ru-RU') + ' ₽';
+        titleRow.appendChild(pt);
       }
       body.appendChild(titleRow);
-
       const badges = document.createElement('div');
-      badges.style.display = 'flex';
-      badges.style.flexWrap = 'wrap';
-      badges.style.gap = '6px';
-      badges.style.alignItems = 'center';
-      badges.style.marginTop = '8px';
-
-      const prioBadge = document.createElement('span');
-      prioBadge.className = 'wish-priority ' + prio.cls;
-      prioBadge.style.marginTop = '0';
-      prioBadge.textContent = prio.label;
-      badges.appendChild(prioBadge);
-
-      const catBadge = document.createElement('span');
-      catBadge.className = 'wish-cat-badge';
-      catBadge.textContent = cat.emoji + ' ' + cat.label;
-      badges.appendChild(catBadge);
-
+      badges.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px;';
+      const pB = document.createElement('span');
+      pB.className = 'wish-priority ' + prio.cls;
+      pB.style.marginTop = '0';
+      pB.textContent = prio.label;
+      badges.appendChild(pB);
+      const cB = document.createElement('span');
+      cB.className = 'wish-cat-badge';
+      cB.textContent = cat.emoji + ' ' + cat.label;
+      badges.appendChild(cB);
       body.appendChild(badges);
-
       if (data.note) {
-        const note = document.createElement('div');
-        note.style.fontSize = '13px';
-        note.style.color = 'var(--text-soft)';
-        note.style.marginTop = '8px';
-        note.style.fontStyle = 'italic';
-        note.textContent = '📝 ' + data.note;
-        body.appendChild(note);
+        const n = document.createElement('div');
+        n.style.cssText = 'font-size:13px;color:var(--text-soft);margin-top:8px;font-style:italic;';
+        n.textContent = '📝 ' + data.note;
+        body.appendChild(n);
       }
-
       if (data.url) {
-        const link = document.createElement('a');
-        link.className = 'gift-link';
-        link.href = data.url;
-        link.target = '_blank';
-        link.rel = 'noopener';
-        link.textContent = '🔗 Открыть ссылку';
-        body.appendChild(link);
+        const l = document.createElement('a');
+        l.className = 'gift-link';
+        l.href = data.url;
+        l.target = '_blank';
+        l.rel = 'noopener';
+        l.textContent = '🔗 Открыть ссылку';
+        body.appendChild(l);
       }
-
       if (data.createdBy) {
         const meta = document.createElement('div');
         meta.className = 'item-meta';
         meta.textContent = '👤 ' + getUserName(data.createdBy, data.createdByEmail);
         body.appendChild(meta);
       }
-
-      const statusRow = document.createElement('div');
-      statusRow.className = 'wish-status-row';
+      const sr = document.createElement('div');
+      sr.className = 'wish-status-row';
       WISH_STATUSES.forEach(opt => {
         const btn = document.createElement('button');
         btn.className = 'wish-status-btn' + ((data.status || 'want') === opt.key ? ' active' : '');
@@ -2834,20 +3139,17 @@
         btn.addEventListener('click', async () => {
           try { await update(ref(db, 'wishes/' + data.id), { status: opt.key }); } catch (err) { console.error(err); }
         });
-        statusRow.appendChild(btn);
+        sr.appendChild(btn);
       });
-      body.appendChild(statusRow);
-
+      body.appendChild(sr);
       item.appendChild(body);
-
-      const delBtn = document.createElement('button');
-      delBtn.className = 'delete-btn';
-      delBtn.textContent = '×';
-      delBtn.addEventListener('click', async () => {
+      const del = document.createElement('button');
+      del.className = 'delete-btn';
+      del.textContent = '×';
+      del.addEventListener('click', async () => {
         try { await remove(ref(db, 'wishes/' + data.id)); } catch (err) { console.error(err); }
       });
-      item.appendChild(delBtn);
-
+      item.appendChild(del);
       return item;
     }
 
