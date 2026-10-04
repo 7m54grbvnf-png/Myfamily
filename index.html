@@ -1580,7 +1580,7 @@
       if (sortedEvents.length === 0) {
         eventsList.innerHTML = '<div class="today-empty">☀️ На сегодня событий нет</div>';
       } else {
-        sortedEvents.forEach(ev => {
+                sortedEvents.forEach(ev => {
           const card = document.createElement('div');
           card.className = 'today-card';
           const time = document.createElement('div');
@@ -1593,10 +1593,14 @@
           title.className = 'today-card-title';
           title.textContent = ev.title;
           body.appendChild(title);
-          if (ev.endTime) {
+          const metaParts = [];
+          if (ev.endTime) metaParts.push('до ' + ev.endTime);
+          if (ev.createdBy === myUid) metaParts.push('✨ моё');
+          else if (ev.createdBy) metaParts.push('👤 ' + getUserName(ev.createdBy, ev.createdByEmail));
+          if (metaParts.length) {
             const meta = document.createElement('div');
             meta.className = 'today-card-meta';
-            meta.textContent = 'до ' + ev.endTime;
+            meta.textContent = metaParts.join(' • ');
             body.appendChild(meta);
           }
           card.appendChild(body);
