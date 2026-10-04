@@ -228,6 +228,13 @@
     }
     .cat-btn:active { transform: scale(0.96); }
     .cat-btn.active { background: var(--accent-grad); border-color: transparent; color: #ffffff; box-shadow: 0 4px 12px var(--accent-shadow); }
+    .cat-btn .count-mini {
+      background: var(--accent-soft-strong); color: var(--accent-text);
+      padding: 1px 6px; border-radius: 6px;
+      font-size: 10px; font-weight: 800;
+      min-width: 16px; text-align: center;
+    }
+    .cat-btn.active .count-mini { background: rgba(255, 255, 255, 0.3); color: #ffffff; }
 
     .cat-group-title { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800; color: var(--text-soft); text-transform: uppercase; letter-spacing: 1.2px; margin: 18px 4px 8px; }
     .cat-group-title:first-child { margin-top: 0; }
@@ -280,7 +287,7 @@
       animation: fadeInUp 0.3s ease;
     }
     .chore-add-card h3 { font-size: 13px; color: var(--accent-text); margin-bottom: 14px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; }
-        .chore-row { display: flex; gap: 8px; margin-bottom: 10px; }
+    .chore-row { display: flex; gap: 8px; margin-bottom: 10px; }
     .chore-row > * { min-width: 0; flex: 1 1 0; }
     .chore-select {
       flex: 1 1 0; min-width: 0;
@@ -389,9 +396,12 @@
     .gift-toolbar {
       display: flex; justify-content: space-between; align-items: center;
       margin-bottom: 12px;
+      gap: 10px;
     }
     .gift-stat {
       font-size: 12px; font-weight: 700; color: var(--text-soft);
+      flex: 1;
+      min-width: 0;
     }
     .gift-stat .num { color: var(--accent-text); font-weight: 800; }
 
@@ -403,6 +413,38 @@
     }
     .wish-total-label { font-size: 13px; opacity: 0.9; font-weight: 600; }
     .wish-total-value { font-size: 20px; font-weight: 800; }
+
+    .wish-breakdown {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+      animation: fadeInUp 0.3s ease;
+    }
+    .wish-bd-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+    .wish-bd-label {
+      font-size: 11px; font-weight: 700;
+      color: var(--text-soft);
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .wish-bd-value {
+      font-size: 15px; font-weight: 800;
+      color: var(--accent-text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
     .wish-status-row { display: flex; gap: 6px; margin-top: 12px; }
     .wish-status-btn {
@@ -420,6 +462,17 @@
     .wish-priority.low { background: var(--accent-soft); color: var(--accent-text); border: 1px solid var(--accent-border); }
 
     .wish-price-tag { font-size: 15px; font-weight: 800; color: var(--accent-text); white-space: nowrap; margin-left: 8px; }
+
+    .wish-cat-badge {
+      display: inline-block;
+      font-size: 11px; font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 8px;
+      background: var(--accent-soft);
+      color: var(--accent-text);
+      border: 1px solid var(--accent-border);
+      letter-spacing: 0.3px;
+    }
 
     /* РАСПИСАНИЕ */
     .event-add-card {
@@ -710,9 +763,7 @@
         </div>
       </div>
 
-      <!-- ПОДАРКИ -->
       <div id="page-gifts" class="page" style="display:none;">
-        <!-- Вкладки -->
         <div class="gift-view-tabs">
           <button class="gift-view-tab active" data-view="mine">
             ✨ Мои желания <span class="count-mini" id="myWishesCount">0</span>
@@ -722,13 +773,11 @@
           </button>
         </div>
 
-        <!-- Общая сумма моих желаний -->
         <div id="giftTotalCard" class="wish-total-card" style="display:none;">
           <span class="wish-total-label">💝 Общая сумма моих желаний</span>
           <span class="wish-total-value" id="giftTotalValue">0 ₽</span>
         </div>
 
-        <!-- Форма -->
         <div class="chore-add-card">
           <h3 id="giftFormTitle">Новое желание</h3>
           <input type="text" id="giftInput" placeholder="Что хочу в подарок?" autocomplete="off">
@@ -754,7 +803,6 @@
           <button class="chore-add-btn" id="giftAddBtn">Добавить</button>
         </div>
 
-        <!-- Фильтр по поводам -->
         <div class="categories-row" id="giftOccasionFilters">
           <button class="cat-btn active" data-occ="all">📋 Все</button>
           <button class="cat-btn" data-occ="birthday">🎂 ДР</button>
@@ -764,7 +812,6 @@
           <button class="cat-btn" data-occ="just">🎁 Просто так</button>
         </div>
 
-        <!-- Тулбар: статистика + toggle -->
         <div class="gift-toolbar">
           <div class="gift-stat" id="giftStatLine">—</div>
           <button class="hide-done-toggle" id="giftHideDoneBtn">👁 Скрыть купленные</button>
@@ -777,12 +824,25 @@
         </div>
       </div>
 
+      <!-- ХОТЕЛКИ -->
       <div id="page-wishes" class="page" style="display:none;">
-        <div id="wishTotalCard" class="wish-total-card" style="display:none;">
-          <span class="wish-total-label">Общая сумма активных желаний</span>
-          <span class="wish-total-value" id="wishTotalValue">0 ₽</span>
+        <!-- Разбивка по статусам -->
+        <div id="wishBreakdown" class="wish-breakdown" style="display:none;">
+          <div class="wish-bd-item">
+            <span class="wish-bd-label">🔥 Хочу</span>
+            <span class="wish-bd-value" id="wishBdWant">0 ₽</span>
+          </div>
+          <div class="wish-bd-item">
+            <span class="wish-bd-label">💰 Копим</span>
+            <span class="wish-bd-value" id="wishBdSaving">0 ₽</span>
+          </div>
+          <div class="wish-bd-item">
+            <span class="wish-bd-label">✓ Куплено</span>
+            <span class="wish-bd-value" id="wishBdBought">0 ₽</span>
+          </div>
         </div>
 
+        <!-- Форма -->
         <div class="chore-add-card">
           <h3>Новая крупная покупка</h3>
           <input type="text" id="wishInput" placeholder="Что хотим (например: робот-пылесос)" autocomplete="off">
@@ -794,11 +854,60 @@
               <option value="low">⚪ Когда-нибудь</option>
             </select>
           </div>
+          <div class="chore-row">
+            <select class="chore-select" id="wishCategory">
+              <option value="other" selected>📦 Другое</option>
+              <option value="appliance">🔌 Бытовая техника</option>
+              <option value="electronics">💻 Электроника</option>
+              <option value="furniture">🪑 Мебель</option>
+              <option value="home">🏠 Для дома</option>
+              <option value="vacation">✈️ Отпуск / Поездка</option>
+              <option value="other">📦 Другое</option>
+            </select>
+          </div>
+          <input type="url" id="wishUrl" placeholder="Ссылка на товар (необязательно)" autocomplete="off">
           <textarea id="wishNote" placeholder="Зачем, где купить, детали (необязательно)"></textarea>
           <button class="chore-add-btn" id="wishAddBtn">Добавить в хотелки</button>
         </div>
 
+        <!-- Фильтр статуса -->
+        <label style="display:block;font-size:12px;font-weight:800;color:var(--text-soft);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;">Статус</label>
+        <div class="categories-row" id="wishStatusFilters">
+          <button class="cat-btn active" data-status="all">📋 Все <span class="count-mini" id="wishCntAll">0</span></button>
+          <button class="cat-btn" data-status="want">🔥 Хочу <span class="count-mini" id="wishCntWant">0</span></button>
+          <button class="cat-btn" data-status="saving">💰 Копим <span class="count-mini" id="wishCntSaving">0</span></button>
+          <button class="cat-btn" data-status="bought">✓ Куплено <span class="count-mini" id="wishCntBought">0</span></button>
+        </div>
+
+        <!-- Фильтр категории -->
+        <label style="display:block;font-size:12px;font-weight:800;color:var(--text-soft);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;margin-top:6px;">Категория</label>
+        <div class="categories-row" id="wishCategoryFilters">
+          <button class="cat-btn active" data-cat="all">📋 Все</button>
+          <button class="cat-btn" data-cat="appliance">🔌 Быт. техника</button>
+          <button class="cat-btn" data-cat="electronics">💻 Электроника</button>
+          <button class="cat-btn" data-cat="furniture">🪑 Мебель</button>
+          <button class="cat-btn" data-cat="home">🏠 Для дома</button>
+          <button class="cat-btn" data-cat="vacation">✈️ Отпуск</button>
+          <button class="cat-btn" data-cat="other">📦 Другое</button>
+        </div>
+
+        <!-- Тулбар: сортировка + скрыть купленные -->
+        <div class="gift-toolbar">
+          <div class="gift-stat" id="wishStatLine">—</div>
+          <button class="hide-done-toggle" id="wishHideDoneBtn">👁 Скрыть купленные</button>
+        </div>
+
+        <div class="chore-row" style="margin-bottom:16px;">
+          <select class="chore-select" id="wishSort">
+            <option value="priority" selected>⬇️ По приоритету</option>
+            <option value="price-desc">💸 Сначала дорогие</option>
+            <option value="price-asc">💰 Сначала дешёвые</option>
+            <option value="date-desc">📅 Сначала новые</option>
+          </select>
+        </div>
+
         <div class="items-list" id="wishesList"></div>
+        <button class="clear-chores-btn" id="wishClearBought" style="display:none;">🧹 Очистить купленные</button>
         <div class="empty" id="wishesEmpty">
           <div class="empty-emoji">🏠</div>
           <div>Пока пусто. Добавьте первую хотелку!</div>
@@ -1014,10 +1123,17 @@
     let currentChoresByMe = [];
 
     // Подарки
-    let currentGiftView = 'mine';           // 'mine' | 'giving'
-    let selectedGiftOccasion = 'all';       // 'all' или ключ повода
-    let hideDoneGifts = false;              // скрывать ли выполненные
-    let currentGiftItems = [];              // кеш подарков
+    let currentGiftView = 'mine';
+    let selectedGiftOccasion = 'all';
+    let hideDoneGifts = false;
+    let currentGiftItems = [];
+
+    // Хотелки
+    let currentWishItems = [];
+    let selectedWishStatus = 'all';
+    let selectedWishCategory = 'all';
+    let wishSortMode = 'priority';
+    let hideDoneWishes = false;
 
     function getUserName(uid, email) {
       if (uid && userNames[uid]) return userNames[uid];
@@ -1168,9 +1284,9 @@
       other:  { emoji: '📦', name: 'Другое',    color: '#b8aca1' }
     };
 
-    document.querySelectorAll('.cat-btn').forEach(btn => {
+    document.querySelectorAll('#page-shop .cat-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('#page-shop .cat-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         selectedCategory = btn.dataset.cat;
         renderShopList();
@@ -1766,27 +1882,22 @@
     const giftHideDoneBtn = $('giftHideDoneBtn');
     const giftStatLine = $('giftStatLine');
 
-    // Вкладки "Мои желания" / "Я дарю"
     document.querySelectorAll('.gift-view-tab').forEach(tab => {
       tab.addEventListener('click', () => {
         document.querySelectorAll('.gift-view-tab').forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
         currentGiftView = tab.dataset.view;
-        // Меняем заголовок формы
         if (currentGiftView === 'mine') {
           $('giftFormTitle').textContent = 'Новое желание';
           giftInput.placeholder = 'Что хочу в подарок?';
-          giftAddBtn.textContent = 'Добавить';
         } else {
           $('giftFormTitle').textContent = 'Новая идея подарка';
           giftInput.placeholder = 'Что подарить партнёру?';
-          giftAddBtn.textContent = 'Добавить';
         }
         renderGiftsList();
       });
     });
 
-    // Фильтр по поводу
     document.querySelectorAll('#giftOccasionFilters .cat-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('#giftOccasionFilters .cat-btn').forEach(b => b.classList.remove('active'));
@@ -1796,7 +1907,6 @@
       });
     });
 
-    // Скрыть купленные
     giftHideDoneBtn.addEventListener('click', () => {
       hideDoneGifts = !hideDoneGifts;
       giftHideDoneBtn.classList.toggle('active', hideDoneGifts);
@@ -1846,7 +1956,6 @@
         items.reverse();
         currentGiftItems = items;
 
-        // Обновляем счётчики на вкладках
         const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
         const mineCount = items.filter(g => g.ownerId === myUid && !g.done).length;
         const givingCount = items.filter(g => g.ownerId !== myUid && !g.done).length;
@@ -1863,23 +1972,19 @@
       const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
       giftsList.innerHTML = '';
 
-      // 1. Фильтр по вкладке
       let base = currentGiftItems.filter(g => {
         if (currentGiftView === 'mine') return g.ownerId === myUid;
         else return g.ownerId !== myUid;
       });
 
-      // 2. Фильтр по поводу
       if (selectedGiftOccasion !== 'all') {
         base = base.filter(g => (g.occasion || 'just') === selectedGiftOccasion);
       }
 
-      // 3. Скрыть купленные (если включено)
       if (hideDoneGifts) {
         base = base.filter(g => !g.done);
       }
 
-      // 4. Общая сумма (только для моих желаний, не купленных, с ценой)
       if (currentGiftView === 'mine') {
         const activeTotal = base
           .filter(g => !g.done && g.price)
@@ -1894,7 +1999,6 @@
         giftTotalCard.style.display = 'none';
       }
 
-      // 5. Строка статистики
       const totalCount = base.length;
       const doneCount = base.filter(g => g.done).length;
       const activeCount = totalCount - doneCount;
@@ -1905,14 +2009,12 @@
           (doneCount > 0 ? ' • Куплено: <span class="num">' + doneCount + '</span>' : '');
       }
 
-      // 6. Пусто?
       if (base.length === 0) {
         giftsEmpty.style.display = 'block';
         return;
       }
       giftsEmpty.style.display = 'none';
 
-      // 7. Сортировка: активные → потом купленные; внутри активных — по приоритету
       const active = base.filter(g => !g.done);
       const done = base.filter(g => g.done);
       const PRIORITY_ORDER = { high: 0, medium: 1, low: 2 };
@@ -1941,7 +2043,6 @@
       const item = document.createElement('div');
       item.className = 'chore-item' + (data.done ? ' done' : '');
 
-      // Чекбокс: только для чужих желаний (отметить купленным)
       if (!isMine) {
         const checkbox = document.createElement('div');
         checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
@@ -1954,7 +2055,6 @@
       const body = document.createElement('div');
       body.className = 'chore-item-body';
 
-      // Заголовок + цена
       const titleRow = document.createElement('div');
       titleRow.style.display = 'flex';
       titleRow.style.alignItems = 'flex-start';
@@ -1974,7 +2074,6 @@
       }
       body.appendChild(titleRow);
 
-      // Бейджи: повод + приоритет
       const badges = document.createElement('div');
       badges.style.display = 'flex';
       badges.style.flexWrap = 'wrap';
@@ -1997,7 +2096,6 @@
 
       body.appendChild(badges);
 
-      // Заметка
       if (data.note) {
         const note = document.createElement('div');
         note.style.fontSize = '13px';
@@ -2008,7 +2106,6 @@
         body.appendChild(note);
       }
 
-      // Ссылка
       if (data.url) {
         const link = document.createElement('a');
         link.className = 'gift-link';
@@ -2019,7 +2116,6 @@
         body.appendChild(link);
       }
 
-      // Кто
       const meta = document.createElement('div');
       meta.className = 'item-meta';
       if (isMine) meta.textContent = '✨ моё желание';
@@ -2050,40 +2146,91 @@
       { key: 'saving', label: 'Копим' },
       { key: 'bought', label: 'Куплено' }
     ];
+    const WISH_CATEGORIES = {
+      appliance:   { emoji: '🔌', label: 'Быт. техника' },
+      electronics: { emoji: '💻', label: 'Электроника' },
+      furniture:   { emoji: '🪑', label: 'Мебель' },
+      home:        { emoji: '🏠', label: 'Для дома' },
+      vacation:    { emoji: '✈️', label: 'Отпуск' },
+      other:       { emoji: '📦', label: 'Другое' }
+    };
 
     const wishInput = $('wishInput');
     const wishPrice = $('wishPrice');
     const wishPriority = $('wishPriority');
+    const wishCategory = $('wishCategory');
+    const wishUrl = $('wishUrl');
     const wishNote = $('wishNote');
     const wishAddBtn = $('wishAddBtn');
     const wishesList = $('wishesList');
     const wishesEmpty = $('wishesEmpty');
-    const wishTotalCard = $('wishTotalCard');
-    const wishTotalValue = $('wishTotalValue');
+    const wishHideDoneBtn = $('wishHideDoneBtn');
+    const wishStatLine = $('wishStatLine');
+    const wishSortSelect = $('wishSort');
+
+    // Фильтр статуса
+    document.querySelectorAll('#wishStatusFilters .cat-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#wishStatusFilters .cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedWishStatus = btn.dataset.status;
+        renderWishes();
+      });
+    });
+
+    // Фильтр категории
+    document.querySelectorAll('#wishCategoryFilters .cat-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#wishCategoryFilters .cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedWishCategory = btn.dataset.cat;
+        renderWishes();
+      });
+    });
+
+    // Сортировка
+    wishSortSelect.addEventListener('change', () => {
+      wishSortMode = wishSortSelect.value;
+      renderWishes();
+    });
+
+    // Скрыть купленные
+    wishHideDoneBtn.addEventListener('click', () => {
+      hideDoneWishes = !hideDoneWishes;
+      wishHideDoneBtn.classList.toggle('active', hideDoneWishes);
+      wishHideDoneBtn.textContent = hideDoneWishes ? '🙈 Скрыто' : '👁 Скрыть купленные';
+      renderWishes();
+    });
 
     wishAddBtn.addEventListener('click', async () => {
       const title = wishInput.value.trim();
       const price = wishPrice.value;
       const priority = wishPriority.value;
+      const category = wishCategory.value;
+      const url = wishUrl.value.trim();
       const note = wishNote.value.trim();
+
       if (!title) { alert('Введите название'); return; }
       try {
         const wishesRef = ref(db, 'wishes');
         const newRef = push(wishesRef);
         const data = {
-          title, priority,
+          title, priority, category,
           status: 'want',
           createdBy: currentUser.uid,
           createdByEmail: currentUser.email,
           createdAt: Date.now()
         };
         if (price) data.price = price;
+        if (url) data.url = url;
         if (note) data.note = note;
         await set(newRef, data);
         wishInput.value = '';
         wishPrice.value = '';
+        wishUrl.value = '';
         wishNote.value = '';
         wishPriority.value = 'medium';
+        wishCategory.value = 'other';
       } catch (err) {
         alert('ОШИБКА: ' + err.code + '\n' + err.message);
       }
@@ -2092,90 +2239,221 @@
     function startWishesListener() {
       const wishesRef = query(ref(db, 'wishes'), orderByChild('createdAt'));
       wishesUnsubscribe = onValue(wishesRef, (snapshot) => {
-        wishesList.innerHTML = '';
         const items = [];
         snapshot.forEach((child) => { items.push({ id: child.key, ...child.val() }); });
         items.reverse();
-        if (items.length === 0) {
-          wishesEmpty.style.display = 'block';
-          wishTotalCard.style.display = 'none';
-          return;
-        }
-        wishesEmpty.style.display = 'none';
-        const activeTotal = items
-          .filter(x => x.status !== 'bought' && x.price)
-          .reduce((sum, x) => sum + Number(x.price || 0), 0);
-        if (activeTotal > 0) {
-          wishTotalCard.style.display = 'flex';
-          wishTotalValue.textContent = activeTotal.toLocaleString('ru-RU') + ' ₽';
-        } else {
-          wishTotalCard.style.display = 'none';
-        }
-        items.forEach((data) => {
-          const prio = WISH_PRIORITIES[data.priority] || WISH_PRIORITIES.medium;
-          const item = document.createElement('div');
-          item.className = 'chore-item' + (data.status === 'bought' ? ' done' : '');
-          const body = document.createElement('div');
-          body.className = 'chore-item-body';
-          const titleRow = document.createElement('div');
-          titleRow.style.display = 'flex';
-          titleRow.style.alignItems = 'flex-start';
-          titleRow.style.gap = '8px';
-          const title = document.createElement('div');
-          title.className = 'item-title';
-          title.style.flex = '1';
-          title.textContent = data.title;
-          titleRow.appendChild(title);
-          if (data.price) {
-            const priceTag = document.createElement('span');
-            priceTag.className = 'wish-price-tag';
-            priceTag.textContent = Number(data.price).toLocaleString('ru-RU') + ' ₽';
-            titleRow.appendChild(priceTag);
-          }
-          body.appendChild(titleRow);
-          const prioBadge = document.createElement('span');
-          prioBadge.className = 'wish-priority ' + prio.cls;
-          prioBadge.textContent = prio.label;
-          body.appendChild(prioBadge);
-          if (data.note) {
-            const note = document.createElement('div');
-            note.style.fontSize = '13px';
-            note.style.color = '#9a8f80';
-            note.style.marginTop = '8px';
-            note.style.fontStyle = 'italic';
-            note.textContent = data.note;
-            body.appendChild(note);
-          }
-          if (data.createdBy) {
-            const meta = document.createElement('div');
-            meta.className = 'item-meta';
-            meta.textContent = '👤 ' + getUserName(data.createdBy, data.createdByEmail);
-            body.appendChild(meta);
-          }
-          const statusRow = document.createElement('div');
-          statusRow.className = 'wish-status-row';
-          WISH_STATUSES.forEach(opt => {
-            const btn = document.createElement('button');
-            btn.className = 'wish-status-btn' + (data.status === opt.key ? ' active' : '');
-            btn.textContent = opt.label;
-            btn.addEventListener('click', async () => {
-              try { await update(ref(db, 'wishes/' + data.id), { status: opt.key }); } catch (err) { console.error(err); }
-            });
-            statusRow.appendChild(btn);
-          });
-          body.appendChild(statusRow);
-          item.appendChild(body);
-          const delBtn = document.createElement('button');
-          delBtn.className = 'delete-btn';
-          delBtn.textContent = '×';
-          delBtn.addEventListener('click', async () => {
-            try { await remove(ref(db, 'wishes/' + data.id)); } catch (err) { console.error(err); }
-          });
-          item.appendChild(delBtn);
-          wishesList.appendChild(item);
-        });
+        currentWishItems = items;
+
+        // Обновляем счётчики на чипах статуса
+        const wantCount = items.filter(x => (x.status || 'want') === 'want').length;
+        const savingCount = items.filter(x => x.status === 'saving').length;
+        const boughtCount = items.filter(x => x.status === 'bought').length;
+        const elAll = $('wishCntAll');
+        const elWant = $('wishCntWant');
+        const elSaving = $('wishCntSaving');
+        const elBought = $('wishCntBought');
+        if (elAll) elAll.textContent = items.length;
+        if (elWant) elWant.textContent = wantCount;
+        if (elSaving) elSaving.textContent = savingCount;
+        if (elBought) elBought.textContent = boughtCount;
+
+        renderWishes();
       }, (err) => { console.error('Ошибка подписки хотелок:', err); });
     }
+
+    function renderWishes() {
+      wishesList.innerHTML = '';
+      const items = currentWishItems;
+
+      // Пусто?
+      if (items.length === 0) {
+        wishesEmpty.style.display = 'block';
+        $('wishBreakdown').style.display = 'none';
+        $('wishClearBought').style.display = 'none';
+        wishStatLine.textContent = 'Ничего не найдено';
+        return;
+      }
+      wishesEmpty.style.display = 'none';
+
+      // Разбивка по статусам (по всем данным, не фильтрованным)
+      const wantSum = items.filter(x => (x.status || 'want') === 'want' && x.price)
+        .reduce((s, x) => s + Number(x.price || 0), 0);
+      const savingSum = items.filter(x => x.status === 'saving' && x.price)
+        .reduce((s, x) => s + Number(x.price || 0), 0);
+      const boughtSum = items.filter(x => x.status === 'bought' && x.price)
+        .reduce((s, x) => s + Number(x.price || 0), 0);
+      $('wishBdWant').textContent = wantSum.toLocaleString('ru-RU') + ' ₽';
+      $('wishBdSaving').textContent = savingSum.toLocaleString('ru-RU') + ' ₽';
+      $('wishBdBought').textContent = boughtSum.toLocaleString('ru-RU') + ' ₽';
+      $('wishBreakdown').style.display = wantSum + savingSum + boughtSum > 0 ? 'flex' : 'none';
+
+      // Фильтрация
+      let filtered = items;
+      if (selectedWishStatus !== 'all') {
+        filtered = filtered.filter(x => (x.status || 'want') === selectedWishStatus);
+      }
+      if (selectedWishCategory !== 'all') {
+        filtered = filtered.filter(x => (x.category || 'other') === selectedWishCategory);
+      }
+      if (hideDoneWishes) {
+        filtered = filtered.filter(x => x.status !== 'bought');
+      }
+
+      // Сортировка
+      const PRIORITY_ORDER = { high: 0, medium: 1, low: 2 };
+      if (wishSortMode === 'priority') {
+        filtered.sort((a, b) => (PRIORITY_ORDER[a.priority] ?? 1) - (PRIORITY_ORDER[b.priority] ?? 1));
+      } else if (wishSortMode === 'price-desc') {
+        filtered.sort((a, b) => Number(b.price || 0) - Number(a.price || 0));
+      } else if (wishSortMode === 'price-asc') {
+        filtered.sort((a, b) => Number(a.price || 0) - Number(b.price || 0));
+      } else if (wishSortMode === 'date-desc') {
+        // Данные уже в обратном порядке (свежие сверху) — оставляем как есть
+      }
+
+      // Статистика
+      const totalCount = filtered.length;
+      const doneCount = filtered.filter(x => x.status === 'bought').length;
+      const activeCount = totalCount - doneCount;
+      if (totalCount === 0) {
+        wishStatLine.textContent = 'Ничего не найдено';
+      } else {
+        wishStatLine.innerHTML = 'Активных: <span class="num">' + activeCount + '</span>' +
+          (doneCount > 0 ? ' • Куплено: <span class="num">' + doneCount + '</span>' : '');
+      }
+
+      // Кнопка "Очистить купленные" — только если есть купленные
+      const allBoughtCount = items.filter(x => x.status === 'bought').length;
+      $('wishClearBought').style.display = allBoughtCount > 0 ? 'block' : 'none';
+
+      // Пусто после фильтров
+      if (filtered.length === 0) {
+        const emptyMsg = document.createElement('div');
+        emptyMsg.className = 'empty';
+        emptyMsg.innerHTML = '<div class="empty-emoji">📭</div><div>По этим фильтрам ничего нет</div>';
+        wishesList.appendChild(emptyMsg);
+        return;
+      }
+
+      // Отрисовка
+      filtered.forEach(data => wishesList.appendChild(buildWishItem(data)));
+    }
+
+    function buildWishItem(data) {
+      const prio = WISH_PRIORITIES[data.priority] || WISH_PRIORITIES.medium;
+      const cat = WISH_CATEGORIES[data.category] || WISH_CATEGORIES.other;
+      const item = document.createElement('div');
+      item.className = 'chore-item' + (data.status === 'bought' ? ' done' : '');
+
+      const body = document.createElement('div');
+      body.className = 'chore-item-body';
+
+      const titleRow = document.createElement('div');
+      titleRow.style.display = 'flex';
+      titleRow.style.alignItems = 'flex-start';
+      titleRow.style.gap = '8px';
+
+      const title = document.createElement('div');
+      title.className = 'item-title';
+      title.style.flex = '1';
+      title.textContent = data.title;
+      titleRow.appendChild(title);
+
+      if (data.price) {
+        const priceTag = document.createElement('span');
+        priceTag.className = 'wish-price-tag';
+        priceTag.textContent = Number(data.price).toLocaleString('ru-RU') + ' ₽';
+        titleRow.appendChild(priceTag);
+      }
+      body.appendChild(titleRow);
+
+      // Бейджи: приоритет + категория
+      const badges = document.createElement('div');
+      badges.style.display = 'flex';
+      badges.style.flexWrap = 'wrap';
+      badges.style.gap = '6px';
+      badges.style.alignItems = 'center';
+      badges.style.marginTop = '8px';
+
+      const prioBadge = document.createElement('span');
+      prioBadge.className = 'wish-priority ' + prio.cls;
+      prioBadge.style.marginTop = '0';
+      prioBadge.textContent = prio.label;
+      badges.appendChild(prioBadge);
+
+      const catBadge = document.createElement('span');
+      catBadge.className = 'wish-cat-badge';
+      catBadge.textContent = cat.emoji + ' ' + cat.label;
+      badges.appendChild(catBadge);
+
+      body.appendChild(badges);
+
+      // Заметка
+      if (data.note) {
+        const note = document.createElement('div');
+        note.style.fontSize = '13px';
+        note.style.color = 'var(--text-soft)';
+        note.style.marginTop = '8px';
+        note.style.fontStyle = 'italic';
+        note.textContent = '📝 ' + data.note;
+        body.appendChild(note);
+      }
+
+      // Ссылка
+      if (data.url) {
+        const link = document.createElement('a');
+        link.className = 'gift-link';
+        link.href = data.url;
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.textContent = '🔗 Открыть ссылку';
+        body.appendChild(link);
+      }
+
+      // Кто добавил
+      if (data.createdBy) {
+        const meta = document.createElement('div');
+        meta.className = 'item-meta';
+        meta.textContent = '👤 ' + getUserName(data.createdBy, data.createdByEmail);
+        body.appendChild(meta);
+      }
+
+      // Кнопки статуса
+      const statusRow = document.createElement('div');
+      statusRow.className = 'wish-status-row';
+      WISH_STATUSES.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'wish-status-btn' + ((data.status || 'want') === opt.key ? ' active' : '');
+        btn.textContent = opt.label;
+        btn.addEventListener('click', async () => {
+          try { await update(ref(db, 'wishes/' + data.id), { status: opt.key }); } catch (err) { console.error(err); }
+        });
+        statusRow.appendChild(btn);
+      });
+      body.appendChild(statusRow);
+
+      item.appendChild(body);
+
+      const delBtn = document.createElement('button');
+      delBtn.className = 'delete-btn';
+      delBtn.textContent = '×';
+      delBtn.addEventListener('click', async () => {
+        try { await remove(ref(db, 'wishes/' + data.id)); } catch (err) { console.error(err); }
+      });
+      item.appendChild(delBtn);
+
+      return item;
+    }
+
+    // Очистить купленные
+    $('wishClearBought').addEventListener('click', async () => {
+      const bought = currentWishItems.filter(x => x.status === 'bought');
+      if (bought.length === 0) return;
+      if (!confirm('Удалить ' + bought.length + ' купленных хотелок?')) return;
+      for (const item of bought) {
+        try { await remove(ref(db, 'wishes/' + item.id)); } catch (e) { console.error(e); }
+      }
+    });
   </script>
 </body>
 </html>
