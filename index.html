@@ -65,7 +65,7 @@
       background: linear-gradient(135deg, #d9b382 0%, #b8894e 100%);
       color: #ffffff; box-shadow: 0 4px 14px rgba(184, 137, 78, 0.3);
     }
-    input[type="email"], input[type="password"], input[type="text"], input[type="date"], input[type="time"], input[type="number"], input[type="url"] {
+    input[type="email"], input[type="password"], input[type="text"], input[type="date"], input[type="time"] {
       width: 100%; padding: 16px; font-size: 16px; font-family: inherit;
       border: 1px solid #e6dfd3; border-radius: 16px; margin-bottom: 12px;
       background: #fbf9f5; color: #1c1a17; outline: none;
@@ -73,13 +73,6 @@
     }
     input::placeholder { color: #b5a898; }
     input:focus { border-color: #b8894e; background: #ffffff; box-shadow: 0 0 0 4px rgba(184, 137, 78, 0.12); }
-    textarea {
-      width: 100%; padding: 16px; font-size: 16px; font-family: inherit;
-      border: 1px solid #e6dfd3; border-radius: 16px; margin-bottom: 12px;
-      background: #fbf9f5; color: #1c1a17; outline: none;
-      transition: all 0.2s; resize: vertical; min-height: 70px;
-    }
-    textarea:focus { border-color: #b8894e; background: #ffffff; box-shadow: 0 0 0 4px rgba(184, 137, 78, 0.12); }
     button.primary {
       width: 100%; padding: 17px; font-size: 16px; font-weight: 700;
       font-family: inherit; color: #ffffff;
@@ -339,99 +332,6 @@
       border-color: transparent; color: #ffffff;
       box-shadow: 0 4px 12px rgba(184, 137, 78, 0.3);
     }
-    .gift-tabs {
-      display: flex; background: rgba(184, 137, 78, 0.12);
-      border-radius: 14px; padding: 4px; margin-bottom: 20px;
-      border: 1px solid rgba(184, 137, 78, 0.15);
-    }
-    .gift-tab {
-      flex: 1; padding: 10px; text-align: center; border-radius: 10px;
-      font-size: 13px; font-weight: 700; color: #9a8f80;
-      cursor: pointer; border: none; background: transparent; font-family: inherit;
-      transition: all 0.25s;
-    }
-    .gift-tab.active { background: #ffffff; color: #1c1a17; box-shadow: 0 2px 10px rgba(120, 90, 50, 0.06); }
-    .gift-item {
-      background: #ffffff; border: 1px solid #f0ebe1;
-      border-radius: 16px; padding: 16px;
-      box-shadow: 0 4px 16px rgba(120, 90, 50, 0.06);
-      margin-bottom: 8px; animation: fadeInUp 0.3s ease;
-      display: flex; align-items: flex-start; gap: 12px;
-    }
-    .gift-item.done { opacity: 0.55; }
-    .gift-item.done .gift-title { text-decoration: line-through; text-decoration-color: #b5a898; }
-    .gift-emoji {
-      width: 44px; height: 44px; flex-shrink: 0;
-      background: rgba(184, 137, 78, 0.12); border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px;
-    }
-    .gift-body { flex: 1; min-width: 0; }
-    .gift-title { font-size: 16px; font-weight: 600; word-break: break-word; color: #1c1a17; }
-    .gift-meta { font-size: 12px; color: #9a8f80; margin-top: 4px; font-weight: 500; }
-    .gift-meta .occasion {
-      display: inline-block; background: rgba(184, 137, 78, 0.12); color: #b8894e;
-      padding: 2px 8px; border-radius: 6px;
-      font-size: 11px; font-weight: 700; margin-right: 6px;
-    }
-    .gift-link {
-      color: #b8894e; font-weight: 600;
-      text-decoration: none; font-size: 13px;
-      display: inline-block; margin-top: 6px; word-break: break-all;
-    }
-    .gift-note {
-      font-size: 13px; color: #9a8f80;
-      margin-top: 6px; padding: 8px 10px;
-      background: #fbf9f5; border-radius: 10px; font-style: italic;
-    }
-    .gift-price { font-size: 14px; font-weight: 800; color: #b8894e; white-space: nowrap; }
-    .gift-buy-btn {
-      background: rgba(184, 137, 78, 0.12); border: 1px solid rgba(184, 137, 78, 0.15);
-      color: #b8894e;
-      font-family: inherit; font-size: 12px; font-weight: 700;
-      padding: 6px 12px; border-radius: 10px;
-      cursor: pointer; margin-top: 8px; transition: all 0.15s;
-    }
-    .gift-buy-btn:active { transform: scale(0.95); }
-    .wish-item {
-      background: #ffffff; border: 1px solid #f0ebe1;
-      border-radius: 16px; padding: 16px;
-      box-shadow: 0 4px 16px rgba(120, 90, 50, 0.06);
-      margin-bottom: 8px; animation: fadeInUp 0.3s ease;
-    }
-    .wish-top { display: flex; align-items: flex-start; gap: 12px; }
-    .wish-body { flex: 1; min-width: 0; }
-    .wish-title { font-size: 16px; font-weight: 600; color: #1c1a17; }
-    .wish-price { font-size: 15px; font-weight: 800; color: #b8894e; white-space: nowrap; }
-    .wish-priority {
-      display: inline-block; font-size: 11px; font-weight: 800;
-      padding: 3px 8px; border-radius: 6px;
-      margin-top: 6px; letter-spacing: 0.3px;
-    }
-    .wish-priority.high { background: #fbeae8; color: #c0554e; }
-    .wish-priority.medium { background: #fff4e0; color: #b8770f; }
-    .wish-priority.low { background: rgba(184, 137, 78, 0.12); color: #b8894e; }
-    .wish-status-row { display: flex; gap: 6px; margin-top: 10px; }
-    .wish-status-btn {
-      flex: 1; padding: 8px 6px; border-radius: 10px;
-      border: 1.5px solid #e6dfd3; background: #fbf9f5;
-      font-family: inherit; font-size: 12px; font-weight: 700;
-      color: #9a8f80; cursor: pointer; transition: all 0.15s;
-    }
-    .wish-status-btn.active {
-      background: linear-gradient(135deg, #d9b382 0%, #b8894e 100%);
-      border-color: transparent; color: #ffffff;
-      box-shadow: 0 3px 10px rgba(184, 137, 78, 0.3);
-    }
-    .wish-total {
-      background: linear-gradient(135deg, #d9b382 0%, #b8894e 100%);
-      color: #ffffff; border-radius: 16px;
-      padding: 14px 18px; margin-bottom: 16px;
-      display: flex; justify-content: space-between; align-items: center;
-      box-shadow: 0 6px 20px rgba(184, 137, 78, 0.3);
-    }
-    .wish-total-label { font-size: 13px; opacity: 0.9; font-weight: 600; }
-    .wish-total-value { font-size: 20px; font-weight: 800; }
     .bottom-nav {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 20;
       background: rgba(255, 255, 255, 0.92);
@@ -464,10 +364,6 @@
       box-shadow: 0 6px 16px rgba(184, 137, 78, 0.3);
     }
     .nav-label { font-size: 9px; font-weight: 700; transition: all 0.25s; letter-spacing: 0.2px; }
-    .placeholder { text-align: center; padding: 80px 20px; color: #9a8f80; }
-    .placeholder-emoji { font-size: 68px; margin-bottom: 18px; opacity: 0.55; }
-    .placeholder h3 { font-size: 22px; color: #1c1a17; margin-bottom: 8px; font-weight: 800; letter-spacing: -0.4px; }
-    .placeholder p { font-size: 15px; font-weight: 500; }
     .toast {
       position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
       background: rgba(28, 26, 23, 0.95);
@@ -609,71 +505,12 @@
         </div>
       </div>
 
-      <!-- ПОДАРКИ -->
-      <div id="page-gifts" class="page" style="display:none;">
-        <div class="gift-tabs">
-          <button class="gift-tab active" data-view="wishlist">✨ Мои желания</button>
-          <button class="gift-tab" data-view="giving">🎁 Я дарю</button>
-        </div>
-        <div class="add-card">
-          <h3 id="giftAddTitle">Что я хочу в подарок</h3>
-          <input type="text" id="giftTitle" placeholder="Название" autocomplete="off">
-          <div class="chore-row">
-            <select class="chore-select" id="giftOccasion">
-              <option value="birthday">🎂 День рождения</option>
-              <option value="newyear">🎄 Новый год</option>
-              <option value="valentine">💝 14 февраля</option>
-              <option value="anniversary">💍 Годовщина</option>
-              <option value="just">🎁 Просто так</option>
-            </select>
-            <input type="number" id="giftPrice" placeholder="Цена ₽" style="margin-bottom:0;" inputmode="numeric">
-          </div>
-          <input type="url" id="giftUrl" placeholder="Ссылка на товар (необязательно)" autocomplete="off">
-          <textarea id="giftNote" placeholder="Заметка (размер, цвет, пожелания)" rows="2"></textarea>
-          <button class="chore-add-btn" id="giftAddBtn">Добавить</button>
-        </div>
-        <div class="items-list" id="giftsList"></div>
-        <div class="empty" id="giftsEmpty">
-          <div class="empty-emoji">🎁</div>
-          <div>Пока пусто. Добавьте первое желание!</div>
-        </div>
-      </div>
-
-      <!-- ХОТЕЛКИ -->
-      <div id="page-wishes" class="page" style="display:none;">
-        <div id="wishTotalCard" class="wish-total" style="display:none;">
-          <span class="wish-total-label">Общая сумма желаний</span>
-          <span class="wish-total-value" id="wishTotalValue">0 ₽</span>
-        </div>
-        <div class="add-card">
-          <h3>Новая крупная покупка</h3>
-          <input type="text" id="wishTitle" placeholder="Что хотим (например: робот-пылесос)" autocomplete="off">
-          <div class="chore-row">
-            <input type="number" id="wishPrice" placeholder="Цена ₽" style="margin-bottom:0;" inputmode="numeric">
-            <select class="chore-select" id="wishPriority">
-              <option value="high">🔴 Очень хочу</option>
-              <option value="medium" selected>🟡 Хочу</option>
-              <option value="low">⚪ Когда-нибудь</option>
-            </select>
-          </div>
-          <textarea id="wishNote" placeholder="Зачем, где купить, детали" rows="2"></textarea>
-          <button class="chore-add-btn" id="wishAddBtn">Добавить в хотелки</button>
-        </div>
-        <div class="items-list" id="wishesList"></div>
-        <div class="empty" id="wishesEmpty">
-          <div class="empty-emoji">🏠</div>
-          <div>Пока пусто. Добавьте первую хотелку!</div>
-        </div>
-      </div>
-
     </div>
 
     <div class="bottom-nav">
       <button class="nav-btn active" data-page="shop"><span class="nav-icon" data-icon="shop"></span><span class="nav-label">Магазин</span></button>
       <button class="nav-btn" data-page="chores"><span class="nav-icon" data-icon="chores"></span><span class="nav-label">Дела</span></button>
       <button class="nav-btn" data-page="schedule"><span class="nav-icon" data-icon="schedule"></span><span class="nav-label">План</span></button>
-      <button class="nav-btn" data-page="gifts"><span class="nav-icon" data-icon="gifts"></span><span class="nav-label">Подарки</span></button>
-      <button class="nav-btn" data-page="wishes"><span class="nav-icon" data-icon="wishes"></span><span class="nav-label">Хотелки</span></button>
     </div>
   </div>
 
@@ -715,13 +552,10 @@
     }
     function haptic(ms = 10) { if (navigator.vibrate) navigator.vibrate(ms); }
 
-    // ИКОНКИ
     const SVG_ICONS = {
       shop: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>',
       chores: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>',
-      schedule: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
-      gifts: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>',
-      wishes: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>'
+      schedule: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>'
     };
     document.querySelectorAll('.nav-icon[data-icon]').forEach(el => {
       el.innerHTML = SVG_ICONS[el.dataset.icon] || '';
@@ -777,11 +611,9 @@
     // ГЛОБАЛЬНЫЕ
     let currentUser = null;
     let allUsers = {};
-    let shopUnsub = null, choresUnsub = null, eventsUnsub = null, giftsUnsub = null, wishesUnsub = null;
-    let currentGiftView = 'wishlist';
+    let shopUnsub = null, choresUnsub = null, eventsUnsub = null;
     let eventRepeat = 'none';
 
-    // ПРОСТАЯ АВТОРИЗАЦИЯ - как было в рабочей версии
     onAuthStateChanged(auth, (user) => {
       if (user) {
         currentUser = user;
@@ -797,11 +629,7 @@
       }
     });
 
-    // НАВИГАЦИЯ
-    const pageTitles = {
-      shop: 'Магазин', chores: 'Домашние дела', schedule: 'Расписание',
-      gifts: 'Подарки', wishes: 'Хотелки'
-    };
+    const pageTitles = { shop: 'Магазин', chores: 'Домашние дела', schedule: 'Расписание' };
     document.querySelectorAll('.nav-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         haptic(8);
@@ -816,9 +644,7 @@
       });
     });
 
-    // СТАРТ / СТОП
     function startAll() {
-      // Слушаем пользователей
       onValue(ref(db, 'users'), (snap) => {
         allUsers = {};
         snap.forEach((child) => {
@@ -828,7 +654,6 @@
         updateAssigneeDropdown();
       }, (err) => console.error('users listener:', err));
 
-      // Сохраняем себя
       set(ref(db, 'users/' + currentUser.uid), {
         email: currentUser.email
       }).catch(console.error);
@@ -836,15 +661,13 @@
       startShopListener();
       startChoresListener();
       startEventsListener();
-      startGiftsListener();
-      startWishesListener();
     }
 
     function stopAll() {
-      [shopUnsub, choresUnsub, eventsUnsub, giftsUnsub, wishesUnsub].forEach(u => {
+      [shopUnsub, choresUnsub, eventsUnsub].forEach(u => {
         if (u) try { u(); } catch(e) {}
       });
-      shopUnsub = choresUnsub = eventsUnsub = giftsUnsub = wishesUnsub = null;
+      shopUnsub = choresUnsub = eventsUnsub = null;
       currentUser = null;
     }
 
@@ -1226,279 +1049,6 @@
       });
     }
 
-    // ===== ПОДАРКИ =====
-    const OCCASIONS = {
-      birthday: { emoji: '🎂', label: 'День рождения' },
-      newyear: { emoji: '🎄', label: 'Новый год' },
-      valentine: { emoji: '💝', label: '14 февраля' },
-      anniversary: { emoji: '💍', label: 'Годовщина' },
-      just: { emoji: '🎁', label: 'Просто так' }
-    };
-
-    document.querySelectorAll('.gift-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        haptic(8);
-        document.querySelectorAll('.gift-tab').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        currentGiftView = tab.dataset.view;
-        $('giftAddTitle').textContent = currentGiftView === 'wishlist' ? 'Что я хочу в подарок' : 'Что я хочу подарить';
-        refreshGifts();
-      });
-    });
-
-    $('giftAddBtn').addEventListener('click', async () => {
-      const title = $('giftTitle').value.trim();
-      const occasion = $('giftOccasion').value;
-      const price = $('giftPrice').value;
-      const url = $('giftUrl').value.trim();
-      const note = $('giftNote').value.trim();
-      if (!title) { toast('Введите название'); return; }
-      try {
-        const newRef = push(ref(db, 'gifts'));
-        const data = {
-          title, occasion,
-          ownerId: currentUser.uid,
-          ownerEmail: currentUser.email,
-          type: currentGiftView,
-          done: false,
-          createdBy: currentUser.uid,
-          createdAt: Date.now()
-        };
-        if (price) data.price = price;
-        if (url) data.url = url;
-        if (note) data.note = note;
-        await set(newRef, data);
-        $('giftTitle').value = '';
-        $('giftPrice').value = '';
-        $('giftUrl').value = '';
-        $('giftNote').value = '';
-        haptic(15);
-        toast('Добавлено');
-      } catch (err) { toast('Ошибка: ' + err.message); }
-    });
-
-    let giftsCache = [];
-    function startGiftsListener() {
-      const q = query(ref(db, 'gifts'), orderByChild('createdAt'));
-      giftsUnsub = onValue(q, (snapshot) => {
-        giftsCache = [];
-        snapshot.forEach((c) => giftsCache.push({ id: c.key, ...c.val() }));
-        giftsCache.reverse();
-        refreshGifts();
-      }, (err) => console.error('gifts listener:', err));
-    }
-
-    function refreshGifts() {
-      if (!currentUser) return;
-      const list = $('giftsList');
-      if (!list) return;
-      list.innerHTML = '';
-      const myUid = currentUser.uid;
-      let visible = [];
-      if (currentGiftView === 'wishlist') {
-        visible = giftsCache.filter(g => g.ownerId === myUid);
-      } else {
-        visible = giftsCache.filter(g => {
-          if (g.type === 'giving' && g.createdBy === myUid) return true;
-          if (g.type === 'wishlist' && g.ownerId !== myUid) return true;
-          return false;
-        });
-      }
-      $('giftsEmpty').style.display = visible.length === 0 ? 'block' : 'none';
-      visible.forEach((data) => {
-        const occ = OCCASIONS[data.occasion] || OCCASIONS.just;
-        const el = document.createElement('div');
-        el.className = 'gift-item' + (data.done ? ' done' : '');
-        const emoji = document.createElement('div');
-        emoji.className = 'gift-emoji';
-        emoji.textContent = occ.emoji;
-        el.appendChild(emoji);
-        const body = document.createElement('div');
-        body.className = 'gift-body';
-        const title = document.createElement('div');
-        title.className = 'gift-title';
-        title.textContent = data.title;
-        body.appendChild(title);
-        const meta = document.createElement('div');
-        meta.className = 'gift-meta';
-        const occSpan = document.createElement('span');
-        occSpan.className = 'occasion';
-        occSpan.textContent = occ.label;
-        meta.appendChild(occSpan);
-        if (currentGiftView === 'giving' && data.ownerId && data.ownerId !== myUid) {
-          meta.appendChild(document.createTextNode('для ' + getUserName(data.ownerId)));
-        } else if (currentGiftView === 'wishlist' && data.ownerId === myUid) {
-          meta.appendChild(document.createTextNode('моё желание'));
-        }
-        body.appendChild(meta);
-        if (data.url) {
-          const link = document.createElement('a');
-          link.className = 'gift-link';
-          link.href = data.url;
-          link.target = '_blank';
-          link.rel = 'noopener';
-          link.textContent = '🔗 Открыть ссылку';
-          body.appendChild(link);
-        }
-        if (data.note) {
-          const note = document.createElement('div');
-          note.className = 'gift-note';
-          note.textContent = data.note;
-          body.appendChild(note);
-        }
-        if (currentGiftView === 'giving') {
-          const buyBtn = document.createElement('button');
-          buyBtn.className = 'gift-buy-btn';
-          buyBtn.textContent = data.done ? '✓ Куплено' : 'Отметить купленным';
-          buyBtn.addEventListener('click', async () => {
-            haptic(12);
-            try { await update(ref(db, 'gifts/' + data.id), { done: !data.done }); } catch(e){}
-          });
-          body.appendChild(buyBtn);
-        }
-        el.appendChild(body);
-        if (data.price) {
-          const price = document.createElement('div');
-          price.className = 'gift-price';
-          price.textContent = formatPrice(data.price);
-          el.appendChild(price);
-        }
-        const delBtn = document.createElement('button');
-        delBtn.className = 'delete-btn';
-        delBtn.textContent = '×';
-        delBtn.addEventListener('click', async () => {
-          haptic(15);
-          try { await remove(ref(db, 'gifts/' + data.id)); } catch(e){}
-        });
-        el.appendChild(delBtn);
-        list.appendChild(el);
-      });
-    }
-
-    // ===== ХОТЕЛКИ =====
-    $('wishAddBtn').addEventListener('click', async () => {
-      const title = $('wishTitle').value.trim();
-      const price = $('wishPrice').value;
-      const priority = $('wishPriority').value;
-      const note = $('wishNote').value.trim();
-      if (!title) { toast('Введите название'); return; }
-      try {
-        const newRef = push(ref(db, 'wishes'));
-        const data = {
-          title, priority,
-          status: 'want',
-          createdBy: currentUser.uid,
-          createdByEmail: currentUser.email,
-          createdAt: Date.now()
-        };
-        if (price) data.price = price;
-        if (note) data.note = note;
-        await set(newRef, data);
-        $('wishTitle').value = '';
-        $('wishPrice').value = '';
-        $('wishNote').value = '';
-        haptic(15);
-        toast('Хотелка добавлена');
-      } catch (err) { toast('Ошибка: ' + err.message); }
-    });
-
-    function startWishesListener() {
-      const q = query(ref(db, 'wishes'), orderByChild('createdAt'));
-      wishesUnsub = onValue(q, (snapshot) => {
-        const items = [];
-        snapshot.forEach((c) => items.push({ id: c.key, ...c.val() }));
-        items.reverse();
-        renderWishes(items);
-      }, (err) => console.error('wishes listener:', err));
-    }
-
-    function renderWishes(items) {
-      const list = $('wishesList');
-      if (!list) return;
-      list.innerHTML = '';
-      $('wishesEmpty').style.display = items.length === 0 ? 'block' : 'none';
-      const activeTotal = items
-        .filter(x => x.status !== 'bought' && x.price)
-        .reduce((sum, x) => sum + Number(x.price || 0), 0);
-      if (activeTotal > 0) {
-        $('wishTotalCard').style.display = 'flex';
-        $('wishTotalValue').textContent = formatPrice(activeTotal);
-      } else {
-        $('wishTotalCard').style.display = 'none';
-      }
-      items.forEach((data) => {
-        const el = document.createElement('div');
-        el.className = 'wish-item';
-        el.style.position = 'relative';
-        const top = document.createElement('div');
-        top.className = 'wish-top';
-        const body = document.createElement('div');
-        body.className = 'wish-body';
-        const title = document.createElement('div');
-        title.className = 'wish-title';
-        title.textContent = data.title;
-        body.appendChild(title);
-        const prio = document.createElement('span');
-        prio.className = 'wish-priority ' + (data.priority || 'medium');
-        prio.textContent = data.priority === 'high' ? '🔴 Очень хочу' : data.priority === 'low' ? '⚪ Когда-нибудь' : '🟡 Хочу';
-        body.appendChild(prio);
-        if (data.note) {
-          const note = document.createElement('div');
-          note.className = 'gift-note';
-          note.textContent = data.note;
-          body.appendChild(note);
-        }
-        if (data.createdBy) {
-          const meta = document.createElement('div');
-          meta.className = 'item-meta';
-          meta.textContent = '👤 ' + getUserName(data.createdBy);
-          body.appendChild(meta);
-        }
-        top.appendChild(body);
-        if (data.price) {
-          const price = document.createElement('div');
-          price.className = 'wish-price';
-          price.textContent = formatPrice(data.price);
-          top.appendChild(price);
-        }
-        el.appendChild(top);
-        const statusRow = document.createElement('div');
-        statusRow.className = 'wish-status-row';
-        [
-          { key: 'want', label: 'Хочу' },
-          { key: 'saving', label: 'Копим' },
-          { key: 'bought', label: 'Куплено' }
-        ].forEach(opt => {
-          const btn = document.createElement('button');
-          btn.className = 'wish-status-btn' + (data.status === opt.key ? ' active' : '');
-          btn.textContent = opt.label;
-          btn.addEventListener('click', async () => {
-            haptic(10);
-            try { await update(ref(db, 'wishes/' + data.id), { status: opt.key }); } catch(e){}
-          });
-          statusRow.appendChild(btn);
-        });
-        el.appendChild(statusRow);
-        const delBtn = document.createElement('button');
-        delBtn.className = 'delete-btn';
-        delBtn.textContent = '×';
-        delBtn.style.position = 'absolute';
-        delBtn.style.top = '8px';
-        delBtn.style.right = '8px';
-        delBtn.addEventListener('click', async () => {
-          haptic(15);
-          try { await remove(ref(db, 'wishes/' + data.id)); } catch(e){}
-        });
-        el.appendChild(delBtn);
-        list.appendChild(el);
-      });
-    }
-
-    function formatPrice(n) {
-      const num = Number(n) || 0;
-      return num.toLocaleString('ru-RU') + ' ₽';
-    }
-
     function updateCounters() {
       const activePage = document.querySelector('.nav-btn.active');
       if (!activePage) return;
@@ -1508,8 +1058,6 @@
         if (page === 'shop') count = $('shopList').querySelectorAll('.item:not(.done)').length;
         else if (page === 'chores') count = $('choreForMeList').querySelectorAll('.chore-item:not(.done)').length + $('choreByMeList').querySelectorAll('.chore-item:not(.done)').length;
         else if (page === 'schedule') count = $('eventsTodayList').querySelectorAll('.event-item').length;
-        else if (page === 'gifts') count = $('giftsList').querySelectorAll('.gift-item:not(.done)').length;
-        else if (page === 'wishes') count = $('wishesList').querySelectorAll('.wish-item').length;
       } catch (e) {}
       const badge = count > 0 ? ' <span class="count-badge">' + count + '</span>' : '';
       const title = $('pageTitle');
