@@ -75,7 +75,7 @@
       color: #ffffff;
       box-shadow: 0 4px 14px rgba(184, 137, 78, 0.35);
     }
-    input[type="email"], input[type="password"], input[type="text"], input[type="date"], input[type="time"] {
+    input[type="email"], input[type="password"], input[type="text"], input[type="date"], input[type="time"], input[type="number"], input[type="url"] {
       width: 100%; padding: 16px; font-size: 16px; font-family: inherit;
       border: 1px solid #e6dfd3; border-radius: 16px; margin-bottom: 12px;
       background: #fbf9f5; color: #1c1a17; outline: none;
@@ -292,6 +292,15 @@
       color: #c0554e;
       background: #fbeae8;
       border-color: #f3d5d2;
+    }
+    .gift-link {
+      display: inline-block;
+      margin-top: 6px;
+      color: #b8894e;
+      font-weight: 600;
+      font-size: 13px;
+      text-decoration: none;
+      word-break: break-all;
     }
 
     /* ============ РАСПИСАНИЕ ============ */
@@ -520,10 +529,27 @@
 
       <!-- ПОДАРКИ -->
       <div id="page-gifts" class="page" style="display:none;">
-        <div class="placeholder">
-          <div class="placeholder-emoji">🎁</div>
-          <h3>Подарки</h3>
-          <p>Скоро здесь появятся виш-листы друг для друга</p>
+        <div class="chore-add-card">
+          <h3>Что я хочу в подарок</h3>
+          <input type="text" id="giftInput" placeholder="Название" autocomplete="off">
+          <div class="chore-row">
+            <select class="chore-select" id="giftOccasion">
+              <option value="birthday">🎂 День рождения</option>
+              <option value="newyear">🎄 Новый год</option>
+              <option value="valentine">💝 14 февраля</option>
+              <option value="anniversary">💍 Годовщина</option>
+              <option value="just">🎁 Просто так</option>
+            </select>
+            <input type="number" id="giftPrice" placeholder="Цена ₽" style="margin-bottom:0;" inputmode="numeric">
+          </div>
+          <input type="url" id="giftUrl" placeholder="Ссылка на товар (необязательно)" autocomplete="off">
+          <button class="chore-add-btn" id="giftAddBtn">Добавить в виш-лист</button>
+        </div>
+
+        <div class="items-list" id="giftsList"></div>
+        <div class="empty" id="giftsEmpty">
+          <div class="empty-emoji">🎁</div>
+          <div>Пока пусто. Добавьте первое желание!</div>
         </div>
       </div>
 
@@ -675,6 +701,7 @@
     let shopUnsubscribe = null;
     let choresUnsubscribe = null;
     let eventsUnsubscribe = null;
+    let giftsUnsubscribe = null;
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -745,17 +772,20 @@
       startShopListener();
       startChoresListener();
       startEventsListener();
+      startGiftsListener();
     }
 
     function stopAll() {
       if (shopUnsubscribe) { shopUnsubscribe(); shopUnsubscribe = null; }
       if (choresUnsubscribe) { choresUnsubscribe(); choresUnsubscribe = null; }
       if (eventsUnsubscribe) { eventsUnsubscribe(); eventsUnsubscribe = null; }
+      if (giftsUnsubscribe) { giftsUnsubscribe(); giftsUnsubscribe = null; }
       shopList.innerHTML = '';
       choreForMeList.innerHTML = '';
       choreByMeList.innerHTML = '';
       eventsTodayList.innerHTML = '';
       eventsFutureList.innerHTML = '';
+      giftsList.innerHTML = '';
       currentUser = null;
     }
 
@@ -1131,6 +1161,140 @@
         item.appendChild(delBtn);
 
         container.appendChild(item);
+      });
+    }
+
+    // ============ ПОДАРКИ ============
+    const OCCASIONS = {
+      birthday: { emoji: '🎂', label: 'День рождения' },
+      newyear: { emoji: '🎄', label: 'Новый год' },
+      valentine: { emoji: '💝', label: '14 февраля' },
+      anniversary: { emoji: '💍', label: 'Годовщина' },
+      just: { emoji: '🎁', label: 'Просто так' }
+    };
+
+    const giftInput = $('giftInput');
+    const giftOccasion = $('giftOccasion');
+    const giftPrice = $('giftPrice');
+    const giftUrl = $('giftUrl');
+    const giftAddBtn = $('giftAddBtn');
+    const giftsList = $('giftsList');
+    const giftsEmpty = $('giftsEmpty');
+
+    giftAddBtn.addEventListener('click', async () => {
+      const title = giftInput.value.trim();
+      const occasion = giftOccasion.value;
+      const price = giftPrice.value;
+      const url = giftUrl.value.trim();
+      if (!title) { alert('Введите название'); return; }
+      try {
+        const giftsRef = ref(db, 'gifts');
+        const newRef = push(giftsRef);
+        const data = {
+          title: title,
+          occasion: occasion,
+          ownerId: currentUser.uid,
+          ownerEmail: currentUser.email,
+          done: false,
+          createdAt: Date.now()
+        };
+        if (price) data.price = price;
+        if (url) data.url = url;
+        await set(newRef, data);
+        giftInput.value = '';
+        giftPrice.value = '';
+        giftUrl.value = '';
+        giftOccasion.value = 'birthday';
+      } catch (err) {
+        alert('ОШИБКА: ' + err.code + '\n' + err.message);
+      }
+    });
+
+    function startGiftsListener() {
+      const giftsRef = query(ref(db, 'gifts'), orderByChild('createdAt'));
+      giftsUnsubscribe = onValue(giftsRef, (snapshot) => {
+        giftsList.innerHTML = '';
+        const items = [];
+        snapshot.forEach((child) => {
+          items.push({ id: child.key, ...child.val() });
+        });
+        items.reverse();
+
+        if (items.length === 0) {
+          giftsEmpty.style.display = 'block';
+          return;
+        }
+        giftsEmpty.style.display = 'none';
+
+        const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
+
+        items.forEach((data) => {
+          const occ = OCCASIONS[data.occasion] || OCCASIONS.just;
+          const isMine = data.ownerId === myUid;
+
+          const item = document.createElement('div');
+          item.className = 'chore-item' + (data.done ? ' done' : '');
+
+          // Чекбокс — только для чужих желаний (отметить «куплено»)
+          if (!isMine) {
+            const checkbox = document.createElement('div');
+            checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
+            checkbox.addEventListener('click', async () => {
+              try {
+                await update(ref(db, 'gifts/' + data.id), { done: !data.done });
+              } catch (err) { console.error(err); }
+            });
+            item.appendChild(checkbox);
+          }
+
+          const body = document.createElement('div');
+          body.className = 'chore-item-body';
+
+          const title = document.createElement('div');
+          title.className = 'item-title';
+          title.textContent = occ.emoji + ' ' + data.title;
+          body.appendChild(title);
+
+          const badge = document.createElement('div');
+          badge.className = 'chore-due';
+          badge.textContent = occ.label + (data.price ? ' • ' + data.price + ' ₽' : '');
+          body.appendChild(badge);
+
+          if (data.url) {
+            const link = document.createElement('a');
+            link.className = 'gift-link';
+            link.href = data.url;
+            link.target = '_blank';
+            link.rel = 'noopener';
+            link.textContent = '🔗 Открыть ссылку';
+            body.appendChild(link);
+          }
+
+          const meta = document.createElement('div');
+          meta.className = 'item-meta';
+          if (isMine) {
+            meta.textContent = '✨ моё желание';
+          } else {
+            meta.textContent = '👤 ' + (data.ownerEmail || 'партнёр').split('@')[0];
+          }
+          body.appendChild(meta);
+
+          item.appendChild(body);
+
+          const delBtn = document.createElement('button');
+          delBtn.className = 'delete-btn';
+          delBtn.textContent = '×';
+          delBtn.addEventListener('click', async () => {
+            try {
+              await remove(ref(db, 'gifts/' + data.id));
+            } catch (err) { console.error(err); }
+          });
+          item.appendChild(delBtn);
+
+          giftsList.appendChild(item);
+        });
+      }, (err) => {
+        console.error('Ошибка подписки подарков:', err);
       });
     }
   </script>
