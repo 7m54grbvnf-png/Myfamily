@@ -341,9 +341,57 @@
 
     .gift-link { display: inline-block; margin-top: 6px; color: var(--accent-text); font-weight: 600; font-size: 13px; text-decoration: none; word-break: break-all; }
 
+    /* ПОДАРКИ */
+    .gift-view-tabs {
+      display: flex; background: var(--accent-soft);
+      border-radius: 14px; padding: 4px; margin-bottom: 16px;
+      border: 1px solid var(--accent-border);
+    }
+    .gift-view-tab {
+      flex: 1; padding: 11px 8px; text-align: center; border-radius: 10px;
+      font-size: 13px; font-weight: 700; color: var(--text-soft);
+      cursor: pointer; border: none; background: transparent; font-family: inherit;
+      transition: all 0.25s;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .gift-view-tab.active {
+      background: var(--accent-grad); color: #ffffff;
+      box-shadow: 0 4px 12px var(--accent-shadow);
+    }
+    .gift-view-tab .count-mini {
+      background: rgba(255, 255, 255, 0.25);
+      padding: 1px 7px; border-radius: 6px;
+      font-size: 11px; font-weight: 800;
+      min-width: 18px; text-align: center;
+    }
+    .gift-view-tab.active .count-mini { background: rgba(255, 255, 255, 0.3); }
+    .gift-view-tab:not(.active) .count-mini { background: var(--accent-soft-strong); color: var(--accent-text); }
+
+    .hide-done-toggle {
+      padding: 8px 14px; border-radius: 10px;
+      border: 1.5px solid var(--input-border); background: var(--input-bg);
+      font-family: inherit; font-size: 12px; font-weight: 700;
+      color: var(--text-soft); cursor: pointer;
+      transition: all 0.15s;
+    }
+    .hide-done-toggle:active { transform: scale(0.96); }
+    .hide-done-toggle.active {
+      background: var(--accent-grad); color: #ffffff;
+      border-color: transparent;
+      box-shadow: 0 3px 10px var(--accent-shadow);
+    }
+    .gift-toolbar {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 12px;
+    }
+    .gift-stat {
+      font-size: 12px; font-weight: 700; color: var(--text-soft);
+    }
+    .gift-stat .num { color: var(--accent-text); font-weight: 800; }
+
     .wish-total-card {
       background: var(--accent-grad); color: #ffffff; border-radius: 16px;
-      padding: 14px 18px; margin-bottom: 20px;
+      padding: 14px 18px; margin-bottom: 16px;
       display: flex; justify-content: space-between; align-items: center;
       box-shadow: 0 6px 20px var(--accent-shadow); animation: fadeInUp 0.3s ease;
     }
@@ -380,7 +428,6 @@
     .event-date-row { display: flex; gap: 8px; margin-bottom: 10px; }
     .event-date-row input { flex: 1; margin-bottom: 0; }
 
-    /* Быстрые кнопки */
     .quick-btns { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
     .quick-btn {
       flex: 1; min-width: 0; padding: 8px 10px;
@@ -601,7 +648,6 @@
         </div>
       </div>
 
-      <!-- РАСПИСАНИЕ -->
       <div id="page-schedule" class="page" style="display:none;">
         <div class="event-add-card">
           <h3>Новое событие</h3>
@@ -658,10 +704,28 @@
         </div>
       </div>
 
+      <!-- ПОДАРКИ -->
       <div id="page-gifts" class="page" style="display:none;">
+        <!-- Вкладки -->
+        <div class="gift-view-tabs">
+          <button class="gift-view-tab active" data-view="mine">
+            ✨ Мои желания <span class="count-mini" id="myWishesCount">0</span>
+          </button>
+          <button class="gift-view-tab" data-view="giving">
+            🎁 Я дарю <span class="count-mini" id="givingCount">0</span>
+          </button>
+        </div>
+
+        <!-- Общая сумма моих желаний -->
+        <div id="giftTotalCard" class="wish-total-card" style="display:none;">
+          <span class="wish-total-label">💝 Общая сумма моих желаний</span>
+          <span class="wish-total-value" id="giftTotalValue">0 ₽</span>
+        </div>
+
+        <!-- Форма -->
         <div class="chore-add-card">
-          <h3>Что я хочу в подарок</h3>
-          <input type="text" id="giftInput" placeholder="Название" autocomplete="off">
+          <h3 id="giftFormTitle">Новое желание</h3>
+          <input type="text" id="giftInput" placeholder="Что хочу в подарок?" autocomplete="off">
           <div class="chore-row">
             <select class="chore-select" id="giftOccasion">
               <option value="birthday">🎂 День рождения</option>
@@ -670,10 +734,34 @@
               <option value="anniversary">💍 Годовщина</option>
               <option value="just">🎁 Просто так</option>
             </select>
+            <select class="chore-select" id="giftPriority">
+              <option value="medium" selected>🟡 Хочу</option>
+              <option value="high">🔴 Очень хочу</option>
+              <option value="low">⚪ Когда-нибудь</option>
+            </select>
+          </div>
+          <div class="chore-row">
             <input type="number" id="giftPrice" placeholder="Цена ₽" style="margin-bottom:0;" inputmode="numeric">
           </div>
           <input type="url" id="giftUrl" placeholder="Ссылка на товар (необязательно)" autocomplete="off">
-          <button class="chore-add-btn" id="giftAddBtn">Добавить в виш-лист</button>
+          <textarea id="giftNote" placeholder="Заметка: размер, цвет, модель, пожелания" rows="2"></textarea>
+          <button class="chore-add-btn" id="giftAddBtn">Добавить</button>
+        </div>
+
+        <!-- Фильтр по поводам -->
+        <div class="categories-row" id="giftOccasionFilters">
+          <button class="cat-btn active" data-occ="all">📋 Все</button>
+          <button class="cat-btn" data-occ="birthday">🎂 ДР</button>
+          <button class="cat-btn" data-occ="newyear">🎄 НГ</button>
+          <button class="cat-btn" data-occ="valentine">💝 14.02</button>
+          <button class="cat-btn" data-occ="anniversary">💍 Годовщина</button>
+          <button class="cat-btn" data-occ="just">🎁 Просто так</button>
+        </div>
+
+        <!-- Тулбар: статистика + toggle -->
+        <div class="gift-toolbar">
+          <div class="gift-stat" id="giftStatLine">—</div>
+          <button class="hide-done-toggle" id="giftHideDoneBtn">👁 Скрыть купленные</button>
         </div>
 
         <div class="items-list" id="giftsList"></div>
@@ -918,6 +1006,12 @@
     let currentShopItems = [];
     let currentChoresForMe = [];
     let currentChoresByMe = [];
+
+    // Подарки
+    let currentGiftView = 'mine';           // 'mine' | 'giving'
+    let selectedGiftOccasion = 'all';       // 'all' или ключ повода
+    let hideDoneGifts = false;              // скрывать ли выполненные
+    let currentGiftItems = [];              // кеш подарков
 
     function getUserName(uid, email) {
       if (uid && userNames[uid]) return userNames[uid];
@@ -1450,7 +1544,6 @@
     const eventsFutureList = $('eventsFutureList');
     const eventsFutureEmpty = $('eventsFutureEmpty');
 
-    // Быстрые кнопки
     function pad2(n) { return String(n).padStart(2, '0'); }
     function toTimeStr(d) { return pad2(d.getHours()) + ':' + pad2(d.getMinutes()); }
     function toDateStr(d) { return d.getFullYear() + '-' + pad2(d.getMonth()+1) + '-' + pad2(d.getDate()); }
@@ -1521,7 +1614,6 @@
         const todayItems = items.filter(x => x.date === today);
         const futureItems = items.filter(x => x.date && x.date > today);
 
-        // Счётчик активных событий на сегодня
         const todayActive = todayItems.filter(x => !x.done).length;
         const todayCountEl = $('eventsTodayCount');
         if (todayCountEl) todayCountEl.textContent = todayActive;
@@ -1545,7 +1637,6 @@
       if (items.length === 0) { emptyEl.style.display = 'block'; return; }
       emptyEl.style.display = 'none';
 
-      // Сортировка: активные (по времени), затем выполненные
       const active = items.filter(x => !x.done);
       const done = items.filter(x => x.done);
 
@@ -1563,7 +1654,6 @@
       const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
       const item = document.createElement('div');
 
-      // Проверяем «сейчас идёт»
       let isNow = false;
       const now = new Date();
       const nowMin = now.getHours() * 60 + now.getMinutes();
@@ -1571,7 +1661,7 @@
       if (data.date === today && data.startTime && !data.done) {
         const parts = data.startTime.split(':').map(Number);
         const startMin = parts[0] * 60 + parts[1];
-        let endMin = startMin + 60; // по умолчанию 1 час
+        let endMin = startMin + 60;
         if (data.endTime) {
           const ep = data.endTime.split(':').map(Number);
           endMin = ep[0] * 60 + ep[1];
@@ -1585,7 +1675,6 @@
       if (data.repeat && data.repeat !== 'none') cls += ' repeat';
       item.className = cls;
 
-      // Чекбокс "выполнено" (прошло/отменено)
       const cb = document.createElement('div');
       cb.className = 'event-checkbox' + (data.done ? ' checked' : '');
       cb.title = data.done ? 'Вернуть' : 'Отметить как прошедшее';
@@ -1651,25 +1740,78 @@
       just: { emoji: '🎁', label: 'Просто так' }
     };
 
+    const GIFT_PRIORITY = {
+      high: { label: '🔴 Очень хочу', cls: 'high' },
+      medium: { label: '🟡 Хочу', cls: 'medium' },
+      low: { label: '⚪ Когда-нибудь', cls: 'low' }
+    };
+
     const giftInput = $('giftInput');
     const giftOccasion = $('giftOccasion');
+    const giftPriority = $('giftPriority');
     const giftPrice = $('giftPrice');
     const giftUrl = $('giftUrl');
+    const giftNote = $('giftNote');
     const giftAddBtn = $('giftAddBtn');
     const giftsList = $('giftsList');
     const giftsEmpty = $('giftsEmpty');
+    const giftTotalCard = $('giftTotalCard');
+    const giftTotalValue = $('giftTotalValue');
+    const giftHideDoneBtn = $('giftHideDoneBtn');
+    const giftStatLine = $('giftStatLine');
+
+    // Вкладки "Мои желания" / "Я дарю"
+    document.querySelectorAll('.gift-view-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.gift-view-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentGiftView = tab.dataset.view;
+        // Меняем заголовок формы
+        if (currentGiftView === 'mine') {
+          $('giftFormTitle').textContent = 'Новое желание';
+          giftInput.placeholder = 'Что хочу в подарок?';
+          giftAddBtn.textContent = 'Добавить';
+        } else {
+          $('giftFormTitle').textContent = 'Новая идея подарка';
+          giftInput.placeholder = 'Что подарить партнёру?';
+          giftAddBtn.textContent = 'Добавить';
+        }
+        renderGiftsList();
+      });
+    });
+
+    // Фильтр по поводу
+    document.querySelectorAll('#giftOccasionFilters .cat-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#giftOccasionFilters .cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedGiftOccasion = btn.dataset.occ;
+        renderGiftsList();
+      });
+    });
+
+    // Скрыть купленные
+    giftHideDoneBtn.addEventListener('click', () => {
+      hideDoneGifts = !hideDoneGifts;
+      giftHideDoneBtn.classList.toggle('active', hideDoneGifts);
+      giftHideDoneBtn.textContent = hideDoneGifts ? '🙈 Скрыто' : '👁 Скрыть купленные';
+      renderGiftsList();
+    });
 
     giftAddBtn.addEventListener('click', async () => {
       const title = giftInput.value.trim();
       const occasion = giftOccasion.value;
+      const priority = giftPriority.value;
       const price = giftPrice.value;
       const url = giftUrl.value.trim();
+      const note = giftNote.value.trim();
+
       if (!title) { alert('Введите название'); return; }
       try {
         const giftsRef = ref(db, 'gifts');
         const newRef = push(giftsRef);
         const data = {
-          title, occasion,
+          title, occasion, priority,
           ownerId: currentUser.uid,
           ownerEmail: currentUser.email,
           done: false,
@@ -1677,11 +1819,14 @@
         };
         if (price) data.price = price;
         if (url) data.url = url;
+        if (note) data.note = note;
         await set(newRef, data);
         giftInput.value = '';
         giftPrice.value = '';
         giftUrl.value = '';
+        giftNote.value = '';
         giftOccasion.value = 'birthday';
+        giftPriority.value = 'medium';
       } catch (err) {
         alert('ОШИБКА: ' + err.code + '\n' + err.message);
       }
@@ -1690,61 +1835,202 @@
     function startGiftsListener() {
       const giftsRef = query(ref(db, 'gifts'), orderByChild('createdAt'));
       giftsUnsubscribe = onValue(giftsRef, (snapshot) => {
-        giftsList.innerHTML = '';
         const items = [];
         snapshot.forEach((child) => { items.push({ id: child.key, ...child.val() }); });
         items.reverse();
-        if (items.length === 0) { giftsEmpty.style.display = 'block'; return; }
-        giftsEmpty.style.display = 'none';
+        currentGiftItems = items;
+
+        // Обновляем счётчики на вкладках
         const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
-        items.forEach((data) => {
-          const occ = OCCASIONS[data.occasion] || OCCASIONS.just;
-          const isMine = data.ownerId === myUid;
-          const item = document.createElement('div');
-          item.className = 'chore-item' + (data.done ? ' done' : '');
-          if (!isMine) {
-            const checkbox = document.createElement('div');
-            checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
-            checkbox.addEventListener('click', async () => {
-              try { await update(ref(db, 'gifts/' + data.id), { done: !data.done }); } catch (err) { console.error(err); }
-            });
-            item.appendChild(checkbox);
-          }
-          const body = document.createElement('div');
-          body.className = 'chore-item-body';
-          const title = document.createElement('div');
-          title.className = 'item-title';
-          title.textContent = occ.emoji + ' ' + data.title;
-          body.appendChild(title);
-          const badge = document.createElement('div');
-          badge.className = 'chore-due';
-          badge.textContent = occ.label + (data.price ? ' • ' + data.price + ' ₽' : '');
-          body.appendChild(badge);
-          if (data.url) {
-            const link = document.createElement('a');
-            link.className = 'gift-link';
-            link.href = data.url;
-            link.target = '_blank';
-            link.rel = 'noopener';
-            link.textContent = '🔗 Открыть ссылку';
-            body.appendChild(link);
-          }
-          const meta = document.createElement('div');
-          meta.className = 'item-meta';
-          if (isMine) meta.textContent = '✨ моё желание';
-          else meta.textContent = '👤 ' + getUserName(data.ownerId, data.ownerEmail);
-          body.appendChild(meta);
-          item.appendChild(body);
-          const delBtn = document.createElement('button');
-          delBtn.className = 'delete-btn';
-          delBtn.textContent = '×';
-          delBtn.addEventListener('click', async () => {
-            try { await remove(ref(db, 'gifts/' + data.id)); } catch (err) { console.error(err); }
-          });
-          item.appendChild(delBtn);
-          giftsList.appendChild(item);
-        });
+        const mineCount = items.filter(g => g.ownerId === myUid && !g.done).length;
+        const givingCount = items.filter(g => g.ownerId !== myUid && !g.done).length;
+        const myWishesCountEl = $('myWishesCount');
+        const givingCountEl = $('givingCount');
+        if (myWishesCountEl) myWishesCountEl.textContent = mineCount;
+        if (givingCountEl) givingCountEl.textContent = givingCount;
+
+        renderGiftsList();
       }, (err) => { console.error('Ошибка подписки подарков:', err); });
+    }
+
+    function renderGiftsList() {
+      const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
+      giftsList.innerHTML = '';
+
+      // 1. Фильтр по вкладке
+      let base = currentGiftItems.filter(g => {
+        if (currentGiftView === 'mine') return g.ownerId === myUid;
+        else return g.ownerId !== myUid;
+      });
+
+      // 2. Фильтр по поводу
+      if (selectedGiftOccasion !== 'all') {
+        base = base.filter(g => (g.occasion || 'just') === selectedGiftOccasion);
+      }
+
+      // 3. Скрыть купленные (если включено)
+      if (hideDoneGifts) {
+        base = base.filter(g => !g.done);
+      }
+
+      // 4. Общая сумма (только для моих желаний, не купленных, с ценой)
+      if (currentGiftView === 'mine') {
+        const activeTotal = base
+          .filter(g => !g.done && g.price)
+          .reduce((sum, g) => sum + Number(g.price || 0), 0);
+        if (activeTotal > 0) {
+          giftTotalCard.style.display = 'flex';
+          giftTotalValue.textContent = activeTotal.toLocaleString('ru-RU') + ' ₽';
+        } else {
+          giftTotalCard.style.display = 'none';
+        }
+      } else {
+        giftTotalCard.style.display = 'none';
+      }
+
+      // 5. Строка статистики
+      const totalCount = base.length;
+      const doneCount = base.filter(g => g.done).length;
+      const activeCount = totalCount - doneCount;
+      if (totalCount === 0) {
+        giftStatLine.innerHTML = 'Ничего не найдено';
+      } else {
+        giftStatLine.innerHTML = 'Активных: <span class="num">' + activeCount + '</span>' +
+          (doneCount > 0 ? ' • Куплено: <span class="num">' + doneCount + '</span>' : '');
+      }
+
+      // 6. Пусто?
+      if (base.length === 0) {
+        giftsEmpty.style.display = 'block';
+        return;
+      }
+      giftsEmpty.style.display = 'none';
+
+      // 7. Сортировка: активные → потом купленные; внутри активных — по приоритету
+      const active = base.filter(g => !g.done);
+      const done = base.filter(g => g.done);
+      const PRIORITY_ORDER = { high: 0, medium: 1, low: 2 };
+      active.sort((a, b) => {
+        const pa = PRIORITY_ORDER[a.priority] ?? 1;
+        const pb = PRIORITY_ORDER[b.priority] ?? 1;
+        return pa - pb;
+      });
+
+      active.forEach(g => giftsList.appendChild(buildGiftItem(g, myUid)));
+
+      if (done.length > 0 && !hideDoneGifts) {
+        const sub = document.createElement('div');
+        sub.className = 'chore-done-subtitle';
+        sub.textContent = '✓ Куплено (' + done.length + ')';
+        giftsList.appendChild(sub);
+        done.forEach(g => giftsList.appendChild(buildGiftItem(g, myUid)));
+      }
+    }
+
+    function buildGiftItem(data, myUid) {
+      const occ = OCCASIONS[data.occasion] || OCCASIONS.just;
+      const prio = GIFT_PRIORITY[data.priority] || GIFT_PRIORITY.medium;
+      const isMine = data.ownerId === myUid;
+
+      const item = document.createElement('div');
+      item.className = 'chore-item' + (data.done ? ' done' : '');
+
+      // Чекбокс: только для чужих желаний (отметить купленным)
+      if (!isMine) {
+        const checkbox = document.createElement('div');
+        checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
+        checkbox.addEventListener('click', async () => {
+          try { await update(ref(db, 'gifts/' + data.id), { done: !data.done }); } catch (err) { console.error(err); }
+        });
+        item.appendChild(checkbox);
+      }
+
+      const body = document.createElement('div');
+      body.className = 'chore-item-body';
+
+      // Заголовок + цена
+      const titleRow = document.createElement('div');
+      titleRow.style.display = 'flex';
+      titleRow.style.alignItems = 'flex-start';
+      titleRow.style.gap = '8px';
+
+      const title = document.createElement('div');
+      title.className = 'item-title';
+      title.style.flex = '1';
+      title.textContent = occ.emoji + ' ' + data.title;
+      titleRow.appendChild(title);
+
+      if (data.price) {
+        const priceTag = document.createElement('span');
+        priceTag.className = 'wish-price-tag';
+        priceTag.textContent = Number(data.price).toLocaleString('ru-RU') + ' ₽';
+        titleRow.appendChild(priceTag);
+      }
+      body.appendChild(titleRow);
+
+      // Бейджи: повод + приоритет
+      const badges = document.createElement('div');
+      badges.style.display = 'flex';
+      badges.style.flexWrap = 'wrap';
+      badges.style.gap = '6px';
+      badges.style.alignItems = 'center';
+      badges.style.marginTop = '8px';
+
+      const occBadge = document.createElement('span');
+      occBadge.className = 'chore-due';
+      occBadge.textContent = occ.label;
+      badges.appendChild(occBadge);
+
+      if (data.priority === 'high' || data.priority === 'low') {
+        const pBadge = document.createElement('span');
+        pBadge.className = 'wish-priority ' + prio.cls;
+        pBadge.style.marginTop = '0';
+        pBadge.textContent = prio.label;
+        badges.appendChild(pBadge);
+      }
+
+      body.appendChild(badges);
+
+      // Заметка
+      if (data.note) {
+        const note = document.createElement('div');
+        note.style.fontSize = '13px';
+        note.style.color = 'var(--text-soft)';
+        note.style.marginTop = '8px';
+        note.style.fontStyle = 'italic';
+        note.textContent = '📝 ' + data.note;
+        body.appendChild(note);
+      }
+
+      // Ссылка
+      if (data.url) {
+        const link = document.createElement('a');
+        link.className = 'gift-link';
+        link.href = data.url;
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.textContent = '🔗 Открыть ссылку';
+        body.appendChild(link);
+      }
+
+      // Кто
+      const meta = document.createElement('div');
+      meta.className = 'item-meta';
+      if (isMine) meta.textContent = '✨ моё желание';
+      else meta.textContent = '👤 ' + getUserName(data.ownerId, data.ownerEmail);
+      body.appendChild(meta);
+
+      item.appendChild(body);
+
+      const delBtn = document.createElement('button');
+      delBtn.className = 'delete-btn';
+      delBtn.textContent = '×';
+      delBtn.addEventListener('click', async () => {
+        try { await remove(ref(db, 'gifts/' + data.id)); } catch (err) { console.error(err); }
+      });
+      item.appendChild(delBtn);
+
+      return item;
     }
 
     // ============ ХОТЕЛКИ ============
