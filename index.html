@@ -20,8 +20,7 @@
     html, body { height: 100%; }
 
     html[data-theme="gold"], :root {
-      --bg: #f6f3ee;
-      --bg-glow-1: rgba(217, 179, 130, 0.18); --bg-glow-2: rgba(184, 137, 78, 0.08);
+      --bg: #f6f3ee; --bg-glow-1: rgba(217, 179, 130, 0.18); --bg-glow-2: rgba(184, 137, 78, 0.08);
       --text: #1c1a17; --text-soft: #9a8f80; --text-muted: #b5a898;
       --card: #ffffff; --card-blur: rgba(255, 255, 255, 0.9); --card-border: #f0ebe1;
       --input-bg: #fbf9f5; --input-border: #e6dfd3;
@@ -132,17 +131,8 @@
       background-clip: text;
     }
     .subtitle { font-size: 15px; color: var(--text-soft); text-align: center; margin-bottom: 32px; font-weight: 500; }
-    .tabs {
-      display: flex; background: var(--accent-soft);
-      border-radius: 16px; padding: 4px; margin-bottom: 26px;
-      border: 1px solid var(--accent-border);
-    }
-    .tab {
-      flex: 1; padding: 12px; text-align: center; border-radius: 12px;
-      font-size: 15px; font-weight: 700; color: var(--text-soft);
-      cursor: pointer; border: none; background: transparent; font-family: inherit;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+    .tabs { display: flex; background: var(--accent-soft); border-radius: 16px; padding: 4px; margin-bottom: 26px; border: 1px solid var(--accent-border); }
+    .tab { flex: 1; padding: 12px; text-align: center; border-radius: 12px; font-size: 15px; font-weight: 700; color: var(--text-soft); cursor: pointer; border: none; background: transparent; font-family: inherit; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
     .tab.active { background: var(--accent-grad); color: #ffffff; box-shadow: 0 4px 14px var(--accent-shadow); }
     input[type="email"], input[type="password"], input[type="text"], input[type="date"], input[type="time"], input[type="number"], input[type="url"] {
       width: 100%; padding: 16px; font-size: 16px; font-family: inherit;
@@ -208,15 +198,9 @@
 
     .container { padding: 20px; max-width: 500px; margin: 0 auto; }
 
-    /* МАГАЗИН */
     .add-row { display: flex; gap: 10px; margin-bottom: 22px; }
     #page-shop .add-row { margin-bottom: 10px; }
-    .add-row input {
-      flex: 1; margin-bottom: 0;
-      background: var(--card);
-      border: 1px solid var(--card-border);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-    }
+    .add-row input { flex: 1; margin-bottom: 0; background: var(--card); border: 1px solid var(--card-border); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03); }
     .add-btn {
       width: 56px; height: 56px; flex-shrink: 0;
       background: var(--accent-grad);
@@ -245,11 +229,7 @@
       transition: all 0.15s; white-space: nowrap;
     }
     .cat-btn:active { transform: scale(0.96); }
-    .cat-btn.active {
-      background: var(--accent-grad);
-      border-color: transparent; color: #ffffff;
-      box-shadow: 0 4px 12px var(--accent-shadow);
-    }
+    .cat-btn.active { background: var(--accent-grad); border-color: transparent; color: #ffffff; box-shadow: 0 4px 12px var(--accent-shadow); }
 
     .cat-group-title {
       display: flex; align-items: center; gap: 6px;
@@ -258,18 +238,13 @@
       margin: 18px 4px 8px;
     }
     .cat-group-title:first-child { margin-top: 0; }
-    .cat-group-title .count-badge {
-      background: var(--accent-soft); color: var(--accent-text);
-      font-size: 10px; padding: 2px 7px;
-      border-radius: 6px; font-weight: 800; letter-spacing: 0;
-    }
+    .cat-group-title .count-badge { background: var(--accent-soft); color: var(--accent-text); font-size: 10px; padding: 2px 7px; border-radius: 6px; font-weight: 800; letter-spacing: 0; }
 
     .cat-marker { width: 4px; height: 36px; border-radius: 2px; flex-shrink: 0; }
 
     .items-list { display: flex; flex-direction: column; gap: 8px; }
     .item {
-      background: var(--card);
-      border: 1px solid var(--card-border);
+      background: var(--card); border: 1px solid var(--card-border);
       border-radius: 16px; padding: 16px;
       display: flex; align-items: center; gap: 14px;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
@@ -287,53 +262,31 @@
       cursor: pointer; transition: all 0.2s;
     }
     .checkbox:active { transform: scale(0.9); }
-    .checkbox.checked {
-      background: var(--accent-grad);
-      border-color: transparent;
-      box-shadow: 0 4px 12px var(--accent-shadow-strong);
-    }
+    .checkbox.checked { background: var(--accent-grad); border-color: transparent; box-shadow: 0 4px 12px var(--accent-shadow-strong); }
     .checkbox.checked::after { content: "✓"; color: #ffffff; font-size: 16px; font-weight: 900; }
     .item-title { flex: 1; font-size: 16px; font-weight: 500; word-break: break-word; color: var(--text); }
     .item-meta { font-size: 12px; color: var(--text-soft); margin-top: 3px; font-weight: 500; }
-    .delete-btn {
-      background: transparent; border: none; color: var(--text-muted);
-      font-size: 22px; cursor: pointer; padding: 4px 8px; font-family: inherit;
-      transition: all 0.2s;
-    }
+    .delete-btn { background: transparent; border: none; color: var(--text-muted); font-size: 22px; cursor: pointer; padding: 4px 8px; font-family: inherit; transition: all 0.2s; }
     .delete-btn:active { color: #c0554e; transform: scale(1.15); }
 
-    .empty {
-      text-align: center; padding: 48px 20px; color: var(--text-soft); font-size: 15px;
-      font-weight: 500; animation: fadeInUp 0.4s ease;
-    }
+    .empty { text-align: center; padding: 48px 20px; color: var(--text-soft); font-size: 15px; font-weight: 500; animation: fadeInUp 0.4s ease; }
     .empty-emoji { font-size: 52px; margin-bottom: 14px; opacity: 0.65; }
 
     .clear-btn {
       width: 100%; padding: 14px; margin-top: 20px;
-      background: transparent;
-      border: 1.5px dashed var(--accent-1);
-      border-radius: 14px;
-      font-family: inherit; font-size: 14px; font-weight: 700;
-      color: var(--accent-text);
-      cursor: pointer;
-      transition: all 0.2s;
+      background: transparent; border: 1.5px dashed var(--accent-1);
+      border-radius: 14px; font-family: inherit; font-size: 14px; font-weight: 700;
+      color: var(--accent-text); cursor: pointer; transition: all 0.2s;
     }
     .clear-btn:active { background: var(--accent-soft); transform: scale(0.98); }
 
-    /* ДЕЛА */
     .chore-add-card {
-      background: var(--card);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 18px;
-      margin-bottom: 24px;
+      background: var(--card); border: 1px solid var(--card-border);
+      border-radius: 20px; padding: 18px; margin-bottom: 24px;
       box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
       animation: fadeInUp 0.3s ease;
     }
-    .chore-add-card h3 {
-      font-size: 13px; color: var(--accent-text); margin-bottom: 14px;
-      font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase;
-    }
+    .chore-add-card h3 { font-size: 13px; color: var(--accent-text); margin-bottom: 14px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; }
     .chore-row { display: flex; gap: 8px; margin-bottom: 10px; }
     .chore-select {
       flex: 1; padding: 14px; font-size: 15px; font-family: inherit;
@@ -341,171 +294,93 @@
       background: var(--input-bg); color: var(--text); outline: none;
       -webkit-appearance: none; appearance: none;
       background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23b8894e' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-      background-repeat: no-repeat;
-      background-position: right 14px center;
-      padding-right: 36px;
-      transition: all 0.2s;
+      background-repeat: no-repeat; background-position: right 14px center;
+      padding-right: 36px; transition: all 0.2s;
     }
     .chore-select:focus { border-color: var(--accent-2); box-shadow: 0 0 0 4px var(--accent-soft-strong); }
     .chore-add-btn {
       width: 100%; padding: 15px; font-size: 16px; font-weight: 700;
       font-family: inherit; color: #ffffff;
-      background: var(--accent-grad);
-      border: none; border-radius: 16px; cursor: pointer;
+      background: var(--accent-grad); border: none; border-radius: 16px; cursor: pointer;
       transition: all 0.2s;
       box-shadow: 0 10px 22px var(--accent-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.3);
     }
     .chore-add-btn:active { transform: scale(0.97); }
 
-    .chore-section-head {
-      display: flex; align-items: center; justify-content: space-between;
-      margin: 28px 0 12px;
-    }
+    .chore-section-head { display: flex; align-items: center; justify-content: space-between; margin: 28px 0 12px; }
     .chore-add-card + .chore-section-head { margin-top: 0; }
-    .chore-section-title {
-      font-size: 12px; font-weight: 800; color: var(--text-soft);
-      text-transform: uppercase; letter-spacing: 1.4px;
-      margin: 0;
-    }
-    .chore-count-badge {
-      background: var(--accent-soft);
-      color: var(--accent-text);
-      font-size: 11px; font-weight: 800;
-      padding: 3px 10px;
-      border-radius: 8px;
-      border: 1px solid var(--accent-border);
-      min-width: 26px;
-      text-align: center;
-    }
+    .chore-section-title { font-size: 12px; font-weight: 800; color: var(--text-soft); text-transform: uppercase; letter-spacing: 1.4px; margin: 0; }
+    .chore-count-badge { background: var(--accent-soft); color: var(--accent-text); font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 8px; border: 1px solid var(--accent-border); min-width: 26px; text-align: center; }
 
     .chore-item {
-      background: var(--card);
-      border: 1px solid var(--card-border);
+      background: var(--card); border: 1px solid var(--card-border);
       border-radius: 16px; padding: 16px;
       display: flex; align-items: flex-start; gap: 14px;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
-      margin-bottom: 8px;
-      transition: all 0.25s;
-      animation: fadeInUp 0.3s ease;
+      margin-bottom: 8px; transition: all 0.25s; animation: fadeInUp 0.3s ease;
     }
     .chore-item.done { opacity: 0.5; }
     .chore-item.done .item-title { text-decoration: line-through; text-decoration-color: var(--text-muted); }
     .chore-item-body { flex: 1; }
     .chore-due {
-      display: inline-block;
-      font-size: 11px; font-weight: 700;
-      color: var(--accent-text);
-      background: var(--accent-soft);
-      border: 1px solid var(--accent-border);
-      padding: 4px 10px;
-      border-radius: 8px;
+      display: inline-block; font-size: 11px; font-weight: 700;
+      color: var(--accent-text); background: var(--accent-soft);
+      border: 1px solid var(--accent-border); padding: 4px 10px; border-radius: 8px;
       letter-spacing: 0.3px;
     }
     .chore-due.overdue { color: #c0554e; background: #fbeae8; border-color: #f3d5d2; }
     .chore-due.today { color: #b8770f; background: #fff4e0; border-color: #f5e0b8; }
     .chore-due.tomorrow { color: #3a6fb5; background: #eaf1fb; border-color: #d5e3f5; }
 
-    .priority-badge {
-      display: inline-block;
-      font-size: 10px; font-weight: 800;
-      padding: 3px 8px;
-      border-radius: 6px;
-      letter-spacing: 0.3px;
-    }
+    .priority-badge { display: inline-block; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px; letter-spacing: 0.3px; }
     .priority-badge.high { background: #fbeae8; color: #c0554e; border: 1px solid #f3d5d2; }
     .priority-badge.low { background: var(--accent-soft); color: var(--accent-text); border: 1px solid var(--accent-border); }
 
-    .chore-done-subtitle {
-      font-size: 11px; font-weight: 800;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-      margin: 16px 4px 8px;
-    }
+    .chore-done-subtitle { font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.2px; margin: 16px 4px 8px; }
 
     .clear-chores-btn {
-      width: 100%; padding: 11px;
-      margin-top: 8px;
-      background: transparent;
-      border: 1.5px dashed var(--accent-1);
-      border-radius: 12px;
-      font-family: inherit; font-size: 13px; font-weight: 700;
-      color: var(--accent-text);
-      cursor: pointer;
-      transition: all 0.2s;
+      width: 100%; padding: 11px; margin-top: 8px;
+      background: transparent; border: 1.5px dashed var(--accent-1);
+      border-radius: 12px; font-family: inherit; font-size: 13px; font-weight: 700;
+      color: var(--accent-text); cursor: pointer; transition: all 0.2s;
     }
     .clear-chores-btn:active { background: var(--accent-soft); transform: scale(0.98); }
 
-    .gift-link {
-      display: inline-block;
-      margin-top: 6px;
-      color: var(--accent-text);
-      font-weight: 600;
-      font-size: 13px;
-      text-decoration: none;
-      word-break: break-all;
-    }
+    .gift-link { display: inline-block; margin-top: 6px; color: var(--accent-text); font-weight: 600; font-size: 13px; text-decoration: none; word-break: break-all; }
 
     .wish-total-card {
-      background: var(--accent-grad);
-      color: #ffffff;
-      border-radius: 16px;
-      padding: 14px 18px;
-      margin-bottom: 20px;
+      background: var(--accent-grad); color: #ffffff; border-radius: 16px;
+      padding: 14px 18px; margin-bottom: 20px;
       display: flex; justify-content: space-between; align-items: center;
-      box-shadow: 0 6px 20px var(--accent-shadow);
-      animation: fadeInUp 0.3s ease;
+      box-shadow: 0 6px 20px var(--accent-shadow); animation: fadeInUp 0.3s ease;
     }
     .wish-total-label { font-size: 13px; opacity: 0.9; font-weight: 600; }
     .wish-total-value { font-size: 20px; font-weight: 800; }
 
     .wish-status-row { display: flex; gap: 6px; margin-top: 12px; }
     .wish-status-btn {
-      flex: 1; padding: 9px 6px;
-      border-radius: 12px;
-      border: 1.5px solid var(--input-border);
-      background: var(--input-bg);
+      flex: 1; padding: 9px 6px; border-radius: 12px;
+      border: 1.5px solid var(--input-border); background: var(--input-bg);
       font-family: inherit; font-size: 12px; font-weight: 700;
-      color: var(--text-soft);
-      cursor: pointer;
-      transition: all 0.15s;
+      color: var(--text-soft); cursor: pointer; transition: all 0.15s;
     }
     .wish-status-btn:active { transform: scale(0.96); }
-    .wish-status-btn.active {
-      background: var(--accent-grad);
-      border-color: transparent; color: #ffffff;
-      box-shadow: 0 3px 10px var(--accent-shadow);
-    }
+    .wish-status-btn.active { background: var(--accent-grad); border-color: transparent; color: #ffffff; box-shadow: 0 3px 10px var(--accent-shadow); }
 
-    .wish-priority {
-      display: inline-block;
-      font-size: 11px; font-weight: 800;
-      padding: 3px 8px; border-radius: 6px;
-      margin-top: 8px;
-      letter-spacing: 0.3px;
-    }
+    .wish-priority { display: inline-block; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 6px; margin-top: 8px; letter-spacing: 0.3px; }
     .wish-priority.high { background: #fbeae8; color: #c0554e; border: 1px solid #f3d5d2; }
     .wish-priority.medium { background: #fff4e0; color: #b8770f; border: 1px solid #f5e0b8; }
     .wish-priority.low { background: var(--accent-soft); color: var(--accent-text); border: 1px solid var(--accent-border); }
 
-    .wish-price-tag {
-      font-size: 15px; font-weight: 800; color: var(--accent-text);
-      white-space: nowrap; margin-left: 8px;
-    }
+    .wish-price-tag { font-size: 15px; font-weight: 800; color: var(--accent-text); white-space: nowrap; margin-left: 8px; }
 
     .event-add-card {
-      background: var(--card);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 18px;
-      margin-bottom: 24px;
+      background: var(--card); border: 1px solid var(--card-border);
+      border-radius: 20px; padding: 18px; margin-bottom: 24px;
       box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
       animation: fadeInUp 0.3s ease;
     }
-    .event-add-card h3 {
-      font-size: 13px; color: var(--accent-text); margin-bottom: 14px;
-      font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase;
-    }
+    .event-add-card h3 { font-size: 13px; color: var(--accent-text); margin-bottom: 14px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; }
     .event-time-row { display: flex; gap: 8px; margin-bottom: 10px; }
     .event-time-row input { flex: 1; margin-bottom: 0; }
     .event-date-row { margin-bottom: 10px; }
@@ -513,38 +388,24 @@
     .event-add-btn {
       width: 100%; padding: 15px; font-size: 16px; font-weight: 700;
       font-family: inherit; color: #ffffff;
-      background: var(--accent-grad);
-      border: none; border-radius: 16px; cursor: pointer;
+      background: var(--accent-grad); border: none; border-radius: 16px; cursor: pointer;
       transition: all 0.2s;
       box-shadow: 0 10px 22px var(--accent-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.3);
     }
     .event-add-btn:active { transform: scale(0.97); }
 
-    .event-section-title {
-      font-size: 12px; font-weight: 800; color: var(--text-soft);
-      text-transform: uppercase; letter-spacing: 1.4px;
-      margin: 24px 0 12px;
-    }
+    .event-section-title { font-size: 12px; font-weight: 800; color: var(--text-soft); text-transform: uppercase; letter-spacing: 1.4px; margin: 24px 0 12px; }
     .event-section-title:first-child { margin-top: 0; }
 
     .event-item {
-      background: var(--card);
-      border: 1px solid var(--card-border);
+      background: var(--card); border: 1px solid var(--card-border);
       border-radius: 16px; padding: 16px;
       display: flex; align-items: center; gap: 14px;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
-      margin-bottom: 8px;
-      transition: all 0.25s; animation: fadeInUp 0.3s ease;
+      margin-bottom: 8px; transition: all 0.25s; animation: fadeInUp 0.3s ease;
     }
-    .event-time {
-      font-size: 16px; font-weight: 800; color: var(--accent-text);
-      min-width: 64px; text-align: center; flex-shrink: 0;
-      letter-spacing: -0.4px;
-    }
-    .event-time .time-sep {
-      display: block; font-size: 11px; color: var(--text-soft);
-      font-weight: 500; margin-top: 3px; letter-spacing: 0;
-    }
+    .event-time { font-size: 16px; font-weight: 800; color: var(--accent-text); min-width: 64px; text-align: center; flex-shrink: 0; letter-spacing: -0.4px; }
+    .event-time .time-sep { display: block; font-size: 11px; color: var(--text-soft); font-weight: 500; margin-top: 3px; letter-spacing: 0; }
     .event-body { flex: 1; }
     .event-title { font-size: 16px; font-weight: 600; word-break: break-word; color: var(--text); }
     .event-meta { font-size: 12px; color: var(--text-soft); margin-top: 3px; font-weight: 500; }
@@ -561,27 +422,10 @@
       max-width: 500px; margin: 0 auto;
       box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.04);
     }
-    .nav-btn {
-      flex: 1; background: transparent; border: none; font-family: inherit;
-      padding: 4px 4px; cursor: pointer; color: var(--text-muted);
-      display: flex; flex-direction: column; align-items: center; gap: 3px;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-    }
+    .nav-btn { flex: 1; background: transparent; border: none; font-family: inherit; padding: 4px 4px; cursor: pointer; color: var(--text-muted); display: flex; flex-direction: column; align-items: center; gap: 3px; transition: all 0.25s; position: relative; }
     .nav-btn.active { color: var(--accent-text); }
-    .nav-icon {
-      width: 44px; height: 40px;
-      display: flex; align-items: center; justify-content: center;
-      border-radius: 14px;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      background: var(--accent-soft-light);
-    }
-    .nav-btn.active .nav-icon {
-      background: var(--accent-grad);
-      color: #ffffff;
-      transform: translateY(-3px) scale(1.1);
-      box-shadow: 0 8px 20px var(--accent-shadow-strong);
-    }
+    .nav-icon { width: 44px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 14px; transition: all 0.3s; background: var(--accent-soft-light); }
+    .nav-btn.active .nav-icon { background: var(--accent-grad); color: #ffffff; transform: translateY(-3px) scale(1.1); box-shadow: 0 8px 20px var(--accent-shadow-strong); }
     .nav-label { font-size: 10px; font-weight: 700; transition: all 0.25s; letter-spacing: 0.2px; }
     .nav-btn.active .nav-label { letter-spacing: 0.4px; }
 
@@ -590,22 +434,17 @@
       background: rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
       display: flex; align-items: flex-end; justify-content: center;
-      padding: 16px;
-      animation: fadeInUp 0.2s ease;
+      padding: 16px; animation: fadeInUp 0.2s ease;
     }
     .theme-modal-content {
-      background: var(--card);
-      border-radius: 24px 24px 20px 20px;
-      padding: 24px;
-      width: 100%; max-width: 500px;
+      background: var(--card); border-radius: 24px 24px 20px 20px;
+      padding: 24px; width: 100%; max-width: 500px;
       max-height: 85vh; overflow-y: auto;
       box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.3);
       animation: fadeInUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .theme-modal-content h3 {
-      font-size: 20px; font-weight: 800; color: var(--text);
-      margin-bottom: 20px; letter-spacing: -0.4px;
-    }
+    .theme-modal-content h3 { font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 20px; letter-spacing: -0.4px; }
+    .theme-modal-content .modal-hint { color: var(--text-soft); font-size: 14px; margin-bottom: 16px; font-weight: 500; }
     .theme-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; }
     .theme-option {
       background: var(--input-bg); border: 2px solid var(--input-border);
@@ -617,12 +456,7 @@
     .theme-option:active { transform: scale(0.97); }
     .theme-option.active { border-color: var(--accent-2); background: var(--accent-soft); box-shadow: 0 4px 14px var(--accent-soft-strong); }
     .theme-preview { width: 100%; height: 60px; border-radius: 12px; position: relative; overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); }
-    .theme-preview-dot {
-      position: absolute; width: 22px; height: 22px; border-radius: 50%;
-      top: 50%; left: 50%; transform: translate(-50%, -50%);
-      background: rgba(255, 255, 255, 0.6);
-      backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
-    }
+    .theme-preview-dot { position: absolute; width: 22px; height: 22px; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
     .theme-name { font-size: 13px; font-weight: 700; color: var(--text); letter-spacing: 0.2px; }
   </style>
 </head>
@@ -652,6 +486,7 @@
         <h2 id="pageTitle">Магазин</h2>
       </div>
       <div class="topbar-actions">
+        <button class="logout-btn" id="nameBtn" title="Моё имя">👤</button>
         <button class="logout-btn" id="themeBtn" title="Тема оформления">🎨</button>
         <button class="logout-btn" id="logoutBtn">Выйти</button>
       </div>
@@ -659,7 +494,6 @@
 
     <div class="container">
 
-      <!-- МАГАЗИН -->
       <div id="page-shop" class="page">
         <div class="add-row">
           <input type="text" id="shopInput" placeholder="Что купить? (можно через запятую)" autocomplete="off">
@@ -685,7 +519,6 @@
         </div>
       </div>
 
-      <!-- ДЕЛА -->
       <div id="page-chores" class="page" style="display:none;">
         <div class="chore-add-card">
           <h3>Новая задача для другого</h3>
@@ -729,7 +562,6 @@
         </div>
       </div>
 
-      <!-- РАСПИСАНИЕ -->
       <div id="page-schedule" class="page" style="display:none;">
         <div class="event-add-card">
           <h3>Новое событие</h3>
@@ -759,7 +591,6 @@
         </div>
       </div>
 
-      <!-- ПОДАРКИ -->
       <div id="page-gifts" class="page" style="display:none;">
         <div class="chore-add-card">
           <h3>Что я хочу в подарок</h3>
@@ -785,7 +616,6 @@
         </div>
       </div>
 
-      <!-- ХОТЕЛКИ -->
       <div id="page-wishes" class="page" style="display:none;">
         <div id="wishTotalCard" class="wish-total-card" style="display:none;">
           <span class="wish-total-label">Общая сумма активных желаний</span>
@@ -840,6 +670,17 @@
     </div>
   </div>
 
+  <!-- МОДАЛКА ИМЕНИ -->
+  <div id="nameModal" class="theme-modal" style="display:none;">
+    <div class="theme-modal-content">
+      <h3 id="nameModalTitle">Как вас называть?</h3>
+      <p class="modal-hint" id="nameModalHint">Это имя увидит ваш партнёр. Можно поменять позже.</p>
+      <input type="text" id="nameInput" placeholder="Например: Алёша" maxlength="20" autocomplete="off">
+      <button class="primary" id="nameSaveBtn">Сохранить</button>
+    </div>
+  </div>
+
+  <!-- МОДАЛКА ТЕМЫ -->
   <div id="themeModal" class="theme-modal" style="display:none;">
     <div class="theme-modal-content">
       <h3>Тема оформления</h3>
@@ -892,7 +733,7 @@
       onAuthStateChanged, signOut, setPersistence, browserLocalPersistence
     } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
     import {
-      getDatabase, ref, push, set, update, remove, onValue, query, orderByChild
+      getDatabase, ref, push, set, update, remove, onValue, query, orderByChild, get
     } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
     const firebaseConfig = {
@@ -1000,7 +841,8 @@
 
     // ГЛОБАЛЬНЫЕ
     let currentUser = null;
-    let allUsers = {};
+    let allUsers = {};    // uid -> email
+    let userNames = {};   // uid -> name (или fallback)
     let shopUnsubscribe = null;
     let choresUnsubscribe = null;
     let eventsUnsubscribe = null;
@@ -1009,16 +851,33 @@
 
     let selectedCategory = 'all';
     let currentShopItems = [];
-
-    // Кеш задач для кнопок "Очистить выполненные"
     let currentChoresForMe = [];
     let currentChoresByMe = [];
 
-    onAuthStateChanged(auth, (user) => {
+    // Универсальная функция: имя пользователя по uid или email
+    function getUserName(uid, email) {
+      if (uid && userNames[uid]) return userNames[uid];
+      if (email) return email.split('@')[0];
+      return 'партнёр';
+    }
+
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
+        currentUser = user;
         authScreen.style.display = 'none';
         appScreen.classList.add('active');
         startAll();
+        // Проверяем есть ли имя. Если нет — показываем модалку
+        try {
+          const snap = await get(ref(db, 'users/' + user.uid));
+          const data = snap.val();
+          if (!data || !data.name) {
+            $('nameModalTitle').textContent = 'Как вас называть?';
+            $('nameModalHint').textContent = 'Это имя увидит ваш партнёр. Можно поменять позже.';
+            $('nameInput').value = '';
+            $('nameModal').style.display = 'flex';
+          }
+        } catch (e) { console.error(e); }
       } else {
         authScreen.style.display = 'flex';
         appScreen.classList.remove('active');
@@ -1042,12 +901,44 @@
       return map[code] || 'Ошибка: ' + code;
     }
 
+    // ОБРАБОТЧИКИ МОДАЛКИ ИМЕНИ
+    $('nameBtn').addEventListener('click', () => {
+      const myUid = currentUser ? currentUser.uid : '';
+      const myName = userNames[myUid] || '';
+      $('nameModalTitle').textContent = 'Ваше имя';
+      $('nameModalHint').textContent = 'Это имя увидят другие. Можно менять в любое время.';
+      $('nameInput').value = myName;
+      $('nameModal').style.display = 'flex';
+    });
+
+    $('nameSaveBtn').addEventListener('click', async () => {
+      const name = $('nameInput').value.trim();
+      if (!name) { alert('Введите имя'); return; }
+      if (!currentUser) return;
+      try {
+        await update(ref(db, 'users/' + currentUser.uid), { name: name });
+        userNames[currentUser.uid] = name;
+        $('nameModal').style.display = 'none';
+        // Перерисовываем списки, чтобы везде отображалось новое имя
+        updateAssigneeDropdown();
+        renderShopList();
+        renderChores(currentChoresForMe, choreForMeList, choreForMeEmpty, 'forMe');
+        renderChores(currentChoresByMe, choreByMeList, choreByMeEmpty, 'byMe');
+        // Перезагрузка страницы — самый надёжный способ везде обновить имена
+        // (используем вместо ручной перерисовки, чтобы гарантированно всё встало на место)
+        setTimeout(() => location.reload(), 200);
+      } catch (err) {
+        alert('Ошибка: ' + err.message);
+      }
+    });
+
+    $('nameModal').addEventListener('click', (e) => {
+      if (e.target === $('nameModal')) $('nameModal').style.display = 'none';
+    });
+
     const pageTitles = {
-      shop: 'Магазин',
-      chores: 'Домашние дела',
-      schedule: 'Расписание',
-      gifts: 'Подарки',
-      wishes: 'Хотелки'
+      shop: 'Магазин', chores: 'Домашние дела', schedule: 'Расписание',
+      gifts: 'Подарки', wishes: 'Хотелки'
     };
 
     document.querySelectorAll('.nav-btn').forEach(btn => {
@@ -1064,12 +955,18 @@
 
     function startAll() {
       currentUser = auth.currentUser;
-      set(ref(db, 'users/' + currentUser.uid), { email: currentUser.email }).catch(console.error);
+      // ВАЖНО: используем update вместо set, чтобы не стирать поле name
+      update(ref(db, 'users/' + currentUser.uid), { email: currentUser.email }).catch(console.error);
+
       onValue(ref(db, 'users'), (snap) => {
         allUsers = {};
+        userNames = {};
         snap.forEach((child) => {
           const v = child.val();
-          if (v && v.email) allUsers[child.key] = v.email;
+          if (v && v.email) {
+            allUsers[child.key] = v.email;
+            userNames[child.key] = v.name || v.email.split('@')[0];
+          }
         });
         updateAssigneeDropdown();
       });
@@ -1235,10 +1132,10 @@
       title.textContent = data.title;
       titleWrap.appendChild(title);
 
-      if (data.addedBy && myUid && data.addedBy !== myUid && data.addedByEmail) {
+      if (data.addedBy && myUid && data.addedBy !== myUid) {
         const metaEl = document.createElement('div');
         metaEl.className = 'item-meta';
-        metaEl.textContent = '👤 ' + data.addedByEmail.split('@')[0];
+        metaEl.textContent = '👤 ' + getUserName(data.addedBy, data.addedByEmail);
         titleWrap.appendChild(metaEl);
       }
 
@@ -1285,7 +1182,7 @@
         if (uid === currentUser.uid) return;
         const opt = document.createElement('option');
         opt.value = uid;
-        opt.textContent = allUsers[uid].split('@')[0];
+        opt.textContent = getUserName(uid, allUsers[uid]);
         choreAssignee.appendChild(opt);
       });
       if (currentValue) choreAssignee.value = currentValue;
@@ -1336,7 +1233,6 @@
         currentChoresForMe = forMe;
         currentChoresByMe = byMe;
 
-        // Счётчики активных
         const forMeActive = forMe.filter(x => !x.done).length;
         const byMeActive = byMe.filter(x => !x.done).length;
         const forMeDone = forMe.filter(x => x.done).length;
@@ -1370,7 +1266,6 @@
       const active = items.filter(x => !x.done);
       const done = items.filter(x => x.done);
 
-      // Сортировка активных: важные выше, потом по сроку (ближайшие/просроченные выше)
       active.sort((a, b) => {
         const pa = PRIORITY_ORDER[a.priority] ?? 1;
         const pb = PRIORITY_ORDER[b.priority] ?? 1;
@@ -1380,10 +1275,8 @@
         return da.localeCompare(db_);
       });
 
-      // Отрисовка активных
       active.forEach(data => container.appendChild(buildChoreItem(data, mode)));
 
-      // Отрисовка выполненных под подзаголовком
       if (done.length > 0) {
         const sub = document.createElement('div');
         sub.className = 'chore-done-subtitle';
@@ -1411,7 +1304,6 @@
       title.textContent = data.title;
       body.appendChild(title);
 
-      // Бейджи: приоритет + срок
       const badges = document.createElement('div');
       badges.style.display = 'flex';
       badges.style.flexWrap = 'wrap';
@@ -1448,17 +1340,16 @@
 
       if (badges.children.length > 0) body.appendChild(badges);
 
-      // Кто
-      if (mode === 'byMe' && data.assignedToEmail) {
+      if (mode === 'byMe') {
         const meta = document.createElement('div');
         meta.className = 'item-meta';
-        meta.textContent = '👤 ' + data.assignedToEmail.split('@')[0];
+        meta.textContent = '👤 ' + getUserName(data.assignedTo, data.assignedToEmail);
         body.appendChild(meta);
       }
-      if (mode === 'forMe' && data.createdByEmail) {
+      if (mode === 'forMe') {
         const meta = document.createElement('div');
         meta.className = 'item-meta';
-        meta.textContent = 'от ' + data.createdByEmail.split('@')[0];
+        meta.textContent = 'от ' + getUserName(data.createdBy, data.createdByEmail);
         body.appendChild(meta);
       }
 
@@ -1475,7 +1366,6 @@
       return item;
     }
 
-    // Кнопки "Очистить выполненные"
     $('choreForMeClear').addEventListener('click', async () => {
       const done = currentChoresForMe.filter(x => x.done);
       if (done.length === 0) return;
@@ -1585,8 +1475,8 @@
           const d = new Date(data.date + 'T00:00:00');
           metaParts.push('📅 ' + String(d.getDate()).padStart(2,'0') + '.' + String(d.getMonth()+1).padStart(2,'0'));
         }
-        if (data.createdBy && myUid && data.createdBy !== myUid && data.createdByEmail) {
-          metaParts.push('👤 ' + data.createdByEmail.split('@')[0]);
+        if (data.createdBy && myUid && data.createdBy !== myUid) {
+          metaParts.push('👤 ' + getUserName(data.createdBy, data.createdByEmail));
         }
         if (metaParts.length) {
           const meta = document.createElement('div');
@@ -1696,7 +1586,7 @@
           const meta = document.createElement('div');
           meta.className = 'item-meta';
           if (isMine) meta.textContent = '✨ моё желание';
-          else meta.textContent = '👤 ' + (data.ownerEmail || 'партнёр').split('@')[0];
+          else meta.textContent = '👤 ' + getUserName(data.ownerId, data.ownerEmail);
           body.appendChild(meta);
           item.appendChild(body);
           const delBtn = document.createElement('button');
@@ -1818,10 +1708,10 @@
             note.textContent = data.note;
             body.appendChild(note);
           }
-          if (data.createdByEmail) {
+          if (data.createdBy) {
             const meta = document.createElement('div');
             meta.className = 'item-meta';
-            meta.textContent = '👤 ' + data.createdByEmail.split('@')[0];
+            meta.textContent = '👤 ' + getUserName(data.createdBy, data.createdByEmail);
             body.appendChild(meta);
           }
           const statusRow = document.createElement('div');
