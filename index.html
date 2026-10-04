@@ -110,6 +110,10 @@
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
+    @keyframes nowPulse {
+      0%, 100% { box-shadow: 0 4px 16px var(--accent-shadow); }
+      50% { box-shadow: 0 4px 24px var(--accent-shadow-strong); }
+    }
 
     #authScreen { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
     .card {
@@ -212,17 +216,11 @@
     }
     .add-btn:active { transform: scale(0.94); }
 
-    .categories-row {
-      display: flex; gap: 6px; margin-bottom: 20px;
-      overflow-x: auto; padding-bottom: 4px;
-      -webkit-overflow-scrolling: touch; scrollbar-width: none;
-    }
+    .categories-row { display: flex; gap: 6px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
     .categories-row::-webkit-scrollbar { display: none; }
     .cat-btn {
-      flex-shrink: 0;
-      padding: 8px 12px; border-radius: 12px;
-      border: 1.5px solid var(--input-border);
-      background: var(--input-bg);
+      flex-shrink: 0; padding: 8px 12px; border-radius: 12px;
+      border: 1.5px solid var(--input-border); background: var(--input-bg);
       font-family: inherit; font-size: 13px; font-weight: 600;
       color: var(--text-soft); cursor: pointer;
       display: flex; align-items: center; gap: 4px;
@@ -231,12 +229,7 @@
     .cat-btn:active { transform: scale(0.96); }
     .cat-btn.active { background: var(--accent-grad); border-color: transparent; color: #ffffff; box-shadow: 0 4px 12px var(--accent-shadow); }
 
-    .cat-group-title {
-      display: flex; align-items: center; gap: 6px;
-      font-size: 12px; font-weight: 800; color: var(--text-soft);
-      text-transform: uppercase; letter-spacing: 1.2px;
-      margin: 18px 4px 8px;
-    }
+    .cat-group-title { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800; color: var(--text-soft); text-transform: uppercase; letter-spacing: 1.2px; margin: 18px 4px 8px; }
     .cat-group-title:first-child { margin-top: 0; }
     .cat-group-title .count-badge { background: var(--accent-soft); color: var(--accent-text); font-size: 10px; padding: 2px 7px; border-radius: 6px; font-weight: 800; letter-spacing: 0; }
 
@@ -374,6 +367,7 @@
 
     .wish-price-tag { font-size: 15px; font-weight: 800; color: var(--accent-text); white-space: nowrap; margin-left: 8px; }
 
+    /* РАСПИСАНИЕ */
     .event-add-card {
       background: var(--card); border: 1px solid var(--card-border);
       border-radius: 20px; padding: 18px; margin-bottom: 24px;
@@ -383,8 +377,21 @@
     .event-add-card h3 { font-size: 13px; color: var(--accent-text); margin-bottom: 14px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; }
     .event-time-row { display: flex; gap: 8px; margin-bottom: 10px; }
     .event-time-row input { flex: 1; margin-bottom: 0; }
-    .event-date-row { margin-bottom: 10px; }
-    .event-date-row input { margin-bottom: 0; }
+    .event-date-row { display: flex; gap: 8px; margin-bottom: 10px; }
+    .event-date-row input { flex: 1; margin-bottom: 0; }
+
+    /* Быстрые кнопки */
+    .quick-btns { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+    .quick-btn {
+      flex: 1; min-width: 0; padding: 8px 10px;
+      border-radius: 10px; border: 1.5px solid var(--input-border);
+      background: var(--input-bg); color: var(--text-soft);
+      font-family: inherit; font-size: 12px; font-weight: 700;
+      cursor: pointer; transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .quick-btn:active { transform: scale(0.96); background: var(--accent-soft); color: var(--accent-text); border-color: var(--accent-1); }
+
     .event-add-btn {
       width: 100%; padding: 15px; font-size: 16px; font-weight: 700;
       font-family: inherit; color: #ffffff;
@@ -394,8 +401,10 @@
     }
     .event-add-btn:active { transform: scale(0.97); }
 
-    .event-section-title { font-size: 12px; font-weight: 800; color: var(--text-soft); text-transform: uppercase; letter-spacing: 1.4px; margin: 24px 0 12px; }
-    .event-section-title:first-child { margin-top: 0; }
+    .event-section-head { display: flex; align-items: center; justify-content: space-between; margin: 24px 0 12px; }
+    .event-add-card + .event-section-head { margin-top: 0; }
+    .event-section-title { font-size: 12px; font-weight: 800; color: var(--text-soft); text-transform: uppercase; letter-spacing: 1.4px; margin: 0; }
+    .event-count-badge { background: var(--accent-soft); color: var(--accent-text); font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 8px; border: 1px solid var(--accent-border); min-width: 26px; text-align: center; }
 
     .event-item {
       background: var(--card); border: 1px solid var(--card-border);
@@ -403,13 +412,43 @@
       display: flex; align-items: center; gap: 14px;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
       margin-bottom: 8px; transition: all 0.25s; animation: fadeInUp 0.3s ease;
+      position: relative;
+    }
+    .event-item.done { opacity: 0.5; }
+    .event-item.done .event-title { text-decoration: line-through; text-decoration-color: var(--text-muted); }
+    .event-item.now {
+      border: 1.5px solid var(--accent-2);
+      animation: fadeInUp 0.3s ease, nowPulse 2.5s ease-in-out infinite;
+    }
+    .event-item.now::before {
+      content: "СЕЙЧАС ИДЁТ";
+      position: absolute; top: -8px; left: 12px;
+      font-size: 9px; font-weight: 900; letter-spacing: 1.2px;
+      color: #ffffff;
+      background: var(--accent-grad);
+      padding: 3px 8px; border-radius: 6px;
+      box-shadow: 0 2px 8px var(--accent-shadow);
+    }
+    .event-item.repeat::after {
+      content: "↻";
+      position: absolute; bottom: 8px; right: 14px;
+      font-size: 14px; font-weight: 700;
+      color: var(--text-muted);
     }
     .event-time { font-size: 16px; font-weight: 800; color: var(--accent-text); min-width: 64px; text-align: center; flex-shrink: 0; letter-spacing: -0.4px; }
     .event-time .time-sep { display: block; font-size: 11px; color: var(--text-soft); font-weight: 500; margin-top: 3px; letter-spacing: 0; }
     .event-body { flex: 1; }
     .event-title { font-size: 16px; font-weight: 600; word-break: break-word; color: var(--text); }
     .event-meta { font-size: 12px; color: var(--text-soft); margin-top: 3px; font-weight: 500; }
-    .event-item.past { opacity: 0.5; }
+    .event-checkbox {
+      width: 26px; height: 26px; flex-shrink: 0; border-radius: 9px;
+      border: 2px solid var(--accent-1); background: var(--card);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .event-checkbox:active { transform: scale(0.9); }
+    .event-checkbox.checked { background: var(--accent-grad); border-color: transparent; box-shadow: 0 4px 12px var(--accent-shadow-strong); }
+    .event-checkbox.checked::after { content: "✓"; color: #ffffff; font-size: 15px; font-weight: 900; }
 
     .bottom-nav {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 20;
@@ -562,28 +601,56 @@
         </div>
       </div>
 
+      <!-- РАСПИСАНИЕ -->
       <div id="page-schedule" class="page" style="display:none;">
         <div class="event-add-card">
           <h3>Новое событие</h3>
           <input type="text" id="eventTitle" placeholder="Что? (например: рабочая встреча)" autocomplete="off">
+
+          <label style="display:block;font-size:12px;font-weight:800;color:var(--text-soft);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;">Дата</label>
+          <div class="event-date-row">
+            <input type="date" id="eventDate">
+          </div>
+          <div class="quick-btns">
+            <button type="button" class="quick-btn" data-quick="date-today">📅 Сегодня</button>
+            <button type="button" class="quick-btn" data-quick="date-tomorrow">📅 Завтра</button>
+          </div>
+
+          <label style="display:block;font-size:12px;font-weight:800;color:var(--text-soft);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;">Время</label>
           <div class="event-time-row">
             <input type="time" id="eventStart">
             <input type="time" id="eventEnd">
           </div>
-          <div class="event-date-row">
-            <input type="date" id="eventDate">
+          <div class="quick-btns">
+            <button type="button" class="quick-btn" data-quick="time-now">🕐 Сейчас</button>
+            <button type="button" class="quick-btn" data-quick="time-now-plus1">🕐 +1 час</button>
           </div>
-          <button class="event-add-btn" id="eventAddBtn">Добавить в расписание</button>
+
+          <label style="display:block;font-size:12px;font-weight:800;color:var(--text-soft);text-transform:uppercase;letter-spacing:0.8px;margin:10px 0 6px;">Повтор</label>
+          <select class="chore-select" id="eventRepeat">
+            <option value="none" selected>Один раз</option>
+            <option value="daily">↻ Ежедневно</option>
+            <option value="weekly">↻ Еженедельно</option>
+            <option value="monthly">↻ Ежемесячно</option>
+          </select>
+
+          <button class="event-add-btn" id="eventAddBtn" style="margin-top:12px;">Добавить в расписание</button>
         </div>
 
-        <div class="event-section-title">Сегодня</div>
+        <div class="event-section-head">
+          <div class="event-section-title">Сегодня</div>
+          <div class="event-count-badge" id="eventsTodayCount">0</div>
+        </div>
         <div class="items-list" id="eventsTodayList"></div>
         <div class="empty" id="eventsTodayEmpty" style="display:none;">
           <div class="empty-emoji">☀️</div>
           <div>Сегодня событий нет</div>
         </div>
 
-        <div class="event-section-title">Предстоящие</div>
+        <div class="event-section-head">
+          <div class="event-section-title">Предстоящие</div>
+          <div class="event-count-badge" id="eventsFutureCount">0</div>
+        </div>
         <div class="items-list" id="eventsFutureList"></div>
         <div class="empty" id="eventsFutureEmpty" style="display:none;">
           <div class="empty-emoji">📅</div>
@@ -670,7 +737,6 @@
     </div>
   </div>
 
-  <!-- МОДАЛКА ИМЕНИ -->
   <div id="nameModal" class="theme-modal" style="display:none;">
     <div class="theme-modal-content">
       <h3 id="nameModalTitle">Как вас называть?</h3>
@@ -680,7 +746,6 @@
     </div>
   </div>
 
-  <!-- МОДАЛКА ТЕМЫ -->
   <div id="themeModal" class="theme-modal" style="display:none;">
     <div class="theme-modal-content">
       <h3>Тема оформления</h3>
@@ -841,8 +906,8 @@
 
     // ГЛОБАЛЬНЫЕ
     let currentUser = null;
-    let allUsers = {};    // uid -> email
-    let userNames = {};   // uid -> name (или fallback)
+    let allUsers = {};
+    let userNames = {};
     let shopUnsubscribe = null;
     let choresUnsubscribe = null;
     let eventsUnsubscribe = null;
@@ -854,7 +919,6 @@
     let currentChoresForMe = [];
     let currentChoresByMe = [];
 
-    // Универсальная функция: имя пользователя по uid или email
     function getUserName(uid, email) {
       if (uid && userNames[uid]) return userNames[uid];
       if (email) return email.split('@')[0];
@@ -867,7 +931,6 @@
         authScreen.style.display = 'none';
         appScreen.classList.add('active');
         startAll();
-        // Проверяем есть ли имя. Если нет — показываем модалку
         try {
           const snap = await get(ref(db, 'users/' + user.uid));
           const data = snap.val();
@@ -901,7 +964,6 @@
       return map[code] || 'Ошибка: ' + code;
     }
 
-    // ОБРАБОТЧИКИ МОДАЛКИ ИМЕНИ
     $('nameBtn').addEventListener('click', () => {
       const myUid = currentUser ? currentUser.uid : '';
       const myName = userNames[myUid] || '';
@@ -919,13 +981,6 @@
         await update(ref(db, 'users/' + currentUser.uid), { name: name });
         userNames[currentUser.uid] = name;
         $('nameModal').style.display = 'none';
-        // Перерисовываем списки, чтобы везде отображалось новое имя
-        updateAssigneeDropdown();
-        renderShopList();
-        renderChores(currentChoresForMe, choreForMeList, choreForMeEmpty, 'forMe');
-        renderChores(currentChoresByMe, choreByMeList, choreByMeEmpty, 'byMe');
-        // Перезагрузка страницы — самый надёжный способ везде обновить имена
-        // (используем вместо ручной перерисовки, чтобы гарантированно всё встало на место)
         setTimeout(() => location.reload(), 200);
       } catch (err) {
         alert('Ошибка: ' + err.message);
@@ -955,7 +1010,6 @@
 
     function startAll() {
       currentUser = auth.currentUser;
-      // ВАЖНО: используем update вместо set, чтобы не стирать поле name
       update(ref(db, 'users/' + currentUser.uid), { email: currentUser.email }).catch(console.error);
 
       onValue(ref(db, 'users'), (snap) => {
@@ -1389,17 +1443,44 @@
     const eventStart = $('eventStart');
     const eventEnd = $('eventEnd');
     const eventDate = $('eventDate');
+    const eventRepeat = $('eventRepeat');
     const eventAddBtn = $('eventAddBtn');
     const eventsTodayList = $('eventsTodayList');
     const eventsTodayEmpty = $('eventsTodayEmpty');
     const eventsFutureList = $('eventsFutureList');
     const eventsFutureEmpty = $('eventsFutureEmpty');
 
+    // Быстрые кнопки
+    function pad2(n) { return String(n).padStart(2, '0'); }
+    function toTimeStr(d) { return pad2(d.getHours()) + ':' + pad2(d.getMinutes()); }
+    function toDateStr(d) { return d.getFullYear() + '-' + pad2(d.getMonth()+1) + '-' + pad2(d.getDate()); }
+
+    document.querySelectorAll('.quick-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const kind = btn.dataset.quick;
+        const now = new Date();
+        if (kind === 'date-today') {
+          eventDate.value = toDateStr(now);
+        } else if (kind === 'date-tomorrow') {
+          const t = new Date(now);
+          t.setDate(t.getDate() + 1);
+          eventDate.value = toDateStr(t);
+        } else if (kind === 'time-now') {
+          eventStart.value = toTimeStr(now);
+        } else if (kind === 'time-now-plus1') {
+          const t = new Date(now);
+          t.setHours(t.getHours() + 1);
+          eventStart.value = toTimeStr(t);
+        }
+      });
+    });
+
     eventAddBtn.addEventListener('click', async () => {
       const title = eventTitle.value.trim();
       const start = eventStart.value;
       const end = eventEnd.value;
       const date = eventDate.value;
+      const repeat = eventRepeat.value;
       if (!title) { alert('Введите название'); return; }
       if (!start) { alert('Укажите время начала'); return; }
       if (!date) { alert('Выберите дату'); return; }
@@ -1408,6 +1489,8 @@
         const newRef = push(eventsRef);
         const data = {
           title: title, startTime: start, date: date,
+          repeat: repeat,
+          done: false,
           createdBy: currentUser.uid,
           createdByEmail: currentUser.email,
           createdAt: Date.now()
@@ -1418,6 +1501,7 @@
         eventStart.value = '';
         eventEnd.value = '';
         eventDate.value = '';
+        eventRepeat.value = 'none';
       } catch (err) {
         alert('ОШИБКА: ' + err.code + '\n' + err.message);
       }
@@ -1436,6 +1520,16 @@
         const today = todayStr();
         const todayItems = items.filter(x => x.date === today);
         const futureItems = items.filter(x => x.date && x.date > today);
+
+        // Счётчик активных событий на сегодня
+        const todayActive = todayItems.filter(x => !x.done).length;
+        const todayCountEl = $('eventsTodayCount');
+        if (todayCountEl) todayCountEl.textContent = todayActive;
+
+        const futureActive = futureItems.filter(x => !x.done).length;
+        const futureCountEl = $('eventsFutureCount');
+        if (futureCountEl) futureCountEl.textContent = futureActive;
+
         renderEvents(todayItems, eventsTodayList, eventsTodayEmpty, true);
         renderEvents(futureItems, eventsFutureList, eventsFutureEmpty, false);
       }, (err) => { console.error('Ошибка подписки расписания:', err); });
@@ -1450,50 +1544,102 @@
       container.innerHTML = '';
       if (items.length === 0) { emptyEl.style.display = 'block'; return; }
       emptyEl.style.display = 'none';
+
+      // Сортировка: активные (по времени), затем выполненные
+      const active = items.filter(x => !x.done);
+      const done = items.filter(x => x.done);
+
+      active.forEach(data => container.appendChild(buildEventItem(data, isToday)));
+      if (done.length > 0) {
+        const sub = document.createElement('div');
+        sub.className = 'chore-done-subtitle';
+        sub.textContent = '✓ Завершено (' + done.length + ')';
+        container.appendChild(sub);
+        done.forEach(data => container.appendChild(buildEventItem(data, isToday)));
+      }
+    }
+
+    function buildEventItem(data, isToday) {
       const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
-      items.forEach((data) => {
-        const item = document.createElement('div');
-        item.className = 'event-item';
-        const timeEl = document.createElement('div');
-        timeEl.className = 'event-time';
-        timeEl.textContent = data.startTime || '--:--';
+      const item = document.createElement('div');
+
+      // Проверяем «сейчас идёт»
+      let isNow = false;
+      const now = new Date();
+      const nowMin = now.getHours() * 60 + now.getMinutes();
+      const today = todayStr();
+      if (data.date === today && data.startTime && !data.done) {
+        const parts = data.startTime.split(':').map(Number);
+        const startMin = parts[0] * 60 + parts[1];
+        let endMin = startMin + 60; // по умолчанию 1 час
         if (data.endTime) {
-          const sep = document.createElement('span');
-          sep.className = 'time-sep';
-          sep.textContent = 'до ' + data.endTime;
-          timeEl.appendChild(sep);
+          const ep = data.endTime.split(':').map(Number);
+          endMin = ep[0] * 60 + ep[1];
         }
-        item.appendChild(timeEl);
-        const body = document.createElement('div');
-        body.className = 'event-body';
-        const title = document.createElement('div');
-        title.className = 'event-title';
-        title.textContent = data.title;
-        body.appendChild(title);
-        const metaParts = [];
-        if (!isToday && data.date) {
-          const d = new Date(data.date + 'T00:00:00');
-          metaParts.push('📅 ' + String(d.getDate()).padStart(2,'0') + '.' + String(d.getMonth()+1).padStart(2,'0'));
-        }
-        if (data.createdBy && myUid && data.createdBy !== myUid) {
-          metaParts.push('👤 ' + getUserName(data.createdBy, data.createdByEmail));
-        }
-        if (metaParts.length) {
-          const meta = document.createElement('div');
-          meta.className = 'event-meta';
-          meta.textContent = metaParts.join(' • ');
-          body.appendChild(meta);
-        }
-        item.appendChild(body);
-        const delBtn = document.createElement('button');
-        delBtn.className = 'delete-btn';
-        delBtn.textContent = '×';
-        delBtn.addEventListener('click', async () => {
-          try { await remove(ref(db, 'schedule_events/' + data.id)); } catch (err) { console.error(err); }
-        });
-        item.appendChild(delBtn);
-        container.appendChild(item);
+        if (nowMin >= startMin && nowMin <= endMin) isNow = true;
+      }
+
+      let cls = 'event-item';
+      if (data.done) cls += ' done';
+      if (isNow) cls += ' now';
+      if (data.repeat && data.repeat !== 'none') cls += ' repeat';
+      item.className = cls;
+
+      // Чекбокс "выполнено" (прошло/отменено)
+      const cb = document.createElement('div');
+      cb.className = 'event-checkbox' + (data.done ? ' checked' : '');
+      cb.title = data.done ? 'Вернуть' : 'Отметить как прошедшее';
+      cb.addEventListener('click', async () => {
+        try { await update(ref(db, 'schedule_events/' + data.id), { done: !data.done }); } catch (err) { console.error(err); }
       });
+      item.appendChild(cb);
+
+      const timeEl = document.createElement('div');
+      timeEl.className = 'event-time';
+      timeEl.textContent = data.startTime || '--:--';
+      if (data.endTime) {
+        const sep = document.createElement('span');
+        sep.className = 'time-sep';
+        sep.textContent = 'до ' + data.endTime;
+        timeEl.appendChild(sep);
+      }
+      item.appendChild(timeEl);
+
+      const body = document.createElement('div');
+      body.className = 'event-body';
+      const title = document.createElement('div');
+      title.className = 'event-title';
+      title.textContent = data.title;
+      body.appendChild(title);
+
+      const metaParts = [];
+      if (!isToday && data.date) {
+        const d = new Date(data.date + 'T00:00:00');
+        metaParts.push('📅 ' + String(d.getDate()).padStart(2,'0') + '.' + String(d.getMonth()+1).padStart(2,'0'));
+      }
+      if (data.repeat === 'daily') metaParts.push('↻ ежедневно');
+      else if (data.repeat === 'weekly') metaParts.push('↻ еженедельно');
+      else if (data.repeat === 'monthly') metaParts.push('↻ ежемесячно');
+      if (data.createdBy && myUid && data.createdBy !== myUid) {
+        metaParts.push('👤 ' + getUserName(data.createdBy, data.createdByEmail));
+      }
+      if (metaParts.length) {
+        const meta = document.createElement('div');
+        meta.className = 'event-meta';
+        meta.textContent = metaParts.join(' • ');
+        body.appendChild(meta);
+      }
+      item.appendChild(body);
+
+      const delBtn = document.createElement('button');
+      delBtn.className = 'delete-btn';
+      delBtn.textContent = '×';
+      delBtn.addEventListener('click', async () => {
+        try { await remove(ref(db, 'schedule_events/' + data.id)); } catch (err) { console.error(err); }
+      });
+      item.appendChild(delBtn);
+
+      return item;
     }
 
     // ============ ПОДАРКИ ============
