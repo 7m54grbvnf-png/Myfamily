@@ -174,11 +174,12 @@
       background: var(--topbar-bg);
       backdrop-filter: saturate(180%) blur(28px);
       -webkit-backdrop-filter: saturate(180%) blur(28px);
-      padding: 16px 20px 12px;
+      padding: 16px 16px 12px;
       display: flex; align-items: center; justify-content: space-between;
       border-bottom: 1px solid var(--accent-border);
+      gap: 8px;
     }
-    .topbar-left { display: flex; align-items: center; gap: 12px; }
+    .topbar-left { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
     .topbar-icon {
       width: 40px; height: 40px;
       background: var(--accent-grad);
@@ -188,12 +189,12 @@
       box-shadow: 0 4px 14px var(--accent-shadow);
       flex-shrink: 0;
     }
-    .topbar h2 { font-size: 22px; font-weight: 800; letter-spacing: -0.6px; color: var(--text); }
-    .topbar-actions { display: flex; gap: 6px; }
+    .topbar h2 { font-size: 20px; font-weight: 800; letter-spacing: -0.6px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .topbar-actions { display: flex; gap: 4px; flex-shrink: 0; }
     .logout-btn {
       background: var(--accent-soft); border: none; font-family: inherit;
       color: var(--accent-text); font-size: 13px; font-weight: 700;
-      padding: 9px 12px; border-radius: 12px; cursor: pointer;
+      padding: 8px 10px; border-radius: 10px; cursor: pointer;
       transition: all 0.2s;
       letter-spacing: 0.2px;
       border: 1px solid var(--accent-border);
@@ -541,7 +542,7 @@
       border: 1px solid var(--card-border);
       border-radius: 20px;
       padding: 20px;
-      margin-bottom: 18px;
+      margin-bottom: 12px;
       box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
       animation: fadeInUp 0.3s ease;
       position: relative;
@@ -565,6 +566,51 @@
       font-size: 14px; color: var(--text-soft); font-weight: 500;
       position: relative; z-index: 1; text-transform: capitalize;
     }
+
+    /* СЧЁТЧИК «ВМЕСТЕ» */
+    .together-card {
+      background: linear-gradient(135deg, #ffd9e0 0%, #ffe6d4 100%);
+      border: 1px solid #ffc9d1;
+      border-radius: 18px;
+      padding: 14px 18px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 6px 20px rgba(232, 168, 184, 0.2);
+      cursor: pointer;
+      transition: all 0.2s;
+      animation: fadeInUp 0.3s ease;
+      position: relative;
+    }
+    body[data-theme="dark"] .together-card {
+      background: linear-gradient(135deg, rgba(80, 40, 50, 0.7) 0%, rgba(70, 45, 30, 0.7) 100%);
+      border-color: rgba(255, 200, 210, 0.2);
+    }
+    .together-card:active { transform: scale(0.98); }
+    .together-emoji {
+      font-size: 32px;
+      flex-shrink: 0;
+    }
+    .together-body { flex: 1; min-width: 0; }
+    .together-title {
+      font-size: 13px; font-weight: 700;
+      color: #b05572;
+      text-transform: uppercase; letter-spacing: 0.8px;
+      margin-bottom: 2px;
+    }
+    body[data-theme="dark"] .together-title { color: #ffb8c8; }
+    .together-days {
+      font-size: 22px; font-weight: 800;
+      color: #7d2f47;
+      letter-spacing: -0.4px;
+    }
+    body[data-theme="dark"] .together-days { color: #fff; }
+    .together-hint {
+      font-size: 11px; color: #b05572; opacity: 0.75;
+      margin-top: 2px; font-weight: 600;
+    }
+    body[data-theme="dark"] .together-hint { color: #ffb8c8; }
 
     .today-quick {
       display: grid;
@@ -823,6 +869,52 @@
       margin: 18px 0 10px;
     }
 
+    /* ПОИСК */
+    .search-results {
+      max-height: 55vh;
+      overflow-y: auto;
+      margin: 12px 0 4px;
+    }
+    .search-group-title {
+      font-size: 11px; font-weight: 800;
+      color: var(--text-soft);
+      text-transform: uppercase; letter-spacing: 1.2px;
+      margin: 14px 4px 6px;
+    }
+    .search-group-title:first-child { margin-top: 0; }
+    .search-item {
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 6px;
+      cursor: pointer;
+      display: flex; align-items: center; gap: 10px;
+      transition: all 0.15s;
+    }
+    .search-item:active { transform: scale(0.98); background: var(--accent-soft); }
+    .search-item-icon { font-size: 18px; flex-shrink: 0; }
+    .search-item-body { flex: 1; min-width: 0; }
+    .search-item-title {
+      font-size: 14px; font-weight: 600; color: var(--text);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .search-item-sub {
+      font-size: 11px; color: var(--text-soft); font-weight: 500;
+      margin-top: 1px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .search-empty {
+      text-align: center; padding: 30px 20px;
+      color: var(--text-muted); font-size: 14px; font-weight: 500;
+      font-style: italic;
+    }
+    .search-hint {
+      text-align: center; padding: 30px 20px;
+      color: var(--text-muted); font-size: 14px; font-weight: 500;
+      font-style: italic;
+    }
+
     .bottom-nav {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 20;
       background: var(--nav-bg);
@@ -881,6 +973,13 @@
       flex: 1;
     }
     .modal-confirm-style { flex: 2; }
+    .export-btn {
+      margin-top: 20px;
+      background: var(--accent-soft) !important;
+      color: var(--accent-text) !important;
+      box-shadow: none !important;
+      border: 1.5px dashed var(--accent-1) !important;
+    }
   </style>
 </head>
 <body>
@@ -909,6 +1008,7 @@
         <h2 id="pageTitle">Сегодня</h2>
       </div>
       <div class="topbar-actions">
+        <button class="logout-btn" id="searchBtn" title="Поиск">🔍</button>
         <button class="logout-btn" id="statsBtn" title="Статистика">📊</button>
         <button class="logout-btn" id="nameBtn" title="Моё имя">👤</button>
         <button class="logout-btn" id="themeBtn" title="Тема">🎨</button>
@@ -923,6 +1023,16 @@
         <div class="today-greeting">
           <div class="greet-line" id="greetLine">Привет!</div>
           <div class="greet-date" id="greetDate"></div>
+        </div>
+
+        <!-- СЧЁТЧИК ВМЕСТЕ -->
+        <div class="together-card" id="togetherCard">
+          <div class="together-emoji">❤️</div>
+          <div class="together-body">
+            <div class="together-title">Мы вместе</div>
+            <div class="together-days" id="togetherDays">Укажите дату</div>
+            <div class="together-hint" id="togetherHint">Нажмите, чтобы настроить</div>
+          </div>
         </div>
 
         <!-- ЗАПИСКИ -->
@@ -987,7 +1097,6 @@
           <div id="todayEventsList"></div>
         </div>
 
-        <!-- ВАЖНЫЕ ДАТЫ -->
         <div class="date-section" id="todayDatesSection">
           <div class="date-section-head">
             <div class="date-section-title">🎂 Важные даты</div>
@@ -1312,6 +1421,7 @@
     </div>
   </div>
 
+  <!-- МОДАЛКИ -->
   <div id="nameModal" class="theme-modal" style="display:none;">
     <div class="theme-modal-content">
       <h3 id="nameModalTitle">Как вас называть?</h3>
@@ -1342,11 +1452,33 @@
     </div>
   </div>
 
+  <div id="togetherModal" class="theme-modal" style="display:none;">
+    <div class="theme-modal-content">
+      <h3>❤️ Когда вы вместе?</h3>
+      <p class="modal-hint">Укажите дату начала ваших отношений или свадьбы — приложение посчитает, сколько вы вместе.</p>
+      <input type="date" id="togetherDateInput">
+      <div class="modal-actions-row">
+        <button class="primary modal-cancel-style" id="togetherCancelBtn">Отмена</button>
+        <button class="primary modal-confirm-style" id="togetherSaveBtn">Сохранить</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="searchModal" class="theme-modal" style="display:none;">
+    <div class="theme-modal-content">
+      <h3>🔍 Поиск</h3>
+      <input type="text" id="searchInput" placeholder="Что ищем?" autocomplete="off">
+      <div class="search-results" id="searchResults"></div>
+      <button class="primary" id="searchCloseBtn" style="margin-top:16px;">Закрыть</button>
+    </div>
+  </div>
+
   <div id="statsModal" class="theme-modal" style="display:none;">
     <div class="theme-modal-content stats-modal-content">
       <h3>📊 Статистика</h3>
       <div id="statsContent"></div>
-      <button class="primary" id="statsCloseBtn" style="margin-top:16px;">Готово</button>
+      <button class="primary export-btn" id="exportBtn" style="margin-top:16px;">💾 Скачать резервную копию (JSON)</button>
+      <button class="primary" id="statsCloseBtn" style="margin-top:8px;">Готово</button>
     </div>
   </div>
 
@@ -1520,6 +1652,7 @@
     let wishesUnsubscribe = null;
     let notesUnsubscribe = null;
     let datesUnsubscribe = null;
+    let coupleUnsubscribe = null;
 
     let selectedCategory = 'all';
     let currentShopItems = [];
@@ -1528,6 +1661,7 @@
     let currentEvents = [];
     let currentNotes = [];
     let currentImportantDates = [];
+    let currentCoupleMeta = {};
 
     let currentGiftView = 'mine';
     let selectedGiftOccasion = 'all';
@@ -1664,6 +1798,7 @@
       startWishesListener();
       startNotesListener();
       startDatesListener();
+      startCoupleListener();
     }
 
     function stopAll() {
@@ -1674,6 +1809,7 @@
       if (wishesUnsubscribe) { wishesUnsubscribe(); wishesUnsubscribe = null; }
       if (notesUnsubscribe) { notesUnsubscribe(); notesUnsubscribe = null; }
       if (datesUnsubscribe) { datesUnsubscribe(); datesUnsubscribe = null; }
+      if (coupleUnsubscribe) { coupleUnsubscribe(); coupleUnsubscribe = null; }
       shopList.innerHTML = '';
       choreForMeList.innerHTML = '';
       choreByMeList.innerHTML = '';
@@ -1690,6 +1826,59 @@
         renderTodayDashboard();
       }
     }
+
+    // ============ «ВМЕСТЕ» (счётчик) ============
+    function startCoupleListener() {
+      coupleUnsubscribe = onValue(ref(db, 'couple_meta'), (snap) => {
+        currentCoupleMeta = snap.val() || {};
+        renderTogetherCard();
+      }, (err) => { console.error('Ошибка подписки couple_meta:', err); });
+    }
+
+    function renderTogetherCard() {
+      const daysEl = $('togetherDays');
+      const hintEl = $('togetherHint');
+      if (!daysEl) return;
+      const anniversary = currentCoupleMeta.anniversary;
+      if (!anniversary) {
+        daysEl.textContent = 'Укажите дату';
+        hintEl.textContent = 'Нажмите, чтобы настроить';
+        return;
+      }
+      const start = new Date(anniversary + 'T00:00:00');
+      const today = new Date(); today.setHours(0,0,0,0);
+      const diffMs = today - start;
+      const diffDays = Math.max(0, Math.round(diffMs / (1000 * 60 * 60 * 24)));
+      daysEl.textContent = diffDays.toLocaleString('ru-RU') + ' ' + declOfNum(diffDays, ['день', 'дня', 'дней']);
+      // Ближайшая годовщина
+      let nextAnniv = new Date(today.getFullYear(), start.getMonth(), start.getDate());
+      if (nextAnniv < today) nextAnniv = new Date(today.getFullYear() + 1, start.getMonth(), start.getDate());
+      const daysToAnniv = Math.round((nextAnniv - today) / (1000 * 60 * 60 * 24));
+      if (daysToAnniv === 0) hintEl.textContent = '🎉 Сегодня годовщина!';
+      else hintEl.textContent = '🎂 Годовщина через ' + daysToAnniv + ' ' + declOfNum(daysToAnniv, ['день','дня','дней']);
+    }
+
+    function declOfNum(n, titles) {
+      const cases = [2, 0, 1, 1, 1, 2];
+      return titles[(n % 100 > 4 && n % 100 < 20) ? 2 : cases[(n % 10 < 5) ? n % 10 : 5]];
+    }
+
+    $('togetherCard').addEventListener('click', () => {
+      $('togetherDateInput').value = currentCoupleMeta.anniversary || '';
+      $('togetherModal').style.display = 'flex';
+    });
+    $('togetherCancelBtn').addEventListener('click', () => { $('togetherModal').style.display = 'none'; });
+    $('togetherModal').addEventListener('click', (e) => {
+      if (e.target === $('togetherModal')) $('togetherModal').style.display = 'none';
+    });
+    $('togetherSaveBtn').addEventListener('click', async () => {
+      const date = $('togetherDateInput').value;
+      if (!date) { alert('Выберите дату'); return; }
+      try {
+        await update(ref(db, 'couple_meta'), { anniversary: date });
+        $('togetherModal').style.display = 'none';
+      } catch (e) { alert('Ошибка: ' + e.message); }
+    });
 
     // ============ ЗАПИСКИ ============
     function startNotesListener() {
@@ -1717,10 +1906,7 @@
       const emptyEl = $('noteEmpty');
       if (!cardsEl || !emptyEl) return;
       cardsEl.innerHTML = '';
-      if (currentNotes.length === 0) {
-        emptyEl.style.display = 'block';
-        return;
-      }
+      if (currentNotes.length === 0) { emptyEl.style.display = 'block'; return; }
       emptyEl.style.display = 'none';
       const myUid = currentUser ? currentUser.uid : '';
       currentNotes.forEach(n => {
@@ -1763,14 +1949,12 @@
         });
       } catch (e) { console.error(e); }
     }
-
     $('noteSendBtn').addEventListener('click', sendNote);
     $('noteInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') sendNote(); });
 
     // ============ ВАЖНЫЕ ДАТЫ ============
     function startDatesListener() {
-      const datesRef = ref(db, 'important_dates');
-      datesUnsubscribe = onValue(datesRef, (snapshot) => {
+      datesUnsubscribe = onValue(ref(db, 'important_dates'), (snapshot) => {
         const items = [];
         snapshot.forEach((child) => {
           const data = child.val();
@@ -1799,10 +1983,7 @@
       const emptyEl = $('dateEmpty');
       if (!cardsEl || !emptyEl) return;
       cardsEl.innerHTML = '';
-      if (currentImportantDates.length === 0) {
-        emptyEl.style.display = 'block';
-        return;
-      }
+      if (currentImportantDates.length === 0) { emptyEl.style.display = 'block'; return; }
       emptyEl.style.display = 'none';
       const today = new Date(); today.setHours(0,0,0,0);
       currentImportantDates.slice(0, 5).forEach(item => {
@@ -1851,12 +2032,10 @@
       $('dateRemindInput').value = '3';
       $('dateModal').style.display = 'flex';
     });
-
     $('dateCancelBtn').addEventListener('click', () => { $('dateModal').style.display = 'none'; });
     $('dateModal').addEventListener('click', (e) => {
       if (e.target === $('dateModal')) $('dateModal').style.display = 'none';
     });
-
     $('dateSaveBtn').addEventListener('click', async () => {
       const title = $('dateTitleInput').value.trim();
       const dateVal = $('dateValueInput').value;
@@ -1876,12 +2055,122 @@
       } catch (e) { alert('Ошибка: ' + e.message); }
     });
 
+    // ============ ПОИСК ============
+    $('searchBtn').addEventListener('click', () => {
+      $('searchInput').value = '';
+      $('searchResults').innerHTML = '<div class="search-hint">Начните вводить текст</div>';
+      $('searchModal').style.display = 'flex';
+      setTimeout(() => $('searchInput').focus(), 100);
+    });
+    $('searchCloseBtn').addEventListener('click', () => { $('searchModal').style.display = 'none'; });
+    $('searchModal').addEventListener('click', (e) => {
+      if (e.target === $('searchModal')) $('searchModal').style.display = 'none';
+    });
+    $('searchInput').addEventListener('input', (e) => {
+      performSearch(e.target.value.trim());
+    });
+
+    function performSearch(query) {
+      const results = $('searchResults');
+      if (!query || query.length < 2) {
+        results.innerHTML = '<div class="search-hint">Введите минимум 2 символа</div>';
+        return;
+      }
+      const q = query.toLowerCase();
+      const groups = [];
+
+      // Покупки
+      const shopRes = currentShopItems.filter(x => (x.title||'').toLowerCase().includes(q));
+      if (shopRes.length) groups.push({ title: '🛒 Магазин', items: shopRes.map(x => ({
+        icon: x.done ? '✅' : '🛒', title: x.title, sub: x.done ? 'Куплено' : 'Купить',
+        goto: 'shop'
+      }))});
+
+      // Задачи
+      const taskResAll = [...currentChoresForMe, ...currentChoresByMe];
+      const taskSeen = new Set();
+      const taskRes = taskResAll.filter(x => {
+        if (taskSeen.has(x.id)) return false;
+        taskSeen.add(x.id);
+        return (x.title||'').toLowerCase().includes(q);
+      });
+      if (taskRes.length) groups.push({ title: '✅ Дела', items: taskRes.map(x => ({
+        icon: x.done ? '✅' : '📋', title: x.title,
+        sub: (x.assignedTo === currentUser.uid ? 'мне' : 'партнёру') + (x.dueDate ? ' • до ' + x.dueDate : ''),
+        goto: 'chores'
+      }))});
+
+      // События
+      const evRes = currentEvents.filter(x => (x.title||'').toLowerCase().includes(q));
+      if (evRes.length) groups.push({ title: '📅 Расписание', items: evRes.map(x => ({
+        icon: '📅', title: x.title, sub: x.date + ' ' + (x.startTime||''), goto: 'schedule'
+      }))});
+
+      // Подарки
+      const giftRes = currentGiftItems.filter(x => (x.title||'').toLowerCase().includes(q));
+      if (giftRes.length) groups.push({ title: '🎁 Подарки', items: giftRes.map(x => ({
+        icon: x.ownerId === currentUser.uid ? '✨' : '🎁', title: x.title,
+        sub: x.ownerId === currentUser.uid ? 'моё желание' : 'для ' + getUserName(x.ownerId, x.ownerEmail),
+        goto: 'gifts'
+      }))});
+
+      // Хотелки
+      const wishRes = currentWishItems.filter(x => (x.title||'').toLowerCase().includes(q) || (x.note||'').toLowerCase().includes(q));
+      if (wishRes.length) groups.push({ title: '🏠 Хотелки', items: wishRes.map(x => ({
+        icon: '🏠', title: x.title, sub: x.status === 'bought' ? 'куплено' : x.status === 'saving' ? 'копим' : 'хочу',
+        goto: 'wishes'
+      }))});
+
+      // Важные даты
+      const dateRes = currentImportantDates.filter(x => (x.title||'').toLowerCase().includes(q));
+      if (dateRes.length) groups.push({ title: '🎂 Важные даты', items: dateRes.map(x => ({
+        icon: '🎂', title: x.title, sub: x.date, goto: 'today'
+      }))});
+
+      // Записки
+      const noteRes = currentNotes.filter(x => (x.text||'').toLowerCase().includes(q));
+      if (noteRes.length) groups.push({ title: '💌 Записки', items: noteRes.map(x => ({
+        icon: '💌', title: x.text, sub: 'от ' + getUserName(x.fromUid, x.fromEmail), goto: 'today'
+      }))});
+
+      if (groups.length === 0) {
+        results.innerHTML = '<div class="search-empty">Ничего не найдено по запросу «' + query + '»</div>';
+        return;
+      }
+
+      results.innerHTML = '';
+      let total = 0;
+      groups.forEach(g => {
+        const t = document.createElement('div');
+        t.className = 'search-group-title';
+        t.textContent = g.title + ' (' + g.items.length + ')';
+        results.appendChild(t);
+        total += g.items.length;
+        g.items.slice(0, 5).forEach(item => {
+          const el = document.createElement('div');
+          el.className = 'search-item';
+          el.innerHTML = '<span class="search-item-icon">' + item.icon + '</span>' +
+            '<div class="search-item-body">' +
+            '<div class="search-item-title"></div>' +
+            '<div class="search-item-sub"></div>' +
+            '</div>';
+          el.querySelector('.search-item-title').textContent = item.title;
+          el.querySelector('.search-item-sub').textContent = item.sub || '';
+          el.addEventListener('click', () => {
+            $('searchModal').style.display = 'none';
+            const navBtn = document.querySelector('.nav-btn[data-page="' + item.goto + '"]');
+            if (navBtn) navBtn.click();
+          });
+          results.appendChild(el);
+        });
+      });
+    }
+
     // ============ СТАТИСТИКА ============
     $('statsBtn').addEventListener('click', () => {
       renderStats();
       $('statsModal').style.display = 'flex';
     });
-
     $('statsCloseBtn').addEventListener('click', () => { $('statsModal').style.display = 'none'; });
     $('statsModal').addEventListener('click', (e) => {
       if (e.target === $('statsModal')) $('statsModal').style.display = 'none';
@@ -1935,7 +2224,6 @@
             <span class="stat-sub">добавлено</span>
           </div>
         </div>
-
         <div class="stat-section-title">✅ Дела</div>
         <div class="stats-grid">
           <div class="stat-card">
@@ -1949,7 +2237,6 @@
             <span class="stat-sub">у тебя</span>
           </div>
         </div>
-
         <div class="stat-section-title">📅 Расписание</div>
         <div class="stats-grid">
           <div class="stat-card">
@@ -1963,7 +2250,6 @@
             <span class="stat-sub">событий</span>
           </div>
         </div>
-
         <div class="stat-section-title">🎁 Подарки</div>
         <div class="stats-grid">
           <div class="stat-card">
@@ -1977,7 +2263,6 @@
             <span class="stat-sub">активных</span>
           </div>
         </div>
-
         <div class="stat-section-title">🏠 Хотелки</div>
         <div class="stats-grid">
           <div class="stat-card">
@@ -1994,6 +2279,31 @@
       `;
       $('statsContent').innerHTML = html;
     }
+
+    // ============ ЭКСПОРТ ============
+    $('exportBtn').addEventListener('click', () => {
+      const data = {
+        exportedAt: new Date().toISOString(),
+        shop: currentShopItems,
+        choresForMe: currentChoresForMe,
+        choresByMe: currentChoresByMe,
+        events: currentEvents,
+        gifts: currentGiftItems,
+        wishes: currentWishItems,
+        notes: currentNotes,
+        dates: currentImportantDates,
+        couple: currentCoupleMeta
+      };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'family-backup-' + new Date().toISOString().slice(0,10) + '.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
 
     // ============ ДАШБОРД «СЕГОДНЯ» ============
     function renderTodayDashboard() {
@@ -2018,6 +2328,8 @@
       $('greetLine').textContent = greet + ', ' + myName + '!';
       $('greetDate').textContent = dateStr;
 
+      renderTogetherCard();
+
       const shopActive = currentShopItems.filter(x => !x.done).length;
       $('quickShopSub').textContent = shopActive > 0 ? shopActive + ' к покупке' : 'всё куплено';
 
@@ -2030,7 +2342,6 @@
       const giftsMine = currentGiftItems.filter(g => g.ownerId === myUid && !g.done).length;
       $('quickGiftsSub').textContent = giftsMine > 0 ? giftsMine + ' желаний' : 'виш-лист пуст';
 
-      // === События сегодня ===
       const eventsList = $('todayEventsList');
       eventsList.innerHTML = '';
       const sortedEvents = eventsToday.slice().sort((a,b) => (a.startTime||'').localeCompare(b.startTime||''));
@@ -2067,7 +2378,6 @@
         });
       }
 
-      // === Срочные задачи ===
       const tasksList = $('todayTasksList');
       tasksList.innerHTML = '';
       const urgent = currentChoresForMe
@@ -2103,7 +2413,6 @@
         });
       }
 
-      // === Покупки ===
       const shopListEl = $('todayShopList');
       shopListEl.innerHTML = '';
       const shopActiveItems = currentShopItems.filter(x => !x.done).slice(0, 5);
@@ -2355,9 +2664,7 @@
         choreDue.value = '';
         choreAssignee.value = '';
         chorePriority.value = 'medium';
-      } catch (err) {
-        alert('ОШИБКА: ' + err.code + '\n' + err.message);
-      }
+      } catch (err) { alert('ОШИБКА: ' + err.code + '\n' + err.message); }
     });
 
     function startChoresListener() {
@@ -2366,29 +2673,23 @@
         const items = [];
         snapshot.forEach((child) => { items.push({ id: child.key, ...child.val() }); });
         items.reverse();
-
         const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
         const forMe = items.filter(x => x.assignedTo === myUid);
         const byMe = items.filter(x => x.createdBy === myUid);
-
         currentChoresForMe = forMe;
         currentChoresByMe = byMe;
-
         const forMeActive = forMe.filter(x => !x.done).length;
         const byMeActive = byMe.filter(x => !x.done).length;
         const forMeDone = forMe.filter(x => x.done).length;
         const byMeDone = byMe.filter(x => x.done).length;
-
         const forMeCountEl = $('choreForMeCount');
         const byMeCountEl = $('choreByMeCount');
         if (forMeCountEl) forMeCountEl.textContent = forMeActive;
         if (byMeCountEl) byMeCountEl.textContent = byMeActive;
-
         const forMeClear = $('choreForMeClear');
         const byMeClear = $('choreByMeClear');
         if (forMeClear) forMeClear.style.display = forMeDone > 0 ? 'block' : 'none';
         if (byMeClear) byMeClear.style.display = byMeDone > 0 ? 'block' : 'none';
-
         renderChores(forMe, choreForMeList, choreForMeEmpty, 'forMe');
         renderChores(byMe, choreByMeList, choreByMeEmpty, 'byMe');
         refreshTodayIfActive();
@@ -2399,15 +2700,10 @@
 
     function renderChores(items, container, emptyEl, mode) {
       container.innerHTML = '';
-      if (items.length === 0) {
-        emptyEl.style.display = 'block';
-        return;
-      }
+      if (items.length === 0) { emptyEl.style.display = 'block'; return; }
       emptyEl.style.display = 'none';
-
       const active = items.filter(x => !x.done);
       const done = items.filter(x => x.done);
-
       active.sort((a, b) => {
         const pa = PRIORITY_ORDER[a.priority] ?? 1;
         const pb = PRIORITY_ORDER[b.priority] ?? 1;
@@ -2416,9 +2712,7 @@
         const db_ = b.dueDate || '9999-99-99';
         return da.localeCompare(db_);
       });
-
       active.forEach(data => container.appendChild(buildChoreItem(data, mode)));
-
       if (done.length > 0) {
         const sub = document.createElement('div');
         sub.className = 'chore-done-subtitle';
@@ -2502,7 +2796,6 @@
         try { await remove(ref(db, 'chores/' + item.id)); } catch (e) { console.error(e); }
       }
     });
-
     $('choreByMeClear').addEventListener('click', async () => {
       const done = currentChoresByMe.filter(x => x.done);
       if (done.length === 0) return;
@@ -2581,14 +2874,12 @@
         const today = todayStr();
         const todayItems = items.filter(x => x.date === today);
         const futureItems = items.filter(x => x.date && x.date > today);
-
         const todayActive = todayItems.filter(x => !x.done).length;
         const todayCountEl = $('eventsTodayCount');
         if (todayCountEl) todayCountEl.textContent = todayActive;
         const futureActive = futureItems.filter(x => !x.done).length;
         const futureCountEl = $('eventsFutureCount');
         if (futureCountEl) futureCountEl.textContent = futureActive;
-
         renderEvents(todayItems, eventsTodayList, eventsTodayEmpty, true);
         renderEvents(futureItems, eventsFutureList, eventsFutureEmpty, false);
         refreshTodayIfActive();
@@ -2638,7 +2929,6 @@
       if (isNow) cls += ' now';
       if (data.repeat && data.repeat !== 'none') cls += ' repeat';
       item.className = cls;
-
       const cb = document.createElement('div');
       cb.className = 'event-checkbox' + (data.done ? ' checked' : '');
       cb.title = data.done ? 'Вернуть' : 'Отметить как прошедшее';
@@ -2646,7 +2936,6 @@
         try { await update(ref(db, 'schedule_events/' + data.id), { done: !data.done }); } catch (err) { console.error(err); }
       });
       item.appendChild(cb);
-
       const timeEl = document.createElement('div');
       timeEl.className = 'event-time';
       timeEl.textContent = data.startTime || '--:--';
@@ -2657,7 +2946,6 @@
         timeEl.appendChild(sep);
       }
       item.appendChild(timeEl);
-
       const body = document.createElement('div');
       body.className = 'event-body';
       const title = document.createElement('div');
@@ -2682,7 +2970,6 @@
         body.appendChild(meta);
       }
       item.appendChild(body);
-
       const delBtn = document.createElement('button');
       delBtn.className = 'delete-btn';
       delBtn.textContent = '×';
@@ -2811,7 +3098,6 @@
       });
       if (selectedGiftOccasion !== 'all') base = base.filter(g => (g.occasion || 'just') === selectedGiftOccasion);
       if (hideDoneGifts) base = base.filter(g => !g.done);
-
       if (currentGiftView === 'mine') {
         const activeTotal = base.filter(g => !g.done && g.price).reduce((s, g) => s + Number(g.price || 0), 0);
         if (activeTotal > 0) {
@@ -2819,16 +3105,13 @@
           giftTotalValue.textContent = activeTotal.toLocaleString('ru-RU') + ' ₽';
         } else giftTotalCard.style.display = 'none';
       } else giftTotalCard.style.display = 'none';
-
       const totalCount = base.length;
       const doneCount = base.filter(g => g.done).length;
       const activeCount = totalCount - doneCount;
       if (totalCount === 0) giftStatLine.innerHTML = 'Ничего не найдено';
       else giftStatLine.innerHTML = 'Активных: <span class="num">' + activeCount + '</span>' + (doneCount > 0 ? ' • Куплено: <span class="num">' + doneCount + '</span>' : '');
-
       if (base.length === 0) { giftsEmpty.style.display = 'block'; return; }
       giftsEmpty.style.display = 'none';
-
       const active = base.filter(g => !g.done);
       const done = base.filter(g => g.done);
       const PO = { high: 0, medium: 1, low: 2 };
@@ -2959,7 +3242,6 @@
         renderWishes();
       });
     });
-
     document.querySelectorAll('#wishCategoryFilters .cat-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('#wishCategoryFilters .cat-btn').forEach(b => b.classList.remove('active'));
@@ -2968,9 +3250,7 @@
         renderWishes();
       });
     });
-
     wishSortSelect.addEventListener('change', () => { wishSortMode = wishSortSelect.value; renderWishes(); });
-
     wishHideDoneBtn.addEventListener('click', () => {
       hideDoneWishes = !hideDoneWishes;
       wishHideDoneBtn.classList.toggle('active', hideDoneWishes);
@@ -3046,26 +3326,21 @@
       $('wishBdSaving').textContent = savingSum.toLocaleString('ru-RU') + ' ₽';
       $('wishBdBought').textContent = boughtSum.toLocaleString('ru-RU') + ' ₽';
       $('wishBreakdown').style.display = wantSum + savingSum + boughtSum > 0 ? 'flex' : 'none';
-
       let filtered = items;
       if (selectedWishStatus !== 'all') filtered = filtered.filter(x => (x.status || 'want') === selectedWishStatus);
       if (selectedWishCategory !== 'all') filtered = filtered.filter(x => (x.category || 'other') === selectedWishCategory);
       if (hideDoneWishes) filtered = filtered.filter(x => x.status !== 'bought');
-
       const PO = { high: 0, medium: 1, low: 2 };
       if (wishSortMode === 'priority') filtered.sort((a, b) => (PO[a.priority] ?? 1) - (PO[b.priority] ?? 1));
       else if (wishSortMode === 'price-desc') filtered.sort((a, b) => Number(b.price || 0) - Number(a.price || 0));
       else if (wishSortMode === 'price-asc') filtered.sort((a, b) => Number(a.price || 0) - Number(b.price || 0));
-
       const totalCount = filtered.length;
       const doneCount = filtered.filter(x => x.status === 'bought').length;
       const activeCount = totalCount - doneCount;
       if (totalCount === 0) wishStatLine.textContent = 'Ничего не найдено';
       else wishStatLine.innerHTML = 'Активных: <span class="num">' + activeCount + '</span>' + (doneCount > 0 ? ' • Куплено: <span class="num">' + doneCount + '</span>' : '');
-
       const allBoughtCount = items.filter(x => x.status === 'bought').length;
       $('wishClearBought').style.display = allBoughtCount > 0 ? 'block' : 'none';
-
       if (filtered.length === 0) {
         const emptyMsg = document.createElement('div');
         emptyMsg.className = 'empty';
