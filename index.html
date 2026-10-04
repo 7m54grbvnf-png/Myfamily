@@ -5,12 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Семья">
   <meta name="theme-color" content="#f6f3ee">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20192%20192%22%3E%3Crect%20width%3D%22192%22%20height%3D%22192%22%20rx%3D%2242%22%20fill%3D%22%23b8894e%22%2F%3E%3Ctext%20x%3D%2296%22%20y%3D%22130%22%20font-size%3D%22110%22%20text-anchor%3D%22middle%22%3E%E2%9D%A4%EF%B8%8F%3C%2Ftext%3E%3C%2Fsvg%3E">
   <title>Семейное приложение</title>
   <script>
     (function() {
       try {
         var t = localStorage.getItem('familyTheme');
+        if (!t && localStorage.getItem('familyAutoDark') === '1') {
+          var h = new Date().getHours();
+          t = (h >= 21 || h < 7) ? 'dark' : 'gold';
+        }
         if (t) document.documentElement.setAttribute('data-theme', t);
       } catch (e) {}
     })();
@@ -174,14 +181,14 @@
       background: var(--topbar-bg);
       backdrop-filter: saturate(180%) blur(28px);
       -webkit-backdrop-filter: saturate(180%) blur(28px);
-      padding: 16px 16px 12px;
+      padding: 16px 12px 12px;
       display: flex; align-items: center; justify-content: space-between;
       border-bottom: 1px solid var(--accent-border);
-      gap: 8px;
+      gap: 6px;
     }
-    .topbar-left { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
+    .topbar-left { display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1; }
     .topbar-icon {
-      width: 40px; height: 40px;
+      width: 38px; height: 38px;
       background: var(--accent-grad);
       border-radius: 12px;
       display: flex; align-items: center; justify-content: center;
@@ -189,8 +196,33 @@
       box-shadow: 0 4px 14px var(--accent-shadow);
       flex-shrink: 0;
     }
-    .topbar h2 { font-size: 20px; font-weight: 800; letter-spacing: -0.6px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .topbar-actions { display: flex; gap: 4px; flex-shrink: 0; }
+    .topbar-icon svg { width: 20px; height: 20px; }
+    .topbar h2 { font-size: 19px; font-weight: 800; letter-spacing: -0.6px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .urgent-bell {
+      position: relative;
+      background: transparent; border: none;
+      width: 38px; height: 38px;
+      border-radius: 12px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent-text);
+      flex-shrink: 0;
+      transition: all 0.15s;
+    }
+    .urgent-bell:active { transform: scale(0.9); }
+    .urgent-bell .bell-badge {
+      position: absolute;
+      top: -2px; right: -2px;
+      background: #e85555;
+      color: #ffffff;
+      font-size: 10px; font-weight: 800;
+      min-width: 18px; height: 18px;
+      padding: 0 4px;
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      border: 2px solid var(--topbar-bg);
+      box-sizing: content-box;
+    }
+    .topbar-actions { display: flex; gap: 3px; flex-shrink: 0; }
     .logout-btn {
       background: var(--accent-soft); border: none; font-family: inherit;
       color: var(--accent-text); font-size: 13px; font-weight: 700;
@@ -353,28 +385,15 @@
 
     .gift-link { display: inline-block; margin-top: 6px; color: var(--accent-text); font-weight: 600; font-size: 13px; text-decoration: none; word-break: break-all; }
 
-    .gift-view-tabs {
-      display: flex; background: var(--accent-soft);
-      border-radius: 14px; padding: 4px; margin-bottom: 16px;
-      border: 1px solid var(--accent-border);
-    }
+    .gift-view-tabs { display: flex; background: var(--accent-soft); border-radius: 14px; padding: 4px; margin-bottom: 16px; border: 1px solid var(--accent-border); }
     .gift-view-tab {
       flex: 1; padding: 11px 8px; text-align: center; border-radius: 10px;
       font-size: 13px; font-weight: 700; color: var(--text-soft);
       cursor: pointer; border: none; background: transparent; font-family: inherit;
-      transition: all 0.25s;
-      display: flex; align-items: center; justify-content: center; gap: 6px;
+      transition: all 0.25s; display: flex; align-items: center; justify-content: center; gap: 6px;
     }
-    .gift-view-tab.active {
-      background: var(--accent-grad); color: #ffffff;
-      box-shadow: 0 4px 12px var(--accent-shadow);
-    }
-    .gift-view-tab .count-mini {
-      background: rgba(255, 255, 255, 0.25);
-      padding: 1px 7px; border-radius: 6px;
-      font-size: 11px; font-weight: 800;
-      min-width: 18px; text-align: center;
-    }
+    .gift-view-tab.active { background: var(--accent-grad); color: #ffffff; box-shadow: 0 4px 12px var(--accent-shadow); }
+    .gift-view-tab .count-mini { background: rgba(255, 255, 255, 0.25); padding: 1px 7px; border-radius: 6px; font-size: 11px; font-weight: 800; min-width: 18px; text-align: center; }
     .gift-view-tab.active .count-mini { background: rgba(255, 255, 255, 0.3); }
     .gift-view-tab:not(.active) .count-mini { background: var(--accent-soft-strong); color: var(--accent-text); }
 
@@ -382,24 +401,12 @@
       padding: 8px 14px; border-radius: 10px;
       border: 1.5px solid var(--input-border); background: var(--input-bg);
       font-family: inherit; font-size: 12px; font-weight: 700;
-      color: var(--text-soft); cursor: pointer;
-      transition: all 0.15s;
+      color: var(--text-soft); cursor: pointer; transition: all 0.15s;
     }
     .hide-done-toggle:active { transform: scale(0.96); }
-    .hide-done-toggle.active {
-      background: var(--accent-grad); color: #ffffff;
-      border-color: transparent;
-      box-shadow: 0 3px 10px var(--accent-shadow);
-    }
-    .gift-toolbar {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 12px;
-      gap: 10px;
-    }
-    .gift-stat {
-      font-size: 12px; font-weight: 700; color: var(--text-soft);
-      flex: 1; min-width: 0;
-    }
+    .hide-done-toggle.active { background: var(--accent-grad); color: #ffffff; border-color: transparent; box-shadow: 0 3px 10px var(--accent-shadow); }
+    .gift-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; gap: 10px; }
+    .gift-stat { font-size: 12px; font-weight: 700; color: var(--text-soft); flex: 1; min-width: 0; }
     .gift-stat .num { color: var(--accent-text); font-weight: 800; }
 
     .wish-total-card {
@@ -412,16 +419,10 @@
     .wish-total-value { font-size: 20px; font-weight: 800; }
 
     .wish-breakdown {
-      background: var(--card);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 12px 16px;
-      margin-bottom: 16px;
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-      animation: fadeInUp 0.3s ease;
+      background: var(--card); border: 1px solid var(--card-border);
+      border-radius: 14px; padding: 12px 16px; margin-bottom: 16px;
+      display: flex; justify-content: space-between; gap: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03); animation: fadeInUp 0.3s ease;
     }
     .wish-bd-item { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
     .wish-bd-label { font-size: 11px; font-weight: 700; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.5px; }
@@ -443,17 +444,7 @@
     .wish-priority.low { background: var(--accent-soft); color: var(--accent-text); border: 1px solid var(--accent-border); }
 
     .wish-price-tag { font-size: 15px; font-weight: 800; color: var(--accent-text); white-space: nowrap; margin-left: 8px; }
-
-    .wish-cat-badge {
-      display: inline-block;
-      font-size: 11px; font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 8px;
-      background: var(--accent-soft);
-      color: var(--accent-text);
-      border: 1px solid var(--accent-border);
-      letter-spacing: 0.3px;
-    }
+    .wish-cat-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 8px; background: var(--accent-soft); color: var(--accent-text); border: 1px solid var(--accent-border); letter-spacing: 0.3px; }
 
     .event-add-card {
       background: var(--card); border: 1px solid var(--card-border);
@@ -473,8 +464,7 @@
       border-radius: 10px; border: 1.5px solid var(--input-border);
       background: var(--input-bg); color: var(--text-soft);
       font-family: inherit; font-size: 12px; font-weight: 700;
-      cursor: pointer; transition: all 0.15s;
-      white-space: nowrap;
+      cursor: pointer; transition: all 0.15s; white-space: nowrap;
     }
     .quick-btn:active { transform: scale(0.96); background: var(--accent-soft); color: var(--accent-text); border-color: var(--accent-1); }
 
@@ -502,24 +492,19 @@
     }
     .event-item.done { opacity: 0.5; }
     .event-item.done .event-title { text-decoration: line-through; text-decoration-color: var(--text-muted); }
-    .event-item.now {
-      border: 1.5px solid var(--accent-2);
-      animation: fadeInUp 0.3s ease, nowPulse 2.5s ease-in-out infinite;
-    }
+    .event-item.now { border: 1.5px solid var(--accent-2); animation: fadeInUp 0.3s ease, nowPulse 2.5s ease-in-out infinite; }
     .event-item.now::before {
       content: "СЕЙЧАС ИДЁТ";
       position: absolute; top: -8px; left: 12px;
       font-size: 9px; font-weight: 900; letter-spacing: 1.2px;
-      color: #ffffff;
-      background: var(--accent-grad);
+      color: #ffffff; background: var(--accent-grad);
       padding: 3px 8px; border-radius: 6px;
       box-shadow: 0 2px 8px var(--accent-shadow);
     }
     .event-item.repeat::after {
       content: "↻";
       position: absolute; bottom: 8px; right: 14px;
-      font-size: 14px; font-weight: 700;
-      color: var(--text-muted);
+      font-size: 14px; font-weight: 700; color: var(--text-muted);
     }
     .event-time { font-size: 16px; font-weight: 800; color: var(--accent-text); min-width: 64px; text-align: center; flex-shrink: 0; letter-spacing: -0.4px; }
     .event-time .time-sep { display: block; font-size: 11px; color: var(--text-soft); font-weight: 500; margin-top: 3px; letter-spacing: 0; }
@@ -536,178 +521,84 @@
     .event-checkbox.checked { background: var(--accent-grad); border-color: transparent; box-shadow: 0 4px 12px var(--accent-shadow-strong); }
     .event-checkbox.checked::after { content: "✓"; color: #ffffff; font-size: 15px; font-weight: 900; }
 
-    /* ============ ДАШБОРД «СЕГОДНЯ» ============ */
+    /* ДАШБОРД */
     .today-greeting {
-      background: var(--card);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 20px;
-      margin-bottom: 12px;
+      background: var(--card); border: 1px solid var(--card-border);
+      border-radius: 20px; padding: 20px; margin-bottom: 12px;
       box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
       animation: fadeInUp 0.3s ease;
-      position: relative;
-      overflow: hidden;
+      position: relative; overflow: hidden;
     }
-    .today-greeting::before {
-      content: "";
-      position: absolute;
-      top: -30px; right: -30px;
-      width: 120px; height: 120px;
-      border-radius: 50%;
-      background: var(--accent-soft);
-      z-index: 0;
-    }
-    .today-greeting .greet-line {
-      font-size: 22px; font-weight: 800; color: var(--text);
-      letter-spacing: -0.6px; margin-bottom: 4px;
-      position: relative; z-index: 1;
-    }
-    .today-greeting .greet-date {
-      font-size: 14px; color: var(--text-soft); font-weight: 500;
-      position: relative; z-index: 1; text-transform: capitalize;
-    }
+    .today-greeting::before { content: ""; position: absolute; top: -30px; right: -30px; width: 120px; height: 120px; border-radius: 50%; background: var(--accent-soft); z-index: 0; }
+    .today-greeting .greet-line { font-size: 22px; font-weight: 800; color: var(--text); letter-spacing: -0.6px; margin-bottom: 4px; position: relative; z-index: 1; }
+    .today-greeting .greet-date { font-size: 14px; color: var(--text-soft); font-weight: 500; position: relative; z-index: 1; text-transform: capitalize; }
 
-    /* СЧЁТЧИК «ВМЕСТЕ» */
     .together-card {
       background: linear-gradient(135deg, #ffd9e0 0%, #ffe6d4 100%);
       border: 1px solid #ffc9d1;
-      border-radius: 18px;
-      padding: 14px 18px;
-      margin-bottom: 18px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
+      border-radius: 18px; padding: 14px 18px; margin-bottom: 18px;
+      display: flex; align-items: center; gap: 12px;
       box-shadow: 0 6px 20px rgba(232, 168, 184, 0.2);
-      cursor: pointer;
-      transition: all 0.2s;
-      animation: fadeInUp 0.3s ease;
-      position: relative;
+      cursor: pointer; transition: all 0.2s;
+      animation: fadeInUp 0.3s ease; position: relative;
     }
     body[data-theme="dark"] .together-card {
       background: linear-gradient(135deg, rgba(80, 40, 50, 0.7) 0%, rgba(70, 45, 30, 0.7) 100%);
       border-color: rgba(255, 200, 210, 0.2);
     }
     .together-card:active { transform: scale(0.98); }
-    .together-emoji {
-      font-size: 32px;
-      flex-shrink: 0;
-    }
+    .together-emoji { font-size: 32px; flex-shrink: 0; }
     .together-body { flex: 1; min-width: 0; }
-    .together-title {
-      font-size: 13px; font-weight: 700;
-      color: #b05572;
-      text-transform: uppercase; letter-spacing: 0.8px;
-      margin-bottom: 2px;
-    }
+    .together-title { font-size: 13px; font-weight: 700; color: #b05572; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 2px; }
     body[data-theme="dark"] .together-title { color: #ffb8c8; }
-    .together-days {
-      font-size: 22px; font-weight: 800;
-      color: #7d2f47;
-      letter-spacing: -0.4px;
-    }
+    .together-days { font-size: 22px; font-weight: 800; color: #7d2f47; letter-spacing: -0.4px; }
     body[data-theme="dark"] .together-days { color: #fff; }
-    .together-hint {
-      font-size: 11px; color: #b05572; opacity: 0.75;
-      margin-top: 2px; font-weight: 600;
-    }
+    .together-hint { font-size: 11px; color: #b05572; opacity: 0.75; margin-top: 2px; font-weight: 600; }
     body[data-theme="dark"] .together-hint { color: #ffb8c8; }
 
-    .today-quick {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-      margin-bottom: 20px;
-    }
+    .today-quick { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 20px; }
     .today-quick-btn {
-      background: var(--card);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 12px;
-      cursor: pointer;
-      font-family: inherit;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-align: left;
-      transition: all 0.15s;
-      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.03);
+      background: var(--card); border: 1px solid var(--card-border);
+      border-radius: 14px; padding: 12px; cursor: pointer; font-family: inherit;
+      display: flex; align-items: center; gap: 10px; text-align: left;
+      transition: all 0.15s; box-shadow: 0 3px 12px rgba(0, 0, 0, 0.03);
       min-width: 0;
     }
     .today-quick-btn:active { transform: scale(0.97); }
-    .today-quick-btn .quick-icon {
-      width: 34px; height: 34px;
-      background: var(--accent-soft);
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--accent-text); flex-shrink: 0;
-    }
+    .today-quick-btn .quick-icon { width: 34px; height: 34px; background: var(--accent-soft); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--accent-text); flex-shrink: 0; }
     .today-quick-btn .quick-text { flex: 1; min-width: 0; }
-    .today-quick-btn .quick-label {
-      font-size: 13px; font-weight: 700; color: var(--text);
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .today-quick-btn .quick-sub {
-      font-size: 11px; color: var(--text-soft); font-weight: 600; margin-top: 1px;
-    }
+    .today-quick-btn .quick-label { font-size: 13px; font-weight: 700; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .today-quick-btn .quick-sub { font-size: 11px; color: var(--text-soft); font-weight: 600; margin-top: 1px; }
 
     .today-section { margin-bottom: 20px; animation: fadeInUp 0.3s ease; }
-    .today-section-head {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 10px; padding: 0 4px;
-    }
-    .today-section-title {
-      font-size: 12px; font-weight: 800; color: var(--text-soft);
-      text-transform: uppercase; letter-spacing: 1.4px;
-      display: flex; align-items: center; gap: 6px;
-    }
-    .today-section-count {
-      background: var(--accent-soft); color: var(--accent-text);
-      font-size: 11px; font-weight: 800;
-      padding: 3px 10px; border-radius: 8px;
-      border: 1px solid var(--accent-border);
-      min-width: 26px; text-align: center;
-    }
+    .today-section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding: 0 4px; }
+    .today-section-title { font-size: 12px; font-weight: 800; color: var(--text-soft); text-transform: uppercase; letter-spacing: 1.4px; display: flex; align-items: center; gap: 6px; }
+    .today-section-count { background: var(--accent-soft); color: var(--accent-text); font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 8px; border: 1px solid var(--accent-border); min-width: 26px; text-align: center; }
 
     .today-card {
-      background: var(--card);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 12px 14px;
+      background: var(--card); border: 1px solid var(--card-border);
+      border-radius: 14px; padding: 12px 14px;
       display: flex; align-items: center; gap: 12px;
-      margin-bottom: 8px;
-      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.03);
+      margin-bottom: 8px; box-shadow: 0 3px 12px rgba(0, 0, 0, 0.03);
       animation: fadeInUp 0.3s ease;
     }
-    .today-card-time {
-      font-size: 14px; font-weight: 800; color: var(--accent-text);
-      min-width: 50px; text-align: center; flex-shrink: 0;
-    }
+    .today-card-time { font-size: 14px; font-weight: 800; color: var(--accent-text); min-width: 50px; text-align: center; flex-shrink: 0; }
     .today-card-body { flex: 1; min-width: 0; }
     .today-card-title { font-size: 15px; font-weight: 600; color: var(--text); word-break: break-word; }
     .today-card-meta { font-size: 11px; color: var(--text-soft); margin-top: 2px; font-weight: 500; }
     .today-card .cat-marker { width: 3px; height: 26px; border-radius: 2px; flex-shrink: 0; }
-    .today-card .today-prio {
-      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
-    }
+    .today-card .today-prio { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
     .today-card .today-prio.high { background: #e88585; }
     .today-card .today-prio.low { background: #b8aca1; }
     .today-card .today-prio.medium { background: #f0c070; }
 
-    .today-empty {
-      text-align: center; padding: 16px;
-      color: var(--text-muted); font-size: 13px; font-weight: 500;
-      background: var(--card);
-      border: 1px dashed var(--card-border);
-      border-radius: 14px;
-    }
+    .today-empty { text-align: center; padding: 16px; color: var(--text-muted); font-size: 13px; font-weight: 500; background: var(--card); border: 1px dashed var(--card-border); border-radius: 14px; }
 
     /* ЗАПИСКИ */
     .note-section {
       background: linear-gradient(135deg, rgba(255, 245, 232, 0.95) 0%, rgba(255, 232, 209, 0.9) 100%);
       border: 1px solid #f5e0c4;
-      border-radius: 20px;
-      padding: 16px 18px;
-      margin-bottom: 18px;
+      border-radius: 20px; padding: 16px 18px; margin-bottom: 18px;
       box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04);
       animation: fadeInUp 0.3s ease;
     }
@@ -715,205 +606,81 @@
       background: linear-gradient(135deg, rgba(42, 36, 24, 0.9) 0%, rgba(30, 26, 16, 0.9) 100%);
       border-color: #3a3020;
     }
-    .note-header {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 10px;
-    }
-    .note-header-title {
-      font-size: 13px; font-weight: 800; color: var(--accent-text);
-      letter-spacing: 0.8px; text-transform: uppercase;
-    }
+    .note-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .note-header-title { font-size: 13px; font-weight: 800; color: var(--accent-text); letter-spacing: 0.8px; text-transform: uppercase; }
     .note-input-row { display: flex; gap: 8px; margin-bottom: 10px; }
-    .note-input-row input {
-      flex: 1; margin-bottom: 0; padding: 12px 14px; font-size: 14px;
-      background: rgba(255, 255, 255, 0.7);
-      border: 1px solid #f0e0c4;
-    }
-    body[data-theme="dark"] .note-input-row input {
-      background: rgba(0, 0, 0, 0.3);
-      border-color: #3a3020;
-    }
+    .note-input-row input { flex: 1; margin-bottom: 0; padding: 12px 14px; font-size: 14px; background: rgba(255, 255, 255, 0.7); border: 1px solid #f0e0c4; }
+    body[data-theme="dark"] .note-input-row input { background: rgba(0, 0, 0, 0.3); border-color: #3a3020; }
     .note-send-btn {
       width: 44px; height: 44px; flex-shrink: 0;
-      background: var(--accent-grad);
-      color: #fff; border: none; border-radius: 12px;
+      background: var(--accent-grad); color: #fff; border: none; border-radius: 12px;
       font-size: 18px; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
       box-shadow: 0 4px 12px var(--accent-shadow);
       transition: all 0.15s;
     }
     .note-send-btn:active { transform: scale(0.94); }
-    .note-cards {
-      display: flex; gap: 8px; overflow-x: auto;
-      padding-bottom: 4px; scrollbar-width: none;
-      -webkit-overflow-scrolling: touch;
-    }
+    .note-cards { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
     .note-cards::-webkit-scrollbar { display: none; }
     .note-card {
-      flex-shrink: 0;
-      background: var(--card);
-      border-radius: 14px;
-      padding: 10px 12px;
-      min-width: 150px; max-width: 220px;
+      flex-shrink: 0; background: var(--card); border-radius: 14px;
+      padding: 10px 12px; min-width: 150px; max-width: 220px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-      position: relative;
-      animation: fadeInUp 0.3s ease;
+      position: relative; animation: fadeInUp 0.3s ease;
     }
-    .note-card-text {
-      font-size: 14px; color: var(--text); font-weight: 500;
-      word-break: break-word; padding-right: 18px; line-height: 1.3;
-    }
-    .note-card-meta {
-      font-size: 10px; color: var(--text-soft);
-      margin-top: 6px; font-weight: 600;
-    }
-    .note-card-del {
-      position: absolute; top: 2px; right: 2px;
-      background: transparent; border: none;
-      color: var(--text-muted); font-size: 16px;
-      padding: 4px 6px; cursor: pointer; line-height: 1;
-    }
-    .note-empty {
-      font-size: 13px; color: var(--text-soft);
-      font-style: italic; padding: 4px 0;
-    }
+    .note-card-text { font-size: 14px; color: var(--text); font-weight: 500; word-break: break-word; padding-right: 18px; line-height: 1.3; }
+    .note-card-meta { font-size: 10px; color: var(--text-soft); margin-top: 6px; font-weight: 600; }
+    .note-card-del { position: absolute; top: 2px; right: 2px; background: transparent; border: none; color: var(--text-muted); font-size: 16px; padding: 4px 6px; cursor: pointer; line-height: 1; }
+    .note-empty { font-size: 13px; color: var(--text-soft); font-style: italic; padding: 4px 0; }
 
     /* ВАЖНЫЕ ДАТЫ */
     .date-section {
-      background: var(--card);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 16px 18px;
-      margin-bottom: 18px;
+      background: var(--card); border: 1px solid var(--card-border);
+      border-radius: 20px; padding: 16px 18px; margin-bottom: 18px;
       box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
       animation: fadeInUp 0.3s ease;
     }
-    .date-section-head {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 12px;
-    }
-    .date-section-title {
-      font-size: 13px; font-weight: 800; color: var(--accent-text);
-      letter-spacing: 0.8px; text-transform: uppercase;
-    }
-    .date-section-add {
-      background: var(--accent-soft); border: 1px solid var(--accent-border);
-      color: var(--accent-text); font-family: inherit;
-      font-size: 12px; font-weight: 700;
-      padding: 6px 12px; border-radius: 10px; cursor: pointer;
-      transition: all 0.15s;
-    }
+    .date-section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .date-section-title { font-size: 13px; font-weight: 800; color: var(--accent-text); letter-spacing: 0.8px; text-transform: uppercase; }
+    .date-section-add { background: var(--accent-soft); border: 1px solid var(--accent-border); color: var(--accent-text); font-family: inherit; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 10px; cursor: pointer; transition: all 0.15s; }
     .date-section-add:active { transform: scale(0.95); }
     .date-cards { display: flex; flex-direction: column; gap: 8px; }
     .date-card {
       display: flex; align-items: center; gap: 12px;
-      padding: 10px 12px;
-      background: var(--input-bg);
-      border: 1px solid var(--input-border);
-      border-radius: 12px;
+      padding: 10px 12px; background: var(--input-bg);
+      border: 1px solid var(--input-border); border-radius: 12px;
       animation: fadeInUp 0.3s ease;
     }
-    .date-card-icon {
-      width: 40px; height: 40px;
-      background: var(--accent-soft);
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 20px; flex-shrink: 0;
-    }
+    .date-card-icon { width: 40px; height: 40px; background: var(--accent-soft); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
     .date-card-body { flex: 1; min-width: 0; }
-    .date-card-title {
-      font-size: 14px; font-weight: 700; color: var(--text);
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .date-card-sub {
-      font-size: 11px; color: var(--text-soft); font-weight: 600; margin-top: 2px;
-    }
-    .date-card-days {
-      flex-shrink: 0; text-align: right;
-      font-size: 13px; font-weight: 800;
-      color: var(--accent-text); white-space: nowrap;
-    }
+    .date-card-title { font-size: 14px; font-weight: 700; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .date-card-sub { font-size: 11px; color: var(--text-soft); font-weight: 600; margin-top: 2px; }
+    .date-card-days { flex-shrink: 0; text-align: right; font-size: 13px; font-weight: 800; color: var(--accent-text); white-space: nowrap; }
     .date-card-days.today { color: #c0554e; }
     .date-card-days.soon { color: #b8770f; }
-    .date-empty {
-      font-size: 13px; color: var(--text-soft);
-      font-style: italic; padding: 4px 0;
-    }
+    .date-empty { font-size: 13px; color: var(--text-soft); font-style: italic; padding: 4px 0; }
 
     /* СТАТИСТИКА */
     .stats-modal-content { padding: 24px; }
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-    .stat-card {
-      background: var(--input-bg);
-      border: 1px solid var(--input-border);
-      border-radius: 14px;
-      padding: 12px 14px;
-      display: flex; flex-direction: column; gap: 4px;
-    }
-    .stat-label {
-      font-size: 11px; font-weight: 700;
-      color: var(--text-soft);
-      text-transform: uppercase; letter-spacing: 0.5px;
-    }
+    .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 8px; }
+    .stat-card { background: var(--input-bg); border: 1px solid var(--input-border); border-radius: 14px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; }
+    .stat-label { font-size: 11px; font-weight: 700; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.5px; }
     .stat-value { font-size: 20px; font-weight: 800; color: var(--accent-text); }
     .stat-sub { font-size: 11px; color: var(--text-soft); font-weight: 600; }
-    .stat-section-title {
-      font-size: 12px; font-weight: 800;
-      color: var(--text-soft);
-      text-transform: uppercase; letter-spacing: 1.2px;
-      margin: 18px 0 10px;
-    }
+    .stat-section-title { font-size: 12px; font-weight: 800; color: var(--text-soft); text-transform: uppercase; letter-spacing: 1.2px; margin: 18px 0 10px; }
 
     /* ПОИСК */
-    .search-results {
-      max-height: 55vh;
-      overflow-y: auto;
-      margin: 12px 0 4px;
-    }
-    .search-group-title {
-      font-size: 11px; font-weight: 800;
-      color: var(--text-soft);
-      text-transform: uppercase; letter-spacing: 1.2px;
-      margin: 14px 4px 6px;
-    }
+    .search-results { max-height: 55vh; overflow-y: auto; margin: 12px 0 4px; }
+    .search-group-title { font-size: 11px; font-weight: 800; color: var(--text-soft); text-transform: uppercase; letter-spacing: 1.2px; margin: 14px 4px 6px; }
     .search-group-title:first-child { margin-top: 0; }
-    .search-item {
-      background: var(--input-bg);
-      border: 1px solid var(--input-border);
-      border-radius: 12px;
-      padding: 10px 12px;
-      margin-bottom: 6px;
-      cursor: pointer;
-      display: flex; align-items: center; gap: 10px;
-      transition: all 0.15s;
-    }
+    .search-item { background: var(--input-bg); border: 1px solid var(--input-border); border-radius: 12px; padding: 10px 12px; margin-bottom: 6px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.15s; }
     .search-item:active { transform: scale(0.98); background: var(--accent-soft); }
     .search-item-icon { font-size: 18px; flex-shrink: 0; }
     .search-item-body { flex: 1; min-width: 0; }
-    .search-item-title {
-      font-size: 14px; font-weight: 600; color: var(--text);
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .search-item-sub {
-      font-size: 11px; color: var(--text-soft); font-weight: 500;
-      margin-top: 1px;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .search-empty {
-      text-align: center; padding: 30px 20px;
-      color: var(--text-muted); font-size: 14px; font-weight: 500;
-      font-style: italic;
-    }
-    .search-hint {
-      text-align: center; padding: 30px 20px;
-      color: var(--text-muted); font-size: 14px; font-weight: 500;
-      font-style: italic;
-    }
+    .search-item-title { font-size: 14px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .search-item-sub { font-size: 11px; color: var(--text-soft); font-weight: 500; margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .search-empty { text-align: center; padding: 30px 20px; color: var(--text-muted); font-size: 14px; font-weight: 500; font-style: italic; }
+    .search-hint { text-align: center; padding: 30px 20px; color: var(--text-muted); font-size: 14px; font-weight: 500; font-style: italic; }
 
     .bottom-nav {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 20;
@@ -953,8 +720,7 @@
     .theme-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; }
     .theme-option {
       background: var(--input-bg); border: 2px solid var(--input-border);
-      border-radius: 16px; padding: 14px; cursor: pointer;
-      font-family: inherit;
+      border-radius: 16px; padding: 14px; cursor: pointer; font-family: inherit;
       display: flex; flex-direction: column; align-items: center; gap: 10px;
       transition: all 0.2s;
     }
@@ -963,20 +729,46 @@
     .theme-preview { width: 100%; height: 60px; border-radius: 12px; position: relative; overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); }
     .theme-preview-dot { position: absolute; width: 22px; height: 22px; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
     .theme-name { font-size: 13px; font-weight: 700; color: var(--text); letter-spacing: 0.2px; }
+
+    /* Переключатель авто-тёмной темы */
+    .auto-dark-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0;
+      border-top: 1px solid var(--card-border);
+      margin-top: 4px;
+    }
+    .auto-dark-label {
+      display: flex; flex-direction: column; gap: 2px;
+      flex: 1; min-width: 0;
+    }
+    .auto-dark-title { font-size: 14px; font-weight: 700; color: var(--text); }
+    .auto-dark-sub { font-size: 11px; color: var(--text-soft); font-weight: 500; }
+    .switch {
+      position: relative; width: 50px; height: 30px; flex-shrink: 0;
+      background: var(--input-border); border-radius: 15px;
+      cursor: pointer; transition: background 0.2s; border: none;
+      padding: 0;
+    }
+    .switch.on { background: var(--accent-grad); }
+    .switch::after {
+      content: ""; position: absolute;
+      width: 24px; height: 24px; border-radius: 50%;
+      background: #ffffff; top: 3px; left: 3px;
+      transition: transform 0.25s;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+    .switch.on::after { transform: translateX(20px); }
+
     .modal-actions-row { display: flex; gap: 10px; margin-top: 16px; }
     .modal-actions-row button { margin-top: 0; }
     .modal-cancel-style {
-      background: var(--input-bg) !important;
-      color: var(--text-soft) !important;
-      box-shadow: none !important;
-      border: 1px solid var(--input-border) !important;
+      background: var(--input-bg) !important; color: var(--text-soft) !important;
+      box-shadow: none !important; border: 1px solid var(--input-border) !important;
       flex: 1;
     }
     .modal-confirm-style { flex: 2; }
     .export-btn {
-      margin-top: 20px;
-      background: var(--accent-soft) !important;
-      color: var(--accent-text) !important;
+      background: var(--accent-soft) !important; color: var(--accent-text) !important;
       box-shadow: none !important;
       border: 1.5px dashed var(--accent-1) !important;
     }
@@ -1006,6 +798,10 @@
       <div class="topbar-left">
         <div class="topbar-icon" id="topbarIcon"></div>
         <h2 id="pageTitle">Сегодня</h2>
+        <button class="urgent-bell hidden" id="urgentBell" title="Срочные задачи" style="display:none;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+          <span class="bell-badge" id="bellBadge">0</span>
+        </button>
       </div>
       <div class="topbar-actions">
         <button class="logout-btn" id="searchBtn" title="Поиск">🔍</button>
@@ -1018,14 +814,12 @@
 
     <div class="container">
 
-      <!-- ДАШБОРД СЕГОДНЯ -->
       <div id="page-today" class="page">
         <div class="today-greeting">
           <div class="greet-line" id="greetLine">Привет!</div>
           <div class="greet-date" id="greetDate"></div>
         </div>
 
-        <!-- СЧЁТЧИК ВМЕСТЕ -->
         <div class="together-card" id="togetherCard">
           <div class="together-emoji">❤️</div>
           <div class="together-body">
@@ -1035,7 +829,6 @@
           </div>
         </div>
 
-        <!-- ЗАПИСКИ -->
         <div class="note-section" id="todayNotesSection">
           <div class="note-header">
             <div class="note-header-title">💌 Записки</div>
@@ -1052,40 +845,20 @@
 
         <div class="today-quick" id="todayQuick">
           <button class="today-quick-btn" data-goto="shop">
-            <span class="quick-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-            </span>
-            <span class="quick-text">
-              <span class="quick-label">Магазин</span>
-              <span class="quick-sub" id="quickShopSub">—</span>
-            </span>
+            <span class="quick-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span>
+            <span class="quick-text"><span class="quick-label">Магазин</span><span class="quick-sub" id="quickShopSub">—</span></span>
           </button>
           <button class="today-quick-btn" data-goto="chores">
-            <span class="quick-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-            </span>
-            <span class="quick-text">
-              <span class="quick-label">Дела</span>
-              <span class="quick-sub" id="quickChoresSub">—</span>
-            </span>
+            <span class="quick-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
+            <span class="quick-text"><span class="quick-label">Дела</span><span class="quick-sub" id="quickChoresSub">—</span></span>
           </button>
           <button class="today-quick-btn" data-goto="schedule">
-            <span class="quick-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            </span>
-            <span class="quick-text">
-              <span class="quick-label">План</span>
-              <span class="quick-sub" id="quickScheduleSub">—</span>
-            </span>
+            <span class="quick-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
+            <span class="quick-text"><span class="quick-label">План</span><span class="quick-sub" id="quickScheduleSub">—</span></span>
           </button>
           <button class="today-quick-btn" data-goto="gifts">
-            <span class="quick-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
-            </span>
-            <span class="quick-text">
-              <span class="quick-label">Подарки</span>
-              <span class="quick-sub" id="quickGiftsSub">—</span>
-            </span>
+            <span class="quick-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></span>
+            <span class="quick-text"><span class="quick-label">Подарки</span><span class="quick-sub" id="quickGiftsSub">—</span></span>
           </button>
         </div>
 
@@ -1153,9 +926,7 @@
           <h3>Новая задача для другого</h3>
           <input type="text" id="choreInput" placeholder="Что нужно сделать?" autocomplete="off">
           <div class="chore-row">
-            <select class="chore-select" id="choreAssignee">
-              <option value="">— Кому —</option>
-            </select>
+            <select class="chore-select" id="choreAssignee"><option value="">— Кому —</option></select>
             <input type="date" id="choreDue" style="margin-bottom:0;">
           </div>
           <div class="chore-row">
@@ -1167,7 +938,6 @@
           </div>
           <button class="chore-add-btn" id="choreAddBtn">Добавить задачу</button>
         </div>
-
         <div class="chore-section-head">
           <div class="chore-section-title">Я должен сделать</div>
           <div class="chore-count-badge" id="choreForMeCount">0</div>
@@ -1175,10 +945,8 @@
         <div class="items-list" id="choreForMeList"></div>
         <button class="clear-chores-btn" id="choreForMeClear" style="display:none;">🧹 Очистить выполненные</button>
         <div class="empty" id="choreForMeEmpty" style="display:none;">
-          <div class="empty-emoji">🌸</div>
-          <div>Пока никто ничего не поручал</div>
+          <div class="empty-emoji">🌸</div><div>Пока никто ничего не поручал</div>
         </div>
-
         <div class="chore-section-head">
           <div class="chore-section-title">Я попросил(а) сделать</div>
           <div class="chore-count-badge" id="choreByMeCount">0</div>
@@ -1186,8 +954,7 @@
         <div class="items-list" id="choreByMeList"></div>
         <button class="clear-chores-btn" id="choreByMeClear" style="display:none;">🧹 Очистить выполненные</button>
         <div class="empty" id="choreByMeEmpty" style="display:none;">
-          <div class="empty-emoji">💌</div>
-          <div>Вы ещё никому не давали задач</div>
+          <div class="empty-emoji">💌</div><div>Вы ещё никому не давали задач</div>
         </div>
       </div>
 
@@ -1195,26 +962,18 @@
         <div class="event-add-card">
           <h3>Новое событие</h3>
           <input type="text" id="eventTitle" placeholder="Что? (например: рабочая встреча)" autocomplete="off">
-
           <label style="display:block;font-size:12px;font-weight:800;color:var(--text-soft);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;">Дата</label>
-          <div class="event-date-row">
-            <input type="date" id="eventDate">
-          </div>
+          <div class="event-date-row"><input type="date" id="eventDate"></div>
           <div class="quick-btns">
             <button type="button" class="quick-btn" data-quick="date-today">📅 Сегодня</button>
             <button type="button" class="quick-btn" data-quick="date-tomorrow">📅 Завтра</button>
           </div>
-
           <label style="display:block;font-size:12px;font-weight:800;color:var(--text-soft);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;">Время</label>
-          <div class="event-time-row">
-            <input type="time" id="eventStart">
-            <input type="time" id="eventEnd">
-          </div>
+          <div class="event-time-row"><input type="time" id="eventStart"><input type="time" id="eventEnd"></div>
           <div class="quick-btns">
             <button type="button" class="quick-btn" data-quick="time-now">🕐 Сейчас</button>
             <button type="button" class="quick-btn" data-quick="time-now-plus1">🕐 +1 час</button>
           </div>
-
           <label style="display:block;font-size:12px;font-weight:800;color:var(--text-soft);text-transform:uppercase;letter-spacing:0.8px;margin:10px 0 6px;">Повтор</label>
           <select class="chore-select" id="eventRepeat">
             <option value="none" selected>Один раз</option>
@@ -1222,28 +981,23 @@
             <option value="weekly">↻ Еженедельно</option>
             <option value="monthly">↻ Ежемесячно</option>
           </select>
-
           <button class="event-add-btn" id="eventAddBtn" style="margin-top:12px;">Добавить в расписание</button>
         </div>
-
         <div class="event-section-head">
           <div class="event-section-title">Сегодня</div>
           <div class="event-count-badge" id="eventsTodayCount">0</div>
         </div>
         <div class="items-list" id="eventsTodayList"></div>
         <div class="empty" id="eventsTodayEmpty" style="display:none;">
-          <div class="empty-emoji">☀️</div>
-          <div>Сегодня событий нет</div>
+          <div class="empty-emoji">☀️</div><div>Сегодня событий нет</div>
         </div>
-
         <div class="event-section-head">
           <div class="event-section-title">Предстоящие</div>
           <div class="event-count-badge" id="eventsFutureCount">0</div>
         </div>
         <div class="items-list" id="eventsFutureList"></div>
         <div class="empty" id="eventsFutureEmpty" style="display:none;">
-          <div class="empty-emoji">📅</div>
-          <div>Пока ничего не запланировано</div>
+          <div class="empty-emoji">📅</div><div>Пока ничего не запланировано</div>
         </div>
       </div>
 
@@ -1256,12 +1010,10 @@
             🎁 Я дарю <span class="count-mini" id="givingCount">0</span>
           </button>
         </div>
-
         <div id="giftTotalCard" class="wish-total-card" style="display:none;">
           <span class="wish-total-label">💝 Общая сумма моих желаний</span>
           <span class="wish-total-value" id="giftTotalValue">0 ₽</span>
         </div>
-
         <div class="chore-add-card">
           <h3 id="giftFormTitle">Новое желание</h3>
           <input type="text" id="giftInput" placeholder="Что хочу в подарок?" autocomplete="off">
@@ -1286,7 +1038,6 @@
           <textarea id="giftNote" placeholder="Заметка: размер, цвет, модель, пожелания" rows="2"></textarea>
           <button class="chore-add-btn" id="giftAddBtn">Добавить</button>
         </div>
-
         <div class="categories-row" id="giftOccasionFilters">
           <button class="cat-btn active" data-occ="all">📋 Все</button>
           <button class="cat-btn" data-occ="birthday">🎂 ДР</button>
@@ -1295,35 +1046,22 @@
           <button class="cat-btn" data-occ="anniversary">💍 Годовщина</button>
           <button class="cat-btn" data-occ="just">🎁 Просто так</button>
         </div>
-
         <div class="gift-toolbar">
           <div class="gift-stat" id="giftStatLine">—</div>
           <button class="hide-done-toggle" id="giftHideDoneBtn">👁 Скрыть купленные</button>
         </div>
-
         <div class="items-list" id="giftsList"></div>
         <div class="empty" id="giftsEmpty">
-          <div class="empty-emoji">🎁</div>
-          <div>Пока пусто. Добавьте первое желание!</div>
+          <div class="empty-emoji">🎁</div><div>Пока пусто. Добавьте первое желание!</div>
         </div>
       </div>
 
       <div id="page-wishes" class="page" style="display:none;">
         <div id="wishBreakdown" class="wish-breakdown" style="display:none;">
-          <div class="wish-bd-item">
-            <span class="wish-bd-label">🔥 Хочу</span>
-            <span class="wish-bd-value" id="wishBdWant">0 ₽</span>
-          </div>
-          <div class="wish-bd-item">
-            <span class="wish-bd-label">💰 Копим</span>
-            <span class="wish-bd-value" id="wishBdSaving">0 ₽</span>
-          </div>
-          <div class="wish-bd-item">
-            <span class="wish-bd-label">✓ Куплено</span>
-            <span class="wish-bd-value" id="wishBdBought">0 ₽</span>
-          </div>
+          <div class="wish-bd-item"><span class="wish-bd-label">🔥 Хочу</span><span class="wish-bd-value" id="wishBdWant">0 ₽</span></div>
+          <div class="wish-bd-item"><span class="wish-bd-label">💰 Копим</span><span class="wish-bd-value" id="wishBdSaving">0 ₽</span></div>
+          <div class="wish-bd-item"><span class="wish-bd-label">✓ Куплено</span><span class="wish-bd-value" id="wishBdBought">0 ₽</span></div>
         </div>
-
         <div class="chore-add-card">
           <h3>Новая крупная покупка</h3>
           <input type="text" id="wishInput" placeholder="Что хотим (например: робот-пылесос)" autocomplete="off">
@@ -1349,7 +1087,6 @@
           <textarea id="wishNote" placeholder="Зачем, где купить, детали (необязательно)"></textarea>
           <button class="chore-add-btn" id="wishAddBtn">Добавить в хотелки</button>
         </div>
-
         <label style="display:block;font-size:12px;font-weight:800;color:var(--text-soft);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;">Статус</label>
         <div class="categories-row" id="wishStatusFilters">
           <button class="cat-btn active" data-status="all">📋 Все <span class="count-mini" id="wishCntAll">0</span></button>
@@ -1357,7 +1094,6 @@
           <button class="cat-btn" data-status="saving">💰 Копим <span class="count-mini" id="wishCntSaving">0</span></button>
           <button class="cat-btn" data-status="bought">✓ Куплено <span class="count-mini" id="wishCntBought">0</span></button>
         </div>
-
         <label style="display:block;font-size:12px;font-weight:800;color:var(--text-soft);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;margin-top:6px;">Категория</label>
         <div class="categories-row" id="wishCategoryFilters">
           <button class="cat-btn active" data-cat="all">📋 Все</button>
@@ -1368,12 +1104,10 @@
           <button class="cat-btn" data-cat="vacation">✈️ Отпуск</button>
           <button class="cat-btn" data-cat="other">📦 Другое</button>
         </div>
-
         <div class="gift-toolbar">
           <div class="gift-stat" id="wishStatLine">—</div>
           <button class="hide-done-toggle" id="wishHideDoneBtn">👁 Скрыть купленные</button>
         </div>
-
         <div class="chore-row" style="margin-bottom:16px;">
           <select class="chore-select" id="wishSort">
             <option value="priority" selected>⬇️ По приоритету</option>
@@ -1382,46 +1116,25 @@
             <option value="date-desc">📅 Сначала новые</option>
           </select>
         </div>
-
         <div class="items-list" id="wishesList"></div>
         <button class="clear-chores-btn" id="wishClearBought" style="display:none;">🧹 Очистить купленные</button>
         <div class="empty" id="wishesEmpty">
-          <div class="empty-emoji">🏠</div>
-          <div>Пока пусто. Добавьте первую хотелку!</div>
+          <div class="empty-emoji">🏠</div><div>Пока пусто. Добавьте первую хотелку!</div>
         </div>
       </div>
 
     </div>
 
     <div class="bottom-nav">
-      <button class="nav-btn active" data-page="today">
-        <span class="nav-icon" data-icon="today"></span>
-        <span class="nav-label">Сегодня</span>
-      </button>
-      <button class="nav-btn" data-page="shop">
-        <span class="nav-icon" data-icon="shop"></span>
-        <span class="nav-label">Магазин</span>
-      </button>
-      <button class="nav-btn" data-page="chores">
-        <span class="nav-icon" data-icon="chores"></span>
-        <span class="nav-label">Дела</span>
-      </button>
-      <button class="nav-btn" data-page="schedule">
-        <span class="nav-icon" data-icon="schedule"></span>
-        <span class="nav-label">План</span>
-      </button>
-      <button class="nav-btn" data-page="gifts">
-        <span class="nav-icon" data-icon="gifts"></span>
-        <span class="nav-label">Подарки</span>
-      </button>
-      <button class="nav-btn" data-page="wishes">
-        <span class="nav-icon" data-icon="wishes"></span>
-        <span class="nav-label">Хотелки</span>
-      </button>
+      <button class="nav-btn active" data-page="today"><span class="nav-icon" data-icon="today"></span><span class="nav-label">Сегодня</span></button>
+      <button class="nav-btn" data-page="shop"><span class="nav-icon" data-icon="shop"></span><span class="nav-label">Магазин</span></button>
+      <button class="nav-btn" data-page="chores"><span class="nav-icon" data-icon="chores"></span><span class="nav-label">Дела</span></button>
+      <button class="nav-btn" data-page="schedule"><span class="nav-icon" data-icon="schedule"></span><span class="nav-label">План</span></button>
+      <button class="nav-btn" data-page="gifts"><span class="nav-icon" data-icon="gifts"></span><span class="nav-label">Подарки</span></button>
+      <button class="nav-btn" data-page="wishes"><span class="nav-icon" data-icon="wishes"></span><span class="nav-label">Хотелки</span></button>
     </div>
   </div>
 
-  <!-- МОДАЛКИ -->
   <div id="nameModal" class="theme-modal" style="display:none;">
     <div class="theme-modal-content">
       <h3 id="nameModalTitle">Как вас называть?</h3>
@@ -1523,7 +1236,16 @@
           <span class="theme-name">🌙 Тёмная</span>
         </button>
       </div>
-      <button class="primary" id="themeCloseBtn">Готово</button>
+
+      <div class="auto-dark-row">
+        <div class="auto-dark-label">
+          <div class="auto-dark-title">🌙 Тёмная тема по вечерам</div>
+          <div class="auto-dark-sub">Автоматически с 21:00 до 7:00</div>
+        </div>
+        <button class="switch" id="autoDarkSwitch"></button>
+      </div>
+
+      <button class="primary" id="themeCloseBtn" style="margin-top:16px;">Готово</button>
     </div>
   </div>
 
@@ -1569,7 +1291,7 @@
     const topbarIcon = document.getElementById('topbarIcon');
     if (topbarIcon) topbarIcon.innerHTML = SVG_ICONS.today;
 
-    // ТЕМЫ
+    // ТЕМЫ + АВТО-ТЁМНАЯ
     function applyTheme(theme) {
       document.documentElement.setAttribute('data-theme', theme);
       try { localStorage.setItem('familyTheme', theme); } catch (e) {}
@@ -1584,15 +1306,42 @@
     }
     applyTheme(localStorage.getItem('familyTheme') || 'gold');
 
+    // Авто-тёмная
+    function isAutoDark() {
+      try { return localStorage.getItem('familyAutoDark') === '1'; } catch (e) { return false; }
+    }
+    function setAutoDark(on) {
+      try { localStorage.setItem('familyAutoDark', on ? '1' : '0'); } catch (e) {}
+      const sw = $('autoDarkSwitch');
+      if (sw) sw.classList.toggle('on', on);
+    }
+    function applyAutoDarkIfNeeded() {
+      if (!isAutoDark()) return;
+      const h = new Date().getHours();
+      const shouldBeDark = (h >= 21 || h < 7);
+      const current = localStorage.getItem('familyTheme') || 'gold';
+      if (shouldBeDark && current !== 'dark') applyTheme('dark');
+      else if (!shouldBeDark && current === 'dark') applyTheme('gold');
+    }
+    setAutoDark(isAutoDark());
+    applyAutoDarkIfNeeded();
+    // Проверяем каждую минуту
+    setInterval(applyAutoDarkIfNeeded, 60 * 1000);
+
     $('themeBtn').addEventListener('click', () => {
       const cur = localStorage.getItem('familyTheme') || 'gold';
       document.querySelectorAll('.theme-option').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.theme === cur);
       });
+      $('autoDarkSwitch').classList.toggle('on', isAutoDark());
       $('themeModal').style.display = 'flex';
     });
     document.querySelectorAll('.theme-option').forEach(btn => {
       btn.addEventListener('click', () => applyTheme(btn.dataset.theme));
+    });
+    $('autoDarkSwitch').addEventListener('click', () => {
+      setAutoDark(!isAutoDark());
+      applyAutoDarkIfNeeded();
     });
     $('themeCloseBtn').addEventListener('click', () => { $('themeModal').style.display = 'none'; });
     $('themeModal').addEventListener('click', (e) => {
@@ -1737,9 +1486,7 @@
         userNames[currentUser.uid] = name;
         $('nameModal').style.display = 'none';
         setTimeout(() => location.reload(), 200);
-      } catch (err) {
-        alert('Ошибка: ' + err.message);
-      }
+      } catch (err) { alert('Ошибка: ' + err.message); }
     });
 
     $('nameModal').addEventListener('click', (e) => {
@@ -1772,6 +1519,30 @@
         if (navBtn) navBtn.click();
       });
     });
+
+    // Значок срочных задач
+    $('urgentBell').addEventListener('click', () => {
+      // Переходим в раздел дел
+      const navBtn = document.querySelector('.nav-btn[data-page="chores"]');
+      if (navBtn) navBtn.click();
+    });
+
+    function updateUrgentBell() {
+      const todayStr = new Date().toISOString().slice(0,10);
+      // Используем местный сегодня, не UTC
+      const d = new Date();
+      const localToday = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+      const urgent = currentChoresForMe.filter(x => !x.done && x.dueDate && x.dueDate <= localToday).length;
+      const bell = $('urgentBell');
+      const badge = $('bellBadge');
+      if (!bell || !badge) return;
+      if (urgent > 0) {
+        bell.style.display = 'flex';
+        badge.textContent = urgent > 9 ? '9+' : urgent;
+      } else {
+        bell.style.display = 'none';
+      }
+    }
 
     function startAll() {
       currentUser = auth.currentUser;
@@ -1825,9 +1596,10 @@
       if (activeBtn && activeBtn.dataset.page === 'today') {
         renderTodayDashboard();
       }
+      updateUrgentBell();
     }
 
-    // ============ «ВМЕСТЕ» (счётчик) ============
+    // ВМЕСТЕ
     function startCoupleListener() {
       coupleUnsubscribe = onValue(ref(db, 'couple_meta'), (snap) => {
         currentCoupleMeta = snap.val() || {};
@@ -1850,7 +1622,6 @@
       const diffMs = today - start;
       const diffDays = Math.max(0, Math.round(diffMs / (1000 * 60 * 60 * 24)));
       daysEl.textContent = diffDays.toLocaleString('ru-RU') + ' ' + declOfNum(diffDays, ['день', 'дня', 'дней']);
-      // Ближайшая годовщина
       let nextAnniv = new Date(today.getFullYear(), start.getMonth(), start.getDate());
       if (nextAnniv < today) nextAnniv = new Date(today.getFullYear() + 1, start.getMonth(), start.getDate());
       const daysToAnniv = Math.round((nextAnniv - today) / (1000 * 60 * 60 * 24));
@@ -1880,7 +1651,7 @@
       } catch (e) { alert('Ошибка: ' + e.message); }
     });
 
-    // ============ ЗАПИСКИ ============
+    // ЗАПИСКИ
     function startNotesListener() {
       const notesRef = query(ref(db, 'notes'), orderByChild('createdAt'));
       notesUnsubscribe = onValue(notesRef, (snapshot) => {
@@ -1942,9 +1713,7 @@
       try {
         const newRef = push(ref(db, 'notes'));
         await set(newRef, {
-          text: text,
-          fromUid: currentUser.uid,
-          fromEmail: currentUser.email,
+          text: text, fromUid: currentUser.uid, fromEmail: currentUser.email,
           createdAt: Date.now()
         });
       } catch (e) { console.error(e); }
@@ -1952,7 +1721,7 @@
     $('noteSendBtn').addEventListener('click', sendNote);
     $('noteInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') sendNote(); });
 
-    // ============ ВАЖНЫЕ ДАТЫ ============
+    // ДАТЫ
     function startDatesListener() {
       datesUnsubscribe = onValue(ref(db, 'important_dates'), (snapshot) => {
         const items = [];
@@ -2045,17 +1814,14 @@
       try {
         const newRef = push(ref(db, 'important_dates'));
         await set(newRef, {
-          title: title,
-          date: dateVal,
-          remindDays: remind,
-          createdBy: currentUser.uid,
-          createdAt: Date.now()
+          title: title, date: dateVal, remindDays: remind,
+          createdBy: currentUser.uid, createdAt: Date.now()
         });
         $('dateModal').style.display = 'none';
       } catch (e) { alert('Ошибка: ' + e.message); }
     });
 
-    // ============ ПОИСК ============
+    // ПОИСК
     $('searchBtn').addEventListener('click', () => {
       $('searchInput').value = '';
       $('searchResults').innerHTML = '<div class="search-hint">Начните вводить текст</div>';
@@ -2066,9 +1832,7 @@
     $('searchModal').addEventListener('click', (e) => {
       if (e.target === $('searchModal')) $('searchModal').style.display = 'none';
     });
-    $('searchInput').addEventListener('input', (e) => {
-      performSearch(e.target.value.trim());
-    });
+    $('searchInput').addEventListener('input', (e) => { performSearch(e.target.value.trim()); });
 
     function performSearch(query) {
       const results = $('searchResults');
@@ -2078,74 +1842,32 @@
       }
       const q = query.toLowerCase();
       const groups = [];
-
-      // Покупки
       const shopRes = currentShopItems.filter(x => (x.title||'').toLowerCase().includes(q));
-      if (shopRes.length) groups.push({ title: '🛒 Магазин', items: shopRes.map(x => ({
-        icon: x.done ? '✅' : '🛒', title: x.title, sub: x.done ? 'Куплено' : 'Купить',
-        goto: 'shop'
-      }))});
-
-      // Задачи
+      if (shopRes.length) groups.push({ title: '🛒 Магазин', items: shopRes.map(x => ({ icon: x.done ? '✅' : '🛒', title: x.title, sub: x.done ? 'Куплено' : 'Купить', goto: 'shop' }))});
       const taskResAll = [...currentChoresForMe, ...currentChoresByMe];
       const taskSeen = new Set();
-      const taskRes = taskResAll.filter(x => {
-        if (taskSeen.has(x.id)) return false;
-        taskSeen.add(x.id);
-        return (x.title||'').toLowerCase().includes(q);
-      });
-      if (taskRes.length) groups.push({ title: '✅ Дела', items: taskRes.map(x => ({
-        icon: x.done ? '✅' : '📋', title: x.title,
-        sub: (x.assignedTo === currentUser.uid ? 'мне' : 'партнёру') + (x.dueDate ? ' • до ' + x.dueDate : ''),
-        goto: 'chores'
-      }))});
-
-      // События
+      const taskRes = taskResAll.filter(x => { if (taskSeen.has(x.id)) return false; taskSeen.add(x.id); return (x.title||'').toLowerCase().includes(q); });
+      if (taskRes.length) groups.push({ title: '✅ Дела', items: taskRes.map(x => ({ icon: x.done ? '✅' : '📋', title: x.title, sub: (x.assignedTo === currentUser.uid ? 'мне' : 'партнёру') + (x.dueDate ? ' • до ' + x.dueDate : ''), goto: 'chores' }))});
       const evRes = currentEvents.filter(x => (x.title||'').toLowerCase().includes(q));
-      if (evRes.length) groups.push({ title: '📅 Расписание', items: evRes.map(x => ({
-        icon: '📅', title: x.title, sub: x.date + ' ' + (x.startTime||''), goto: 'schedule'
-      }))});
-
-      // Подарки
+      if (evRes.length) groups.push({ title: '📅 Расписание', items: evRes.map(x => ({ icon: '📅', title: x.title, sub: x.date + ' ' + (x.startTime||''), goto: 'schedule' }))});
       const giftRes = currentGiftItems.filter(x => (x.title||'').toLowerCase().includes(q));
-      if (giftRes.length) groups.push({ title: '🎁 Подарки', items: giftRes.map(x => ({
-        icon: x.ownerId === currentUser.uid ? '✨' : '🎁', title: x.title,
-        sub: x.ownerId === currentUser.uid ? 'моё желание' : 'для ' + getUserName(x.ownerId, x.ownerEmail),
-        goto: 'gifts'
-      }))});
-
-      // Хотелки
+      if (giftRes.length) groups.push({ title: '🎁 Подарки', items: giftRes.map(x => ({ icon: x.ownerId === currentUser.uid ? '✨' : '🎁', title: x.title, sub: x.ownerId === currentUser.uid ? 'моё желание' : 'для ' + getUserName(x.ownerId, x.ownerEmail), goto: 'gifts' }))});
       const wishRes = currentWishItems.filter(x => (x.title||'').toLowerCase().includes(q) || (x.note||'').toLowerCase().includes(q));
-      if (wishRes.length) groups.push({ title: '🏠 Хотелки', items: wishRes.map(x => ({
-        icon: '🏠', title: x.title, sub: x.status === 'bought' ? 'куплено' : x.status === 'saving' ? 'копим' : 'хочу',
-        goto: 'wishes'
-      }))});
-
-      // Важные даты
+      if (wishRes.length) groups.push({ title: '🏠 Хотелки', items: wishRes.map(x => ({ icon: '🏠', title: x.title, sub: x.status === 'bought' ? 'куплено' : x.status === 'saving' ? 'копим' : 'хочу', goto: 'wishes' }))});
       const dateRes = currentImportantDates.filter(x => (x.title||'').toLowerCase().includes(q));
-      if (dateRes.length) groups.push({ title: '🎂 Важные даты', items: dateRes.map(x => ({
-        icon: '🎂', title: x.title, sub: x.date, goto: 'today'
-      }))});
-
-      // Записки
+      if (dateRes.length) groups.push({ title: '🎂 Важные даты', items: dateRes.map(x => ({ icon: '🎂', title: x.title, sub: x.date, goto: 'today' }))});
       const noteRes = currentNotes.filter(x => (x.text||'').toLowerCase().includes(q));
-      if (noteRes.length) groups.push({ title: '💌 Записки', items: noteRes.map(x => ({
-        icon: '💌', title: x.text, sub: 'от ' + getUserName(x.fromUid, x.fromEmail), goto: 'today'
-      }))});
-
+      if (noteRes.length) groups.push({ title: '💌 Записки', items: noteRes.map(x => ({ icon: '💌', title: x.text, sub: 'от ' + getUserName(x.fromUid, x.fromEmail), goto: 'today' }))});
       if (groups.length === 0) {
         results.innerHTML = '<div class="search-empty">Ничего не найдено по запросу «' + query + '»</div>';
         return;
       }
-
       results.innerHTML = '';
-      let total = 0;
       groups.forEach(g => {
         const t = document.createElement('div');
         t.className = 'search-group-title';
         t.textContent = g.title + ' (' + g.items.length + ')';
         results.appendChild(t);
-        total += g.items.length;
         g.items.slice(0, 5).forEach(item => {
           const el = document.createElement('div');
           el.className = 'search-item';
@@ -2166,15 +1888,10 @@
       });
     }
 
-    // ============ СТАТИСТИКА ============
-    $('statsBtn').addEventListener('click', () => {
-      renderStats();
-      $('statsModal').style.display = 'flex';
-    });
+    // СТАТИСТИКА
+    $('statsBtn').addEventListener('click', () => { renderStats(); $('statsModal').style.display = 'flex'; });
     $('statsCloseBtn').addEventListener('click', () => { $('statsModal').style.display = 'none'; });
-    $('statsModal').addEventListener('click', (e) => {
-      if (e.target === $('statsModal')) $('statsModal').style.display = 'none';
-    });
+    $('statsModal').addEventListener('click', (e) => { if (e.target === $('statsModal')) $('statsModal').style.display = 'none'; });
 
     function renderStats() {
       const myUid = currentUser ? currentUser.uid : '';
@@ -2183,16 +1900,13 @@
       const weekStart = new Date(now); weekStart.setDate(now.getDate() - 7);
       const weekStartTs = weekStart.getTime();
       const todayStr = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0');
-
       const shopItems = currentShopItems || [];
       const shopActive = shopItems.filter(x => !x.done).length;
       const shopDone = shopItems.filter(x => x.done).length;
       const shopMonth = shopItems.filter(x => (x.createdAt || 0) >= monthStart).length;
-
       const myTasks = currentChoresForMe || [];
       const tasksActive = myTasks.filter(x => !x.done).length;
       const tasksDone = myTasks.filter(x => x.done).length;
-
       const events = currentEvents || [];
       const eventsWeek = events.filter(x => {
         if (!x.date) return false;
@@ -2200,87 +1914,44 @@
         return d >= weekStartTs && d <= now.getTime() + 7 * 24 * 60 * 60 * 1000;
       }).length;
       const eventsToday = events.filter(x => x.date === todayStr && !x.done).length;
-
       const myGifts = (currentGiftItems || []).filter(g => g.ownerId === myUid);
       const giftsActive = myGifts.filter(g => !g.done).length;
       const giftsSum = myGifts.filter(g => !g.done && g.price).reduce((s, g) => s + Number(g.price || 0), 0);
-
       const wishes = currentWishItems || [];
       const wishesActive = wishes.filter(x => x.status !== 'bought').length;
       const wishesBought = wishes.filter(x => x.status === 'bought').length;
       const wishesSum = wishes.filter(x => x.status !== 'bought' && x.price).reduce((s, x) => s + Number(x.price || 0), 0);
-
       const html = `
         <div class="stat-section-title">🛒 Магазин</div>
         <div class="stats-grid">
-          <div class="stat-card">
-            <span class="stat-label">Купить</span>
-            <span class="stat-value">${shopActive}</span>
-            <span class="stat-sub">${shopDone} куплено</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-label">За месяц</span>
-            <span class="stat-value">${shopMonth}</span>
-            <span class="stat-sub">добавлено</span>
-          </div>
+          <div class="stat-card"><span class="stat-label">Купить</span><span class="stat-value">${shopActive}</span><span class="stat-sub">${shopDone} куплено</span></div>
+          <div class="stat-card"><span class="stat-label">За месяц</span><span class="stat-value">${shopMonth}</span><span class="stat-sub">добавлено</span></div>
         </div>
         <div class="stat-section-title">✅ Дела</div>
         <div class="stats-grid">
-          <div class="stat-card">
-            <span class="stat-label">Активных</span>
-            <span class="stat-value">${tasksActive}</span>
-            <span class="stat-sub">у тебя</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-label">Выполнено</span>
-            <span class="stat-value">${tasksDone}</span>
-            <span class="stat-sub">у тебя</span>
-          </div>
+          <div class="stat-card"><span class="stat-label">Активных</span><span class="stat-value">${tasksActive}</span><span class="stat-sub">у тебя</span></div>
+          <div class="stat-card"><span class="stat-label">Выполнено</span><span class="stat-value">${tasksDone}</span><span class="stat-sub">у тебя</span></div>
         </div>
         <div class="stat-section-title">📅 Расписание</div>
         <div class="stats-grid">
-          <div class="stat-card">
-            <span class="stat-label">Сегодня</span>
-            <span class="stat-value">${eventsToday}</span>
-            <span class="stat-sub">событий</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-label">На неделю</span>
-            <span class="stat-value">${eventsWeek}</span>
-            <span class="stat-sub">событий</span>
-          </div>
+          <div class="stat-card"><span class="stat-label">Сегодня</span><span class="stat-value">${eventsToday}</span><span class="stat-sub">событий</span></div>
+          <div class="stat-card"><span class="stat-label">На неделю</span><span class="stat-value">${eventsWeek}</span><span class="stat-sub">событий</span></div>
         </div>
         <div class="stat-section-title">🎁 Подарки</div>
         <div class="stats-grid">
-          <div class="stat-card">
-            <span class="stat-label">Желаний</span>
-            <span class="stat-value">${giftsActive}</span>
-            <span class="stat-sub">в виш-листе</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-label">Сумма</span>
-            <span class="stat-value" style="font-size:16px;">${giftsSum.toLocaleString('ru-RU')} ₽</span>
-            <span class="stat-sub">активных</span>
-          </div>
+          <div class="stat-card"><span class="stat-label">Желаний</span><span class="stat-value">${giftsActive}</span><span class="stat-sub">в виш-листе</span></div>
+          <div class="stat-card"><span class="stat-label">Сумма</span><span class="stat-value" style="font-size:16px;">${giftsSum.toLocaleString('ru-RU')} ₽</span><span class="stat-sub">активных</span></div>
         </div>
         <div class="stat-section-title">🏠 Хотелки</div>
         <div class="stats-grid">
-          <div class="stat-card">
-            <span class="stat-label">Активных</span>
-            <span class="stat-value">${wishesActive}</span>
-            <span class="stat-sub">${wishesBought} куплено</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-label">Сумма</span>
-            <span class="stat-value" style="font-size:16px;">${wishesSum.toLocaleString('ru-RU')} ₽</span>
-            <span class="stat-sub">активных</span>
-          </div>
+          <div class="stat-card"><span class="stat-label">Активных</span><span class="stat-value">${wishesActive}</span><span class="stat-sub">${wishesBought} куплено</span></div>
+          <div class="stat-card"><span class="stat-label">Сумма</span><span class="stat-value" style="font-size:16px;">${wishesSum.toLocaleString('ru-RU')} ₽</span><span class="stat-sub">активных</span></div>
         </div>
       `;
       $('statsContent').innerHTML = html;
     }
 
-    // ============ ЭКСПОРТ ============
+    // ЭКСПОРТ
     $('exportBtn').addEventListener('click', () => {
       const data = {
         exportedAt: new Date().toISOString(),
@@ -2305,48 +1976,37 @@
       URL.revokeObjectURL(url);
     });
 
-    // ============ ДАШБОРД «СЕГОДНЯ» ============
+    // ДАШБОРД
     function renderTodayDashboard() {
       if (!currentUser) return;
       const d = new Date();
       const todayStr = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
-
       const hour = d.getHours();
       let greet = 'Добрый день';
       if (hour < 6) greet = 'Доброй ночи';
       else if (hour < 12) greet = 'Доброе утро';
       else if (hour < 18) greet = 'Добрый день';
       else greet = 'Добрый вечер';
-
       const days = ['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'];
       const months = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
       const dateStr = days[d.getDay()] + ', ' + d.getDate() + ' ' + months[d.getMonth()];
-
       const myUid = currentUser.uid;
       const myName = userNames[myUid] || 'друг';
-
       $('greetLine').textContent = greet + ', ' + myName + '!';
       $('greetDate').textContent = dateStr;
-
       renderTogetherCard();
-
       const shopActive = currentShopItems.filter(x => !x.done).length;
       $('quickShopSub').textContent = shopActive > 0 ? shopActive + ' к покупке' : 'всё куплено';
-
       const myActiveTasks = currentChoresForMe.filter(x => !x.done).length;
       $('quickChoresSub').textContent = myActiveTasks > 0 ? myActiveTasks + ' активных' : 'задач нет';
-
       const eventsToday = currentEvents.filter(x => x.date === todayStr && !x.done);
       $('quickScheduleSub').textContent = eventsToday.length > 0 ? eventsToday.length + ' событий' : 'свободно';
-
       const giftsMine = currentGiftItems.filter(g => g.ownerId === myUid && !g.done).length;
       $('quickGiftsSub').textContent = giftsMine > 0 ? giftsMine + ' желаний' : 'виш-лист пуст';
-
       const eventsList = $('todayEventsList');
       eventsList.innerHTML = '';
       const sortedEvents = eventsToday.slice().sort((a,b) => (a.startTime||'').localeCompare(b.startTime||''));
       $('todayEventsCount').textContent = sortedEvents.length;
-
       if (sortedEvents.length === 0) {
         eventsList.innerHTML = '<div class="today-empty">☀️ На сегодня событий нет</div>';
       } else {
@@ -2377,14 +2037,10 @@
           eventsList.appendChild(card);
         });
       }
-
       const tasksList = $('todayTasksList');
       tasksList.innerHTML = '';
-      const urgent = currentChoresForMe
-        .filter(x => !x.done && x.dueDate && x.dueDate <= todayStr)
-        .sort((a,b) => (a.dueDate||'').localeCompare(b.dueDate||''));
+      const urgent = currentChoresForMe.filter(x => !x.done && x.dueDate && x.dueDate <= todayStr).sort((a,b) => (a.dueDate||'').localeCompare(b.dueDate||''));
       $('todayTasksCount').textContent = urgent.length;
-
       if (urgent.length === 0) {
         tasksList.innerHTML = '<div class="today-empty">🎉 Срочных задач нет</div>';
       } else {
@@ -2404,32 +2060,24 @@
           meta.className = 'today-card-meta';
           if (task.dueDate === todayStr) meta.textContent = '🔥 Сегодня';
           else meta.textContent = '⚠ Просрочено с ' + task.dueDate;
-          if (task.createdBy && task.createdBy !== myUid) {
-            meta.textContent += ' • от ' + getUserName(task.createdBy, task.createdByEmail);
-          }
+          if (task.createdBy && task.createdBy !== myUid) meta.textContent += ' • от ' + getUserName(task.createdBy, task.createdByEmail);
           body.appendChild(meta);
           card.appendChild(body);
           tasksList.appendChild(card);
         });
       }
-
       const shopListEl = $('todayShopList');
       shopListEl.innerHTML = '';
       const shopActiveItems = currentShopItems.filter(x => !x.done).slice(0, 5);
       $('todayShopCount').textContent = currentShopItems.filter(x => !x.done).length;
-
       if (shopActiveItems.length === 0) {
         shopListEl.innerHTML = '<div class="today-empty">🛒 Список пуст</div>';
       } else {
         const CATEGORY_META_TODAY = {
-          dairy: { emoji: '🥛', color: '#8bb8e8' },
-          meat: { emoji: '🥩', color: '#e88585' },
-          veg: { emoji: '🥦', color: '#7eb97e' },
-          fruit: { emoji: '🍎', color: '#e8b85c' },
-          bread: { emoji: '🍞', color: '#d4a373' },
-          drinks: { emoji: '🥤', color: '#7ab8d4' },
-          sweets: { emoji: '🍫', color: '#c89ac8' },
-          house: { emoji: '🧴', color: '#7eb8b8' },
+          dairy: { emoji: '🥛', color: '#8bb8e8' }, meat: { emoji: '🥩', color: '#e88585' },
+          veg: { emoji: '🥦', color: '#7eb97e' }, fruit: { emoji: '🍎', color: '#e8b85c' },
+          bread: { emoji: '🍞', color: '#d4a373' }, drinks: { emoji: '🥤', color: '#7ab8d4' },
+          sweets: { emoji: '🍫', color: '#c89ac8' }, house: { emoji: '🧴', color: '#7eb8b8' },
           other: { emoji: '📦', color: '#b8aca1' }
         };
         shopActiveItems.forEach(item => {
@@ -2452,7 +2100,7 @@
       }
     }
 
-    // ============ МАГАЗИН ============
+    // МАГАЗИН
     const shopInput = $('shopInput');
     const shopAddBtn = $('shopAddBtn');
     const shopList = $('shopList');
@@ -2462,14 +2110,14 @@
     const CATEGORY_ORDER = ['dairy', 'meat', 'veg', 'fruit', 'bread', 'drinks', 'sweets', 'house', 'other'];
     const CATEGORY_META = {
       dairy:  { emoji: '🥛', name: 'Молочное', color: '#8bb8e8' },
-      meat:   { emoji: '🥩', name: 'Мясо',      color: '#e88585' },
-      veg:    { emoji: '🥦', name: 'Овощи',     color: '#7eb97e' },
-      fruit:  { emoji: '🍎', name: 'Фрукты',    color: '#e8b85c' },
-      bread:  { emoji: '🍞', name: 'Хлеб',      color: '#d4a373' },
-      drinks: { emoji: '🥤', name: 'Напитки',   color: '#7ab8d4' },
-      sweets: { emoji: '🍫', name: 'Сладкое',   color: '#c89ac8' },
+      meat:   { emoji: '🥩', name: 'Мясо', color: '#e88585' },
+      veg:    { emoji: '🥦', name: 'Овощи', color: '#7eb97e' },
+      fruit:  { emoji: '🍎', name: 'Фрукты', color: '#e8b85c' },
+      bread:  { emoji: '🍞', name: 'Хлеб', color: '#d4a373' },
+      drinks: { emoji: '🥤', name: 'Напитки', color: '#7ab8d4' },
+      sweets: { emoji: '🍫', name: 'Сладкое', color: '#c89ac8' },
       house:  { emoji: '🧴', name: 'Быт. химия', color: '#7eb8b8' },
-      other:  { emoji: '📦', name: 'Другое',    color: '#b8aca1' }
+      other:  { emoji: '📦', name: 'Другое', color: '#b8aca1' }
     };
 
     document.querySelectorAll('#page-shop .cat-btn').forEach(btn => {
@@ -2493,12 +2141,7 @@
       for (const title of titles) {
         try {
           const newItemRef = push(ref(db, 'shopping_items'));
-          await set(newItemRef, {
-            title: title, done: false, category: cat,
-            addedBy: currentUser.uid,
-            addedByEmail: currentUser.email,
-            createdAt: Date.now()
-          });
+          await set(newItemRef, { title, done: false, category: cat, addedBy: currentUser.uid, addedByEmail: currentUser.email, createdAt: Date.now() });
         } catch (err) { console.error(err); }
       }
     }
@@ -2518,24 +2161,14 @@
     function renderShopList() {
       shopList.innerHTML = '';
       const items = currentShopItems;
-      if (items.length === 0) {
-        shopEmpty.style.display = 'block';
-        clearDoneBtn.style.display = 'none';
-        return;
-      }
+      if (items.length === 0) { shopEmpty.style.display = 'block'; clearDoneBtn.style.display = 'none'; return; }
       shopEmpty.style.display = 'none';
       const doneCount = items.filter(x => x.done).length;
       clearDoneBtn.style.display = doneCount > 0 ? 'block' : 'none';
-
-      const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
-
+      const myUid = currentUser ? currentUser.uid : '';
       let filtered;
       if (selectedCategory === 'all') filtered = items;
-      else filtered = items.filter(x => {
-        const cat = (x.category && CATEGORY_META[x.category]) ? x.category : 'other';
-        return cat === selectedCategory;
-      });
-
+      else filtered = items.filter(x => { const cat = (x.category && CATEGORY_META[x.category]) ? x.category : 'other'; return cat === selectedCategory; });
       if (filtered.length === 0) {
         const emptyMsg = document.createElement('div');
         emptyMsg.className = 'empty';
@@ -2543,14 +2176,12 @@
         shopList.appendChild(emptyMsg);
         return;
       }
-
       const grouped = {};
       filtered.forEach(item => {
         const cat = (item.category && CATEGORY_META[item.category]) ? item.category : 'other';
         if (!grouped[cat]) grouped[cat] = [];
         grouped[cat].push(item);
       });
-
       if (selectedCategory === 'all') {
         CATEGORY_ORDER.forEach(catKey => {
           if (!grouped[catKey]) return;
@@ -2558,8 +2189,7 @@
           const activeInGroup = grouped[catKey].filter(x => !x.done).length;
           const groupTitle = document.createElement('div');
           groupTitle.className = 'cat-group-title';
-          groupTitle.innerHTML = '<span>' + meta.emoji + '</span> ' + meta.name +
-            ' <span class="count-badge">' + activeInGroup + '</span>';
+          groupTitle.innerHTML = '<span>' + meta.emoji + '</span> ' + meta.name + ' <span class="count-badge">' + activeInGroup + '</span>';
           shopList.appendChild(groupTitle);
           grouped[catKey].forEach(data => renderShopItem(data, meta, myUid));
         });
@@ -2614,7 +2244,7 @@
       }
     });
 
-    // ============ ДЕЛА ============
+    // ДЕЛА
     const choreInput = $('choreInput');
     const choreAssignee = $('choreAssignee');
     const choreDue = $('choreDue');
@@ -2648,16 +2278,7 @@
       if (!assignee) { alert('Выберите, кому назначить'); return; }
       try {
         const newRef = push(ref(db, 'chores'));
-        const data = {
-          title: title,
-          assignedTo: assignee,
-          assignedToEmail: allUsers[assignee] || '',
-          createdBy: currentUser.uid,
-          createdByEmail: currentUser.email,
-          done: false,
-          priority: priority,
-          createdAt: Date.now()
-        };
+        const data = { title, assignedTo: assignee, assignedToEmail: allUsers[assignee] || '', createdBy: currentUser.uid, createdByEmail: currentUser.email, done: false, priority, createdAt: Date.now() };
         if (due) data.dueDate = due;
         await set(newRef, data);
         choreInput.value = '';
@@ -2673,7 +2294,7 @@
         const items = [];
         snapshot.forEach((child) => { items.push({ id: child.key, ...child.val() }); });
         items.reverse();
-        const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
+        const myUid = currentUser ? currentUser.uid : '';
         const forMe = items.filter(x => x.assignedTo === myUid);
         const byMe = items.filter(x => x.createdBy === myUid);
         currentChoresForMe = forMe;
@@ -2754,11 +2375,7 @@
         if (!data.done && diff < 0) { cls = 'overdue'; text = '⚠ Просрочено'; }
         else if (diff === 0) { cls = 'today'; text = '🔥 Сегодня'; }
         else if (diff === 1) { cls = 'tomorrow'; text = '📅 Завтра'; }
-        else {
-          const dd = String(dueDate.getDate()).padStart(2,'0');
-          const mm = String(dueDate.getMonth()+1).padStart(2,'0');
-          text = '📅 до ' + dd + '.' + mm;
-        }
+        else { const dd = String(dueDate.getDate()).padStart(2,'0'); const mm = String(dueDate.getMonth()+1).padStart(2,'0'); text = '📅 до ' + dd + '.' + mm; }
         due.className = 'chore-due' + (cls ? ' ' + cls : '');
         due.textContent = text;
         badges.appendChild(due);
@@ -2792,20 +2409,16 @@
       const done = currentChoresForMe.filter(x => x.done);
       if (done.length === 0) return;
       if (!confirm('Удалить ' + done.length + ' выполненных задач?')) return;
-      for (const item of done) {
-        try { await remove(ref(db, 'chores/' + item.id)); } catch (e) { console.error(e); }
-      }
+      for (const item of done) { try { await remove(ref(db, 'chores/' + item.id)); } catch (e) { console.error(e); } }
     });
     $('choreByMeClear').addEventListener('click', async () => {
       const done = currentChoresByMe.filter(x => x.done);
       if (done.length === 0) return;
       if (!confirm('Удалить ' + done.length + ' выполненных задач?')) return;
-      for (const item of done) {
-        try { await remove(ref(db, 'chores/' + item.id)); } catch (e) { console.error(e); }
-      }
+      for (const item of done) { try { await remove(ref(db, 'chores/' + item.id)); } catch (e) { console.error(e); } }
     });
 
-    // ============ РАСПИСАНИЕ ============
+    // РАСПИСАНИЕ
     const eventTitle = $('eventTitle');
     const eventStart = $('eventStart');
     const eventEnd = $('eventEnd');
@@ -2843,13 +2456,7 @@
       if (!date) { alert('Выберите дату'); return; }
       try {
         const newRef = push(ref(db, 'schedule_events'));
-        const data = {
-          title: title, startTime: start, date: date,
-          repeat: repeat, done: false,
-          createdBy: currentUser.uid,
-          createdByEmail: currentUser.email,
-          createdAt: Date.now()
-        };
+        const data = { title, startTime: start, date, repeat, done: false, createdBy: currentUser.uid, createdByEmail: currentUser.email, createdAt: Date.now() };
         if (end) data.endTime = end;
         await set(newRef, data);
         eventTitle.value = '';
@@ -2865,11 +2472,7 @@
       eventsUnsubscribe = onValue(eventsRef, (snapshot) => {
         const items = [];
         snapshot.forEach((child) => { items.push({ id: child.key, ...child.val() }); });
-        items.sort((a, b) => {
-          const da = (a.date || '') + ' ' + (a.startTime || '');
-          const db_ = (b.date || '') + ' ' + (b.startTime || '');
-          return da.localeCompare(db_);
-        });
+        items.sort((a, b) => { const da = (a.date || '') + ' ' + (a.startTime || ''); const db_ = (b.date || '') + ' ' + (b.startTime || ''); return da.localeCompare(db_); });
         currentEvents = items;
         const today = todayStr();
         const todayItems = items.filter(x => x.date === today);
@@ -2908,7 +2511,7 @@
     }
 
     function buildEventItem(data, isToday) {
-      const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
+      const myUid = currentUser ? currentUser.uid : '';
       const item = document.createElement('div');
       let isNow = false;
       const now = new Date();
@@ -2918,10 +2521,7 @@
         const parts = data.startTime.split(':').map(Number);
         const startMin = parts[0] * 60 + parts[1];
         let endMin = startMin + 60;
-        if (data.endTime) {
-          const ep = data.endTime.split(':').map(Number);
-          endMin = ep[0] * 60 + ep[1];
-        }
+        if (data.endTime) { const ep = data.endTime.split(':').map(Number); endMin = ep[0] * 60 + ep[1]; }
         if (nowMin >= startMin && nowMin <= endMin) isNow = true;
       }
       let cls = 'event-item';
@@ -2939,12 +2539,7 @@
       const timeEl = document.createElement('div');
       timeEl.className = 'event-time';
       timeEl.textContent = data.startTime || '--:--';
-      if (data.endTime) {
-        const sep = document.createElement('span');
-        sep.className = 'time-sep';
-        sep.textContent = 'до ' + data.endTime;
-        timeEl.appendChild(sep);
-      }
+      if (data.endTime) { const sep = document.createElement('span'); sep.className = 'time-sep'; sep.textContent = 'до ' + data.endTime; timeEl.appendChild(sep); }
       item.appendChild(timeEl);
       const body = document.createElement('div');
       body.className = 'event-body';
@@ -2953,16 +2548,11 @@
       title.textContent = data.title;
       body.appendChild(title);
       const metaParts = [];
-      if (!isToday && data.date) {
-        const d = new Date(data.date + 'T00:00:00');
-        metaParts.push('📅 ' + String(d.getDate()).padStart(2,'0') + '.' + String(d.getMonth()+1).padStart(2,'0'));
-      }
+      if (!isToday && data.date) { const d = new Date(data.date + 'T00:00:00'); metaParts.push('📅 ' + String(d.getDate()).padStart(2,'0') + '.' + String(d.getMonth()+1).padStart(2,'0')); }
       if (data.repeat === 'daily') metaParts.push('↻ ежедневно');
       else if (data.repeat === 'weekly') metaParts.push('↻ еженедельно');
       else if (data.repeat === 'monthly') metaParts.push('↻ ежемесячно');
-      if (data.createdBy && myUid && data.createdBy !== myUid) {
-        metaParts.push('👤 ' + getUserName(data.createdBy, data.createdByEmail));
-      }
+      if (data.createdBy && myUid && data.createdBy !== myUid) metaParts.push('👤 ' + getUserName(data.createdBy, data.createdByEmail));
       if (metaParts.length) {
         const meta = document.createElement('div');
         meta.className = 'event-meta';
@@ -2980,18 +2570,14 @@
       return item;
     }
 
-    // ============ ПОДАРКИ ============
+    // ПОДАРКИ
     const OCCASIONS = {
-      birthday: { emoji: '🎂', label: 'День рождения' },
-      newyear: { emoji: '🎄', label: 'Новый год' },
-      valentine: { emoji: '💝', label: '14 февраля' },
-      anniversary: { emoji: '💍', label: 'Годовщина' },
+      birthday: { emoji: '🎂', label: 'День рождения' }, newyear: { emoji: '🎄', label: 'Новый год' },
+      valentine: { emoji: '💝', label: '14 февраля' }, anniversary: { emoji: '💍', label: 'Годовщина' },
       just: { emoji: '🎁', label: 'Просто так' }
     };
     const GIFT_PRIORITY = {
-      high: { label: '🔴 Очень хочу', cls: 'high' },
-      medium: { label: '🟡 Хочу', cls: 'medium' },
-      low: { label: '⚪ Когда-нибудь', cls: 'low' }
+      high: { label: '🔴 Очень хочу', cls: 'high' }, medium: { label: '🟡 Хочу', cls: 'medium' }, low: { label: '⚪ Когда-нибудь', cls: 'low' }
     };
 
     const giftInput = $('giftInput');
@@ -3013,13 +2599,8 @@
         document.querySelectorAll('.gift-view-tab').forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
         currentGiftView = tab.dataset.view;
-        if (currentGiftView === 'mine') {
-          $('giftFormTitle').textContent = 'Новое желание';
-          giftInput.placeholder = 'Что хочу в подарок?';
-        } else {
-          $('giftFormTitle').textContent = 'Новая идея подарка';
-          giftInput.placeholder = 'Что подарить партнёру?';
-        }
+        if (currentGiftView === 'mine') { $('giftFormTitle').textContent = 'Новое желание'; giftInput.placeholder = 'Что хочу в подарок?'; }
+        else { $('giftFormTitle').textContent = 'Новая идея подарка'; giftInput.placeholder = 'Что подарить партнёру?'; }
         renderGiftsList();
       });
     });
@@ -3050,23 +2631,13 @@
       if (!title) { alert('Введите название'); return; }
       try {
         const newRef = push(ref(db, 'gifts'));
-        const data = {
-          title, occasion, priority,
-          ownerId: currentUser.uid,
-          ownerEmail: currentUser.email,
-          done: false,
-          createdAt: Date.now()
-        };
+        const data = { title, occasion, priority, ownerId: currentUser.uid, ownerEmail: currentUser.email, done: false, createdAt: Date.now() };
         if (price) data.price = price;
         if (url) data.url = url;
         if (note) data.note = note;
         await set(newRef, data);
-        giftInput.value = '';
-        giftPrice.value = '';
-        giftUrl.value = '';
-        giftNote.value = '';
-        giftOccasion.value = 'birthday';
-        giftPriority.value = 'medium';
+        giftInput.value = ''; giftPrice.value = ''; giftUrl.value = ''; giftNote.value = '';
+        giftOccasion.value = 'birthday'; giftPriority.value = 'medium';
       } catch (err) { alert('ОШИБКА: ' + err.code + '\n' + err.message); }
     });
 
@@ -3077,11 +2648,10 @@
         snapshot.forEach((child) => { items.push({ id: child.key, ...child.val() }); });
         items.reverse();
         currentGiftItems = items;
-        const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
+        const myUid = currentUser ? currentUser.uid : '';
         const mineCount = items.filter(g => g.ownerId === myUid && !g.done).length;
         const givingCount = items.filter(g => g.ownerId !== myUid && !g.done).length;
-        const mwc = $('myWishesCount');
-        const gc = $('givingCount');
+        const mwc = $('myWishesCount'); const gc = $('givingCount');
         if (mwc) mwc.textContent = mineCount;
         if (gc) gc.textContent = givingCount;
         renderGiftsList();
@@ -3090,20 +2660,15 @@
     }
 
     function renderGiftsList() {
-      const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
+      const myUid = currentUser ? currentUser.uid : '';
       giftsList.innerHTML = '';
-      let base = currentGiftItems.filter(g => {
-        if (currentGiftView === 'mine') return g.ownerId === myUid;
-        else return g.ownerId !== myUid;
-      });
+      let base = currentGiftItems.filter(g => { if (currentGiftView === 'mine') return g.ownerId === myUid; else return g.ownerId !== myUid; });
       if (selectedGiftOccasion !== 'all') base = base.filter(g => (g.occasion || 'just') === selectedGiftOccasion);
       if (hideDoneGifts) base = base.filter(g => !g.done);
       if (currentGiftView === 'mine') {
         const activeTotal = base.filter(g => !g.done && g.price).reduce((s, g) => s + Number(g.price || 0), 0);
-        if (activeTotal > 0) {
-          giftTotalCard.style.display = 'flex';
-          giftTotalValue.textContent = activeTotal.toLocaleString('ru-RU') + ' ₽';
-        } else giftTotalCard.style.display = 'none';
+        if (activeTotal > 0) { giftTotalCard.style.display = 'flex'; giftTotalValue.textContent = activeTotal.toLocaleString('ru-RU') + ' ₽'; }
+        else giftTotalCard.style.display = 'none';
       } else giftTotalCard.style.display = 'none';
       const totalCount = base.length;
       const doneCount = base.filter(g => g.done).length;
@@ -3135,9 +2700,7 @@
       if (!isMine) {
         const cb = document.createElement('div');
         cb.className = 'checkbox' + (data.done ? ' checked' : '');
-        cb.addEventListener('click', async () => {
-          try { await update(ref(db, 'gifts/' + data.id), { done: !data.done }); } catch (err) { console.error(err); }
-        });
+        cb.addEventListener('click', async () => { try { await update(ref(db, 'gifts/' + data.id), { done: !data.done }); } catch (err) { console.error(err); } });
         item.appendChild(cb);
       }
       const body = document.createElement('div');
@@ -3194,31 +2757,22 @@
       const del = document.createElement('button');
       del.className = 'delete-btn';
       del.textContent = '×';
-      del.addEventListener('click', async () => {
-        try { await remove(ref(db, 'gifts/' + data.id)); } catch (err) { console.error(err); }
-      });
+      del.addEventListener('click', async () => { try { await remove(ref(db, 'gifts/' + data.id)); } catch (err) { console.error(err); } });
       item.appendChild(del);
       return item;
     }
 
-    // ============ ХОТЕЛКИ ============
+    // ХОТЕЛКИ
     const WISH_PRIORITIES = {
-      high: { label: '🔴 Очень хочу', cls: 'high' },
-      medium: { label: '🟡 Хочу', cls: 'medium' },
-      low: { label: '⚪ Когда-нибудь', cls: 'low' }
+      high: { label: '🔴 Очень хочу', cls: 'high' }, medium: { label: '🟡 Хочу', cls: 'medium' }, low: { label: '⚪ Когда-нибудь', cls: 'low' }
     };
     const WISH_STATUSES = [
-      { key: 'want', label: 'Хочу' },
-      { key: 'saving', label: 'Копим' },
-      { key: 'bought', label: 'Куплено' }
+      { key: 'want', label: 'Хочу' }, { key: 'saving', label: 'Копим' }, { key: 'bought', label: 'Куплено' }
     ];
     const WISH_CATEGORIES = {
-      appliance: { emoji: '🔌', label: 'Быт. техника' },
-      electronics: { emoji: '💻', label: 'Электроника' },
-      furniture: { emoji: '🪑', label: 'Мебель' },
-      home: { emoji: '🏠', label: 'Для дома' },
-      vacation: { emoji: '✈️', label: 'Отпуск' },
-      other: { emoji: '📦', label: 'Другое' }
+      appliance: { emoji: '🔌', label: 'Быт. техника' }, electronics: { emoji: '💻', label: 'Электроника' },
+      furniture: { emoji: '🪑', label: 'Мебель' }, home: { emoji: '🏠', label: 'Для дома' },
+      vacation: { emoji: '✈️', label: 'Отпуск' }, other: { emoji: '📦', label: 'Другое' }
     };
 
     const wishInput = $('wishInput');
@@ -3268,23 +2822,13 @@
       if (!title) { alert('Введите название'); return; }
       try {
         const newRef = push(ref(db, 'wishes'));
-        const data = {
-          title, priority, category,
-          status: 'want',
-          createdBy: currentUser.uid,
-          createdByEmail: currentUser.email,
-          createdAt: Date.now()
-        };
+        const data = { title, priority, category, status: 'want', createdBy: currentUser.uid, createdByEmail: currentUser.email, createdAt: Date.now() };
         if (price) data.price = price;
         if (url) data.url = url;
         if (note) data.note = note;
         await set(newRef, data);
-        wishInput.value = '';
-        wishPrice.value = '';
-        wishUrl.value = '';
-        wishNote.value = '';
-        wishPriority.value = 'medium';
-        wishCategory.value = 'other';
+        wishInput.value = ''; wishPrice.value = ''; wishUrl.value = ''; wishNote.value = '';
+        wishPriority.value = 'medium'; wishCategory.value = 'other';
       } catch (err) { alert('ОШИБКА: ' + err.code + '\n' + err.message); }
     });
 
@@ -3411,9 +2955,7 @@
         const btn = document.createElement('button');
         btn.className = 'wish-status-btn' + ((data.status || 'want') === opt.key ? ' active' : '');
         btn.textContent = opt.label;
-        btn.addEventListener('click', async () => {
-          try { await update(ref(db, 'wishes/' + data.id), { status: opt.key }); } catch (err) { console.error(err); }
-        });
+        btn.addEventListener('click', async () => { try { await update(ref(db, 'wishes/' + data.id), { status: opt.key }); } catch (err) { console.error(err); } });
         sr.appendChild(btn);
       });
       body.appendChild(sr);
@@ -3421,9 +2963,7 @@
       const del = document.createElement('button');
       del.className = 'delete-btn';
       del.textContent = '×';
-      del.addEventListener('click', async () => {
-        try { await remove(ref(db, 'wishes/' + data.id)); } catch (err) { console.error(err); }
-      });
+      del.addEventListener('click', async () => { try { await remove(ref(db, 'wishes/' + data.id)); } catch (err) { console.error(err); } });
       item.appendChild(del);
       return item;
     }
@@ -3432,9 +2972,7 @@
       const bought = currentWishItems.filter(x => x.status === 'bought');
       if (bought.length === 0) return;
       if (!confirm('Удалить ' + bought.length + ' купленных хотелок?')) return;
-      for (const item of bought) {
-        try { await remove(ref(db, 'wishes/' + item.id)); } catch (e) { console.error(e); }
-      }
+      for (const item of bought) { try { await remove(ref(db, 'wishes/' + item.id)); } catch (e) { console.error(e); } }
     });
   </script>
 </body>
