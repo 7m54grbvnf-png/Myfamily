@@ -8,7 +8,6 @@
   <meta name="theme-color" content="#f6f3ee">
   <title>Семейное приложение</title>
   <script>
-    // Применяем тему из localStorage до отрисовки, чтобы не мигало
     (function() {
       try {
         var t = localStorage.getItem('familyTheme');
@@ -46,7 +45,6 @@
       --nav-bg: rgba(255, 255, 255, 0.92);
       --accent-grad: linear-gradient(135deg, #d9b382 0%, #b8894e 100%);
       --h1-grad: linear-gradient(135deg, #1c1a17 0%, #b8894e 100%);
-      --theme-meta: #f6f3ee;
     }
     html[data-theme="emerald"] {
       --bg: #f0f5f2;
@@ -73,7 +71,6 @@
       --nav-bg: rgba(255, 255, 255, 0.92);
       --accent-grad: linear-gradient(135deg, #7ce0c0 0%, #3fae8a 100%);
       --h1-grad: linear-gradient(135deg, #16201c 0%, #3fae8a 100%);
-      --theme-meta: #f0f5f2;
     }
     html[data-theme="sapphire"] {
       --bg: #f2f5f9;
@@ -100,7 +97,6 @@
       --nav-bg: rgba(255, 255, 255, 0.92);
       --accent-grad: linear-gradient(135deg, #8bb8e8 0%, #4a7fc4 100%);
       --h1-grad: linear-gradient(135deg, #141a22 0%, #4a7fc4 100%);
-      --theme-meta: #f2f5f9;
     }
     html[data-theme="rose"] {
       --bg: #f9f2f5;
@@ -127,7 +123,6 @@
       --nav-bg: rgba(255, 255, 255, 0.92);
       --accent-grad: linear-gradient(135deg, #e8a8b8 0%, #c46a86 100%);
       --h1-grad: linear-gradient(135deg, #22161b 0%, #c46a86 100%);
-      --theme-meta: #f9f2f5;
     }
     html[data-theme="graphite"] {
       --bg: #f4f4f5;
@@ -154,7 +149,6 @@
       --nav-bg: rgba(255, 255, 255, 0.92);
       --accent-grad: linear-gradient(135deg, #8a8a95 0%, #4a4a55 100%);
       --h1-grad: linear-gradient(135deg, #1a1a1f 0%, #4a4a55 100%);
-      --theme-meta: #f4f4f5;
     }
     html[data-theme="dark"] {
       --bg: #14161a;
@@ -181,7 +175,6 @@
       --nav-bg: rgba(30, 32, 38, 0.95);
       --accent-grad: linear-gradient(135deg, #d9b382 0%, #b8894e 100%);
       --h1-grad: linear-gradient(135deg, #e8e6e2 0%, #d9b382 100%);
-      --theme-meta: #14161a;
     }
 
     body {
@@ -337,6 +330,7 @@
 
     /* ============ МАГАЗИН ============ */
     .add-row { display: flex; gap: 10px; margin-bottom: 22px; }
+    #page-shop .add-row { margin-bottom: 10px; }
     .add-row input {
       flex: 1; margin-bottom: 0;
       background: var(--card);
@@ -355,6 +349,73 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
     }
     .add-btn:active { transform: scale(0.94); }
+
+    /* Категории */
+    .categories-row {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 20px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .categories-row::-webkit-scrollbar { display: none; }
+    .cat-btn {
+      flex-shrink: 0;
+      padding: 8px 12px;
+      border-radius: 12px;
+      border: 1.5px solid var(--input-border);
+      background: var(--input-bg);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-soft);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .cat-btn:active { transform: scale(0.96); }
+    .cat-btn.active {
+      background: var(--accent-grad);
+      border-color: transparent;
+      color: #ffffff;
+      box-shadow: 0 4px 12px var(--accent-shadow);
+    }
+
+    /* Заголовок группы */
+    .cat-group-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text-soft);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin: 18px 4px 8px;
+    }
+    .cat-group-title:first-child { margin-top: 0; }
+    .cat-group-title .count-badge {
+      background: var(--accent-soft);
+      color: var(--accent-text);
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    /* Цветной маркер */
+    .cat-marker {
+      width: 4px;
+      height: 36px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
 
     .items-list { display: flex; flex-direction: column; gap: 8px; }
     .item {
@@ -773,6 +834,17 @@
           <input type="text" id="shopInput" placeholder="Что купить?" autocomplete="off">
           <button class="add-btn" id="shopAddBtn">+</button>
         </div>
+        <div class="categories-row" id="categoriesRow">
+          <button class="cat-btn active" data-cat="other" data-color="#b8aca1">📦 Другое</button>
+          <button class="cat-btn" data-cat="dairy" data-color="#8bb8e8">🥛 Молочное</button>
+          <button class="cat-btn" data-cat="meat" data-color="#e88585">🥩 Мясо</button>
+          <button class="cat-btn" data-cat="veg" data-color="#7eb97e">🥦 Овощи</button>
+          <button class="cat-btn" data-cat="fruit" data-color="#e8b85c">🍎 Фрукты</button>
+          <button class="cat-btn" data-cat="bread" data-color="#d4a373">🍞 Хлеб</button>
+          <button class="cat-btn" data-cat="drinks" data-color="#7ab8d4">🥤 Напитки</button>
+          <button class="cat-btn" data-cat="sweets" data-color="#c89ac8">🍫 Сладкое</button>
+          <button class="cat-btn" data-cat="house" data-color="#7eb8b8">🧴 Быт. химия</button>
+        </div>
         <div class="items-list" id="shopList"></div>
         <div class="empty" id="shopEmpty">
           <div class="empty-emoji">🛒</div>
@@ -1029,11 +1101,9 @@
     function applyTheme(theme) {
       document.documentElement.setAttribute('data-theme', theme);
       try { localStorage.setItem('familyTheme', theme); } catch (e) {}
-      // Отметить активную
       document.querySelectorAll('.theme-option').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.theme === theme);
       });
-      // Обновить meta theme-color
       const meta = document.querySelector('meta[name="theme-color"]');
       if (meta) {
         const colors = {
@@ -1044,10 +1114,8 @@
       }
     }
 
-    // Загружаем сохранённую тему
     applyTheme(localStorage.getItem('familyTheme') || 'gold');
 
-    // Кнопка открытия модалки тем
     $('themeBtn').addEventListener('click', () => {
       const cur = localStorage.getItem('familyTheme') || 'gold';
       document.querySelectorAll('.theme-option').forEach(btn => {
@@ -1056,19 +1124,16 @@
       $('themeModal').style.display = 'flex';
     });
 
-    // Выбор темы
     document.querySelectorAll('.theme-option').forEach(btn => {
       btn.addEventListener('click', () => {
         applyTheme(btn.dataset.theme);
       });
     });
 
-    // Закрыть модалку
     $('themeCloseBtn').addEventListener('click', () => {
       $('themeModal').style.display = 'none';
     });
 
-    // Закрыть по клику на фон
     $('themeModal').addEventListener('click', (e) => {
       if (e.target === $('themeModal')) {
         $('themeModal').style.display = 'none';
@@ -1130,6 +1195,9 @@
     let eventsUnsubscribe = null;
     let giftsUnsubscribe = null;
     let wishesUnsubscribe = null;
+
+    // НОВОЕ: выбранная категория для магазина
+    let selectedCategory = 'other';
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -1226,6 +1294,29 @@
     const shopList = $('shopList');
     const shopEmpty = $('shopEmpty');
 
+    // Категории: порядок отображения, названия и цвета
+    const CATEGORY_ORDER = ['dairy', 'meat', 'veg', 'fruit', 'bread', 'drinks', 'sweets', 'house', 'other'];
+    const CATEGORY_META = {
+      dairy:  { emoji: '🥛', name: 'Молочное',    color: '#8bb8e8' },
+      meat:   { emoji: '🥩', name: 'Мясо',         color: '#e88585' },
+      veg:    { emoji: '🥦', name: 'Овощи',        color: '#7eb97e' },
+      fruit:  { emoji: '🍎', name: 'Фрукты',       color: '#e8b85c' },
+      bread:  { emoji: '🍞', name: 'Хлеб',         color: '#d4a373' },
+      drinks: { emoji: '🥤', name: 'Напитки',      color: '#7ab8d4' },
+      sweets: { emoji: '🍫', name: 'Сладкое',      color: '#c89ac8' },
+      house:  { emoji: '🧴', name: 'Быт. химия',   color: '#7eb8b8' },
+      other:  { emoji: '📦', name: 'Другое',       color: '#b8aca1' }
+    };
+
+    // Обработчики выбора категории
+    document.querySelectorAll('.cat-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedCategory = btn.dataset.cat;
+      });
+    });
+
     shopAddBtn.addEventListener('click', addShopItem);
     shopInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') addShopItem();
@@ -1241,6 +1332,7 @@
         await set(newItemRef, {
           title: title,
           done: false,
+          category: selectedCategory,  // ← новое поле, старые записи не ломает
           addedBy: currentUser.uid,
           addedByEmail: currentUser.email,
           createdAt: Date.now()
@@ -1269,45 +1361,73 @@
 
         const myUid = currentUser ? currentUser.uid : (auth.currentUser ? auth.currentUser.uid : '');
 
-        items.forEach((data) => {
-          const item = document.createElement('div');
-          item.className = 'item' + (data.done ? ' done' : '');
+        // Группируем по категориям (старые записи без категории попадут в "other")
+        const grouped = {};
+        items.forEach(item => {
+          const cat = (item.category && CATEGORY_META[item.category]) ? item.category : 'other';
+          if (!grouped[cat]) grouped[cat] = [];
+          grouped[cat].push(item);
+        });
 
-          const checkbox = document.createElement('div');
-          checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
-          checkbox.addEventListener('click', async () => {
-            try {
-              await update(ref(db, 'shopping_items/' + data.id), { done: !data.done });
-            } catch (err) { console.error(err); }
+        // Отрисовка по порядку категорий
+        CATEGORY_ORDER.forEach(catKey => {
+          if (!grouped[catKey]) return;
+          const meta = CATEGORY_META[catKey];
+
+          // Заголовок группы
+          const groupTitle = document.createElement('div');
+          groupTitle.className = 'cat-group-title';
+          groupTitle.innerHTML = '<span>' + meta.emoji + '</span> ' + meta.name +
+            ' <span class="count-badge">' + grouped[catKey].length + '</span>';
+          shopList.appendChild(groupTitle);
+
+          // Элементы группы
+          grouped[catKey].forEach((data) => {
+            const item = document.createElement('div');
+            item.className = 'item' + (data.done ? ' done' : '');
+
+            // Цветной маркер категории
+            const marker = document.createElement('div');
+            marker.className = 'cat-marker';
+            marker.style.background = meta.color;
+            item.appendChild(marker);
+
+            const checkbox = document.createElement('div');
+            checkbox.className = 'checkbox' + (data.done ? ' checked' : '');
+            checkbox.addEventListener('click', async () => {
+              try {
+                await update(ref(db, 'shopping_items/' + data.id), { done: !data.done });
+              } catch (err) { console.error(err); }
+            });
+
+            const titleWrap = document.createElement('div');
+            titleWrap.style.flex = '1';
+            const title = document.createElement('div');
+            title.className = 'item-title';
+            title.textContent = data.title;
+            titleWrap.appendChild(title);
+
+            if (data.addedBy && myUid && data.addedBy !== myUid && data.addedByEmail) {
+              const metaEl = document.createElement('div');
+              metaEl.className = 'item-meta';
+              metaEl.textContent = '👤 ' + data.addedByEmail.split('@')[0];
+              titleWrap.appendChild(metaEl);
+            }
+
+            const delBtn = document.createElement('button');
+            delBtn.className = 'delete-btn';
+            delBtn.textContent = '×';
+            delBtn.addEventListener('click', async () => {
+              try {
+                await remove(ref(db, 'shopping_items/' + data.id));
+              } catch (err) { console.error(err); }
+            });
+
+            item.appendChild(checkbox);
+            item.appendChild(titleWrap);
+            item.appendChild(delBtn);
+            shopList.appendChild(item);
           });
-
-          const titleWrap = document.createElement('div');
-          titleWrap.style.flex = '1';
-          const title = document.createElement('div');
-          title.className = 'item-title';
-          title.textContent = data.title;
-          titleWrap.appendChild(title);
-
-          if (data.addedBy && myUid && data.addedBy !== myUid && data.addedByEmail) {
-            const meta = document.createElement('div');
-            meta.className = 'item-meta';
-            meta.textContent = '👤 ' + data.addedByEmail.split('@')[0];
-            titleWrap.appendChild(meta);
-          }
-
-          const delBtn = document.createElement('button');
-          delBtn.className = 'delete-btn';
-          delBtn.textContent = '×';
-          delBtn.addEventListener('click', async () => {
-            try {
-              await remove(ref(db, 'shopping_items/' + data.id));
-            } catch (err) { console.error(err); }
-          });
-
-          item.appendChild(checkbox);
-          item.appendChild(titleWrap);
-          item.appendChild(delBtn);
-          shopList.appendChild(item);
         });
       }, (err) => {
         console.error('Ошибка подписки магазина:', err);
