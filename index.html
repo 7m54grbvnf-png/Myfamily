@@ -566,9 +566,9 @@
     }
     .today-quick-btn:active { transform: scale(0.97); }
     .today-quick-btn .quick-icon { width: 34px; height: 34px; background: var(--accent-soft); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--accent-text); flex-shrink: 0; }
-    .today-quick-btn .quick-text { flex: 1; min-width: 0; }
-    .today-quick-btn .quick-label { font-size: 13px; font-weight: 700; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .today-quick-btn .quick-sub { font-size: 11px; color: var(--text-soft); font-weight: 600; margin-top: 1px; }
+    .today-quick-btn .quick-text { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
+    .today-quick-btn .quick-label { font-size: 13px; font-weight: 700; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
+    .today-quick-btn .quick-sub { font-size: 11px; color: var(--text-soft); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
 
     .today-section { margin-bottom: 20px; animation: fadeInUp 0.3s ease; }
     .today-section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding: 0 4px; }
@@ -744,12 +744,33 @@
     .budget-month-btn { background: var(--accent-soft); border: 1px solid var(--accent-border); color: var(--accent-text); width: 38px; height: 38px; border-radius: 10px; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-family: inherit; transition: all 0.15s; }
     .budget-month-btn:active { transform: scale(0.94); }
     .budget-month-label { font-size: 16px; font-weight: 800; color: var(--text); text-align: center; flex: 1; text-transform: capitalize; }
+    
+    .piggy-card { background: linear-gradient(135deg, #ffeedd 0%, #ffe0c0 100%); border: 1px solid #ffd0a0; border-radius: 20px; padding: 16px 18px; margin-bottom: 16px; display: flex; align-items: center; gap: 14px; box-shadow: 0 6px 20px rgba(255, 160, 80, 0.2); animation: fadeInUp 0.3s ease; }
+    body[data-theme="dark"] .piggy-card { background: linear-gradient(135deg, rgba(80, 50, 20, 0.8) 0%, rgba(60, 35, 10, 0.8) 100%); border-color: rgba(255, 160, 80, 0.3); }
+    .piggy-emoji { font-size: 34px; flex-shrink: 0; }
+    .piggy-body { flex: 1; min-width: 0; }
+    .piggy-title { font-size: 12px; font-weight: 800; color: #b8770f; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 2px; }
+    body[data-theme="dark"] .piggy-title { color: #ffb070; }
+    .piggy-amount { font-size: 22px; font-weight: 800; color: #7d3f00; }
+    body[data-theme="dark"] .piggy-amount { color: #fff; }
+    .piggy-actions { display: flex; gap: 6px; }
+    .piggy-btn { width: 36px; height: 36px; border-radius: 10px; border: none; background: rgba(255,255,255,0.6); color: #7d3f00; font-size: 20px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+    .piggy-btn:active { transform: scale(0.9); }
+    body[data-theme="dark"] .piggy-btn { background: rgba(255,255,255,0.1); color: #ffb070; }
+
     .budget-summary { background: var(--accent-grad); color: #fff; border-radius: 20px; padding: 16px 18px; margin-bottom: 16px; box-shadow: 0 8px 24px var(--accent-shadow); animation: fadeInUp 0.3s ease; }
     .budget-summary-row { display: flex; justify-content: space-between; gap: 10px; padding: 5px 0; font-size: 14px; }
     .budget-summary-row .lbl { opacity: 0.85; }
     .budget-summary-row.big { font-size: 18px; font-weight: 800; border-top: 1px solid rgba(255,255,255,0.25); margin-top: 6px; padding-top: 10px; }
     .budget-warn { background: #fff4e0; border: 1px solid #f5e0b8; color: #b8770f; padding: 10px 14px; border-radius: 12px; font-size: 12px; font-weight: 700; margin-bottom: 12px; line-height: 1.4; }
     body[data-theme="dark"] .budget-warn { background: rgba(120, 80, 20, 0.3); border-color: rgba(200, 150, 50, 0.3); color: #f0c070; }
+    
+    .quick-add-form { display: flex; gap: 6px; margin-bottom: 16px; background: var(--card); border: 1px solid var(--card-border); padding: 8px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+    .quick-add-input { flex: 1; min-width: 0; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--input-border); background: var(--input-bg); color: var(--text); font-family: inherit; font-size: 14px; margin: 0; }
+    .quick-add-select { flex: 1; min-width: 0; padding: 10px 24px 10px 12px; border-radius: 10px; border: 1px solid var(--input-border); background: var(--input-bg); color: var(--text); font-family: inherit; font-size: 14px; -webkit-appearance: none; appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23b8894e' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 8px center; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
+    .quick-add-btn { width: 44px; flex-shrink: 0; background: var(--accent-grad); color: #fff; border: none; border-radius: 10px; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .quick-add-btn:active { transform: scale(0.94); }
+
     .budget-section { margin-bottom: 22px; }
     .budget-section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding: 0 4px; }
     .budget-section-title { font-size: 12px; font-weight: 800; color: var(--text-soft); text-transform: uppercase; letter-spacing: 1.2px; }
@@ -762,6 +783,7 @@
     .budget-card-sub { font-size: 11px; color: var(--text-soft); font-weight: 500; margin-top: 2px; }
     .budget-card-amount { font-size: 14px; font-weight: 800; color: var(--accent-text); white-space: nowrap; }
     .budget-card-amount.neg { color: #c0554e; }
+    
     .budget-cat-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 14px; padding: 12px 14px; margin-bottom: 8px; box-shadow: 0 3px 12px rgba(0,0,0,0.03); animation: fadeInUp 0.25s ease; }
     .budget-cat-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
     .budget-cat-emoji { width: 34px; height: 34px; border-radius: 10px; background: var(--accent-soft); display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
@@ -771,9 +793,9 @@
     .budget-cat-remaining.over { color: #c0554e; }
     .budget-progress { height: 8px; background: var(--input-border); border-radius: 4px; overflow: hidden; margin-bottom: 6px; }
     .budget-progress-fill { height: 100%; background: var(--accent-grad); border-radius: 4px; transition: width 0.3s; }
+    .budget-progress-fill.warn { background: linear-gradient(135deg, #f0c070 0%, #b8770f 100%); }
     .budget-progress-fill.over { background: linear-gradient(135deg, #e88a85 0%, #c0554e 100%); }
     .budget-cat-meta { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-soft); font-weight: 600; }
-    .budget-tx-date { font-size: 11px; color: var(--text-soft); font-weight: 600; white-space: nowrap; }
 
     .bottom-nav {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 20;
@@ -939,19 +961,19 @@
         <div class="today-quick" id="todayQuick">
           <button class="today-quick-btn" data-goto="shop">
             <span class="quick-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span>
-            <span class="quick-text"><span class="quick-label">Магазин</span><span class="quick-sub" id="quickShopSub">—</span></span>
+            <div class="quick-text"><div class="quick-label">Магазин</div><div class="quick-sub" id="quickShopSub">—</div></div>
           </button>
           <button class="today-quick-btn" data-goto="chores">
             <span class="quick-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
-            <span class="quick-text"><span class="quick-label">Дела</span><span class="quick-sub" id="quickChoresSub">—</span></span>
+            <div class="quick-text"><div class="quick-label">Дела</div><div class="quick-sub" id="quickChoresSub">—</div></div>
           </button>
           <button class="today-quick-btn" data-goto="schedule">
             <span class="quick-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
-            <span class="quick-text"><span class="quick-label">План</span><span class="quick-sub" id="quickScheduleSub">—</span></span>
+            <div class="quick-text"><div class="quick-label">План</div><div class="quick-sub" id="quickScheduleSub">—</div></div>
           </button>
           <button class="today-quick-btn" data-goto="gifts">
             <span class="quick-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></span>
-            <span class="quick-text"><span class="quick-label">Подарки</span><span class="quick-sub" id="quickGiftsSub">—</span></span>
+            <div class="quick-text"><div class="quick-label">Подарки</div><div class="quick-sub" id="quickGiftsSub">—</div></div>
           </button>
         </div>
 
@@ -1223,8 +1245,26 @@
           <button class="budget-month-btn" id="budgetNextMonth" type="button">▶</button>
         </div>
 
-        <div class="budget-warn" id="budgetWarn" style="display:none;"></div>
+        <div class="piggy-card" id="piggyCard">
+          <div class="piggy-emoji">🐷</div>
+          <div class="piggy-body">
+            <div class="piggy-title">Наша копилка</div>
+            <div class="piggy-amount" id="piggyAmount">0 ₽</div>
+          </div>
+          <div class="piggy-actions">
+            <button class="piggy-btn" id="piggyDepositBtn" title="Положить">+</button>
+            <button class="piggy-btn" id="piggyWithdrawBtn" title="Снять">−</button>
+          </div>
+        </div>
+
         <div class="budget-summary" id="budgetSummary"></div>
+        <div class="budget-warn" id="budgetWarn" style="display:none;"></div>
+
+        <div class="quick-add-form">
+          <input type="number" id="quickTxAmount" class="quick-add-input" placeholder="Сумма ₽" inputmode="numeric">
+          <select id="quickTxCategory" class="quick-add-select"></select>
+          <button class="quick-add-btn" id="quickTxAddBtn" type="button">+</button>
+        </div>
 
         <div class="budget-section">
           <div class="budget-section-head">
@@ -1252,6 +1292,7 @@
           <div id="budgetCategoriesList"></div>
           <div class="date-empty" id="budgetCategoriesEmpty">Пока нет категорий. Добавьте первую!</div>
           <button class="clear-chores-btn" id="budgetCopyFromPrevBtn" type="button" style="display:none;">📋 Скопировать из прошлого месяца</button>
+          <button class="clear-chores-btn" id="budgetCopyToNextBtn" type="button" style="display:none;">📋 Скопировать в следующий месяц</button>
         </div>
 
         <div class="budget-section">
@@ -1489,6 +1530,18 @@
     </div>
   </div>
 
+  <div id="piggyModal" class="theme-modal" style="display:none;">
+    <div class="theme-modal-content">
+      <h3 id="piggyModalTitle">🐷 Копилка</h3>
+      <p class="modal-hint" id="piggyModalHint">Сколько хотите положить в копилку?</p>
+      <input type="number" id="piggyAmountInput" placeholder="Сумма ₽" inputmode="numeric">
+      <div class="modal-actions-row">
+        <button class="primary modal-cancel-style" id="piggyCancelBtn">Отмена</button>
+        <button class="primary modal-confirm-style" id="piggySaveBtn">Готово</button>
+      </div>
+    </div>
+  </div>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import {
@@ -1671,10 +1724,14 @@
     let budgetFixed = [];
     let budgetCategories = [];
     let budgetTransactions = [];
+    let budgetPiggy = { amount: 0 };
     let budgetIncomesUnsub = null;
     let budgetFixedUnsub = null;
     let budgetCategoriesUnsub = null;
     let budgetTransactionsUnsub = null;
+    let budgetPiggyUnsub = null;
+
+    let piggyMode = 'deposit'; // 'deposit' | 'withdraw'
 
     function getUserName(uid, email) {
       if (uid && userNames[uid]) return userNames[uid];
@@ -2175,7 +2232,6 @@
       const wishesBought = wishes.filter(x => x.status === 'bought').length;
       const wishesSum = wishes.filter(x => x.status !== 'bought' && x.price).reduce((s, x) => s + Number(x.price || 0), 0);
 
-      // Бюджет — текущий месяц
       const incsM = budgetIncomes.filter(x => x.month === budgetMonth);
       const fixM = budgetFixed.filter(x => x.month === budgetMonth);
       const catM = budgetCategories.filter(x => x.month === budgetMonth);
@@ -2237,7 +2293,8 @@
           incomes: budgetIncomes,
           fixed: budgetFixed,
           categories: budgetCategories,
-          transactions: budgetTransactions
+          transactions: budgetTransactions,
+          piggy: budgetPiggy
         }
       };
       const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -3265,6 +3322,7 @@
       return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0');
     }
     function budgetPrevMonth(ym) { return budgetShiftMonth(ym, -1); }
+    function budgetNextMonth(ym) { return budgetShiftMonth(ym, 1); }
     function budgetDefaultDate() {
       const now = new Date();
       const cur = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0');
@@ -3299,6 +3357,10 @@
         budgetTransactions = arr;
         if (document.querySelector('.nav-btn.active')?.dataset.page === 'budget') renderBudget();
       }, (err) => console.error('budget_transactions:', err));
+      budgetPiggyUnsub = onValue(ref(db, 'budget_piggy'), (snap) => {
+        budgetPiggy = snap.val() || { amount: 0 };
+        if (document.querySelector('.nav-btn.active')?.dataset.page === 'budget') renderBudget();
+      }, (err) => console.error('budget_piggy:', err));
     }
 
     function stopBudgetListeners() {
@@ -3306,20 +3368,34 @@
       if (budgetFixedUnsub) { budgetFixedUnsub(); budgetFixedUnsub = null; }
       if (budgetCategoriesUnsub) { budgetCategoriesUnsub(); budgetCategoriesUnsub = null; }
       if (budgetTransactionsUnsub) { budgetTransactionsUnsub(); budgetTransactionsUnsub = null; }
+      if (budgetPiggyUnsub) { budgetPiggyUnsub(); budgetPiggyUnsub = null; }
     }
 
     function renderBudget() {
       if (!currentUser) return;
       $('budgetMonthLabel').textContent = budgetMonthLabel(budgetMonth);
+      
+      // Копилка
+      $('piggyAmount').textContent = budgetFmt(budgetPiggy.amount || 0);
 
       const incomes = budgetIncomes.filter(x => x.month === budgetMonth);
       const fixed = budgetFixed.filter(x => x.month === budgetMonth);
       const cats = budgetCategories.filter(x => x.month === budgetMonth);
       const txs = budgetTransactions.filter(x => x.month === budgetMonth);
 
+      // Перенос остатка
+      const prevM = budgetPrevMonth(budgetMonth);
+      const prevIncomes = budgetIncomes.filter(x => x.month === prevM);
+      const prevFixed = budgetFixed.filter(x => x.month === prevM);
+      const prevTxs = budgetTransactions.filter(x => x.month === prevM);
+      const prevInc = prevIncomes.reduce((s,x) => s + Number(x.amount||0), 0);
+      const prevFix = prevFixed.reduce((s,x) => s + Number(x.amount||0), 0);
+      const prevTx = prevTxs.reduce((s,x) => s + Number(x.amount||0), 0);
+      const carryOver = prevInc - prevFix - prevTx;
+
       const totalIncome = incomes.reduce((s,x) => s + Number(x.amount||0), 0);
       const totalFixed = fixed.reduce((s,x) => s + Number(x.amount||0), 0);
-      const freeForVar = totalIncome - totalFixed;
+      const freeForVar = totalIncome + carryOver - totalFixed;
       const totalLimits = cats.reduce((s,x) => s + Number(x.limit||0), 0);
 
       const spentByCat = {};
@@ -3328,29 +3404,49 @@
         spentByCat[t.categoryId] = (spentByCat[t.categoryId] || 0) + Number(t.amount||0);
       });
       const totalSpent = Object.values(spentByCat).reduce((s,v) => s+v, 0);
-      const totalRemaining = totalLimits - totalSpent;
+      const totalRemaining = freeForVar - totalSpent;
 
       // Сводка
-      $('budgetSummary').innerHTML = `
-        <div class="budget-summary-row"><span class="lbl">Доходы</span><span>${budgetFmt(totalIncome)}</span></div>
+      let summaryHtml = `
+        <div class="budget-summary-row"><span class="lbl">Доходы (план)</span><span>${budgetFmt(totalIncome)}</span></div>
+      `;
+      if (carryOver > 0) {
+        summaryHtml += `<div class="budget-summary-row"><span class="lbl">Остаток с прошлого месяца</span><span>+${budgetFmt(carryOver)}</span></div>`;
+      } else if (carryOver < 0) {
+        summaryHtml += `<div class="budget-summary-row"><span class="lbl">Перерасход в прошлом месяце</span><span style="color:#ffb8b8;">${budgetFmt(carryOver)}</span></div>`;
+      }
+      summaryHtml += `
         <div class="budget-summary-row"><span class="lbl">Постоянные расходы</span><span>−${budgetFmt(totalFixed)}</span></div>
         <div class="budget-summary-row"><span class="lbl">Свободно на переменные</span><span>${budgetFmt(freeForVar)}</span></div>
         <div class="budget-summary-row"><span class="lbl">Лимиты по категориям</span><span>${budgetFmt(totalLimits)}</span></div>
         <div class="budget-summary-row"><span class="lbl">Потрачено</span><span>${budgetFmt(totalSpent)}</span></div>
         <div class="budget-summary-row big"><span class="lbl">Осталось по бюджету</span><span>${budgetFmt(totalRemaining)}</span></div>
       `;
+      $('budgetSummary').innerHTML = summaryHtml;
 
       // Предупреждения
       const warn = $('budgetWarn');
       if (freeForVar < 0) {
         warn.style.display = 'block';
-        warn.textContent = '⚠️ Постоянные расходы превышают доходы на ' + budgetFmt(-freeForVar);
+        warn.textContent = '⚠️ Постоянные расходы превышают доходы (с учётом остатка) на ' + budgetFmt(-freeForVar);
       } else if (totalLimits > freeForVar) {
         warn.style.display = 'block';
         warn.textContent = '⚠️ Сумма лимитов (' + budgetFmt(totalLimits) + ') превышает свободные средства (' + budgetFmt(freeForVar) + ') на ' + budgetFmt(totalLimits - freeForVar);
       } else {
         warn.style.display = 'none';
       }
+
+      // Форма быстрого добавления
+      const quickSelect = $('quickTxCategory');
+      const currentQuickVal = quickSelect.value;
+      quickSelect.innerHTML = '';
+      cats.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c.id;
+        opt.textContent = (c.emoji || '📦') + ' ' + (c.name || 'Категория');
+        quickSelect.appendChild(opt);
+      });
+      if (currentQuickVal) quickSelect.value = currentQuickVal;
 
       // Доходы
       const incList = $('budgetIncomesList');
@@ -3452,7 +3548,9 @@
         const prog = document.createElement('div');
         prog.className = 'budget-progress';
         const fill = document.createElement('div');
-        fill.className = 'budget-progress-fill' + (remaining < 0 ? ' over' : '');
+        fill.className = 'budget-progress-fill';
+        if (remaining < 0) fill.classList.add('over');
+        else if (pct >= 80) fill.classList.add('warn');
         fill.style.width = pct + '%';
         prog.appendChild(fill);
         card.appendChild(prog);
@@ -3472,15 +3570,25 @@
         catList.appendChild(card);
       });
 
-      // Кнопка копирования из прошлого месяца
-      const prevM = budgetPrevMonth(budgetMonth);
+      // Кнопки копирования
       const prevCats = budgetCategories.filter(x => x.month === prevM);
-      const prevFixed = budgetFixed.filter(x => x.month === prevM);
-      const copyBtn = $('budgetCopyFromPrevBtn');
-      if ((cats.length === 0 && prevCats.length > 0) || (fixed.length === 0 && prevFixed.length > 0)) {
-        copyBtn.style.display = 'block';
+      const prevFixedM = budgetFixed.filter(x => x.month === prevM);
+      const nextM = budgetNextMonth(budgetMonth);
+      const nextCats = budgetCategories.filter(x => x.month === nextM);
+      const nextFixed = budgetFixed.filter(x => x.month === nextM);
+
+      const copyFromBtn = $('budgetCopyFromPrevBtn');
+      if ((cats.length === 0 && prevCats.length > 0) || (fixed.length === 0 && prevFixedM.length > 0)) {
+        copyFromBtn.style.display = 'block';
       } else {
-        copyBtn.style.display = 'none';
+        copyFromBtn.style.display = 'none';
+      }
+
+      const copyToBtn = $('budgetCopyToNextBtn');
+      if (cats.length > 0 && nextCats.length === 0) {
+        copyToBtn.style.display = 'block';
+      } else {
+        copyToBtn.style.display = 'none';
       }
 
       // Траты
@@ -3490,7 +3598,6 @@
       const catById = {};
       budgetCategories.forEach(c => { catById[c.id] = c; });
       txs.slice().sort((a,b) => {
-        const da = (a.date||'') + ' ' + (b.createdAt ? '' : '');
         return (b.date||'').localeCompare(a.date||'') || (b.createdAt||0)-(a.createdAt||0);
       }).forEach(tx => {
         const cat = catById[tx.categoryId];
@@ -3533,7 +3640,7 @@
       renderBudget();
     });
     $('budgetNextMonth').addEventListener('click', () => {
-      budgetMonth = budgetShiftMonth(budgetMonth, 1);
+      budgetMonth = budgetNextMonth(budgetMonth);
       renderBudget();
     });
 
@@ -3542,8 +3649,6 @@
       const prevM = budgetPrevMonth(budgetMonth);
       const prevCats = budgetCategories.filter(x => x.month === prevM);
       const prevFixed = budgetFixed.filter(x => x.month === prevM);
-      const curCats = budgetCategories.filter(x => x.month === budgetMonth);
-      const curFixed = budgetFixed.filter(x => x.month === budgetMonth);
       if (!confirm('Скопировать категории и постоянные расходы из ' + budgetMonthLabel(prevM) + ' в ' + budgetMonthLabel(budgetMonth) + '?')) return;
       try {
         for (const c of prevCats) {
@@ -3560,6 +3665,106 @@
             month: budgetMonth, createdBy: currentUser.uid, createdAt: Date.now()
           });
         }
+      } catch (e) { alert('Ошибка: ' + e.message); }
+    });
+
+    // Копирование в следующий месяц
+    $('budgetCopyToNextBtn').addEventListener('click', async () => {
+      const curCats = budgetCategories.filter(x => x.month === budgetMonth);
+      const curFixed = budgetFixed.filter(x => x.month === budgetMonth);
+      const nextM = budgetNextMonth(budgetMonth);
+      if (!confirm('Скопировать категории и постоянные расходы из ' + budgetMonthLabel(budgetMonth) + ' в ' + budgetMonthLabel(nextM) + '?')) return;
+      try {
+        for (const c of curCats) {
+          const newRef = push(ref(db, 'budget_categories'));
+          await set(newRef, {
+            name: c.name, emoji: c.emoji, limit: c.limit, month: nextM,
+            createdBy: currentUser.uid, createdAt: Date.now()
+          });
+        }
+        for (const f of curFixed) {
+          const newRef = push(ref(db, 'budget_fixed'));
+          await set(newRef, {
+            name: f.name, amount: f.amount, type: f.type, dueDay: f.dueDay || null,
+            month: nextM, createdBy: currentUser.uid, createdAt: Date.now()
+          });
+        }
+        alert('Успешно скопировано в ' + budgetMonthLabel(nextM));
+      } catch (e) { alert('Ошибка: ' + e.message); }
+    });
+
+    // Быстрое добавление траты
+    $('quickTxAddBtn').addEventListener('click', async () => {
+      const amount = Number($('quickTxAmount').value);
+      const categoryId = $('quickTxCategory').value;
+      if (!amount || amount <= 0) { alert('Введите сумму больше 0'); return; }
+      if (!categoryId) { alert('Сначала создайте категорию'); return; }
+      try {
+        const newRef = push(ref(db, 'budget_transactions'));
+        await set(newRef, {
+          categoryId, amount, date: budgetDefaultDate(), comment: '', month: budgetMonth,
+          memberId: currentUser.uid, memberEmail: currentUser.email,
+          createdAt: Date.now()
+        });
+        $('quickTxAmount').value = '';
+      } catch (e) { alert('Ошибка: ' + e.message); }
+    });
+    $('quickTxAmount').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') $('quickTxAddBtn').click();
+    });
+
+    // Копилка
+    $('piggyDepositBtn').addEventListener('click', () => {
+      piggyMode = 'deposit';
+      $('piggyModalTitle').textContent = '🐷 Положить в копилку';
+      $('piggyModalHint').textContent = 'Сумма будет вычтена из бюджета текущего месяца.';
+      $('piggyAmountInput').value = '';
+      $('piggyModal').style.display = 'flex';
+    });
+    $('piggyWithdrawBtn').addEventListener('click', () => {
+      piggyMode = 'withdraw';
+      $('piggyModalTitle').textContent = '🐷 Снять из копилки';
+      $('piggyModalHint').textContent = 'Сумма вернётся в бюджет текущего месяца как доход.';
+      $('piggyAmountInput').value = '';
+      $('piggyModal').style.display = 'flex';
+    });
+    $('piggyCancelBtn').addEventListener('click', () => { $('piggyModal').style.display = 'none'; });
+    $('piggyModal').addEventListener('click', (e) => {
+      if (e.target === $('piggyModal')) $('piggyModal').style.display = 'none';
+    });
+    
+    $('piggySaveBtn').addEventListener('click', async () => {
+      const amount = Number($('piggyAmountInput').value);
+      if (!amount || amount <= 0) { alert('Введите сумму больше 0'); return; }
+      
+      try {
+        const currentPiggy = Number(budgetPiggy.amount || 0);
+        
+        if (piggyMode === 'deposit') {
+          if (amount > currentPiggy + 9999999) { /* просто проверка на адекватность */ }
+          await set(ref(db, 'budget_piggy'), { amount: currentPiggy + amount });
+          
+          // Создаем запись о трате
+          const catId = '_piggy_';
+          const newRef = push(ref(db, 'budget_transactions'));
+          await set(newRef, {
+            categoryId: catId, amount, date: budgetDefaultDate(), comment: 'Пополнение копилки', month: budgetMonth,
+            memberId: currentUser.uid, memberEmail: currentUser.email,
+            createdAt: Date.now()
+          });
+        } else {
+          if (amount > currentPiggy) { alert('В копилке недостаточно средств'); return; }
+          await set(ref(db, 'budget_piggy'), { amount: currentPiggy - amount });
+          
+          // Возврат средств в бюджет как "доход"
+          const newRef = push(ref(db, 'budget_incomes'));
+          await set(newRef, {
+            source: 'Снятие из копилки', amount, date: budgetDefaultDate(), month: budgetMonth,
+            memberId: currentUser.uid, memberEmail: currentUser.email,
+            createdAt: Date.now()
+          });
+        }
+        $('piggyModal').style.display = 'none';
       } catch (e) { alert('Ошибка: ' + e.message); }
     });
 
@@ -3687,7 +3892,7 @@
       } catch (e) { alert('Ошибка: ' + e.message); }
     });
 
-        // ============ ШЕФ-ПОВАР ============
+    // ============ ШЕФ-ПОВАР ============
     $('chefOpenBtn').addEventListener('click', () => {
       const activeItems = currentShopItems.filter(x => !x.done);
       const names = activeItems.map(x => x.title).join(', ');
