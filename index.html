@@ -744,6 +744,10 @@
     .budget-month-btn { background: var(--accent-soft); border: 1px solid var(--accent-border); color: var(--accent-text); width: 38px; height: 38px; border-radius: 10px; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-family: inherit; transition: all 0.15s; }
     .budget-month-btn:active { transform: scale(0.94); }
     .budget-month-label { font-size: 16px; font-weight: 800; color: var(--text); text-align: center; flex: 1; text-transform: capitalize; }
+
+    .budget-tabs { display: flex; background: var(--accent-soft); border-radius: 14px; padding: 4px; margin-bottom: 16px; border: 1px solid var(--accent-border); }
+    .budget-tab { flex: 1; padding: 11px 8px; text-align: center; border-radius: 10px; font-size: 13px; font-weight: 700; color: var(--text-soft); cursor: pointer; border: none; background: transparent; font-family: inherit; transition: all 0.25s; }
+    .budget-tab.active { background: var(--accent-grad); color: #ffffff; box-shadow: 0 4px 12px var(--accent-shadow); }
     
     .piggy-card { background: linear-gradient(135deg, #ffeedd 0%, #ffe0c0 100%); border: 1px solid #ffd0a0; border-radius: 20px; padding: 16px 18px; margin-bottom: 16px; display: flex; align-items: center; gap: 14px; box-shadow: 0 6px 20px rgba(255, 160, 80, 0.2); animation: fadeInUp 0.3s ease; }
     body[data-theme="dark"] .piggy-card { background: linear-gradient(135deg, rgba(80, 50, 20, 0.8) 0%, rgba(60, 35, 10, 0.8) 100%); border-color: rgba(255, 160, 80, 0.3); }
@@ -1245,46 +1249,38 @@
           <button class="budget-month-btn" id="budgetNextMonth" type="button">▶</button>
         </div>
 
-        <div class="piggy-card" id="piggyCard">
-          <div class="piggy-emoji">🐷</div>
-          <div class="piggy-body">
-            <div class="piggy-title">Наша копилка</div>
-            <div class="piggy-amount" id="piggyAmount">0 ₽</div>
+        <div class="budget-tabs">
+          <button class="budget-tab active" data-bview="overview">📊 Обзор</button>
+          <button class="budget-tab" data-bview="categories">📋 Категории</button>
+          <button class="budget-tab" data-bview="history">🧾 История</button>
+        </div>
+
+        <!-- ОБЗОР -->
+        <div id="budget-view-overview" class="budget-view">
+          <div class="piggy-card" id="piggyCard">
+            <div class="piggy-emoji">🐷</div>
+            <div class="piggy-body">
+              <div class="piggy-title">Наша копилка</div>
+              <div class="piggy-amount" id="piggyAmount">0 ₽</div>
+            </div>
+            <div class="piggy-actions">
+              <button class="piggy-btn" id="piggyDepositBtn" title="Положить">+</button>
+              <button class="piggy-btn" id="piggyWithdrawBtn" title="Снять">−</button>
+            </div>
           </div>
-          <div class="piggy-actions">
-            <button class="piggy-btn" id="piggyDepositBtn" title="Положить">+</button>
-            <button class="piggy-btn" id="piggyWithdrawBtn" title="Снять">−</button>
+
+          <div class="budget-warn" id="budgetWarn" style="display:none;"></div>
+          <div class="budget-summary" id="budgetSummary"></div>
+
+          <div class="quick-add-form">
+            <input type="number" id="quickTxAmount" class="quick-add-input" placeholder="Сумма ₽" inputmode="numeric">
+            <select id="quickTxCategory" class="quick-add-select"></select>
+            <button class="quick-add-btn" id="quickTxAddBtn" type="button">+</button>
           </div>
         </div>
 
-        <div class="budget-summary" id="budgetSummary"></div>
-        <div class="budget-warn" id="budgetWarn" style="display:none;"></div>
-
-        <div class="quick-add-form">
-          <input type="number" id="quickTxAmount" class="quick-add-input" placeholder="Сумма ₽" inputmode="numeric">
-          <select id="quickTxCategory" class="quick-add-select"></select>
-          <button class="quick-add-btn" id="quickTxAddBtn" type="button">+</button>
-        </div>
-
-        <div class="budget-section">
-          <div class="budget-section-head">
-            <div class="budget-section-title">💰 Поступления</div>
-            <button class="budget-add-btn" id="budgetAddIncomeBtn" type="button">+ Доход</button>
-          </div>
-          <div id="budgetIncomesList"></div>
-          <div class="date-empty" id="budgetIncomesEmpty">Пока нет поступлений</div>
-        </div>
-
-        <div class="budget-section">
-          <div class="budget-section-head">
-            <div class="budget-section-title">📄 Постоянные расходы</div>
-            <button class="budget-add-btn" id="budgetAddFixedBtn" type="button">+ Расход</button>
-          </div>
-          <div id="budgetFixedList"></div>
-          <div class="date-empty" id="budgetFixedEmpty">Пока нет постоянных расходов</div>
-        </div>
-
-        <div class="budget-section">
+        <!-- КАТЕГОРИИ -->
+        <div id="budget-view-categories" class="budget-view" style="display:none;">
           <div class="budget-section-head">
             <div class="budget-section-title">📊 Категории и лимиты</div>
             <button class="budget-add-btn" id="budgetAddCategoryBtn" type="button">+ Категория</button>
@@ -1295,14 +1291,39 @@
           <button class="clear-chores-btn" id="budgetCopyToNextBtn" type="button" style="display:none;">📋 Скопировать в следующий месяц</button>
         </div>
 
-        <div class="budget-section">
-          <div class="budget-section-head">
-            <div class="budget-section-title">🧾 Траты за месяц</div>
-            <button class="budget-add-btn" id="budgetAddTxBtn" type="button">+ Трата</button>
+        <!-- ИСТОРИЯ -->
+        <div id="budget-view-history" class="budget-view" style="display:none;">
+          <!-- Доходы -->
+          <div class="budget-section">
+            <div class="budget-section-head">
+              <div class="budget-section-title">💰 Поступления</div>
+              <button class="budget-add-btn" id="budgetAddIncomeBtn" type="button">+ Доход</button>
+            </div>
+            <div id="budgetIncomesList"></div>
+            <div class="date-empty" id="budgetIncomesEmpty">Пока нет поступлений</div>
           </div>
-          <div id="budgetTxList"></div>
-          <div class="date-empty" id="budgetTxEmpty">Пока нет трат</div>
+
+          <!-- Постоянные -->
+          <div class="budget-section">
+            <div class="budget-section-head">
+              <div class="budget-section-title">📄 Постоянные расходы</div>
+              <button class="budget-add-btn" id="budgetAddFixedBtn" type="button">+ Расход</button>
+            </div>
+            <div id="budgetFixedList"></div>
+            <div class="date-empty" id="budgetFixedEmpty">Пока нет постоянных расходов</div>
+          </div>
+
+          <!-- Траты -->
+          <div class="budget-section">
+            <div class="budget-section-head">
+              <div class="budget-section-title">🧾 Траты за месяц</div>
+              <button class="budget-add-btn" id="budgetAddTxBtn" type="button">+ Трата</button>
+            </div>
+            <div id="budgetTxList"></div>
+            <div class="date-empty" id="budgetTxEmpty">Пока нет трат</div>
+          </div>
         </div>
+
       </div>
 
     </div>
@@ -1720,6 +1741,7 @@
       const d = new Date();
       return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0');
     })();
+    let currentBudgetView = 'overview'; // overview | categories | history
     let budgetIncomes = [];
     let budgetFixed = [];
     let budgetCategories = [];
@@ -1820,6 +1842,18 @@
         if (page === 'today') renderTodayDashboard();
         else if (page === 'budget') renderBudget();
         window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    // Вкладки бюджета
+    document.querySelectorAll('.budget-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.budget-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentBudgetView = tab.dataset.bview;
+        document.querySelectorAll('.budget-view').forEach(v => v.style.display = 'none');
+        $('budget-view-' + currentBudgetView).style.display = 'block';
+        renderBudget();
       });
     });
 
@@ -3406,7 +3440,7 @@
       const totalSpent = Object.values(spentByCat).reduce((s,v) => s+v, 0);
       const totalRemaining = freeForVar - totalSpent;
 
-      // Сводка
+      // Сводка (Обзор)
       let summaryHtml = `
         <div class="budget-summary-row"><span class="lbl">Доходы (план)</span><span>${budgetFmt(totalIncome)}</span></div>
       `;
@@ -3448,7 +3482,7 @@
       });
       if (currentQuickVal) quickSelect.value = currentQuickVal;
 
-      // Доходы
+      // Доходы (История)
       const incList = $('budgetIncomesList');
       incList.innerHTML = '';
       $('budgetIncomesEmpty').style.display = incomes.length ? 'none' : 'block';
@@ -3483,7 +3517,7 @@
         incList.appendChild(card);
       });
 
-      // Постоянные
+      // Постоянные (История)
       const fixList = $('budgetFixedList');
       fixList.innerHTML = '';
       $('budgetFixedEmpty').style.display = fixed.length ? 'none' : 'block';
@@ -3591,7 +3625,7 @@
         copyToBtn.style.display = 'none';
       }
 
-      // Траты
+      // Траты (История)
       const txList = $('budgetTxList');
       txList.innerHTML = '';
       $('budgetTxEmpty').style.display = txs.length ? 'none' : 'block';
