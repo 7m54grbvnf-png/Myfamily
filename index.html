@@ -769,11 +769,14 @@
     .budget-warn { background: #fff4e0; border: 1px solid #f5e0b8; color: #b8770f; padding: 10px 14px; border-radius: 12px; font-size: 12px; font-weight: 700; margin-bottom: 12px; line-height: 1.4; }
     body[data-theme="dark"] .budget-warn { background: rgba(120, 80, 20, 0.3); border-color: rgba(200, 150, 50, 0.3); color: #f0c070; }
     
-    .quick-add-form { display: flex; gap: 6px; margin-bottom: 16px; background: var(--card); border: 1px solid var(--card-border); padding: 8px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-    .quick-add-input { flex: 1; min-width: 0; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--input-border); background: var(--input-bg); color: var(--text); font-family: inherit; font-size: 14px; margin: 0; }
-    .quick-add-select { flex: 1; min-width: 0; padding: 10px 24px 10px 12px; border-radius: 10px; border: 1px solid var(--input-border); background: var(--input-bg); color: var(--text); font-family: inherit; font-size: 14px; -webkit-appearance: none; appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23b8894e' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 8px center; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
-    .quick-add-btn { width: 44px; flex-shrink: 0; background: var(--accent-grad); color: #fff; border: none; border-radius: 10px; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-    .quick-add-btn:active { transform: scale(0.94); }
+    .qa-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 16px; padding: 12px; margin-bottom: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+    .qa-title { font-size: 12px; font-weight: 800; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; padding-left: 4px; }
+    .qa-row { display: flex; gap: 8px; margin-bottom: 8px; }
+    .qa-row:last-child { margin-bottom: 0; }
+    .qa-input { flex: 1; min-width: 0; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--input-border); background: var(--input-bg); color: var(--text); font-family: inherit; font-size: 14px; margin: 0; }
+    .qa-select { flex: 1.5; min-width: 0; padding: 10px 24px 10px 12px; border-radius: 10px; border: 1px solid var(--input-border); background: var(--input-bg); color: var(--text); font-family: inherit; font-size: 14px; -webkit-appearance: none; appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23b8894e' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 8px center; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
+    .qa-btn { flex: 1; min-width: 80px; background: var(--accent-grad); color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .qa-btn:active { transform: scale(0.96); }
 
     .budget-section { margin-bottom: 22px; }
     .budget-section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding: 0 4px; }
@@ -1272,10 +1275,25 @@
           <div class="budget-warn" id="budgetWarn" style="display:none;"></div>
           <div class="budget-summary" id="budgetSummary"></div>
 
-          <div class="quick-add-form">
-            <input type="number" id="quickTxAmount" class="quick-add-input" placeholder="Сумма ₽" inputmode="numeric">
-            <select id="quickTxCategory" class="quick-add-select"></select>
-            <button class="quick-add-btn" id="quickTxAddBtn" type="button">+</button>
+          <div class="qa-card">
+            <div class="qa-title">⚡ Быстрая трата</div>
+            <div class="qa-row">
+              <input type="number" id="quickTxAmount" class="qa-input" placeholder="Сумма ₽" inputmode="numeric">
+              <select id="quickTxCategory" class="qa-select"></select>
+            </div>
+            <div class="qa-row">
+              <input type="text" id="quickTxComment" class="qa-input" placeholder="Комментарий">
+              <button class="qa-btn" id="quickTxAddBtn" type="button">Добавить</button>
+            </div>
+          </div>
+
+          <div class="budget-section" style="margin-top: 20px;">
+            <div class="budget-section-head">
+              <div class="budget-section-title">🕒 Последние операции</div>
+              <button class="budget-add-btn" id="budgetGoToHistoryBtn" type="button">Вся история</button>
+            </div>
+            <div id="budgetRecentList"></div>
+            <div class="date-empty" id="budgetRecentEmpty">Пока нет операций</div>
           </div>
         </div>
 
@@ -3474,13 +3492,22 @@
       const quickSelect = $('quickTxCategory');
       const currentQuickVal = quickSelect.value;
       quickSelect.innerHTML = '';
-      cats.forEach(c => {
+      if (cats.length === 0) {
         const opt = document.createElement('option');
-        opt.value = c.id;
-        opt.textContent = (c.emoji || '📦') + ' ' + (c.name || 'Категория');
+        opt.value = '';
+        opt.textContent = 'Нет категорий';
         quickSelect.appendChild(opt);
-      });
-      if (currentQuickVal) quickSelect.value = currentQuickVal;
+      } else {
+        cats.forEach(c => {
+          const opt = document.createElement('option');
+          opt.value = c.id;
+          opt.textContent = (c.emoji || '📦') + ' ' + (c.name || 'Категория');
+          quickSelect.appendChild(opt);
+        });
+        if (currentQuickVal && cats.some(c => c.id === currentQuickVal)) {
+          quickSelect.value = currentQuickVal;
+        }
+      }
 
       // Доходы (История)
       const incList = $('budgetIncomesList');
@@ -3666,6 +3693,61 @@
         card.appendChild(del);
         txList.appendChild(card);
       });
+
+      // Последние операции (Обзор)
+      const recentList = $('budgetRecentList');
+      const recentEmpty = $('budgetRecentEmpty');
+      if (recentList) {
+        recentList.innerHTML = '';
+        const allOps = [
+          ...incomes.map(i => ({ ...i, _type: 'income', _title: i.source || 'Доход', _emoji: '💰' })),
+          ...fixed.map(f => ({ ...f, _type: 'fixed', _title: f.name || 'Постоянный расход', _emoji: '📄' })),
+          ...txs.map(t => {
+            const cat = cats.find(c => c.id === t.categoryId);
+            return { ...t, _type: 'expense', _title: cat ? (cat.name || 'Категория') : 'Трата', _emoji: cat ? (cat.emoji || '📦') : '📦' };
+          })
+        ].sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+
+        const recentOps = allOps.slice(0, 5);
+        
+        if (recentOps.length === 0) {
+          if (recentEmpty) recentEmpty.style.display = 'block';
+        } else {
+          if (recentEmpty) recentEmpty.style.display = 'none';
+          recentOps.forEach(op => {
+            const card = document.createElement('div');
+            card.className = 'budget-card';
+            
+            const emo = document.createElement('div');
+            emo.className = 'budget-card-emoji';
+            emo.textContent = op._emoji;
+            card.appendChild(emo);
+            
+            const body = document.createElement('div');
+            body.className = 'budget-card-body';
+            
+            const t = document.createElement('div');
+            t.className = 'budget-card-title';
+            t.textContent = op._title;
+            body.appendChild(t);
+            
+            const sub = document.createElement('div');
+            sub.className = 'budget-card-sub';
+            const parts = [op.date || ''];
+            if (op.comment) parts.push(op.comment);
+            sub.textContent = parts.filter(Boolean).join(' • ');
+            body.appendChild(sub);
+            card.appendChild(body);
+            
+            const amt = document.createElement('div');
+            amt.className = 'budget-card-amount' + (op._type === 'income' ? '' : ' neg');
+            amt.textContent = (op._type === 'income' ? '+' : '−') + budgetFmt(op.amount);
+            card.appendChild(amt);
+            
+            recentList.appendChild(card);
+          });
+        }
+      }
     }
 
     // Навигация месяцев
@@ -3676,6 +3758,12 @@
     $('budgetNextMonth').addEventListener('click', () => {
       budgetMonth = budgetNextMonth(budgetMonth);
       renderBudget();
+    });
+
+    // Кнопка "Вся история"
+    $('budgetGoToHistoryBtn').addEventListener('click', () => {
+      const tab = document.querySelector('.budget-tab[data-bview="history"]');
+      if (tab) tab.click();
     });
 
     // Копирование из прошлого месяца
@@ -3731,16 +3819,18 @@
     $('quickTxAddBtn').addEventListener('click', async () => {
       const amount = Number($('quickTxAmount').value);
       const categoryId = $('quickTxCategory').value;
+      const comment = $('quickTxComment').value.trim();
       if (!amount || amount <= 0) { alert('Введите сумму больше 0'); return; }
       if (!categoryId) { alert('Сначала создайте категорию'); return; }
       try {
         const newRef = push(ref(db, 'budget_transactions'));
         await set(newRef, {
-          categoryId, amount, date: budgetDefaultDate(), comment: '', month: budgetMonth,
+          categoryId, amount, date: budgetDefaultDate(), comment, month: budgetMonth,
           memberId: currentUser.uid, memberEmail: currentUser.email,
           createdAt: Date.now()
         });
         $('quickTxAmount').value = '';
+        $('quickTxComment').value = '';
       } catch (e) { alert('Ошибка: ' + e.message); }
     });
     $('quickTxAmount').addEventListener('keypress', (e) => {
