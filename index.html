@@ -650,10 +650,11 @@
       padding: 10px 12px; background: var(--input-bg);
       border: 1px solid var(--input-border); border-radius: 12px;
       animation: fadeInUp 0.3s ease;
+      cursor: pointer;
     }
     .date-card-icon { width: 40px; height: 40px; background: var(--accent-soft); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
     .date-card-body { flex: 1; min-width: 0; }
-    .date-card-title { font-size: 14px; font-weight: 700; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .date-card-title { font-size: 14px; font-weight: 700; color: var(--text); white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: anywhere; line-height: 1.35; }
     .date-card-sub { font-size: 11px; color: var(--text-soft); font-weight: 600; margin-top: 2px; }
     .date-card-days { flex-shrink: 0; text-align: right; font-size: 13px; font-weight: 800; color: var(--accent-text); white-space: nowrap; }
     .date-card-days.today { color: #c0554e; }
@@ -1741,6 +1742,7 @@
     let currentEvents = [];
     let currentNotes = [];
     let currentImportantDates = [];
+    let editingImportantDateId = null;
     let currentCoupleMeta = {};
 
     let currentGiftView = 'mine';
@@ -2122,6 +2124,14 @@
         const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24));
         const card = document.createElement('div');
         card.className = 'date-card';
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-label', 'Открыть и изменить: ' + (item.title || 'важная дата'));
+        const openEditor = () => openImportantDateEditor(item);
+        card.addEventListener('click', openEditor);
+        card.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openEditor(); }
+        });
         const icon = document.createElement('div');
         icon.className = 'date-card-icon';
         icon.textContent = '🎂';
@@ -2149,23 +2159,38 @@
         const del = document.createElement('button');
         del.className = 'delete-btn';
         del.textContent = '×';
-        del.addEventListener('click', async () => {
-          try { await remove(ref(db, 'important_dates/' + item.id)); } catch (e) { console.error(e); }
+        del.addEventListener('click', async (event) => {
+          event.stopPropagation();
+          if (!confirm('Удалить дату «' + (item.title || 'важная дата') + '»?')) return;
+          try { await remove(ref(db, 'important_dates/' + item.id)); }
+          catch (e) { console.error(e); alert('Не удалось удалить дату: ' + (e.message || e)); }
         });
         card.appendChild(del);
         cardsEl.appendChild(card);
       });
     }
 
-    $('addDateBtn').addEventListener('click', () => {
-      $('dateTitleInput').value = '';
-      $('dateValueInput').value = '';
-      $('dateRemindInput').value = '3';
+    function openImportantDateEditor(item) {
+      editingImportantDateId = item ? item.id : null;
+      $('dateModal').querySelector('h3').textContent = item ? '🎂 Изменить важную дату' : '🎂 Важная дата';
+      $('dateTitleInput').value = item ? (item.title || '') : '';
+      $('dateValueInput').value = item ? (item.date || '') : '';
+      $('dateRemindInput').value = String(item && item.remindDays ? item.remindDays : 3);
+      $('dateSaveBtn').textContent = item ? 'Сохранить изменения' : 'Сохранить';
       $('dateModal').style.display = 'flex';
-    });
-    $('dateCancelBtn').addEventListener('click', () => { $('dateModal').style.display = 'none'; });
+    }
+
+    function closeImportantDateEditor() {
+      $('dateModal').style.display = 'none';
+      editingImportantDateId = null;
+      $('dateModal').querySelector('h3').textContent = '🎂 Важная дата';
+      $('dateSaveBtn').textContent = 'Сохранить';
+    }
+
+    $('addDateBtn').addEventListener('click', () => openImportantDateEditor(null));
+    $('dateCancelBtn').addEventListener('click', closeImportantDateEditor);
     $('dateModal').addEventListener('click', (e) => {
-      if (e.target === $('dateModal')) $('dateModal').style.display = 'none';
+      if (e.target === $('dateModal')) closeImportantDateEditor();
     });
     $('dateSaveBtn').addEventListener('click', async () => {
       const title = $('dateTitleInput').value.trim();
@@ -2173,14 +2198,20 @@
       const remind = parseInt($('dateRemindInput').value, 10) || 3;
       if (!title) { alert('Введите название'); return; }
       if (!dateVal) { alert('Выберите дату'); return; }
+      if (!currentUser) { alert('Необходимо войти в приложение'); return; }
       try {
-        const newRef = push(ref(db, 'important_dates'));
-        await set(newRef, {
+        const payload = {
           title: title, date: dateVal, remindDays: remind,
-          createdBy: currentUser.uid, createdAt: Date.now()
-        });
-        $('dateModal').style.display = 'none';
-      } catch (e) { alert('Ошибка: ' + e.message); }
+          updatedBy: currentUser.uid, updatedAt: Date.now()
+        };
+        if (editingImportantDateId) {
+          await update(ref(db, 'important_dates/' + editingImportantDateId), payload);
+        } else {
+          const newRef = push(ref(db, 'important_dates'));
+          await set(newRef, { ...payload, createdBy: currentUser.uid, createdAt: Date.now() });
+        }
+        closeImportantDateEditor();
+      } catch (e) { alert('Не удалось сохранить дату: ' + (e.message || e)); }
     });
 
     // ПОИСК
@@ -3385,30 +3416,30 @@
     }
 
     function startBudgetListeners() {
-      budgetIncomesUnsub = onValue(query(ref(db, 'budget_incomes'), orderByChild('createdAt')), (snap) => {
+      budgetIncomesUnsub = onValue(ref(db, 'budget_incomes'), (snap) => {
         const arr = [];
         snap.forEach(c => arr.push({ id: c.key, ...c.val() }));
         budgetIncomes = arr;
         if (document.querySelector('.nav-btn.active')?.dataset.page === 'budget') renderBudget();
-      }, (err) => console.error('budget_incomes:', err));
-      budgetFixedUnsub = onValue(query(ref(db, 'budget_fixed'), orderByChild('createdAt')), (snap) => {
+      }, (err) => { console.error('budget_incomes:', err); alert('Не удалось загрузить доходы бюджета: ' + (err.message || err)); });
+      budgetFixedUnsub = onValue(ref(db, 'budget_fixed'), (snap) => {
         const arr = [];
         snap.forEach(c => arr.push({ id: c.key, ...c.val() }));
         budgetFixed = arr;
         if (document.querySelector('.nav-btn.active')?.dataset.page === 'budget') renderBudget();
-      }, (err) => console.error('budget_fixed:', err));
-      budgetCategoriesUnsub = onValue(query(ref(db, 'budget_categories'), orderByChild('createdAt')), (snap) => {
+      }, (err) => { console.error('budget_fixed:', err); alert('Не удалось загрузить постоянные расходы: ' + (err.message || err)); });
+      budgetCategoriesUnsub = onValue(ref(db, 'budget_categories'), (snap) => {
         const arr = [];
         snap.forEach(c => arr.push({ id: c.key, ...c.val() }));
         budgetCategories = arr;
         if (document.querySelector('.nav-btn.active')?.dataset.page === 'budget') renderBudget();
-      }, (err) => console.error('budget_categories:', err));
-      budgetTransactionsUnsub = onValue(query(ref(db, 'budget_transactions'), orderByChild('createdAt')), (snap) => {
+      }, (err) => { console.error('budget_categories:', err); alert('Не удалось загрузить категории бюджета: ' + (err.message || err)); });
+      budgetTransactionsUnsub = onValue(ref(db, 'budget_transactions'), (snap) => {
         const arr = [];
         snap.forEach(c => arr.push({ id: c.key, ...c.val() }));
         budgetTransactions = arr;
         if (document.querySelector('.nav-btn.active')?.dataset.page === 'budget') renderBudget();
-      }, (err) => console.error('budget_transactions:', err));
+      }, (err) => { console.error('budget_transactions:', err); alert('Не удалось загрузить траты бюджета: ' + (err.message || err)); });
       budgetPiggyUnsub = onValue(ref(db, 'budget_piggy'), (snap) => {
         budgetPiggy = snap.val() || { amount: 0 };
         if (document.querySelector('.nav-btn.active')?.dataset.page === 'budget') renderBudget();
